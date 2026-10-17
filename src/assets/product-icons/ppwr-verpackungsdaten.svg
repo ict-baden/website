@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 32 32">
+  <!-- ppwr-verpackungsdaten: Verpackung. Erzeugt von scripts/make-product-icons.mjs – nicht von Hand ändern. -->
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cc6c13"/>
+      <stop offset="1" stop-color="#8d1c11"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="28" height="28" rx="7" fill="url(#g)"/>
+  <g fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 7 8 4.4v9.2L16 25l-8-4.4v-9.2Z"/><path d="m8 11.4 8 4.4 8-4.4M16 15.8V25"/></g>
+</svg>

@@ -16,6 +16,8 @@ for (const p of data.products) {
   const urls = JSON.stringify(p.media).match(/\/media\/produkte\/[a-z0-9-]+\/[a-z0-9.-]+/g) ?? [];
   for (const u of new Set(urls)) if (!existsSync(join(ROOT, 'public', u))) problems.push(`${p.id}: Bild fehlt ${u}`);
   for (const s of p.media.screenshots) if (!s.alt || s.alt.length < 10) problems.push(`${p.id}: Alternativtext fehlt für ${s.name}`);
+  // Jedes Produkt braucht ein Symbol: erzeugt (npm run icons) oder eigenes aus dem Repo
+  if (!existsSync(join(ROOT, 'src', 'assets', 'product-icons', `${p.id}.svg`)) && !p.media.logo) problems.push(`${p.id}: kein Produktsymbol (scripts/product-icons.mjs ergänzen)`);
 }
 
 if (problems.length) {

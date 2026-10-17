@@ -13,6 +13,7 @@
     "preview": "astro preview",
     "sync:products": "node scripts/sync-products.mjs",
     "brand": "node scripts/make-brand-assets.mjs",
+    "icons": "node scripts/make-product-icons.mjs",
     "check:products": "node scripts/check-products.mjs",
     "check:links": "node scripts/check-links.mjs dist",
     "check:html": "html-validate \"dist/**/*.html\"",

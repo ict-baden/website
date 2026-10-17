@@ -197,7 +197,7 @@ export function coverArt(slug: string, linie: string, uid = ""): string {
     `<g transform="translate(${dx} ${dy}) rotate(${rot} 300 150)"><g class="motif">${motif}</g></g></svg>`;
 }
 
-/** Produktsymbol im Stil der Repo-Logos: abgerundete Kachel mit Verlauf und Liniensymbol. */
+/** Ersatz-Produktsymbol (nur ohne erzeugtes oder eigenes Symbol): Kachel mit Verlauf und Liniensymbol. */
 export function productGlyph(slug: string, linie: string, uid = ""): string {
   const id = `pg-${slug}${uid}`;
   const icon = ICONS[LINE_ICON[linie] ?? 'sparkle'];
@@ -205,4 +205,12 @@ export function productGlyph(slug: string, linie: string, uid = ""): string {
     `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop class="s1" offset="0"/><stop class="s2" offset="1"/></linearGradient></defs>` +
     `<rect x="2" y="2" width="28" height="28" rx="7" fill="url(#${id})"/>` +
     `<g transform="translate(6.4 6.4) scale(0.8)" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">${icon}</g></svg>`;
+}
+
+/** Symbol einer Produktlinie in der Marke: Kachel in Baden-Gelb mit schwarzem Liniensymbol (ohne IDs). */
+export function lineGlyph(linie: string): string {
+  const icon = ICONS[LINE_ICON[linie] ?? 'sparkle'];
+  return `<svg class="lglyph" viewBox="0 0 32 32" aria-hidden="true" focusable="false">` +
+    `<rect x="2" y="2" width="28" height="28" rx="7" fill="#ffd200"/>` +
+    `<g transform="translate(6.4 6.4) scale(0.8)" fill="none" stroke="#111111" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">${icon}</g></svg>`;
 }
