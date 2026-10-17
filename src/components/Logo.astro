@@ -1,33 +1,40 @@
 ---
-// Wortmarke ICT BADEN als Vektor (Umrisse aus Archivo ExtraBold, siehe src/assets/brand/wordmark.json).
-// "BADEN" folgt der Textfarbe, damit die Marke im hellen und dunklen Design funktioniert.
-import mark from '../assets/brand/wordmark.json';
+// Firmenlogo aus ict-baden/richtlinien: goldgelbes Feld, roter Schrägbalken nur über die rechte Seite,
+// schwarze Wortmarke „ICT“ + „baden“ (Umrisse, siehe src/assets/brand/marke.json). Das Feld trägt seine
+// eigenen Farben und funktioniert so unverändert im hellen und dunklen Design.
+// variant="zeichen": Kurzzeichen (nur „ICT“) für kleine Flächen.
+import marke from '../assets/brand/marke.json';
 
 interface Props {
-  /** eindeutiger Zusatz für die Verlaufs-ID, wenn das Logo mehrfach auf einer Seite steht */
+  /** eindeutiger Zusatz für die Clip-ID, wenn das Logo mehrfach auf einer Seite steht */
   uid: string;
-  tileOnly?: boolean;
+  variant?: 'logo' | 'zeichen';
   class?: string;
 }
-const { uid, tileOnly = false, class: className } = Astro.props;
-const gid = `ictb-y-${uid}`;
-const width = tileOnly ? mark.tile : mark.width;
+const { uid, variant = 'logo', class: className } = Astro.props;
+const clip = `ictb-feld-${uid}`;
+const { gelb, schwarz, rot } = marke.colors;
+const l = marke.logo;
+const z = marke.zeichen;
+const [fx, fy, fw, fh, fr] = z.field;
 ---
-<svg
-  class:list={['logo', className]}
-  viewBox={`0 0 ${width} ${mark.height}`}
-  role="img"
-  aria-label="ICT Baden"
-  focusable="false"
->
-  <defs>
-    <linearGradient id={gid} x1="0" y1="0" x2="0.35" y2="1">
-      <stop offset="0" stop-color={mark.colors.yellowTop} />
-      <stop offset="0.55" stop-color={mark.colors.yellowMid} />
-      <stop offset="1" stop-color={mark.colors.yellowBottom} />
-    </linearGradient>
-  </defs>
-  <rect x="0.5" y="0.5" width="63" height="63" rx="11.5" fill={`url(#${gid})`} stroke={mark.colors.edge} stroke-opacity="0.55" />
-  <path d={mark.ict} fill={mark.colors.red} />
-  {!tileOnly && <path d={mark.baden} fill="currentColor" />}
-</svg>
+{variant === 'logo' ? (
+  <svg class:list={['logo', className]} viewBox={`0 0 ${l.width} ${l.height}`} role="img" aria-label="ICT Baden" focusable="false">
+    <defs><clipPath id={clip}><rect width={l.width} height={l.height} rx={l.radius} /></clipPath></defs>
+    <g clip-path={`url(#${clip})`}>
+      <rect width={l.width} height={l.height} fill={gelb} />
+      <path d={l.bar} fill={rot} />
+    </g>
+    <path d={l.ict} fill={schwarz} />
+    <path d={l.baden} fill={schwarz} />
+  </svg>
+) : (
+  <svg class:list={['logo', 'logo--zeichen', className]} viewBox={`0 0 ${z.size} ${z.size}`} role="img" aria-label="ICT Baden" focusable="false">
+    <defs><clipPath id={clip}><rect x={fx} y={fy} width={fw} height={fh} rx={fr} /></clipPath></defs>
+    <g clip-path={`url(#${clip})`}>
+      <rect width={z.size} height={z.size} fill={gelb} />
+      <path d={z.bar} fill={rot} />
+    </g>
+    <path d={z.ict} fill={schwarz} />
+  </svg>
+)}

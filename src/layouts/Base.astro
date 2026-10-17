@@ -46,13 +46,14 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}
     {(STAGING || is404) && <meta name="robots" content="noindex, nofollow" />}
     {!is404 && <link rel="canonical" href={canonical} />}
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f6f2" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0d11" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf9f5" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111111" />
     <script is:inline src="/js/theme-init.js"></script>
     <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={archivoLatin} as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/brand/icon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="sitemap" href="/sitemap.xml" />

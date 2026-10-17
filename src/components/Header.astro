@@ -77,8 +77,8 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
     gap: var(--s-5);
     min-height: 72px;
   }
-  .brand { display: inline-flex; color: var(--ink); flex: none; border-radius: 12px; }
-  .brand :global(.logo) { height: 40px; width: auto; }
+  .brand { display: inline-flex; color: var(--ink); flex: none; border-radius: 6px; }
+  .brand :global(.logo) { height: 46px; width: auto; }
 
   .nav { margin-left: auto; }
   .nav ul { display: flex; gap: 0.25rem; padding: 0; margin: 0; list-style: none; }
@@ -161,7 +161,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
     text-decoration: none;
   }
   .mnav-panel a:not(.btn) :global(.icon) { color: var(--ink-3); }
-  .mnav-panel a[aria-current='page'] { color: var(--accent); }
+  .mnav-panel a[aria-current='page'] { color: var(--red-ink); }
   .mnav-cta { width: 100%; }
   @media (prefers-reduced-motion: no-preference) {
     .mnav[open] .mnav-panel { animation: drop 260ms var(--ease-out); }
@@ -176,6 +176,6 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
     .header-actions { margin-left: auto; }
     .mnav { display: block; }
     .header-inner { min-height: 64px; }
-    .brand :global(.logo) { height: 34px; }
+    .brand :global(.logo) { height: 40px; }
   }
 </style>

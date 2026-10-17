@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 32 32">
+  <!-- Vorlage für App-Icons (Stil wie Lupe):
+       - Raster 32×32, Fläche 28×28 ab (2,2), Eckenradius 7
+       - Verlauf von oben nach unten: {{FARBE_OBEN}} → {{FARBE_UNTEN}}, pro App ein eigenes Paar
+       - Symbol weiß, Strichstärke 2 bis 2.6, runde Enden, höchstens zwei, drei Formen
+       - Muss bei 16×16 noch erkennbar sein -->
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a8dde"/>
+      <stop offset="1" stop-color="#1d5fa8"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="28" height="28" rx="7" fill="url(#g)"/>
+  <!-- Beispielsymbol: hier das eigene Symbol einsetzen -->
+  <g fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="9" y="9" width="14" height="14" rx="3"/>
+    <path d="M13 16h6M16 13v6"/>
+  </g>
+</svg>

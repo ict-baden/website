@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 32 32" role="img" aria-label="ICT-Baden">
+  <!-- ENTWURF. Kurzzeichen (Favicon, GitHub-Avatar, Info-Fenster): goldgelbes Feld, „ICT“ in Schwarz,
+       roter Schrägbalken nur über die rechte obere Ecke (bewusst nicht über das ganze Feld wie im badischen Wappen). -->
+  <defs>
+    <clipPath id="feld"><rect x="1" y="1" width="30" height="30" rx="7"/></clipPath>
+  </defs>
+  <g clip-path="url(#feld)">
+    <rect width="32" height="32" fill="#FFD200"/>
+    <path d="M20 -2 H25 L34 11 V18 Z" fill="#E2001A"/>
+  </g>
+  <text x="4" y="24" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="800" letter-spacing="-0.6" fill="#111111">ICT</text>
+</svg>

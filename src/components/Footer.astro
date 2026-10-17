@@ -74,13 +74,13 @@ const year = new Date().getFullYear();
     grid-template-columns: 1.4fr repeat(3, 1fr);
     gap: var(--s-7) var(--s-6);
   }
-  .footer-logo { display: inline-flex; color: var(--ink); border-radius: 10px; }
-  .footer-logo :global(.logo) { height: 40px; width: auto; }
+  .footer-logo { display: inline-flex; color: var(--ink); border-radius: 6px; }
+  .footer-logo :global(.logo) { height: 64px; width: auto; }
   .footer-claim { margin-top: var(--s-4); font-weight: 650; color: var(--ink); }
   address { margin-top: var(--s-2); font-style: normal; color: var(--ink-2); line-height: 1.6; }
   .footer-contact { display: grid; gap: var(--s-2); margin-top: var(--s-4); padding: 0; list-style: none; }
   .footer-contact a { display: inline-flex; align-items: center; gap: 0.55em; color: var(--ink-2); text-decoration: none; }
-  .footer-contact a:hover { color: var(--accent); }
+  .footer-contact a:hover { color: var(--link-hover); }
   .footer-contact :global(.icon) { width: 1.05rem; height: 1.05rem; color: var(--ink-3); }
   .footer-col h2 {
     margin-bottom: var(--s-3);
@@ -100,7 +100,7 @@ const year = new Date().getFullYear();
     color: var(--ink-2);
     text-decoration: none;
   }
-  .footer-col a:hover { color: var(--accent); text-decoration: underline; }
+  .footer-col a:hover { color: var(--link-hover); text-decoration: underline; text-decoration-color: var(--link-line); }
   .footer-bottom {
     display: flex;
     flex-wrap: wrap;

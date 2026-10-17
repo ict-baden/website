@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="200" viewBox="0 0 360 200" role="img" aria-label="ICT-Baden">
+  <!-- ENTWURF. Angelehnt an die Durlacher bzw. badischen Farben „in Gold ein roter Schrägbalken“:
+       goldgelber Grund, roter Schrägbalken von links oben nach rechts unten, schwarze Wortmarke.
+       Bewusst kein Wappen (Hoheitszeichen dürfen nicht frei verwendet werden), nur Farben und Motiv. -->
+  <defs>
+    <clipPath id="feld"><rect width="360" height="200" rx="20"/></clipPath>
+  </defs>
+  <g clip-path="url(#feld)">
+    <rect width="360" height="200" fill="#FFD200"/>
+    <!-- Schrägbalken über die rechte Seite, nicht über das ganze Feld (Abstand zum Landeswappen) -->
+    <path d="M244 0 H292 L392 200 H344 Z" fill="#E2001A"/>
+  </g>
+  <text x="36" y="124" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="112" font-weight="800" letter-spacing="-4" fill="#111111">ICT</text>
+  <text x="40" y="170" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="36" font-weight="600" letter-spacing="6" fill="#111111">baden</text>
+</svg>
