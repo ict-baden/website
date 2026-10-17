@@ -1,64 +1,64 @@
 /* Design-Tokens. Farben mit light-dark(): hell/dunkel folgt color-scheme – also dem System,
-   außer der Umschalter hat data-theme gesetzt. Kontraste nach WCAG 2.2 AA geprüft (siehe README). */
+   außer der Umschalter hat data-theme gesetzt. Kontraste nach WCAG 2.2 AA geprüft (siehe README).
+
+   Marke (ict-baden/richtlinien): Baden-Gelb #FFD200 als Fläche und Hervorhebung, ICT-Schwarz #111111
+   für Text, Baden-Rot #E2001A sparsam für Akzente. Gelb ist nie Textfarbe auf hellem Grund, Rot nie
+   Textfarbe auf Gelb. Im dunklen Design wird Gelb zur Akzentfarbe für Links, Symbole und Fokus. */
 
 :root {
   color-scheme: light dark;
 
-  /* Marke: Kachel-Gelb und ICT-Rot aus dem Logo */
-  --brand-yellow: #ffe600;
-  --brand-yellow-2: #fff04a;
-  --brand-red: #f0140a;
+  /* Marke */
+  --brand-yellow: #ffd200;
+  --brand-black: #111111;
+  --brand-red: #e2001a;
 
-  /* Flächen */
-  --bg: light-dark(#f7f6f2, #0b0d11);
-  --bg-elev: light-dark(#ffffff, #12151b);
-  --bg-elev-2: light-dark(#fbfaf7, #171b22);
-  --bg-sunken: light-dark(#efede6, #08090c);
-  --bg-inverse: light-dark(#0f1116, #141820);
-  --line: light-dark(#e2dfd6, #232831);
-  --line-strong: light-dark(#cfcabd, #343a46);
+  /* Flächen (warme Neutraltöne, passend zum Gelb) */
+  --bg: light-dark(#faf9f5, #111111);
+  --bg-elev: light-dark(#ffffff, #1a1a19);
+  --bg-elev-2: light-dark(#fdfcf9, #161615);
+  --bg-sunken: light-dark(#f2f0e9, #0b0b0a);
+  --bg-inverse: light-dark(#111111, #0b0b0a);
+  --line: light-dark(#e6e3da, #2a2a27);
+  --line-strong: light-dark(#cfcbbf, #3e3d39);
 
   /* Text */
-  --ink: light-dark(#14161b, #eef0f3);
-  --ink-2: light-dark(#474c57, #b6bcc7);
-  --ink-3: light-dark(#626772, #8f96a3);
-  --ink-inverse: #f3f4f6;
-  --ink-inverse-2: #b9bfca;
+  --ink: light-dark(#111111, #f4f3ef);
+  --ink-2: light-dark(#46474b, #c6c5bf);
+  --ink-3: light-dark(#66676c, #9d9c96);
+  --ink-inverse: #f4f3ef;
+  --ink-inverse-2: #c6c5bf;
+  --ink-inverse-3: #a3a29c;
 
-  /* Akzent: Rot im hellen, Gelb im dunklen Design */
-  --accent: light-dark(#c0130a, #ffe14a);
-  --accent-hover: light-dark(#9c0f08, #fff08a);
-  --accent-soft: light-dark(#fdebe9, rgb(255 225 74 / 0.12));
-  --highlight: light-dark(#fff3a3, rgb(255 225 74 / 0.22));
-  --focus: light-dark(#c0130a, #ffe14a);
+  /* Akzent: Schwarz im hellen, Gelb im dunklen Design; Rot nur als Linie, Marke oder kleine Zahl */
+  --accent: light-dark(#111111, #ffd200);
+  --red-ink: light-dark(#c8001a, #ff5c6a);
+  --link: light-dark(#111111, #ffd200);
+  --link-line: light-dark(#e2001a, rgb(255 210 0 / 0.55));
+  --link-hover: light-dark(#c8001a, #ffe566);
+  --highlight: light-dark(#ffe873, rgb(255 210 0 / 0.3));
+  --highlight-soft: light-dark(#fff4c2, rgb(255 210 0 / 0.12));
+  --focus: light-dark(#111111, #ffd200);
 
-  --btn-bg: light-dark(#14161b, #ffe14a);
-  --btn-ink: light-dark(#ffffff, #14161b);
-  --btn-bg-hover: light-dark(#c0130a, #fff08a);
-  --btn-ink-hover: light-dark(#ffffff, #14161b);
+  /* Schaltflächen: Gelb mit schwarzer Schrift */
+  --btn-bg: var(--brand-yellow);
+  --btn-ink: #111111;
+  --btn-bg-hover: light-dark(#111111, #ffe566);
+  --btn-ink-hover: light-dark(#ffd200, #111111);
 
   /* Status (Badge: Text, Fläche, Punkt) */
-  --st-ok-ink: light-dark(#0f6b3a, #7ee2ad);
-  --st-ok-bg: light-dark(#e2f4e9, rgb(126 226 173 / 0.12));
+  --st-ok-ink: light-dark(#0b6b39, #7ee2ad);
+  --st-ok-bg: light-dark(#e1f3e7, rgb(126 226 173 / 0.12));
   --st-ok-dot: #19a35a;
-  --st-beta-ink: light-dark(#7a5200, #ffd866);
-  --st-beta-bg: light-dark(#fff1bf, rgb(255 216 102 / 0.13));
-  --st-beta-dot: #e3a008;
-  --st-dev-ink: light-dark(#1d4ed8, #9bbaff);
-  --st-dev-bg: light-dark(#e5ecff, rgb(155 186 255 / 0.13));
+  --st-beta-ink: light-dark(#3d3000, #ffd200);
+  --st-beta-bg: light-dark(#ffeb8a, rgb(255 210 0 / 0.14));
+  --st-beta-dot: light-dark(#b38a00, #ffd200);
+  --st-dev-ink: light-dark(#1d4ed8, #a8c2ff);
+  --st-dev-bg: light-dark(#e6edff, rgb(155 186 255 / 0.13));
   --st-dev-dot: #3b6cf6;
-  --st-plan-ink: light-dark(#474c57, #b6bcc7);
-  --st-plan-bg: light-dark(#f1efe9, rgb(255 255 255 / 0.05));
-  --st-plan-dot: light-dark(#8a8f99, #6f7683);
-
-  /* Produktlinien: Verlauf für Motive und Symbole */
-  --ln-android-1: #2fd4bd; --ln-android-2: #0b8fb0;
-  --ln-labor-1: #b79cff;   --ln-labor-2: #7136e0;
-  --ln-ot-1: #ff8a5c;      --ln-ot-2: #e0140b;
-  --ln-explorer-1: #5eb0ff; --ln-explorer-2: #2251e0;
-  --ln-service-1: #ffc94a; --ln-service-2: #ea6a0c;
-  --ln-server-1: #8f9bff;  --ln-server-2: #3a35b8;
-  --ln-neu-1: #fff06a;     --ln-neu-2: #e8b100;
+  --st-plan-ink: light-dark(#46474b, #c6c5bf);
+  --st-plan-bg: light-dark(#f1efe8, rgb(255 255 255 / 0.06));
+  --st-plan-dot: light-dark(#8b8a84, #75746e);
 
   /* Typografie */
   --font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -83,13 +83,16 @@
   --container: 1240px;
   --container-narrow: 820px;
   --r-xs: 6px; --r-sm: 10px; --r-md: 16px; --r-lg: 24px; --r-xl: 32px; --r-pill: 999px;
-  --shadow-sm: 0 1px 2px light-dark(rgb(20 22 27 / 0.06), rgb(0 0 0 / 0.4));
-  --shadow-md: 0 1px 2px light-dark(rgb(20 22 27 / 0.05), rgb(0 0 0 / 0.35)),
-    0 8px 24px -8px light-dark(rgb(20 22 27 / 0.12), rgb(0 0 0 / 0.55));
-  --shadow-lg: 0 2px 4px light-dark(rgb(20 22 27 / 0.04), rgb(0 0 0 / 0.3)),
-    0 24px 60px -18px light-dark(rgb(20 22 27 / 0.22), rgb(0 0 0 / 0.7));
+  --shadow-sm: 0 1px 2px light-dark(rgb(17 17 17 / 0.06), rgb(0 0 0 / 0.4));
+  --shadow-md: 0 1px 2px light-dark(rgb(17 17 17 / 0.05), rgb(0 0 0 / 0.35)),
+    0 8px 24px -8px light-dark(rgb(17 17 17 / 0.12), rgb(0 0 0 / 0.55));
+  --shadow-lg: 0 2px 4px light-dark(rgb(17 17 17 / 0.04), rgb(0 0 0 / 0.3)),
+    0 24px 60px -18px light-dark(rgb(17 17 17 / 0.22), rgb(0 0 0 / 0.7));
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --dur: 220ms;
+
+  /* Schrägbalken wie im Logo: Neigung 1 : 2 (26,57° gegen die Senkrechte) */
+  --bar-angle: 26.565deg;
 }
 
 :root[data-theme='light'] { color-scheme: light; }
@@ -98,14 +101,15 @@
 /* Browser ohne light-dark(): helles Design */
 @supports not (color: light-dark(#000, #fff)) {
   :root {
-    --bg: #f7f6f2; --bg-elev: #fff; --bg-elev-2: #fbfaf7; --bg-sunken: #efede6; --bg-inverse: #0f1116;
-    --line: #e2dfd6; --line-strong: #cfcabd; --ink: #14161b; --ink-2: #474c57; --ink-3: #626772;
-    --accent: #c0130a; --accent-hover: #9c0f08; --accent-soft: #fdebe9; --highlight: #fff3a3; --focus: #c0130a;
-    --btn-bg: #14161b; --btn-ink: #fff; --btn-bg-hover: #c0130a; --btn-ink-hover: #fff;
-    --st-ok-ink: #0f6b3a; --st-ok-bg: #e2f4e9; --st-beta-ink: #7a5200; --st-beta-bg: #fff1bf;
-    --st-dev-ink: #1d4ed8; --st-dev-bg: #e5ecff; --st-plan-ink: #474c57; --st-plan-bg: #f1efe9; --st-plan-dot: #8a8f99;
-    --shadow-sm: 0 1px 2px rgb(20 22 27 / 0.06);
-    --shadow-md: 0 1px 2px rgb(20 22 27 / 0.05), 0 8px 24px -8px rgb(20 22 27 / 0.12);
-    --shadow-lg: 0 2px 4px rgb(20 22 27 / 0.04), 0 24px 60px -18px rgb(20 22 27 / 0.22);
+    --bg: #faf9f5; --bg-elev: #fff; --bg-elev-2: #fdfcf9; --bg-sunken: #f2f0e9; --bg-inverse: #111111;
+    --line: #e6e3da; --line-strong: #cfcbbf; --ink: #111111; --ink-2: #46474b; --ink-3: #66676c;
+    --accent: #111111; --red-ink: #c8001a; --link: #111111; --link-line: #e2001a; --link-hover: #c8001a;
+    --highlight: #ffe873; --highlight-soft: #fff4c2; --focus: #111111;
+    --btn-bg-hover: #111111; --btn-ink-hover: #ffd200;
+    --st-ok-ink: #0b6b39; --st-ok-bg: #e1f3e7; --st-beta-ink: #3d3000; --st-beta-bg: #ffeb8a; --st-beta-dot: #b38a00;
+    --st-dev-ink: #1d4ed8; --st-dev-bg: #e6edff; --st-plan-ink: #46474b; --st-plan-bg: #f1efe8; --st-plan-dot: #8b8a84;
+    --shadow-sm: 0 1px 2px rgb(17 17 17 / 0.06);
+    --shadow-md: 0 1px 2px rgb(17 17 17 / 0.05), 0 8px 24px -8px rgb(17 17 17 / 0.12);
+    --shadow-lg: 0 2px 4px rgb(17 17 17 / 0.04), 0 24px 60px -18px rgb(17 17 17 / 0.22);
   }
 }

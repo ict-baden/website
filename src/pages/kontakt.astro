@@ -162,7 +162,7 @@ import { COMPANY, mailto } from '../config';
   .profiles a:hover { border-color: var(--line-strong); background: var(--bg-elev-2); color: var(--ink); }
   .profiles a > span:nth-child(2) { display: grid; }
   .profiles a > span:nth-child(2) span { color: var(--ink-2); font-size: var(--fs-sm); }
-  .pi { display: inline-grid; place-items: center; width: 44px; height: 44px; flex: none; border-radius: 12px; background: var(--highlight); color: var(--ink); }
+  .pi { display: inline-grid; place-items: center; width: 44px; height: 44px; flex: none; border-radius: 12px; background: var(--brand-yellow); color: #111111; }
   .profiles :global(.pext) { margin-left: auto; width: 1.1rem; height: 1.1rem; color: var(--ink-3); }
 
   .agrid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.8fr); gap: var(--s-6); align-items: start; }
@@ -174,8 +174,8 @@ import { COMPANY, mailto } from '../config';
   .addr h3 { color: var(--ink-inverse); font-size: var(--fs-lg); margin-bottom: var(--s-3); }
   .addr p { color: var(--ink-inverse); line-height: 1.6; }
   .navi { display: flex; gap: 0.6rem; margin-top: var(--s-5); padding-top: var(--s-5); border-top: 1px solid rgb(255 255 255 / 0.14); }
-  .navi :global(.icon) { flex: none; color: #ffe14a; margin-top: 0.2rem; }
-  .navi strong { color: #ffe14a; }
+  .navi :global(.icon) { flex: none; color: var(--brand-yellow); margin-top: 0.2rem; }
+  .navi strong { color: var(--brand-yellow); }
 
   .routes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); margin-top: var(--s-7); }
   .route { padding: clamp(1.25rem, 1rem + 1vw, 2rem); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg-elev); }

@@ -4,7 +4,7 @@ import PageHero from '../../components/PageHero.astro';
 import ProductCard from '../../components/product/ProductCard.astro';
 import ContactBand from '../../components/ContactBand.astro';
 import Icon from '../../components/Icon.astro';
-import { productGlyph } from '../../lib/art';
+import { lineGlyph } from '../../lib/art';
 import { linien, products, productsOfLine, statusCounts, STATUS_ORDER, STATUS_LABEL, STATUS_HELP, plural } from '../../lib/products';
 
 const total = statusCounts(products);
@@ -59,7 +59,7 @@ const total = statusCounts(products);
       return (
         <section class="pline" id={`linie-${l.id}`} data-line-section={l.id} aria-labelledby={`h-${l.id}`}>
           <header class="pline-head">
-            <span class="pline-icon" set:html={productGlyph(`linie-${l.id}`, l.id, '-cat')} />
+            <span class="pline-icon" set:html={lineGlyph(l.id)} />
             <div>
               <h2 id={`h-${l.id}`}>{l.name}</h2>
               <p>{l.text}</p>

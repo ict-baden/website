@@ -1,15 +1,13 @@
-/* Erzeugte Produktmotive (src/lib/art.ts): Farben je Produktlinie */
+/* Erzeugte Produktmotive (src/lib/art.ts) für Produkte ohne Bildschirmfotos: Motiv je Produktlinie auf
+   Graphit (ICT-Schwarz), leicht getönt mit dem Farbpaar des Produkts (pc--<slug> in product-colors.css).
+   So bleiben die Konzepte ruhig, Farbe tragen die Produktsymbole und die echten Bildschirmfotos. */
 
-.art--android { --l1: var(--ln-android-1); --l2: var(--ln-android-2); }
-.art--labor { --l1: var(--ln-labor-1); --l2: var(--ln-labor-2); }
-.art--ot { --l1: var(--ln-ot-1); --l2: var(--ln-ot-2); }
-.art--explorer { --l1: var(--ln-explorer-1); --l2: var(--ln-explorer-2); }
-.art--service { --l1: var(--ln-service-1); --l2: var(--ln-service-2); }
-.art--server { --l1: var(--ln-server-1); --l2: var(--ln-server-2); }
-.art--neu { --l1: var(--ln-neu-1); --l2: var(--ln-neu-2); }
+:root { --l1: #4a4945; --l2: #111111; }
 
-.art .s1, .pglyph .s1 { stop-color: var(--l1); }
-.art .s2, .pglyph .s2 { stop-color: var(--l2); }
+.pglyph .s1 { stop-color: var(--l1); }
+.pglyph .s2 { stop-color: var(--l2); }
+.art .s1 { stop-color: color-mix(in srgb, var(--l1) 26%, #34332f); }
+.art .s2 { stop-color: color-mix(in srgb, var(--l2) 12%, #121211); }
 .art .sh1 { stop-color: #fff; stop-opacity: 0.32; }
 .art .sh2 { stop-color: #fff; stop-opacity: 0; }
 
@@ -28,7 +26,7 @@
 .art .code { fill: #fff; fill-opacity: 0.55; }
 .art .bar { fill: #fff; fill-opacity: 0.62; }
 .art .shield { stroke-opacity: 0.25; stroke-width: 2; fill: #fff; fill-opacity: 0.06; }
-.art .lock { stroke: var(--l2); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.art .lock { stroke: #2a2927; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .art .wave { stroke-width: 2; stroke-linecap: round; }
 .art .spark { fill: none; stroke: #fff; stroke-width: 2; stroke-linejoin: round; stroke-opacity: 0.85; }
 .art .wave.w0 { stroke-opacity: 0.75; }
@@ -38,10 +36,7 @@
 .art .beam-glow { fill: #fff; fill-opacity: 0.16; }
 .art .corner { stroke-opacity: 0.8; stroke-width: 3; stroke-linecap: round; }
 
-/* Im dunklen Design etwas gedämpft */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) .art { filter: saturate(0.92) brightness(0.9); }
-}
-:root[data-theme='dark'] .art { filter: saturate(0.92) brightness(0.9); }
 
 .pglyph { width: 100%; height: 100%; }
+
+.lglyph { display: block; width: 100%; height: 100%; }

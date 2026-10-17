@@ -54,15 +54,16 @@ h4 { font-size: var(--fs-lg); letter-spacing: -0.01em; line-height: var(--lh-snu
 p, ul, ol, dl, figure, blockquote { margin: 0; }
 p { text-wrap: pretty; }
 
+/* Links: Textfarbe mit Unterstrich in Baden-Rot (hell) bzw. Gelb (dunkel) */
 a {
-  color: var(--accent);
+  color: var(--link);
   text-decoration-line: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
-  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: var(--link-line);
   transition: color var(--dur) var(--ease-out), text-decoration-color var(--dur) var(--ease-out);
 }
-a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
+a:hover { color: var(--link-hover); text-decoration-color: currentColor; }
 
 :focus-visible {
   outline: 3px solid var(--focus);
@@ -125,13 +126,14 @@ small { font-size: var(--fs-sm); }
   text-transform: uppercase;
   color: var(--ink-2);
 }
+/* Kleines Feld wie im Logo: Gelb mit rotem Schrägbalken nur rechts */
 .eyebrow::before {
   content: '';
-  width: 1.6em;
-  height: 0.5em;
+  width: 1.7em;
+  height: 0.62em;
   border-radius: 2px;
-  background: linear-gradient(90deg, var(--brand-yellow) 0 62%, var(--brand-red) 62% 100%);
-  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.06);
+  background: linear-gradient(116.565deg, var(--brand-yellow) 0 58%, var(--brand-red) 58% 80%, var(--brand-yellow) 80%);
+  box-shadow: inset 0 0 0 1px rgb(17 17 17 / 0.08);
 }
 
 .lead {

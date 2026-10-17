@@ -16,6 +16,7 @@ const {
 <section class="cband" aria-labelledby="cband-titel">
   <div class="container">
     <div class="cband-inner reveal">
+      <span class="cband-bar" aria-hidden="true"></span>
       <div class="cband-copy">
         <p class="eyebrow">Kontakt</p>
         <h2 id="cband-titel">{title}</h2>
@@ -42,18 +43,42 @@ const {
     padding: clamp(1.75rem, 1rem + 4vw, 4.5rem);
     overflow: hidden;
     border-radius: var(--r-xl);
-    background:
-      radial-gradient(36rem 20rem at 100% 0%, color-mix(in srgb, var(--brand-yellow) 45%, transparent), transparent 70%),
-      linear-gradient(135deg, var(--bg-elev), var(--bg-elev-2));
-    border: 1px solid var(--line);
-    box-shadow: var(--shadow-md);
+    /* Fläche in Baden-Gelb mit dem Schrägbalken aus dem Logo an der rechten Kante */
+    background: var(--brand-yellow);
+    color: #111111;
+    --ink: #111111;
+    --ink-2: #2d2c26;
+    --ink-3: #3f3e38;
+    --link: #111111;
+    --link-line: #111111;
+    --link-hover: #111111;
+    --focus: #111111;
+    --btn-bg: #111111;
+    --btn-ink: var(--brand-yellow);
+    --btn-bg-hover: #ffffff;
+    --btn-ink-hover: #111111;
   }
+  .cband-inner > :not(.cband-bar) { position: relative; }
+  .cband-bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(100% - clamp(64px, 7vw, 104px));
+    width: clamp(22px, 2.6vw, 38px);
+    background: var(--brand-red);
+    transform: skewX(var(--bar-angle));
+    transform-origin: 0 0;
+  }
+  .cband .eyebrow { color: #111111; }
+  .cband .eyebrow::before { background: linear-gradient(116.565deg, #111111 0 58%, var(--brand-red) 58% 80%, #111111 80%); box-shadow: none; }
+  .cband :global(.btn--secondary) { --_bg: transparent; --_ink: #111111; border-color: rgb(17 17 17 / 0.55); background: rgb(255 255 255 / 0.2); }
+  .cband :global(.btn--secondary:hover) { background: rgb(255 255 255 / 0.6); border-color: #111111; color: #111111; }
   .cband h2 { font-size: var(--fs-2xl); }
   .cband-text { margin-top: var(--s-4); color: var(--ink-2); font-size: var(--fs-lg); line-height: 1.55; max-width: 44ch; }
   .cband-actions { display: grid; gap: var(--s-3); justify-items: stretch; }
   .cband-btn { justify-content: flex-start; min-height: 56px; padding-inline: 1.4rem; font-size: var(--fs-base); }
   .cband-addr { display: flex; align-items: flex-start; gap: 0.5em; margin-top: var(--s-2); color: var(--ink-2); font-size: var(--fs-sm); }
-  .cband-addr :global(.icon) { width: 1.05rem; height: 1.05rem; margin-top: 0.2em; color: var(--ink-3); }
+  .cband-addr :global(.icon) { width: 1.05rem; height: 1.05rem; margin-top: 0.2em; color: #111111; }
   @media (max-width: 860px) {
     .cband-inner { grid-template-columns: 1fr; }
   }

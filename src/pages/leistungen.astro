@@ -72,7 +72,7 @@ import { PORTFOLIO_INTRO, SERVICES, TOPICS } from '../data/portfolio';
 <style>
   .svc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); }
   .svc-item { padding: var(--s-6); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg-elev); box-shadow: var(--shadow-sm); }
-  .svc-item :global(.svc-icon) { width: 48px; height: 48px; padding: 11px; margin-bottom: var(--s-5); border-radius: 14px; background: var(--highlight); }
+  .svc-item :global(.svc-icon) { width: 48px; height: 48px; padding: 11px; margin-bottom: var(--s-5); border-radius: 14px; background: var(--brand-yellow); color: #111111; }
   .svc-item h3 { font-size: var(--fs-lg); }
   .svc-item p { margin-top: var(--s-2); color: var(--ink-2); }
 
@@ -99,8 +99,8 @@ import { PORTFOLIO_INTRO, SERVICES, TOPICS } from '../data/portfolio';
   }
   .hint h2 { color: var(--ink-inverse); font-size: var(--fs-xl); }
   .hint p { margin-top: var(--s-2); color: var(--ink-inverse-2); max-width: 60ch; }
-  .hint .btn { --btn-bg: #ffe14a; --btn-ink: #14161b; --btn-bg-hover: #fff08a; --btn-ink-hover: #14161b; }
-  .hint :focus-visible { outline-color: #ffe14a; }
+  .hint .btn { --btn-bg: var(--brand-yellow); --btn-ink: #111111; --btn-bg-hover: #ffe566; --btn-ink-hover: #111111; }
+  .hint :focus-visible { outline-color: var(--brand-yellow); }
 
   @media (max-width: 980px) { .svc { grid-template-columns: minmax(0, 1fr); } }
   @media (max-width: 860px) { .pf { grid-template-columns: minmax(0, 1fr); } }
