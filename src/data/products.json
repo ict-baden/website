@@ -485,9 +485,9 @@
           },
           {
             "name": "settings",
-            "title": "Link-Regeln",
-            "caption": "Ein regulärer Ausdruck und ein optionales Präfix machen aus einem Code einen Link, z. B. aus einer EAN die Artikelseite im ERP. Geöffnet werden nur http- und https-Links.",
-            "alt": "Seite Einstellungen: Aktionen je Quelle (Kopieren, Eintippen, Link öffnen), die Taste nach dem Eintippen, das Tastenkürzel Win+Umschalt+Q als bereit markiert und die Tabelle der Link-Regeln mit regulärem Ausdruck und Präfix.",
+            "title": "Einstellungen",
+            "caption": "Je Quelle festlegen, ob ein Treffer kopiert, eingetippt oder als Link geöffnet wird – dazu Taste und Tempo beim Eintippen und das Tastenkürzel für den Bildschirm-Scan. Link-Regeln machen aus einem Code einen Link, z. B. aus einer EAN die Artikelseite im ERP; geöffnet werden nur http- und https-Links.",
+            "alt": "Seite Einstellungen: Aktionen je Quelle (Kopieren, Eintippen, Link öffnen), die Taste nach dem Eintippen, das Tempo beim Eintippen, das Tastenkürzel Win+Umschalt+Q als bereit markiert und darunter der Anfang des Bereichs Link-Regeln mit Erklärung.",
             "light": {
               "src": "/media/produkte/lupe/settings-light-1600.webp",
               "srcset": "/media/produkte/lupe/settings-light-800.webp 800w, /media/produkte/lupe/settings-light-1600.webp 1600w",
@@ -1915,7 +1915,7 @@
       "statusKey": "in-entwicklung",
       "statusLabel": "In Entwicklung",
       "version": null,
-      "text": "Rockwell-Steuerungen (ControlLogix, CompactLogix, Micro800) und andere EtherNet/IP-Geräte im Netz finden, Identität und Zustand ansehen, Tags durchsuchen, lesen, beobachten und mit Bestätigung schreiben. Ohne RSLinx, als eine Datei mit lokaler Web-Oberfläche.",
+      "text": "Rockwell-Steuerungen (ControlLogix, CompactLogix) und andere EtherNet/IP-Geräte im Netz finden, Identität und Zustand ansehen, Tags durchsuchen, lesen, beobachten und mit Bestätigung schreiben. Ohne RSLinx, als eine Datei mit lokaler Web-Oberfläche.",
       "sections": {
         "problem": [
           {
@@ -2238,7 +2238,7 @@
         "problem": [
           {
             "type": "p",
-            "text": "Für jede Anlage braucht der Techniker heute ein anderes Werkzeug: eines für Siemens, eines für Rockwell, eines für die Gebäudeleittechnik, eines für USV und Switches. Wer eine Anlage aufnehmen will, startet fünf Tools und bekommt fünf Listen."
+            "text": "Für jede Anlage braucht der Techniker heute ein anderes Werkzeug: eines für Siemens, eines für Rockwell, eines für die Gebäudeleittechnik, eines für USV und Switches. Wer eine Anlage aufnehmen will, startet mehrere Tools und bekommt ebenso viele Listen."
           }
         ],
         "ersetzt": null,
@@ -2738,17 +2738,7 @@
             "text": "SIMATIC PCS 7. Andere Leitsysteme (Emerson DeltaV, ABB 800xA, Honeywell Experion) sind ebenfalls proprietär. Ein offenes Prozessleitsystem gibt es praktisch nicht."
           }
         ],
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Engineering (Anlagenstruktur, Bausteine, Ablaufsteuerungen)",
-              "Bedienen und Beobachten, Alarme, Archiv",
-              "Chargen (Batch), Audit-Trail, Benutzerverwaltung",
-              "Redundanz und Hochverfügbarkeit"
-            ]
-          }
-        ]
+        "umfang": null
       },
       "highlights": [],
       "facts": [],

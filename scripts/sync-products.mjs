@@ -145,7 +145,8 @@ function findRepoDir(repo) {
 
 function sanitizeSvg(svg) {
   if (/<script|on\w+\s*=|href\s*=\s*["'](?!#)|<foreignObject/i.test(svg)) throw new Error('logo.svg enthält aktive Inhalte oder externe Verweise');
-  return svg.replace(/<\?xml[^>]*>\s*/, '').trim() + '\n';
+  // ohne XML-Kopf und Kommentare (die Datei wird so ausgeliefert)
+  return svg.replace(/<\?xml[^>]*>\s*/, '').replace(/<!--[\s\S]*?-->\s*/g, '').trim() + '\n';
 }
 
 async function webpVariants(file, outDir, base, widths, quality = 82) {
@@ -167,6 +168,36 @@ async function webpVariants(file, outDir, base, widths, quality = 82) {
     width: largest.w,
     height,
   };
+}
+
+/** Eigenes App-Symbol (PNG) in die Geometrie der App-Icon-Vorlage bringen: Kachel 28/32 der Fläche, Rand 2/32,
+ *  Eckenradius 7/32. Play-Store-Symbole sind randlos und eckig – so stehen eigene und erzeugte Symbole
+ *  gleich groß nebeneinander. */
+async function appIconTile(file, size = 256) {
+  const { data, info } = await sharp(file).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  let x0 = info.width, y0 = info.height, x1 = -1, y1 = -1;
+  for (let y = 0; y < info.height; y++) {
+    for (let x = 0; x < info.width; x++) {
+      if (data[(y * info.width + x) * 4 + 3] <= 16) continue;
+      if (x < x0) x0 = x;
+      if (x > x1) x1 = x;
+      if (y < y0) y0 = y;
+      if (y > y1) y1 = y;
+    }
+  }
+  if (x1 < 0) throw new Error(`${file}: Symbol ist leer`);
+  const tile = Math.round((size * 28) / 32);
+  const pad = Math.round((size - tile) / 2);
+  const radius = Math.round((size * 7) / 32);
+  const clear = { r: 0, g: 0, b: 0, alpha: 0 };
+  const scaled = await sharp(file)
+    .extract({ left: x0, top: y0, width: x1 - x0 + 1, height: y1 - y0 + 1 })
+    .resize(tile, tile, { fit: 'contain', background: clear })
+    .png()
+    .toBuffer();
+  const mask = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${tile}" height="${tile}"><rect width="${tile}" height="${tile}" rx="${radius}" fill="#fff"/></svg>`);
+  const clipped = await sharp(scaled).composite([{ input: mask, blend: 'dest-in' }]).png().toBuffer();
+  return sharp(clipped).extend({ top: pad, bottom: pad, left: pad, right: pad, background: clear });
 }
 
 /** Mittlere Farbe der deckenden Pixel eines waagrechten Streifens (Anteil der Höhe). */
@@ -213,8 +244,7 @@ async function buildMedia(dir, slug, productName, cfg) {
     if (stops.length >= 2) media.colors = [stops[0], stops[stops.length - 1]];
     media.source.push('logo.svg');
   } else if (pngLogo) {
-    await sharp(pngLogo).resize(256, 256, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
-      .webp({ quality: 90, alphaQuality: 100, effort: 6 }).toFile(join(outDir, 'logo.webp'));
+    await (await appIconTile(pngLogo)).webp({ quality: 90, alphaQuality: 100, effort: 6 }).toFile(join(outDir, 'logo.webp'));
     media.logo = `${MEDIA_URL}/${slug}/logo.webp`;
     // Markenfarben: Fläche oben und unten im Symbol
     const top = await bandColor(pngLogo, 0.1);
@@ -318,6 +348,7 @@ for (const p of source.projekte) {
     for (const [key, heading] of Object.entries(PUBLIC_SECTIONS)) {
       if (key === 'ersetzt' && rule.ersetzt !== true) continue;
       if (key === 'problem' && rule.problem === false) continue;
+      if (key === 'umfang' && rule.umfang === false) continue;
       const lines = all.get(heading);
       if (lines) sections[key] = applyToBlocks(toBlocks(lines), rule);
     }

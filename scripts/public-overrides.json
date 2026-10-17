@@ -4,13 +4,20 @@
     "Grundsätze: Nur Kürzen oder anhand der Produkt-README berichtigen, nie Hinzudichten. 'Was es ersetzt' wird nur übernommen, wenn hier 'ersetzt': true steht",
     "(neutraler Produktvergleich ohne Werturteile über benannte Fremdprodukte). Neue Produkte erscheinen deshalb",
     "zunächst ohne diesen Abschnitt, bis jemand ihn geprüft hat.",
-    "Felder je Produkt-id: ersetzt (bool), problem (false = Abschnitt weglassen), dropSentences / dropBlocks / dropItems",
+    "Felder je Produkt-id: ersetzt (bool), problem / umfang (false = Abschnitt weglassen), dropSentences / dropBlocks / dropItems",
     "(Teilstrings; ganze Sätze, Absätze/Listen bzw. Listenpunkte, die sie enthalten, entfallen), replace ([alt, neu]),",
     "textReplace ([alt, neu]) für das Feld 'text', reason (Begründung, wird nicht veröffentlicht)."
   ],
   "products": {
     "ethernetip-explorer": {
-      "ersetzt": true
+      "ersetzt": true,
+      "textReplace": [
+        [
+          "(ControlLogix, CompactLogix, Micro800)",
+          "(ControlLogix, CompactLogix)"
+        ]
+      ],
+      "reason": "README Lotse: Tag-Liste nur bei ControlLogix und CompactLogix, Micro800 ungetestet."
     },
     "iec61850-browser": {
       "ersetzt": true
@@ -18,10 +25,8 @@
     "pcs7-alternative": {
       "ersetzt": true,
       "problem": false,
-      "dropBlocks": [
-        "Noch offen. Ein vollständiges Leitsystem ist sehr groß"
-      ],
-      "reason": "Ausgangslage enthält Werturteile über ein benanntes Fremdprodukt; Umfang beginnt mit internem Satz."
+      "reason": "Ausgangslage enthält Werturteile über ein benanntes Fremdprodukt; der Umfang von v1 ist laut Notiz noch offen (die Liste beschreibt ein vollständiges Leitsystem, nicht v1).",
+      "umfang": false
     },
     "ppwr-verpackungsdaten": {
       "ersetzt": true
@@ -62,7 +67,13 @@
       "dropItems": [
         "Einzelausgaben"
       ],
-      "reason": "Interne Bemerkungen (Personen, Repos, Build-Varianten)."
+      "reason": "Interne Bemerkungen (Personen, Repos, Build-Varianten); 'fünf' bezog sich auf den entfernten Satz mit den Explorer-Namen.",
+      "replace": [
+        [
+          "startet fünf Tools und bekommt fünf Listen",
+          "startet mehrere Tools und bekommt ebenso viele Listen"
+        ]
+      ]
     },
     "visualisierung": {
       "problem": false,

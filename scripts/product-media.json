@@ -66,9 +66,9 @@
         },
         {
           "name": "settings",
-          "title": "Link-Regeln",
-          "caption": "Ein regulärer Ausdruck und ein optionales Präfix machen aus einem Code einen Link, z. B. aus einer EAN die Artikelseite im ERP. Geöffnet werden nur http- und https-Links.",
-          "alt": "Seite Einstellungen: Aktionen je Quelle (Kopieren, Eintippen, Link öffnen), die Taste nach dem Eintippen, das Tastenkürzel Win+Umschalt+Q als bereit markiert und die Tabelle der Link-Regeln mit regulärem Ausdruck und Präfix."
+          "title": "Einstellungen",
+          "caption": "Je Quelle festlegen, ob ein Treffer kopiert, eingetippt oder als Link geöffnet wird – dazu Taste und Tempo beim Eintippen und das Tastenkürzel für den Bildschirm-Scan. Link-Regeln machen aus einem Code einen Link, z. B. aus einer EAN die Artikelseite im ERP; geöffnet werden nur http- und https-Links.",
+          "alt": "Seite Einstellungen: Aktionen je Quelle (Kopieren, Eintippen, Link öffnen), die Taste nach dem Eintippen, das Tempo beim Eintippen, das Tastenkürzel Win+Umschalt+Q als bereit markiert und darunter der Anfang des Bereichs Link-Regeln mit Erklärung."
         },
         {
           "name": "history",
