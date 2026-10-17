@@ -43,6 +43,7 @@ h1, h2, h3, h4 {
   line-height: var(--lh-tight);
   letter-spacing: -0.022em;
   text-wrap: balance;
+  overflow-wrap: break-word;
   color: var(--ink);
 }
 h1 { font-size: var(--fs-3xl); }

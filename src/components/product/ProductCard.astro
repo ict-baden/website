@@ -68,7 +68,7 @@ const line = lineById(product.linie);
     margin-bottom: var(--s-2);
   }
   .pcard-top :global(.pcard-icon) { --picon-size: 56px; }
-  .pcard-title { font-size: 1.3rem; letter-spacing: -0.015em; }
+  .pcard-title { font-size: 1.3rem; letter-spacing: -0.015em; hyphens: auto; overflow-wrap: break-word; }
   .pcard-title a { color: var(--ink); text-decoration: none; }
   .pcard-title a::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
   .pcard-title a:focus-visible { outline: none; }

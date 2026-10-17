@@ -1,19 +1,30 @@
 ---
-// Text mit eingebetteten Links (Portfolio-Einträge). Externe Links bekommen ein Pfeilsymbol.
+// Text mit eingebetteten Links (Portfolio-Einträge). Externe Links bekommen ein Pfeilsymbol, das mit dem
+// letzten Wort und einem folgenden Satzzeichen auf einer Zeile bleibt.
 import Icon from './Icon.astro';
 import type { Part } from '../data/portfolio';
 interface Props { parts: Part[] }
 const { parts } = Astro.props;
+
+const WJ = '⁠'; // Wortverbinder: kein Umbruch an dieser Stelle
+const split = (t: string) => {
+  const i = t.lastIndexOf(' ');
+  return i < 0 ? ['', t] : [t.slice(0, i + 1), t.slice(i + 1)];
+};
 ---
-{parts.map((p) =>
-  typeof p === 'string'
-    ? p
-    : p.href.startsWith('http')
-      ? <a class="ext" href={p.href} rel="noopener">{p.t}{'⁠'}<Icon name="arrow-up-right" label="(externer Link)" class="ext-icon" /></a>
-      : <a href={p.href}>{p.t}</a>
-)}
+{parts.map((p, i) => {
+  if (typeof p === 'string') {
+    const prev = parts[i - 1];
+    return typeof prev !== 'string' && /^[,.;:]/.test(p) ? WJ + p : p;
+  }
+  if (!p.href.startsWith('http')) return <a href={p.href}>{p.t}</a>;
+  const [head, last] = split(p.t);
+  return (
+    <a class="ext" href={p.href} rel="noopener">{head}<span class="nw">{last}<Icon name="arrow-up-right" label="(externer Link)" class="ext-icon" /></span></a>
+  );
+})}
 
 <style>
-  .ext { white-space: normal; }
+  .nw { white-space: nowrap; }
   .ext :global(.ext-icon) { display: inline-block; width: 0.85em; height: 0.85em; margin-left: 0.15em; vertical-align: -0.05em; }
 </style>

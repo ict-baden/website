@@ -107,17 +107,27 @@ function ot(R: Rand): string {
 }
 
 function server(R: Rand): string {
-  // Server-Schrank: Einschübe mit LEDs und Auslastung
+  // Server-Schrank: Einschübe mit LEDs und Auslastung, einzelne mit Verlaufskurve
   let out = '';
-  const x = 168, w = 280, h = 24, gap = 9;
+  const x = 160 + Math.floor(R() * 24), w = 270 + Math.floor(R() * 30);
+  const n = 6 + Math.floor(R() * 3);
+  const gap = 9;
+  const unit = Math.floor((250 - (n - 1) * gap) / n);
+  const chartAt = Math.floor(R() * n);
   out += `<rect class="frame" x="${x - 16}" y="16" width="${w + 32}" height="268" rx="16"/>`;
-  for (let i = 0; i < 8; i++) {
-    const y = 30 + i * (h + gap);
-    out += `<rect class="fill" x="${x}" y="${y}" width="${w}" height="${h}" rx="6"/>`;
-    for (let k = 0; k < 3; k++) out += `<circle class="${R() < 0.55 ? 'solid' : 'dot'}" cx="${x + 16 + k * 13}" cy="${y + h / 2}" r="3.2"/>`;
-    const load = 0.2 + R() * 0.75;
-    out += `<rect class="ln" x="${x + 70}" y="${y + 9}" width="${w - 90}" height="6" rx="3"/>`;
-    out += `<rect class="bar" x="${x + 70}" y="${y + 9}" width="${r1((w - 90) * load)}" height="6" rx="3"/>`;
+  for (let i = 0; i < n; i++) {
+    const y = 30 + i * (unit + gap);
+    out += `<rect class="fill" x="${x}" y="${y}" width="${w}" height="${unit}" rx="6"/>`;
+    for (let k = 0; k < 3; k++) out += `<circle class="${R() < 0.55 ? 'solid' : 'dot'}" cx="${x + 16 + k * 13}" cy="${r1(y + unit / 2)}" r="3.2"/>`;
+    if (i === chartAt && unit >= 24) {
+      let d = '';
+      for (let k = 0; k <= 12; k++) d += `${k ? 'L' : 'M'}${r1(x + 70 + (k * (w - 90)) / 12)} ${r1(y + unit - 6 - R() * (unit - 12))}`;
+      out += `<path class="spark" d="${d}"/>`;
+    } else {
+      const load = 0.15 + R() * 0.8;
+      out += `<rect class="ln" x="${x + 70}" y="${r1(y + unit / 2 - 3)}" width="${w - 90}" height="6" rx="3"/>`;
+      out += `<rect class="bar" x="${x + 70}" y="${r1(y + unit / 2 - 3)}" width="${r1((w - 90) * load)}" height="6" rx="3"/>`;
+    }
   }
   return out;
 }
@@ -177,11 +187,14 @@ export function coverArt(slug: string, linie: string, uid = ""): string {
   const R = rng(hash(`${linie}:${slug}`));
   const id = `g-${slug}${uid}`;
   const motif = (MOTIFS[linie] ?? neu)(R);
+  const rot = r1((R() - 0.5) * 10);
+  const dx = r1((R() - 0.5) * 30);
+  const dy = r1((R() - 0.5) * 16);
   return `<svg class="art art--${linie}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">` +
     `<defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop class="s1" offset="0"/><stop class="s2" offset="1"/></linearGradient>` +
     `<radialGradient id="${id}-sh" cx="0.85" cy="0.05" r="0.9"><stop class="sh1" offset="0"/><stop class="sh2" offset="1"/></radialGradient></defs>` +
     `<rect width="${W}" height="${H}" fill="url(#${id})"/><rect width="${W}" height="${H}" fill="url(#${id}-sh)"/>` +
-    `<g class="motif">${motif}</g></svg>`;
+    `<g transform="translate(${dx} ${dy}) rotate(${rot} 300 150)"><g class="motif">${motif}</g></g></svg>`;
 }
 
 /** Produktsymbol im Stil der Repo-Logos: abgerundete Kachel mit Verlauf und Liniensymbol. */

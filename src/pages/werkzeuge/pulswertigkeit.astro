@@ -23,7 +23,7 @@ const num = (n: number) => fmt.format(n);
     crumbs={[{ href: '/downloads/#werkzeuge', label: 'Werkzeuge' }, { label: 'Pulswertigkeit' }]}
   />
 
-  <form class="container calc" data-pulse novalidate aria-label="Rechner Pulswertigkeit">
+  <div class="container calc" data-pulse>
     <p class="callout calc-js" data-js-hint><Icon name="info" /> Der Rechner benötigt JavaScript. Angezeigt sind die Ergebnisse für die Startwerte.</p>
 
     <div class="calc-grid">
@@ -34,14 +34,14 @@ const num = (n: number) => fmt.format(n);
           <div class="field">
             <label for="impulses">Zähler-Impulskonstante</label>
             <div class="input-unit">
-              <input class="input" id="impulses" name="impulses" inputmode="decimal" autocomplete="off" value={num(D.impulses)} />
+              <input class="input" type="text" id="impulses" name="impulses" inputmode="decimal" autocomplete="off" value={num(D.impulses)} />
               <span class="unit">Imp./kWh, kvarh</span>
             </div>
           </div>
           <div class="field">
             <label for="factor">Wandlerkonstante</label>
             <div class="input-unit">
-              <input class="input" id="factor" name="factor" inputmode="decimal" autocomplete="off" value={num(D.factor)} />
+              <input class="input" type="text" id="factor" name="factor" inputmode="decimal" autocomplete="off" value={num(D.factor)} />
               <span class="unit" aria-hidden="true"></span>
             </div>
           </div>
@@ -61,25 +61,25 @@ const num = (n: number) => fmt.format(n);
           <div class="field">
             <label for="MwImpulses"><span class="mark" aria-hidden="true">1</span> <span>Impulse (R<sub>A</sub>)</span></label>
             <div class="input-unit">
-              <input class="input" id="MwImpulses" name="MwImpulses" inputmode="decimal" autocomplete="off" value={num(D.MwImpulses)} />
+              <input class="input" type="text" id="MwImpulses" name="MwImpulses" inputmode="decimal" autocomplete="off" value={num(D.MwImpulses)} />
               <span class="unit">imp/kWh</span>
             </div>
           </div>
           <div class="field">
             <span class="field-label" id="lbl-volts"><span class="mark" aria-hidden="true">2</span> Spannungswandler</span>
             <div class="ratio" role="group" aria-labelledby="lbl-volts">
-              <input class="input" id="MwVolts" name="MwVolts" inputmode="decimal" autocomplete="off" value={num(D.MwVolts)} aria-label="Spannungswandler primär (V)" />
+              <input class="input" type="text" id="MwVolts" name="MwVolts" inputmode="decimal" autocomplete="off" value={num(D.MwVolts)} aria-label="Spannungswandler primär (V)" />
               <span class="ratio-sep" aria-hidden="true">/</span>
-              <input class="input" id="MwVoltsDiv" name="MwVoltsDiv" inputmode="decimal" autocomplete="off" value={num(D.MwVoltsDiv)} aria-label="Spannungswandler sekundär (V)" />
+              <input class="input" type="text" id="MwVoltsDiv" name="MwVoltsDiv" inputmode="decimal" autocomplete="off" value={num(D.MwVoltsDiv)} aria-label="Spannungswandler sekundär (V)" />
               <span class="unit">V</span>
             </div>
           </div>
           <div class="field">
             <span class="field-label" id="lbl-amps"><span class="mark" aria-hidden="true">3</span> Stromwandler</span>
             <div class="ratio" role="group" aria-labelledby="lbl-amps">
-              <input class="input" id="MwAmps" name="MwAmps" inputmode="decimal" autocomplete="off" value={num(D.MwAmps)} aria-label="Stromwandler primär (A)" />
+              <input class="input" type="text" id="MwAmps" name="MwAmps" inputmode="decimal" autocomplete="off" value={num(D.MwAmps)} aria-label="Stromwandler primär (A)" />
               <span class="ratio-sep" aria-hidden="true">/</span>
-              <input class="input" id="MwAmpsDiv" name="MwAmpsDiv" inputmode="decimal" autocomplete="off" value={num(D.MwAmpsDiv)} aria-label="Stromwandler sekundär (A)" />
+              <input class="input" type="text" id="MwAmpsDiv" name="MwAmpsDiv" inputmode="decimal" autocomplete="off" value={num(D.MwAmpsDiv)} aria-label="Stromwandler sekundär (A)" />
               <span class="unit">A</span>
             </div>
           </div>
@@ -94,7 +94,7 @@ const num = (n: number) => fmt.format(n);
     </div>
 
     <p class="calc-hint">Dezimalzahlen mit Komma eingeben, z. B. 0,5. Der Punkt gilt als Tausendertrennzeichen (20.000 = 20000).</p>
-  </form>
+  </div>
 
   <section class="container ref" aria-labelledby="ref-titel">
     <h2 id="ref-titel" class="ref-title">Wo stehen die Werte?</h2>

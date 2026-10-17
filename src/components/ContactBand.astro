@@ -24,7 +24,7 @@ const {
       <div class="cband-actions">
         <a class="btn cband-btn" href={mailto(subject)}><Icon name="mail" /> {COMPANY.email}</a>
         <a class="btn btn--secondary cband-btn" href={COMPANY.mobileHref}><Icon name="phone" /> {COMPANY.mobile}</a>
-        <p class="cband-addr"><Icon name="pin" /> {COMPANY.street}, {COMPANY.zip} {COMPANY.city} · <a href="/kontakt/#anfahrt">Anfahrt</a></p>
+        <p class="cband-addr"><Icon name="pin" /><span>{COMPANY.street}, {COMPANY.zip}&nbsp;{COMPANY.city} · <a href="/kontakt/#anfahrt">Anfahrt</a></span></p>
       </div>
     </div>
   </div>
@@ -32,6 +32,7 @@ const {
 
 <style>
   .cband { padding-top: var(--section-y); }
+  :global(.section) + .cband { padding-top: 0; }
   .cband-inner {
     position: relative;
     display: grid;
@@ -51,8 +52,8 @@ const {
   .cband-text { margin-top: var(--s-4); color: var(--ink-2); font-size: var(--fs-lg); line-height: 1.55; max-width: 44ch; }
   .cband-actions { display: grid; gap: var(--s-3); justify-items: stretch; }
   .cband-btn { justify-content: flex-start; min-height: 56px; padding-inline: 1.4rem; font-size: var(--fs-base); }
-  .cband-addr { display: flex; align-items: center; gap: 0.5em; margin-top: var(--s-2); color: var(--ink-2); font-size: var(--fs-sm); }
-  .cband-addr :global(.icon) { width: 1.05rem; height: 1.05rem; color: var(--ink-3); }
+  .cband-addr { display: flex; align-items: flex-start; gap: 0.5em; margin-top: var(--s-2); color: var(--ink-2); font-size: var(--fs-sm); }
+  .cband-addr :global(.icon) { width: 1.05rem; height: 1.05rem; margin-top: 0.2em; color: var(--ink-3); }
   @media (max-width: 860px) {
     .cband-inner { grid-template-columns: 1fr; }
   }

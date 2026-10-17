@@ -318,6 +318,12 @@ const jsonLd = {
     background: var(--brand-yellow);
     transform-origin: left center;
   }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .hero-title .hl { color: var(--brand-yellow); }
+    :global(:root:not([data-theme="light"])) .hero-title .hl::after { display: none; }
+  }
+  :global(:root[data-theme="dark"]) .hero-title .hl { color: var(--brand-yellow); }
+  :global(:root[data-theme="dark"]) .hero-title .hl::after { display: none; }
   .hero-lead { margin-top: var(--s-5); max-width: 34rem; font-size: var(--fs-lg); line-height: 1.55; color: var(--ink-2); }
   .hero-cta { margin-top: var(--s-6); }
   .hero-points {

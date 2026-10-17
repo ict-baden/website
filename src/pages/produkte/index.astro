@@ -106,6 +106,7 @@ const total = statusCounts(products);
   .legend li { display: inline-flex; align-items: center; gap: 0.55rem; font-size: var(--fs-sm); }
   .legend-n { font-weight: 700; color: var(--ink); }
   .legend-help { color: var(--ink-3); }
+  @media (max-width: 640px) { .legend-help { display: none; } .legend { gap: var(--s-3); } }
 
   .catalog { display: grid; gap: var(--s-8); }
   .filters {

@@ -73,9 +73,9 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}
   <body class={bodyClass}>
     <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
     {STAGING && (
-      <div class="staging-bar">
+      <aside class="staging-bar" aria-label="Hinweis">
         <span>Vorschau der neuen Website von ICT Baden</span>
-      </div>
+      </aside>
     )}
     <Header />
     <main id="inhalt" tabindex="-1">
