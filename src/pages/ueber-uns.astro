@@ -1,0 +1,128 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import ContactBand from '../components/ContactBand.astro';
+---
+<Base
+  title="Über uns"
+  description="ICT Baden GmbH: Frank Pfattheicher und erfahrene Partner aus Karlsruhe-Durlach – Dienstleister und Partner für individuelle Software-Lösungen, engagiert in .NET UserGroup Karlsruhe, .NET Open Space Süd und VKSI."
+>
+  <PageHero eyebrow="Über uns" title="„Wir“, das bin hauptsächlich ich, Frank Pfattheicher." crumbs={[{ label: 'Über uns' }]} />
+
+  <div class="container about">
+    <div class="prose about-main">
+      <p class="about-lead">
+        Unterstützt werde ich in Büro- und Steuerangelegenheiten durch meine Frau.
+      </p>
+      <p>
+        Um aber Projekte realisieren zu können, bei denen „ein Mann“ nicht ausreicht, stehen mir erfahrene Partner zur Seite.
+        Diese erweitern auch das Portfolio um Themengebiete, die man alleine nicht abdecken kann.
+      </p>
+      <p>Wir sind Dienstleister und Partner für alle, die individuelle Software Lösungen brauchen.</p>
+      <p>Durch Effizienz, Flexibilität und Erfahrung, können wir auch Projekte mit straffem Timing durchführen.</p>
+
+      <h2 id="standort">Standort</h2>
+      <p>Mein Standort ist Karlsruhe-Durlach.<br />Seit Jahren arbeite ich auch mit Großfirmen ausschließlich Remote.</p>
+
+      <h2 id="puls">Am Puls der Zeit</h2>
+      <p>
+        Das bedeutet den Einsatz der modernsten Technologien die zur Zeit am Markt verfügbar sind. Dies ermöglicht Produkte
+        die auch in vielen Jahren noch einsatzfähig sind.
+      </p>
+      <p>
+        Erreicht wird das durch das Engagement in der Community der Softwareentwickler. Unterstützt wird vor Allem die
+        <a href="http://www.dotnet-ka.de" rel="noopener"><strong>.NET UserGroup Karlsruhe</strong></a>, deren Mitgründer ich 2004 war und
+        deren Leitung ich lange Jahre wahrgenommen habe.
+      </p>
+      <p>Hier wird kostenlos und unverbindlich allen interessierten Teilnehmern Einblick in die aktuellen Software-Technologien gegeben.</p>
+      <p>
+        Die Mitarbeit beim <a href="http://nossued.de" rel="noopener"><strong>.NET Open Space Süd in Karlsruhe</strong></a> ist ein Beitrag den
+        Austausch über die Grenzen von Karlsruhe voranzutreiben.
+      </p>
+      <p>
+        Der Open Space ist eine Methode zur Strukturierung von Konferenzen. Charakteristisch ist die inhaltliche und formale
+        Offenheit. Die Teilnehmer geben eigene Themen ins Plenum und gestalten dazu je eine Arbeitsgruppe. In dieser werden
+        mögliche Projekte erarbeitet.
+      </p>
+      <p>
+        Speziell im .NET Umfeld hat sich diese Art der Veranstaltung für Entwickler als sehr effizient herausgestellt. Aktuelle
+        Themen werden gemeinsam bearbeitet und damit weiter gebracht.
+      </p>
+      <p>
+        Außerdem bin ich Mitglied des <a href="http://www.vksi.de/" rel="noopener">VKSI</a>, dem <strong>Verein der Karlsruher
+        Software-Ingenieure</strong>. Hiermit unterstütze ich in Zusammenarbeit mit anderen Karlsruher Firmen die folgenden Maßnahmen:
+      </p>
+      <ul>
+        <li>die öffentliche Wahrnehmung der Softwaretechnik als Ingenieurdisziplin zu fördern</li>
+        <li>Kenntnisse und Erfahrungen in der Softwaretechnik zusammenzuführen und weiterzugeben</li>
+        <li>Innovationen in der Softwaretechnik zu beschleunigen und zu verbreiten</li>
+        <li>den wissenschaftlich-technischen Nachwuchs zu fördern</li>
+      </ul>
+      <p class="about-close">
+        All diese Aktivitäten stellen sicher, dass man auch wirklich am „Puls der Zeit“ bleibt. Oftmals bleibt die Aktualität und
+        damit die Zukunftsfähigkeit im „täglichen Geschäft“ auf der Strecke. Aber nur mit aktuellen Technologien entwickelte
+        Software ist wirklich eine Investition in die Zukunft.
+      </p>
+    </div>
+
+    <aside class="about-aside" aria-label="Engagement">
+      <a class="eng reveal" href="http://www.dotnet-ka.de" rel="noopener">
+        <span class="eng-year">2004</span>
+        <strong>.NET UserGroup Karlsruhe</strong>
+        <span>Mitgründer, lange Jahre in der Leitung</span>
+        <Icon name="arrow-up-right" label="(externer Link)" class="eng-ext" />
+      </a>
+      <a class="eng reveal" href="http://nossued.de" rel="noopener">
+        <span class="eng-year">Open Space</span>
+        <strong>.NET Open Space Süd</strong>
+        <span>Mitarbeit in Karlsruhe</span>
+        <Icon name="arrow-up-right" label="(externer Link)" class="eng-ext" />
+      </a>
+      <a class="eng reveal" href="http://www.vksi.de/" rel="noopener">
+        <span class="eng-year">Mitglied</span>
+        <strong>VKSI</strong>
+        <span>Verein der Karlsruher Software-Ingenieure</span>
+        <Icon name="arrow-up-right" label="(externer Link)" class="eng-ext" />
+      </a>
+      <div class="eng eng--loc reveal">
+        <Icon name="pin" />
+        <strong>Karlsruhe-Durlach</strong>
+        <span>Seit Jahren auch mit Großfirmen ausschließlich remote</span>
+      </div>
+    </aside>
+  </div>
+
+  <ContactBand />
+</Base>
+
+<style>
+  .about { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+  .about-main { max-width: 68ch; font-size: 1.0625rem; }
+  .about-lead { font-size: var(--fs-lg); color: var(--ink); }
+  .about-close { padding: var(--s-5); border-left: 4px solid var(--brand-yellow); background: var(--bg-elev); border-radius: 0 var(--r-md) var(--r-md) 0; color: var(--ink); }
+  .about-aside { position: sticky; top: 100px; display: grid; gap: var(--s-3); }
+  .eng {
+    position: relative;
+    display: grid;
+    gap: 0.15rem;
+    padding: var(--s-5);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--bg-elev);
+    color: var(--ink-2);
+    font-size: var(--fs-sm);
+    text-decoration: none;
+    transition: border-color var(--dur) var(--ease-out), transform 380ms var(--ease-out), box-shadow 380ms var(--ease-out);
+  }
+  a.eng:hover { border-color: var(--line-strong); color: var(--ink-2); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .eng strong { color: var(--ink); font-size: var(--fs-base); }
+  .eng-year { color: var(--accent); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+  .eng :global(.eng-ext) { position: absolute; top: 1.25rem; right: 1.25rem; width: 1rem; height: 1rem; color: var(--ink-3); }
+  .eng--loc :global(.icon) { color: var(--accent); margin-bottom: 0.25rem; }
+  @media (max-width: 980px) {
+    .about { grid-template-columns: minmax(0, 1fr); }
+    .about-aside { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) { .about-aside { grid-template-columns: minmax(0, 1fr); } }
+</style>

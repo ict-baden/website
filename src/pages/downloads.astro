@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base
+  title="Downloads"
+  description="Kostenlose Programme von ICT Baden: ModbusExplorer für Modbus TCP, TRON für die Diagnoseausgabe unter Windows und der Online-Rechner für die Pulswertigkeit von Energiezählern."
+>
+  <PageHero eyebrow="Downloads" title="Downloads und Werkzeuge" crumbs={[{ label: 'Downloads' }]}>
+    <div class="terms">
+      <p>Die hier zur Verfügung gestellten Programme sind kostenfrei.</p>
+      <p>Sie sind zur Verwendung „wie sie ist“ gedacht.</p>
+      <p>Es wird keine Garantie für die Funktion gegeben.</p>
+    </div>
+  </PageHero>
+
+  <div class="container dl-grid">
+    <section class="dl reveal" id="modbus" aria-labelledby="dl-modbus">
+      <p class="dl-cat">Modbus</p>
+      <div class="dl-head">
+        <span class="dl-icon"><Icon name="protocol" /></span>
+        <h2 id="dl-modbus">ModbusExplorer</h2>
+      </div>
+      <p class="dl-text">Kostenloses Werkzeug für Modbus TCP.</p>
+      <a class="btn" href="https://modbus.de/explorer.html" rel="noopener">
+        <Icon name="download" /> ModbusExplorer Download
+        <span class="visually-hidden">(externe Seite modbus.de)</span>
+      </a>
+      <p class="dl-note">Download auf modbus.de</p>
+    </section>
+
+    <section class="dl reveal" id="tron" aria-labelledby="dl-tron">
+      <p class="dl-cat">Windows Tools</p>
+      <div class="dl-head">
+        <span class="dl-icon"><Icon name="window" /></span>
+        <h2 id="dl-tron">TRON</h2>
+      </div>
+      <p class="dl-text">Diagnose Ausgabe für Windows (32 Bit)</p>
+      <p class="dl-unavailable"><Icon name="info" /> Derzeit kein Download verfügbar.</p>
+    </section>
+
+    <section class="dl dl--tool reveal" id="werkzeuge" aria-labelledby="dl-puls">
+      <p class="dl-cat">Online-Werkzeug</p>
+      <div class="dl-head">
+        <span class="dl-icon"><Icon name="calculator" /></span>
+        <h2 id="dl-puls">Energiezähler | Pulswertigkeit</h2>
+      </div>
+      <p class="dl-text">Berechnung der Pulswertigkeit aus Wandlerkonstante oder den Daten eines Messwandlerzählers – direkt im Browser.</p>
+      <a class="btn btn--secondary" href="/werkzeuge/pulswertigkeit/">Zum Rechner <Icon name="arrow-right" /></a>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .terms { display: grid; gap: 0.15rem; margin-top: var(--s-5); color: var(--ink-2); font-size: var(--fs-lg); }
+  .dl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); }
+  .dl {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-3);
+    padding: clamp(1.4rem, 1rem + 1.2vw, 2.2rem);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--bg-elev);
+    box-shadow: var(--shadow-sm);
+    scroll-margin-top: 110px;
+  }
+  .dl-cat { color: var(--ink-3); font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; }
+  .dl-head { display: flex; align-items: center; gap: var(--s-3); }
+  .dl-icon { display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: var(--highlight); color: var(--ink); }
+  .dl h2 { font-size: var(--fs-xl); }
+  .dl-text { color: var(--ink-2); margin-bottom: var(--s-3); }
+  .dl .btn { margin-top: auto; }
+  .dl-note { color: var(--ink-3); font-size: var(--fs-xs); }
+  .dl-unavailable { display: inline-flex; align-items: center; gap: 0.5em; margin-top: auto; padding: 0.6rem 0.9rem; border-radius: var(--r-sm); background: var(--st-plan-bg); color: var(--ink-2); font-size: var(--fs-sm); }
+  .dl-unavailable :global(.icon) { width: 1.1rem; height: 1.1rem; }
+  .dl--tool { background: linear-gradient(160deg, var(--bg-elev), var(--accent-soft)); }
+  @media (max-width: 980px) { .dl-grid { grid-template-columns: minmax(0, 1fr); } }
+</style>

@@ -1,0 +1,62 @@
+---
+import Icon from './Icon.astro';
+import { COMPANY, mailto } from '../config';
+
+interface Props {
+  title?: string;
+  text?: string;
+  subject?: string;
+}
+const {
+  title = 'Sprechen wir über Ihr Projekt.',
+  text = 'Ob Softwareentwicklung im Auftrag oder eines unserer Produkte – am schnellsten geht es per E-Mail oder Telefon.',
+  subject = 'Anfrage über die Website',
+} = Astro.props;
+---
+<section class="cband" aria-labelledby="cband-titel">
+  <div class="container">
+    <div class="cband-inner reveal">
+      <div class="cband-copy">
+        <p class="eyebrow">Kontakt</p>
+        <h2 id="cband-titel">{title}</h2>
+        <p class="cband-text">{text}</p>
+      </div>
+      <div class="cband-actions">
+        <a class="btn cband-btn" href={mailto(subject)}><Icon name="mail" /> {COMPANY.email}</a>
+        <a class="btn btn--secondary cband-btn" href={COMPANY.mobileHref}><Icon name="phone" /> {COMPANY.mobile}</a>
+        <p class="cband-addr"><Icon name="pin" /> {COMPANY.street}, {COMPANY.zip} {COMPANY.city} · <a href="/kontakt/#anfahrt">Anfahrt</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cband { padding-top: var(--section-y); }
+  .cband-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    align-items: center;
+    gap: var(--s-6) clamp(2rem, 5vw, 5rem);
+    padding: clamp(1.75rem, 1rem + 4vw, 4.5rem);
+    overflow: hidden;
+    border-radius: var(--r-xl);
+    background:
+      radial-gradient(36rem 20rem at 100% 0%, color-mix(in srgb, var(--brand-yellow) 45%, transparent), transparent 70%),
+      linear-gradient(135deg, var(--bg-elev), var(--bg-elev-2));
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-md);
+  }
+  .cband h2 { font-size: var(--fs-2xl); }
+  .cband-text { margin-top: var(--s-4); color: var(--ink-2); font-size: var(--fs-lg); line-height: 1.55; max-width: 44ch; }
+  .cband-actions { display: grid; gap: var(--s-3); justify-items: stretch; }
+  .cband-btn { justify-content: flex-start; min-height: 56px; padding-inline: 1.4rem; font-size: var(--fs-base); }
+  .cband-addr { display: flex; align-items: center; gap: 0.5em; margin-top: var(--s-2); color: var(--ink-2); font-size: var(--fs-sm); }
+  .cband-addr :global(.icon) { width: 1.05rem; height: 1.05rem; color: var(--ink-3); }
+  @media (max-width: 860px) {
+    .cband-inner { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 420px) {
+    .cband-btn { font-size: var(--fs-sm); padding-inline: 1rem; }
+  }
+</style>

@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base title="Seite nicht gefunden" description="Diese Seite gibt es nicht (mehr).">
+  <section class="container nf">
+    <p class="nf-code" aria-hidden="true">404</p>
+    <h1>Seite nicht gefunden</h1>
+    <p class="lead">Diese Adresse gibt es nicht (mehr). Vielleicht hilft einer dieser Wege weiter:</p>
+    <div class="btn-row">
+      <a class="btn" href="/">Zur Startseite <Icon name="arrow-right" /></a>
+      <a class="btn btn--secondary" href="/produkte/">Produkte</a>
+      <a class="btn btn--secondary" href="/kontakt/">Kontakt</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { display: grid; justify-items: start; gap: var(--s-5); padding-block: clamp(4rem, 10vw, 9rem); }
+  .nf-code {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 3rem + 10vw, 11rem);
+    font-weight: 820;
+    font-stretch: 112%;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    background: linear-gradient(90deg, var(--brand-yellow) 0 55%, var(--brand-red) 55% 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+</style>

@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { COMPANY } from '../config';
+---
+<Base title="Impressum" description="Impressum der ICT Baden GmbH, Seboldstraße 9, 76227 Karlsruhe.">
+  <PageHero eyebrow="Rechtliches" title="Impressum" crumbs={[{ label: 'Impressum' }]} narrow />
+
+  <div class="container container--narrow">
+    <div class="imp">
+      <section class="imp-block">
+        <h2>{COMPANY.name}</h2>
+        <p>{COMPANY.district}</p>
+        <p>{COMPANY.street}<br />{COMPANY.zip} {COMPANY.city}</p>
+      </section>
+
+      <section class="imp-block">
+        <h2>Register und Steuern</h2>
+        <p>{COMPANY.court}<br />{COMPANY.hrb}</p>
+        <dl class="facts">
+          <dt>Steuer-Nr.</dt><dd>{COMPANY.taxNo}</dd>
+          <dt>USt-IdNr</dt><dd>{COMPANY.vatId}</dd>
+        </dl>
+      </section>
+
+      <section class="imp-block">
+        <h2>Geschäftsführer</h2>
+        <p>{COMPANY.ceo}</p>
+        <dl class="facts">
+          <dt>mail</dt><dd><a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a></dd>
+          <dt>mobil</dt><dd><a href={COMPANY.mobileHref}>{COMPANY.mobile}</a></dd>
+          <dt>tel</dt><dd><a href={COMPANY.phoneHref}>{COMPANY.phone}</a></dd>
+          <dt>fax</dt><dd>NEIN</dd>
+        </dl>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .imp { display: grid; gap: var(--s-5); }
+  .imp-block { display: grid; gap: var(--s-3); padding: clamp(1.25rem, 1rem + 1.5vw, 2.25rem); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg-elev); }
+  .imp-block h2 { font-size: var(--fs-lg); }
+  .imp-block p { color: var(--ink); line-height: 1.6; }
+  .imp-block .facts { margin-top: var(--s-2); }
+</style>

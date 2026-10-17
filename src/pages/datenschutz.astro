@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { COMPANY, STAGING } from '../config';
+---
+<Base title="Datenschutzerklärung" description="Datenschutzerklärung der ICT Baden GmbH: statische Website ohne Cookies, ohne Tracking und ohne externe Dienste.">
+  <PageHero eyebrow="Rechtliches" title="Datenschutz­erklärung" crumbs={[{ label: 'Datenschutz' }]} narrow />
+
+  <div class="container container--narrow">
+    <p class="callout legal-note" role="note">
+      <Icon name="alert" />
+      <span><strong>Hinweis:</strong> Diese Fassung wurde für die neue Website überarbeitet. Vor dem Livegang auf ict-baden.de rechtlich prüfen.</span>
+    </p>
+
+    <div class="prose privacy">
+      <h2>Datenschutz</h2>
+      <p>
+        Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen
+        Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.
+      </p>
+      <p>
+        Die Nutzung unserer Website ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten
+        personenbezogene Daten (beispielsweise Name, Anschrift oder E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich,
+        stets auf freiwilliger Basis. Diese Daten werden ohne Ihre ausdrückliche Zustimmung nicht an Dritte weitergegeben.
+      </p>
+      <p>
+        Wir weisen darauf hin, dass die Datenübertragung im Internet (z.&nbsp;B. bei der Kommunikation per E-Mail) Sicherheitslücken
+        aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.
+      </p>
+
+      <h2>Verantwortlich</h2>
+      <p>
+        {COMPANY.name}<br />{COMPANY.street}<br />{COMPANY.zip} {COMPANY.city}<br />
+        E-Mail: <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
+      </p>
+
+      <h2>Was diese Website verarbeitet</h2>
+      <ul>
+        <li><strong>Statische Seiten.</strong> Die Website besteht aus fertigen HTML-Seiten. Es gibt keine Formulare, keine Benutzerkonten und keine Kommentarfunktion.</li>
+        <li><strong>Keine Cookies.</strong> Die Website selbst setzt keine Cookies.</li>
+        <li><strong>Kein Tracking.</strong> Es werden keine Analyse-, Statistik- oder Werbedienste eingesetzt und keine Inhalte Dritter eingebettet (keine Social-Media-Plugins, Karten oder Videos).</li>
+        <li><strong>Keine externen Schriften, Skripte oder CDNs.</strong> Schriften, Bilder, Stylesheets und Skripte werden vom eigenen Server ausgeliefert. Beim Aufruf einer Seite werden keine Daten an andere Anbieter übertragen.</li>
+        <li><strong>Hell oder dunkel.</strong> Wählen Sie über den Schalter in der Kopfzeile das helle oder dunkle Design, speichert Ihr Browser diese Auswahl lokal (localStorage, Eintrag „theme“). Die Angabe wird nicht an uns übertragen und lässt sich über die Browsereinstellungen löschen.</li>
+        <li><strong>E-Mail-Links.</strong> Schaltflächen wie „Anfrage senden“ öffnen Ihr E-Mail-Programm. Die Website überträgt dabei selbst keine Daten.</li>
+        <li><strong>Links zu anderen Websites</strong> (z.&nbsp;B. LinkedIn, GitHub, modbus.de) werden erst beim Anklicken geladen. Dort gelten die Datenschutzbestimmungen des jeweiligen Anbieters.</li>
+      </ul>
+
+      <h2>Server-Log-Files</h2>
+      <p>
+        Der Webserver erhebt und speichert automatisch Informationen in so genannten Server-Log-Files, die Ihr Browser
+        automatisch an uns übermittelt. Dies sind:
+      </p>
+      <ul>
+        <li>IP-Adresse der anfragenden Verbindung</li>
+        <li>Uhrzeit der Serveranfrage</li>
+        <li>aufgerufene Seite oder Datei, Statuscode und übertragene Datenmenge</li>
+        <li>Referrer URL</li>
+        <li>Browsertyp und Browserversion sowie verwendetes Betriebssystem</li>
+      </ul>
+      <p>
+        Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen. Wir behalten uns vor, diese Daten
+        nachträglich zu prüfen, wenn uns konkrete Anhaltspunkte für eine rechtswidrige Nutzung bekannt werden.
+      </p>
+
+      {STAGING && (
+        <>
+          <h2>Auslieferung über Cloudflare</h2>
+          <p>
+            Diese Vorschau der neuen Website wird über das Netzwerk von Cloudflare (Cloudflare, Inc., USA) ausgeliefert
+            (Proxy und Tunnel). Dabei verarbeitet Cloudflare die für die Übertragung notwendigen Verbindungsdaten, insbesondere
+            Ihre IP-Adresse, und kann zum Schutz vor Angriffen eigene, technisch notwendige Cookies setzen. Unser Server erhält die
+            Anfragen über den Tunnel; in seinen Log-Files steht als IP-Adresse die der Tunnel-Verbindung.
+          </p>
+          <p>
+            Weitere Informationen: <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">Datenschutzerklärung von Cloudflare</a>.
+          </p>
+        </>
+      )}
+
+      <h2>SSL-/TLS-Verschlüsselung</h2>
+      <p>
+        Diese Seite nutzt aus Gründen der Sicherheit und zum Schutz der Übertragung vertraulicher Inhalte eine SSL-/TLS-Verschlüsselung.
+        Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers mit „https://“ beginnt, und an dem
+        Schloss-Symbol in Ihrer Browserzeile.
+      </p>
+      <p>Wenn die Verschlüsselung aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelesen werden.</p>
+
+      <h2>Recht auf Auskunft, Löschung, Sperrung</h2>
+      <p>
+        Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft
+        und Empfänger und den Zweck der Datenverarbeitung sowie ein Recht auf Berichtigung, Sperrung oder Löschung dieser Daten.
+        Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten können Sie sich jederzeit unter der im
+        <a href="/impressum/">Impressum</a> angegebenen Adresse an uns wenden.
+      </p>
+
+      <h2>Widerspruch Werbe-Mails</h2>
+      <p>
+        Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten zur Übersendung von nicht ausdrücklich
+        angeforderter Werbung und Informationsmaterialien wird hiermit widersprochen. Die Betreiber der Seiten behalten sich
+        ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-E-Mails, vor.
+      </p>
+
+      <p class="source">Grundlage der bisherigen Fassung: <a href="https://www.e-recht24.de" rel="noopener">e-recht24.de</a></p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .legal-note { margin-bottom: var(--s-7); }
+  .privacy h2:first-child { margin-top: 0; }
+  .source { margin-top: var(--s-7) !important; color: var(--ink-3); font-size: var(--fs-sm); }
+</style>

@@ -1,0 +1,19 @@
+---
+// Text mit eingebetteten Links (Portfolio-Einträge). Externe Links bekommen ein Pfeilsymbol.
+import Icon from './Icon.astro';
+import type { Part } from '../data/portfolio';
+interface Props { parts: Part[] }
+const { parts } = Astro.props;
+---
+{parts.map((p) =>
+  typeof p === 'string'
+    ? p
+    : p.href.startsWith('http')
+      ? <a class="ext" href={p.href} rel="noopener">{p.t}{'⁠'}<Icon name="arrow-up-right" label="(externer Link)" class="ext-icon" /></a>
+      : <a href={p.href}>{p.t}</a>
+)}
+
+<style>
+  .ext { white-space: normal; }
+  .ext :global(.ext-icon) { display: inline-block; width: 0.85em; height: 0.85em; margin-left: 0.15em; vertical-align: -0.05em; }
+</style>
