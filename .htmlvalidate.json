@@ -7,6 +7,7 @@
     "void-style": "off",
     "attribute-boolean-style": "off",
     "doctype-style": "off",
-    "no-inline-style": "error"
+    "no-inline-style": "error",
+    "tel-non-breaking": ["error", { "ignoreClasses": ["tel"] }]
   }
 }

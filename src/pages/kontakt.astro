@@ -6,7 +6,7 @@ import { COMPANY, mailto } from '../config';
 ---
 <Base
   title="Kontakt und Anfahrt"
-  description="Kontakt zu ICT Baden GmbH in Karlsruhe-Durlach: E-Mail, Telefon, Profile und ausführliche Anfahrtsbeschreibung mit Karte und PDF."
+  description="Kontakt zur ICT Baden GmbH in Karlsruhe-Durlach: E-Mail, Telefon, Profile und ausführliche Anfahrtsbeschreibung mit Karte und PDF."
 >
   <PageHero eyebrow="Kontakt" title="Kontakt" crumbs={[{ label: 'Kontakt' }]}>
     <p class="lead to">{COMPANY.name}<br />z.Hd. {COMPANY.contactPerson}</p>
@@ -26,7 +26,7 @@ import { COMPANY, mailto } from '../config';
         </div>
         <div>
           <dt><Icon name="phone" /> Telefon</dt>
-          <dd><a href={COMPANY.mobileHref}>{COMPANY.mobile}</a></dd>
+          <dd><a class="tel" href={COMPANY.mobileHref}>{COMPANY.mobile}</a></dd>
         </div>
         <div>
           <dt><Icon name="fax" /> Fax</dt>
@@ -86,7 +86,7 @@ import { COMPANY, mailto } from '../config';
         <div class="addr reveal">
           <h3>Anschrift</h3>
           <p>{COMPANY.name}<br />{COMPANY.street}<br />{COMPANY.zip} {COMPANY.city}</p>
-          <p class="navi"><Icon name="route" /> Im Navigationssystem angeben: <strong>„{COMPANY.navAddress}“</strong></p>
+          <p class="navi"><Icon name="route" /><span>Im Navigationssystem angeben: <strong class="nowrap">„{COMPANY.navAddress}“</strong></span></p>
         </div>
       </div>
 

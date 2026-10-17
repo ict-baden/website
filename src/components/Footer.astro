@@ -19,7 +19,7 @@ const year = new Date().getFullYear();
         </address>
         <ul class="footer-contact">
           <li><a href={`mailto:${COMPANY.email}`}><Icon name="mail" />{COMPANY.email}</a></li>
-          <li><a href={COMPANY.mobileHref}><Icon name="phone" />{COMPANY.mobile}</a></li>
+          <li><a class="tel" href={COMPANY.mobileHref}><Icon name="phone" />{COMPANY.mobile}</a></li>
         </ul>
       </div>
 

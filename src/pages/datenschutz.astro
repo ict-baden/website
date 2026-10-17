@@ -4,7 +4,7 @@ import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 import { COMPANY, STAGING } from '../config';
 ---
-<Base title="Datenschutzerklärung" description="Datenschutzerklärung der ICT Baden GmbH: statische Website ohne Cookies, ohne Tracking und ohne externe Dienste.">
+<Base title="Datenschutzerklärung" description="Datenschutzerklärung der ICT Baden GmbH: statische Website ohne Tracking und ohne eingebundene Fremdinhalte.">
   <PageHero eyebrow="Rechtliches" title="Datenschutz­erklärung" crumbs={[{ label: 'Datenschutz' }]} narrow />
 
   <div class="container container--narrow">
@@ -40,7 +40,9 @@ import { COMPANY, STAGING } from '../config';
         <li><strong>Statische Seiten.</strong> Die Website besteht aus fertigen HTML-Seiten. Es gibt keine Formulare, keine Benutzerkonten und keine Kommentarfunktion.</li>
         <li><strong>Keine Cookies.</strong> Die Website selbst setzt keine Cookies.</li>
         <li><strong>Kein Tracking.</strong> Es werden keine Analyse-, Statistik- oder Werbedienste eingesetzt und keine Inhalte Dritter eingebettet (keine Social-Media-Plugins, Karten oder Videos).</li>
-        <li><strong>Keine externen Schriften, Skripte oder CDNs.</strong> Schriften, Bilder, Stylesheets und Skripte werden vom eigenen Server ausgeliefert. Beim Aufruf einer Seite werden keine Daten an andere Anbieter übertragen.</li>
+        <li><strong>Keine externen Schriften, Skripte oder CDNs.</strong> Schriften, Bilder, Stylesheets und Skripte werden vom eigenen Server ausgeliefert. {STAGING
+          ? 'Abgesehen von der Auslieferung über Cloudflare (siehe unten) werden beim Aufruf einer Seite keine Daten an andere Anbieter übertragen.'
+          : 'Beim Aufruf einer Seite werden keine Daten an andere Anbieter übertragen.'}</li>
         <li><strong>Hell oder dunkel.</strong> Wählen Sie über den Schalter in der Kopfzeile das helle oder dunkle Design, speichert Ihr Browser diese Auswahl lokal (localStorage, Eintrag „theme“). Die Angabe wird nicht an uns übertragen und lässt sich über die Browsereinstellungen löschen.</li>
         <li><strong>E-Mail-Links.</strong> Schaltflächen wie „Anfrage senden“ öffnen Ihr E-Mail-Programm. Die Website überträgt dabei selbst keine Daten.</li>
         <li><strong>Links zu anderen Websites</strong> (z.&nbsp;B. LinkedIn, GitHub, modbus.de) werden erst beim Anklicken geladen. Dort gelten die Datenschutzbestimmungen des jeweiligen Anbieters.</li>

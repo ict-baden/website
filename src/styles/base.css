@@ -149,6 +149,8 @@ small { font-size: var(--fs-sm); }
 
 .muted { color: var(--ink-3); }
 .nowrap { white-space: nowrap; }
+/* Telefonnummern: kein Umbruch, die Nummer selbst bleibt in der Schreibweise des Impressums (kopierbar) */
+.tel { white-space: nowrap; }
 .tabular { font-variant-numeric: tabular-nums; }
 
 /* Fließtext (Rechtstexte, Über uns) */

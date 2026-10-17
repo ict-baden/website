@@ -16,10 +16,10 @@ export const COMPANY = {
   navAddress: 'Zur Gießerei 20',
   contactPerson: 'Frank Pfattheicher',
   email: 'fpf@ict-baden.de',
-  /** Anzeige mit geschütztem Leerzeichen und Bindestrich, damit die Nummer nicht umbricht */
-  mobile: '+49\u00a0172\u20117207196',
+  /** Schreibweise wie im bisherigen Impressum; den Umbruch verhindert CSS (Klasse .tel in base.css) */
+  mobile: '+49 172-7207196',
   mobileHref: 'tel:+491727207196',
-  phone: '+49\u00a0721\u20119415787',
+  phone: '+49 721-9415787',
   phoneHref: 'tel:+497219415787',
   court: 'Amtsgericht Mannheim',
   hrb: 'HRB 706949',
