@@ -56,6 +56,8 @@ const total = statusCounts(products);
 
     {linien.map((l) => {
       const list = productsOfLine(l.id);
+      const feat = list.filter((p) => p.statusKey !== 'geplant');
+      const planned = list.filter((p) => p.statusKey === 'geplant');
       return (
         <section class="pline" id={`linie-${l.id}`} data-line-section={l.id} aria-labelledby={`h-${l.id}`}>
           <header class="pline-head">
@@ -66,19 +68,19 @@ const total = statusCounts(products);
             </div>
             <span class="pline-n" data-line-count>{plural(list.length, 'Produkt', 'Produkte')}</span>
           </header>
-          {list.some((p) => p.statusKey !== 'geplant') && (
-            <ul class="pgrid" role="list">
-              {list.filter((p) => p.statusKey !== 'geplant').map((p) => (
-                <li data-linie={p.linie} data-status={p.statusKey} class="reveal">
+          {feat.length > 0 && (
+            <ul class="pgrid pgrid--feat" role="list" data-n={feat.length} data-r3={feat.length % 3} data-odd={feat.length % 2 === 1 ? '' : undefined}>
+              {feat.map((p, i) => (
+                <li data-linie={p.linie} data-status={p.statusKey} class:list={['reveal', i === feat.length - 1 && 'is-last']}>
                   <ProductCard product={p} />
                 </li>
               ))}
             </ul>
           )}
-          {list.some((p) => p.statusKey === 'geplant') && (
-            <ul class="pgrid pgrid--compact" role="list">
-              {list.filter((p) => p.statusKey === 'geplant').map((p) => (
-                <li data-linie={p.linie} data-status={p.statusKey} class="reveal">
+          {planned.length > 0 && (
+            <ul class="pgrid pgrid--compact" role="list" data-n={planned.length} data-r3={planned.length % 3} data-odd={planned.length % 2 === 1 ? '' : undefined}>
+              {planned.map((p, i) => (
+                <li data-linie={p.linie} data-status={p.statusKey} class:list={['reveal', i === planned.length - 1 && 'is-last']}>
                   <ProductCard product={p} compact />
                 </li>
               ))}
@@ -119,9 +121,7 @@ const total = statusCounts(products);
     padding: var(--s-4) var(--s-5);
     border: 1px solid var(--line);
     border-radius: var(--r-lg);
-    background: color-mix(in srgb, var(--bg-elev) 88%, transparent);
-    backdrop-filter: blur(14px) saturate(1.4);
-    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    background: var(--bg-elev);
     box-shadow: var(--shadow-md);
   }
   .filters[hidden] { display: none; }
@@ -143,6 +143,13 @@ const total = statusCounts(products);
     .chips { flex-wrap: wrap; overflow: visible; mask-image: none; }
   }
   .fresult { color: var(--ink-2); font-size: var(--fs-sm); font-weight: 560; }
+  /* Klebt die Leiste oben (public/js/products.js setzt .is-stuck): eine flache Zeile ohne Beschriftungen */
+  .filters.is-stuck { display: flex; gap: var(--s-4); padding: var(--s-2) var(--s-4); }
+  .is-stuck .fgroup { flex: 1 1 0; }
+  .is-stuck .fgroup:first-child { flex-grow: 1.7; }
+  .is-stuck .flabel { display: none; }
+  .is-stuck .fresult { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .filters.is-stuck .chips { flex-wrap: nowrap; overflow-x: auto; mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); }
 
   .pline { scroll-margin-top: 240px; }
   .pline[hidden] { display: none; }
@@ -168,6 +175,29 @@ const total = statusCounts(products);
   .pempty { display: grid; justify-items: center; gap: var(--s-4); padding: var(--s-8) 0; text-align: center; color: var(--ink-2); }
   .pempty[hidden] { display: none; }
 
+  /* Keine leeren Zellen: das Raster richtet sich nach der Zahl der sichtbaren Karten (data-n, data-r3 = n mod 3,
+     data-odd, .is-last an der letzten sichtbaren Karte; der Filter in public/js/products.js setzt sie neu).
+     Bleibt eine Karte allein in ihrer Zeile, wird sie zur breiten Karte mit Bild links und Text rechts. */
+  .pgrid--feat[data-n='2'] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (min-width: 1061px) {
+    .pgrid--feat[data-r3='1'] > li.is-last { grid-column: 1 / -1; }
+    .pgrid--feat[data-r3='1'] > li.is-last :global(.pcard) { flex-direction: row; }
+    .pgrid--feat[data-r3='1'] > li.is-last :global(.pcover) { flex: none; width: 56%; }
+    .pgrid--feat[data-r3='1'] > li.is-last :global(.pcard-body) { justify-content: center; padding: var(--s-6) clamp(1.5rem, 1rem + 1.5vw, 2.5rem); }
+    .pgrid--feat[data-r3='1'] > li.is-last :global(.pcard-top) { margin-top: 0; }
+    .pgrid--feat[data-r3='1'] > li.is-last :global(.pcard-more) { margin-top: var(--s-2); }
+  }
+  @media (min-width: 641px) and (max-width: 1060px) {
+    .pgrid--feat[data-odd] > li.is-last { grid-column: 1 / -1; }
+    .pgrid--feat[data-odd] > li.is-last :global(.pcard) { flex-direction: row; }
+    .pgrid--feat[data-odd] > li.is-last :global(.pcover) { flex: none; width: 52%; }
+    .pgrid--feat[data-odd] > li.is-last :global(.pcard-body) { justify-content: center; padding: var(--s-5) var(--s-5); }
+    .pgrid--feat[data-odd] > li.is-last :global(.pcard-top) { margin-top: 0; }
+    .pgrid--feat[data-odd] > li.is-last :global(.pcard-more) { margin-top: var(--s-2); }
+  }
+  @media (min-width: 761px) {
+    .pgrid--compact[data-odd] > li.is-last { grid-column: 1 / -1; }
+  }
   @media (max-width: 1060px) { .pgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 860px) {
     .filters { top: 64px; padding: var(--s-3) var(--s-4); }

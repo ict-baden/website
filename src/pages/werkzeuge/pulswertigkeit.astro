@@ -29,7 +29,7 @@ const num = (n: number) => fmt.format(n);
     <div class="calc-grid">
       <section class="calc-card" aria-labelledby="c1">
         <p class="calc-step">Vorgaben</p>
-        <h2 id="c1">Aus Wandlerkonstante</h2>
+        <h2 id="c1">Aus Wandler&shy;konstante</h2>
         <div class="fields">
           <div class="field">
             <label for="impulses">Zähler-Impulskonstante</label>
@@ -56,7 +56,7 @@ const num = (n: number) => fmt.format(n);
 
       <section class="calc-card" aria-labelledby="c2">
         <p class="calc-step">Vorgaben</p>
-        <h2 id="c2">Oder von Messwandlerzähler</h2>
+        <h2 id="c2">Oder von Messwandler&shy;zähler</h2>
         <div class="fields">
           <div class="field">
             <label for="MwImpulses"><span class="mark" aria-hidden="true">1</span> <span>Impulse (R<sub>A</sub>)</span></label>
@@ -191,7 +191,8 @@ const num = (n: number) => fmt.format(n);
   .ref { margin-top: var(--section-y); }
   .ref-title { font-size: var(--fs-2xl); margin-bottom: var(--s-6); }
   .ref-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: var(--s-6); align-items: start; }
-  .ref-fig { margin: 0; }
+  /* Foto nur 400 px breit: nicht vergrößern, sonst wird es unscharf */
+  .ref-fig { margin: 0; max-width: 400px; }
   .ref-fig img { width: 100%; height: auto; border-radius: var(--r-md); box-shadow: var(--shadow-md); image-rendering: auto; }
   .ref-fig figcaption { margin-top: var(--s-3); color: var(--ink-2); font-size: var(--fs-sm); }
   .ref-tables { display: grid; gap: var(--s-5); }

@@ -46,7 +46,8 @@ const { eyebrow, title, lead, crumbs = [], narrow = false } = Astro.props;
     top: 0;
     right: 0;
     width: var(--pf-w, clamp(84px, 17vw, 260px));
-    height: min(100%, var(--pf-h, 100%));
+    /* feste Eckhöhe statt voller Kopfhöhe: endet deutlich über dem Inhalt darunter */
+    height: min(100%, var(--pf-h, clamp(9rem, 22vw, 18rem)));
     overflow: hidden;
     border-bottom-left-radius: 2px;
   }

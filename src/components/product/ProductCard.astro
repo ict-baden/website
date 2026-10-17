@@ -3,7 +3,7 @@ import ProductCover from './ProductCover.astro';
 import ProductIcon from './ProductIcon.astro';
 import StatusBadge from '../StatusBadge.astro';
 import Icon from '../Icon.astro';
-import { lineById, productUrl, type Product } from '../../lib/products';
+import { lineById, nameHtml, productUrl, type Product } from '../../lib/products';
 
 interface Props {
   product: Product;
@@ -25,7 +25,7 @@ const line = lineById(product.linie);
       <StatusBadge product={product} />
     </div>
     <H class="pcard-title">
-      <a href={productUrl(product)}>{product.name}</a>
+      <a href={productUrl(product)} set:html={nameHtml(product.name)} />
     </H>
     {(product.kind || showLine) && (
       <p class="pcard-kind">{product.kind ?? line.name}{showLine && product.kind && <span class="sep"> · {line.name}</span>}</p>
@@ -69,7 +69,7 @@ const line = lineById(product.linie);
     margin-bottom: var(--s-2);
   }
   .pcard-top :global(.pcard-icon) { --picon-size: 56px; }
-  .pcard-title { font-size: 1.3rem; letter-spacing: -0.015em; hyphens: auto; overflow-wrap: break-word; }
+  .pcard-title { font-size: 1.3rem; letter-spacing: -0.015em; hyphens: manual; }
   .pcard-title a { color: var(--ink); text-decoration: none; }
   .pcard-title a::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
   .pcard-title a:focus-visible { outline: none; }

@@ -1,7 +1,7 @@
 // Rechenkern des Pulswertigkeit-Rechners. Formeln unverändert aus der bisherigen Seite counter-pulse.html:
 //   pulse   = (factor * 1000) / impulses
 //   MwPulse = ((MwVolts / MwVoltsDiv) * (MwAmps / MwAmpsDiv) * 1000) / MwImpulses
-// Ergebnis jeweils in Wh je Impuls. Wird im Browser und im Test (scripts/test-pulse.mjs) verwendet.
+// Ergebnis jeweils in Wh je Impuls. Wird im Browser und im Test (npm test) verwendet.
 
 /** Liest eine Zahl in deutscher Schreibweise: Komma als Dezimalzeichen, Punkt als Tausendertrennzeichen. */
 export function parseNumber(input) {

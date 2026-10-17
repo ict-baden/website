@@ -73,6 +73,30 @@ if (checkExternal) {
   }
 }
 
+// Ausgelieferte Dateien: keine internen Hinweise (Kommentare in SVGs, Skriptpfade, Repo-Verweise) und
+// backdrop-filter ohne Präfix im Stylesheet (fehlt es, ist build.cssTarget in astro.config.mjs verloren)
+const assets = [];
+(function walk(dir) {
+  for (const f of readdirSync(dir)) {
+    const p = join(dir, f);
+    if (statSync(p).isDirectory()) walk(p);
+    else if (/\.(svg|js|css|html)$/.test(p)) assets.push(p);
+  }
+})(dist);
+let cssHasBackdrop = false;
+let cssHasUnprefixed = false;
+for (const file of assets) {
+  const text = readFileSync(file, 'utf8');
+  const where = relative(dist, file).split(sep).join('/');
+  const marker = (file.endsWith('.svg') ? /<!--|Repo-Logo|\.mjs\b/ : /Repo-Logo|scripts\/[\w-]+\.mjs|src\/(?:pages|components|assets)\//).exec(text);
+  if (marker) broken.push(`${where}: interner Hinweis "${marker[0]}"`);
+  if (file.endsWith('.css') && text.includes('backdrop-filter')) {
+    cssHasBackdrop = true;
+    if (/(^|[;{\s])backdrop-filter:/.test(text)) cssHasUnprefixed = true;
+  }
+}
+if (cssHasBackdrop && !cssHasUnprefixed) broken.push('Stylesheet: backdrop-filter nur mit -webkit-Präfix (Chrome und Firefox ignorieren es)');
+
 if (broken.length) {
   console.error(`Links: ${broken.length} Fehler\n  ` + broken.join('\n  '));
   process.exit(1);

@@ -8,7 +8,7 @@ import ProductIcon from '../../components/product/ProductIcon.astro';
 import ProductCard from '../../components/product/ProductCard.astro';
 import Blocks from '../../components/product/Blocks.astro';
 import { coverArt } from '../../lib/art';
-import { colorClasses, isPortrait, lineAnchor, lineById, products, productsOfLine, STATUS_HELP, STATUS_ORDER, type Product, type Shot } from '../../lib/products';
+import { colorClasses, isPortrait, lineAnchor, lineById, nameHtml, nameSize, products, productsOfLine, STATUS_HELP, STATUS_ORDER, type Product, type Shot } from '../../lib/products';
 import { mailto } from '../../config';
 import { existsSync } from 'node:fs';
 
@@ -52,10 +52,10 @@ const og = existsSync(`public/og/produkte/${p.slug}.jpg`) ? `/og/produkte/${p.sl
             <li><span aria-current="page">{p.name}</span></li>
           </ol>
         </nav>
-        <div class:list={['dhead', p.name.length > 13 && 'dhead--long']}>
+        <div class:list={['dhead', nameSize(p.name) && `dhead--${nameSize(p.name)}`]}>
           <ProductIcon product={p} size={76} uid="-hero" class="dicon" />
           <div>
-            <h1>{p.name}</h1>
+            <h1 set:html={nameHtml(p.name)} />
             {p.kind && <p class="dkind">{p.kind}</p>}
           </div>
         </div>
@@ -214,10 +214,13 @@ const og = existsSync(`public/og/produkte/${p.slug}.jpg`) ? `/og/produkte/${p.sl
   .dhead { display: flex; align-items: center; gap: var(--s-5); margin-top: var(--s-2); }
   .dhead :global(.dicon) { --picon-size: 76px; }
   .dhead > div { min-width: 0; }
-  .dhead h1 { font-size: var(--fs-3xl); font-stretch: 106%; letter-spacing: -0.03em; hyphens: auto; overflow-wrap: break-word; }
+  /* Umbruch nur an den Stellen aus nameHtml() (keine automatische Silbentrennung von Markennamen);
+     Größe nach dem längsten unteilbaren Teil des Namens (nameSize) */
+  .dhead h1 { font-size: var(--fs-3xl); font-stretch: 106%; letter-spacing: -0.03em; hyphens: manual; text-wrap: balance; }
   .dhead--long h1 { font-size: clamp(2rem, 1.3rem + 2.4vw, 3.1rem); }
+  .dhead--xlong h1 { font-size: clamp(1.8rem, 1.1rem + 2vw, 2.6rem); }
   .dkind { margin-top: 0.3rem; color: var(--ink-3); font-size: var(--fs-lg); font-weight: 560; }
-  .dtag { margin-top: var(--s-5); font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 700; font-stretch: 104%; letter-spacing: -0.015em; color: var(--ink); }
+  .dtag { margin-top: var(--s-5); max-width: 24ch; font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 700; font-stretch: 104%; line-height: 1.2; letter-spacing: -0.015em; text-wrap: balance; color: var(--ink); }
   .dlead { margin-top: var(--s-4); max-width: 56ch; color: var(--ink-2); font-size: var(--fs-lg); line-height: 1.55; }
   .dmeta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); margin-top: var(--s-5); }
   .dhl { margin-top: var(--s-4); }

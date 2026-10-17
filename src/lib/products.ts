@@ -91,3 +91,44 @@ export function statusCounts(list: Product[]) {
 
 /** "1 Produkt" / "38 Produkte" */
 export const plural = (n: number, one: string, many: string) => `${n.toLocaleString('de-DE')} ${n === 1 ? one : many}`;
+
+// ---------------------------------------------------------------------------------------------
+// Umbruch von Produktnamen in großen Überschriften (Detailseite, Open-Graph-Bilder): keine automatische
+// Silbentrennung (die trennt Markennamen wie Wörterbuchwörter), sondern Umbruchstellen nach Bindestrich
+// und Schrägstrich, an Binnenmajuskeln (Enterprise|Browser) und weiche Trennstriche an Wortfugen.
+
+/** Wortfugen für weiche Trennstriche (· = Trennstelle). Nur Anzeige, der Produktname bleibt unverändert. */
+const NAME_JOINTS = [
+  'Verpackungs·daten', 'Verpackungs·mengen', 'Energie·bericht', 'Drucker·flotte', 'Prozess·leit·system',
+  'Visuali·sierung', 'Zertifikats·server', 'Datei·schleuse', 'Label·designer', 'Versio·nierung', 'Prüf·station',
+  'Netz·profil', 'Um·schalter', 'Haus·meister', 'Fern·wartung', 'Frame·work',
+];
+
+/** Teile eines Namens, zwischen denen umbrochen werden darf (ohne weiche Trennstriche). */
+function nameParts(name: string): string[] {
+  return name
+    .replace(/(?<=\S)([-/])(?=\S)/g, '$1\n')
+    .replace(/([a-zäöüß])(?=[A-ZÄÖÜ][a-zäöüß])/g, '$1\n')
+    .split(/\s+|\n/)
+    .filter(Boolean);
+}
+
+/** Längster Teil ohne Umbruchstelle (ohne weiche Trennstriche). */
+export const longestNamePart = (name: string) => Math.max(...nameParts(name).map((s) => s.length));
+
+/** Größenstufe der Überschrift nach dem längsten unteilbaren Teil: '' (normal), 'long' oder 'xlong'. */
+export function nameSize(name: string): '' | 'long' | 'xlong' {
+  const n = longestNamePart(name);
+  return n >= 15 ? 'xlong' : n >= 12 || name.length > 20 ? 'long' : '';
+}
+
+const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+/** Name als HTML mit <wbr> und &shy; an den erlaubten Stellen. */
+export function nameHtml(name: string): string {
+  let html = escapeHtml(name);
+  for (const j of NAME_JOINTS) html = html.split(j.replace(/·/g, '')).join(j.replace(/·/g, '&shy;'));
+  return html
+    .replace(/(?<=\S)([-/])(?=\S)/g, '$1<wbr>')
+    .replace(/([a-zäöüß])(?=[A-ZÄÖÜ][a-zäöüß])/g, '$1<wbr>');
+}

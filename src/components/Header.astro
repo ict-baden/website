@@ -66,9 +66,10 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
     top: 0;
     z-index: 50;
     view-transition-name: site-header;
-    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    /* 90 % deckend: bleibt lesbar, auch wo der Browser keinen Weichzeichner kann
+       (das -webkit-Präfix ergänzt der Build, siehe build.cssTarget in astro.config.mjs) */
+    background: color-mix(in srgb, var(--bg) 90%, transparent);
     backdrop-filter: saturate(1.6) blur(14px);
-    -webkit-backdrop-filter: saturate(1.6) blur(14px);
     border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
   }
   .header-inner {

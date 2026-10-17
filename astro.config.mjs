@@ -17,6 +17,10 @@ export default defineConfig({
   },
   vite: {
     build: {
+      // Zielbrowser für den CSS-Minifier (lightningcss): ohne Ziele fasst er backdrop-filter und
+      // -webkit-backdrop-filter zur Präfix-Fassung zusammen, die Chrome und Firefox ignorieren.
+      // Mit Zielen ergänzt er das Präfix für Safari selbst (Baseline "weitgehend verfügbar").
+      cssTarget: ['chrome111', 'edge111', 'firefox114', 'safari16.4'],
       // Ein gemeinsames Stylesheet für alle Seiten: eine Anfrage, danach aus dem Cache
       cssCodeSplit: false,
       // Keine data:-URIs für Schriften oder Bilder – alles als eigene Datei mit Hash im Namen
