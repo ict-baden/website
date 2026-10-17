@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      ASTRO_TELEMETRY_DISABLED: "1"
+      SITE_STAGING: "1"
+      SITE_URL: https://ictbaden.netgetvpn.de
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Abhängigkeiten
+        run: npm ci
+
+      - name: Produktdaten prüfen (keine internen Inhalte)
+        run: npm run check:products
+
+      - name: Rechner gegen Originalformeln prüfen
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Linkprüfung
+        run: npm run check:links
+
+      - name: HTML-Prüfung (html-validate inkl. Barrierefreiheitsregeln)
+        run: npm run check:html
+
+      - name: Barrierefreiheit (axe-core, hell/dunkel, 1440/390 px)
+        # Nutzt das auf dem Runner installierte Google Chrome
+        run: npm run check:a11y
+
+      - name: Build-Artefakt
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 7
