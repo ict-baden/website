@@ -1,0 +1,2077 @@
+{
+  "stand": "2026-10-14",
+  "linien": [
+    {
+      "id": "android",
+      "name": "Android & Zebra",
+      "text": "Mobile Geräte in Lager und Logistik"
+    },
+    {
+      "id": "labor",
+      "name": "Labor",
+      "text": "Proben, Barcodes, Rückverfolgbarkeit"
+    },
+    {
+      "id": "ot",
+      "name": "OT-Sicherheit & Compliance",
+      "text": "Anlagen-PCs, Leitstände, NIS2, IEC 62443, GMP"
+    },
+    {
+      "id": "explorer",
+      "name": "Explorer",
+      "text": "Protokolle prüfen bei Inbetriebnahme, Gebäudetechnik und im Rechenzentrum"
+    },
+    {
+      "id": "service",
+      "name": "Service-Laptop",
+      "text": "Werkzeuge für Techniker vor Ort an der Anlage"
+    },
+    {
+      "id": "server",
+      "name": "Self-hosted Server-Apps",
+      "text": "Zentrale Dienste, die Kunden im eigenen Werk betreiben, weil Produktion oder Sicherheit davon abhängen"
+    },
+    {
+      "id": "neu",
+      "name": "Neue Ideen",
+      "text": "Noch keiner Linie zugeordnet"
+    }
+  ],
+  "products": [
+    {
+      "id": "industrialkeyboard",
+      "slug": "industrialkeyboard",
+      "nr": 3,
+      "name": "IndustrialKeyboard",
+      "kind": null,
+      "tagline": null,
+      "linie": "android",
+      "status": "fertig",
+      "statusKey": "verfuegbar",
+      "statusLabel": "Verfügbar",
+      "version": null,
+      "text": "Android-Tastatur mit F1–F24 und Sondertasten für alle Apps, auch RDP, Terminal-Emulatoren und SAP.",
+      "sections": {
+        "problem": null,
+        "ersetzt": null,
+        "umfang": null
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "labeldesigner",
+      "slug": "labeldesigner",
+      "nr": 4,
+      "name": "Labeldesigner",
+      "kind": null,
+      "tagline": null,
+      "linie": "android",
+      "status": "fertig",
+      "statusKey": "verfuegbar",
+      "statusLabel": "Verfügbar",
+      "version": null,
+      "text": "Etiketten für Zebra-Drucker im Browser gestalten und als ZPL ausgeben.",
+      "sections": {
+        "problem": null,
+        "ersetzt": null,
+        "umfang": null
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "enterprisebrowser",
+      "slug": "enterprisebrowser",
+      "nr": 2,
+      "name": "EnterpriseBrowser",
+      "kind": null,
+      "tagline": null,
+      "linie": "android",
+      "status": "fast-fertig",
+      "statusKey": "vorabversion",
+      "statusLabel": "Vorabversion 0.3.1",
+      "version": "0.3.1",
+      "text": "Kiosk-Browser für Zebra und Honeywell mit DataWedge-Scan, Profilen, CSS/JS-Injection und Konfiguration per MDM (SOTI, Intune, StageNow).",
+      "sections": {
+        "problem": null,
+        "ersetzt": null,
+        "umfang": null
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "qr-scanner",
+      "slug": "lupe",
+      "nr": 6,
+      "name": "Lupe",
+      "kind": "QR-Scanner",
+      "tagline": "QR- und Barcodes lesen",
+      "linie": "labor",
+      "status": "fast-fertig",
+      "statusKey": "vorabversion",
+      "statusLabel": "Vorabversion 0.1.0",
+      "version": "0.1.0",
+      "text": "Einfacher QR- und Barcode-Leser für Windows per Webcam oder Bildschirm. Ergebnis in die Zwischenablage oder als Tastatureingabe.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Es gibt keinen guten, einfachen QR- und Barcode-Leser für Windows."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Scan per Webcam",
+              "Scan eines Bildschirmausschnitts",
+              "Ergebnis in die Zwischenablage oder als Tastatureingabe",
+              "Verlauf der letzten Scans"
+            ]
+          }
+        ]
+      },
+      "highlights": [
+        "Win+Umschalt+Q",
+        "QR · Data Matrix · EAN",
+        "Tippt in jede Anwendung",
+        "Link-Regeln"
+      ],
+      "facts": [
+        {
+          "label": "Plattform",
+          "value": "Windows 10 und 11, x64"
+        },
+        {
+          "label": "Oberfläche",
+          "value": "Deutsch"
+        },
+        {
+          "label": "Daten",
+          "value": "bleiben auf dem PC, nichts wird ins Internet gesendet"
+        },
+        {
+          "label": "Formate",
+          "value": "22 Code-Formate, darunter QR Code, Data Matrix, Code 128 und EAN"
+        },
+        {
+          "label": "Lieferform",
+          "value": "MSI für alle Benutzer oder eine einzelne Lupe.exe ohne Installation"
+        }
+      ],
+      "media": {
+        "logo": "/media/produkte/lupe/logo.svg",
+        "banner": null,
+        "demo": null,
+        "screenshots": [
+          {
+            "name": "file",
+            "title": "Dateien und Zwischenablage",
+            "caption": "Bild öffnen, auf die Seite „Datei“ ziehen oder mit Strg+V einfügen. Jeder Code im Bild wird gefunden und nummeriert.",
+            "alt": "Seite Datei: ein Lieferschein mit vier Codes, markiert als 1 QR-Code, 2 Code 128, 3 EAN-13 und 4 Data Matrix, darunter die Liste „4 Codes gefunden“ mit Kopieren und Link öffnen je Zeile.",
+            "light": {
+              "src": "/media/produkte/lupe/file-light-1600.webp",
+              "srcset": "/media/produkte/lupe/file-light-800.webp 800w, /media/produkte/lupe/file-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
+            },
+            "dark": {
+              "src": "/media/produkte/lupe/file-dark-1600.webp",
+              "srcset": "/media/produkte/lupe/file-dark-800.webp 800w, /media/produkte/lupe/file-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
+            }
+          },
+          {
+            "name": "selection",
+            "title": "Jeder Bildschirmausschnitt",
+            "caption": "In jedem Programm Win+Umschalt+Q drücken und ein Rechteck um den Code ziehen – über alle Monitore, auch bei geschlossenem Lupe-Fenster.",
+            "alt": "Auswahl über einem abgedunkelten Standbild des Desktops: eine PDF-Rechnung mit QR-Code, ein blaues Rechteck um den Code und der Hinweis „Rechteck um den Code aufziehen · Klick: ganzer Bildschirm · Esc: abbrechen“.",
+            "light": {
+              "src": "/media/produkte/lupe/selection-light-1600.webp",
+              "srcset": "/media/produkte/lupe/selection-light-800.webp 800w, /media/produkte/lupe/selection-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 900
+            },
+            "dark": {
+              "src": "/media/produkte/lupe/selection-dark-1600.webp",
+              "srcset": "/media/produkte/lupe/selection-dark-800.webp 800w, /media/produkte/lupe/selection-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 900
+            }
+          },
+          {
+            "name": "camera",
+            "title": "Webcam",
+            "caption": "Code vor die Kamera halten: Lupe markiert ihn und piept. Derselbe Code wird erst wieder gemeldet, wenn er 3 Sekunden nicht zu sehen war.",
+            "alt": "Seite Kamera: Livebild der Demo-Kamera mit einem QR-Code auf einem Etikett, markiert als „QR-Code“, Zielecken in der Mitte, darunter „Zuletzt erkannt“ mit dem Link und den Schaltflächen Kopieren und Link öffnen.",
+            "light": {
+              "src": "/media/produkte/lupe/camera-light-1600.webp",
+              "srcset": "/media/produkte/lupe/camera-light-800.webp 800w, /media/produkte/lupe/camera-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
+            },
+            "dark": {
+              "src": "/media/produkte/lupe/camera-dark-1600.webp",
+              "srcset": "/media/produkte/lupe/camera-dark-800.webp 800w, /media/produkte/lupe/camera-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
+            }
+          },
+          {
+            "name": "result",
+            "title": "Eingetippt in die Anwendung, aus der Sie kamen",
+            "caption": "Mit „Eintippen“ landet der Inhalt als Tastatureingabe in dem Fenster, das vor dem Scan aktiv war – auf Wunsch gefolgt von Enter oder Tab.",
+            "alt": "Ergebnis-Benachrichtigung „QR-Code erkannt“ mit einem Beispiel-Link, dem Status „Kopiert · Eingetippt“ und den Schaltflächen Kopieren, Link öffnen und In Lupe zeigen.",
+            "light": {
+              "src": "/media/produkte/lupe/result-light-630.webp",
+              "srcset": "/media/produkte/lupe/result-light-630.webp 630w",
+              "width": 630,
+              "height": 291
+            },
+            "dark": {
+              "src": "/media/produkte/lupe/result-dark-630.webp",
+              "srcset": "/media/produkte/lupe/result-dark-630.webp 630w",
+              "width": 630,
+              "height": 291
+            }
+          },
+          {
+            "name": "settings",
+            "title": "Link-Regeln",
+            "caption": "Ein regulärer Ausdruck und ein optionales Präfix machen aus einem Code einen Link, z. B. aus einer EAN die Artikelseite im ERP. Geöffnet werden nur http- und https-Links.",
+            "alt": "Seite Einstellungen: Aktionen je Quelle (Kopieren, Eintippen, Link öffnen), die Taste nach dem Eintippen, das Tastenkürzel Win+Umschalt+Q als bereit markiert und die Tabelle der Link-Regeln mit regulärem Ausdruck und Präfix.",
+            "light": {
+              "src": "/media/produkte/lupe/settings-light-1600.webp",
+              "srcset": "/media/produkte/lupe/settings-light-800.webp 800w, /media/produkte/lupe/settings-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
+            },
+            "dark": {
+              "src": "/media/produkte/lupe/settings-dark-1600.webp",
+              "srcset": "/media/produkte/lupe/settings-dark-800.webp 800w, /media/produkte/lupe/settings-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
+            }
+          },
+          {
+            "name": "history",
+            "title": "Verlauf",
+            "caption": "Alles, was Lupe gelesen hat – durchsuchbar und als CSV für Excel exportierbar. Gespeichert pro Benutzer oder abgeschaltet, dann wird die Datei gelöscht.",
+            "alt": "Seite Verlauf: zwölf Einträge mit Uhrzeit, Quelle (Kamera, Bildschirm, Datei, Zwischenablage), Format und Inhalt, ein Suchfeld und die Schaltflächen „Als CSV exportieren …“ und „Alles löschen“.",
+            "light": {
+              "src": "/media/produkte/lupe/history-light-1600.webp",
+              "srcset": "/media/produkte/lupe/history-light-800.webp 800w, /media/produkte/lupe/history-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
+            },
+            "dark": {
+              "src": "/media/produkte/lupe/history-dark-1600.webp",
+              "srcset": "/media/produkte/lupe/history-dark-800.webp 800w, /media/produkte/lupe/history-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
+            }
+          }
+        ],
+        "galleryNote": "Abbildungen mit Beispieldaten aus dem Demo-Modus."
+      }
+    },
+    {
+      "id": "vial-scanner",
+      "slug": "vial-scanner",
+      "nr": 5,
+      "name": "Vial-Scanner",
+      "kind": null,
+      "tagline": null,
+      "linie": "labor",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Racks mit 2D-codierten Röhrchen scannen, jede Position zuordnen und als CSV oder an ein LIMS exportieren. Alternative zu Ziath DataPaq.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Labore lagern Proben in Racks mit 2D-codierten Röhrchen (Vials). Ein Rack-Scanner liest alle Codes auf einmal. Die Software dazu kommt bisher vom Hersteller."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Bild vom Scanner holen",
+              "DataMatrix-Codes pro Rack-Position erkennen, fehlende und unlesbare markieren",
+              "Export als CSV, Schnittstelle für LIMS",
+              "Audit-Log, Basis aus Vitrine"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "vitrine",
+      "slug": "vitrine",
+      "nr": 1,
+      "name": "Vitrine",
+      "kind": null,
+      "tagline": "Ansehen, nicht anfassen.",
+      "linie": "ot",
+      "status": "fast-fertig",
+      "statusKey": "vorabversion",
+      "statusLabel": "Vorabversion",
+      "version": null,
+      "text": "Transparente Bildschirmsperre: Programme bleiben sichtbar, Tastatur und Maus sind gesperrt. Mit Entra ID, elektronischer Signatur und manipulationserkennendem Protokoll.",
+      "sections": {
+        "problem": null,
+        "ersetzt": null,
+        "umfang": null
+      },
+      "highlights": [
+        "Microsoft Entra ID",
+        "E-Signaturen",
+        "Audit-Hash-Kette",
+        "GPO / Intune"
+      ],
+      "facts": [
+        {
+          "label": "Plattform",
+          "value": "Windows 10 und 11"
+        },
+        {
+          "label": "Anmeldung",
+          "value": "Microsoft Entra ID, Windows-Kennwort, Windows Hello"
+        },
+        {
+          "label": "Verwaltung",
+          "value": "Gruppenrichtlinie oder Intune per ADMX/ADML"
+        },
+        {
+          "label": "Einsatz",
+          "value": "Labore, Produktion, Leitstände, Pharma"
+        },
+        {
+          "label": "Lieferform",
+          "value": "MSI für alle Benutzer oder eine einzelne Vitrine.exe ohne Installation"
+        }
+      ],
+      "media": {
+        "logo": "/media/produkte/vitrine/logo.svg",
+        "banner": {
+          "src": "/media/produkte/vitrine/banner-2560.webp",
+          "srcset": "/media/produkte/vitrine/banner-1280.webp 1280w, /media/produkte/vitrine/banner-2560.webp 2560w",
+          "width": 2560,
+          "height": 840,
+          "alt": "Vitrine – transparente Bildschirmsperre mit Microsoft Entra ID. Ansehen, nicht anfassen: Programme bleiben sichtbar und laufen weiter."
+        },
+        "demo": {
+          "src": "/media/produkte/vitrine/demo.webp",
+          "still": "/media/produkte/vitrine/demo-still.webp",
+          "width": 900,
+          "height": 474,
+          "alt": "Animation: Eine HPLC-Messkurve läuft unter der durchsichtigen Sperre weiter. Ein Klick öffnet den Entsperrdialog, „Weiter mit Microsoft“ entsperrt den Arbeitsplatz.",
+          "caption": "Die Messung läuft unter der Sperre weiter › Klick öffnet den Entsperrdialog › „Weiter mit Microsoft“ › entsperrt"
+        },
+        "screenshots": [
+          {
+            "name": "lock",
+            "title": "Durchsichtig sperren",
+            "caption": "Programme bleiben sichtbar und laufen weiter. Ein Overlay pro Monitor, DPI-genau, mit eigenem Hinweistext.",
+            "alt": "Durchsichtig gesperrt: Die Laborsoftware bleibt sichtbar, unten die Hinweisleiste „Messung läuft – bitte nicht berühren“.",
+            "light": {
+              "src": "/media/produkte/vitrine/lock-light-1600.webp",
+              "srcset": "/media/produkte/vitrine/lock-light-800.webp 800w, /media/produkte/vitrine/lock-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 842
+            },
+            "dark": {
+              "src": "/media/produkte/vitrine/lock-dark-1600.webp",
+              "srcset": "/media/produkte/vitrine/lock-dark-800.webp 800w, /media/produkte/vitrine/lock-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 842
+            }
+          },
+          {
+            "name": "unlock",
+            "title": "Anmelden mit Microsoft Entra ID",
+            "caption": "Über den Windows-Kontobroker: MFA, Authenticator, Passkeys/FIDO2, Windows Hello for Business, Conditional Access.",
+            "alt": "Entsperrdialog mit den Verfahren Microsoft, Kennwort und Hello und der Schaltfläche „Weiter mit Microsoft“.",
+            "light": {
+              "src": "/media/produkte/vitrine/unlock-light-1600.webp",
+              "srcset": "/media/produkte/vitrine/unlock-light-800.webp 800w, /media/produkte/vitrine/unlock-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 842
+            },
+            "dark": {
+              "src": "/media/produkte/vitrine/unlock-dark-1600.webp",
+              "srcset": "/media/produkte/vitrine/unlock-dark-800.webp 800w, /media/produkte/vitrine/unlock-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 842
+            }
+          },
+          {
+            "name": "sign",
+            "title": "Elektronische Signaturen",
+            "caption": "Fachanwendungen fordern über eine lokale Schnittstelle eine Signatur an. Person, Zeitpunkt, Grund und Bedeutung landen im Protokoll.",
+            "alt": "Signaturdialog: „Sie signieren elektronisch – Freigabe Sequenz QC-2026-1012, Bedeutung: Geprüft und freigegeben, angefordert von ChromLab 7“.",
+            "light": {
+              "src": "/media/produkte/vitrine/sign-light-1600.webp",
+              "srcset": "/media/produkte/vitrine/sign-light-800.webp 800w, /media/produkte/vitrine/sign-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 842
+            },
+            "dark": {
+              "src": "/media/produkte/vitrine/sign-dark-1600.webp",
+              "srcset": "/media/produkte/vitrine/sign-dark-800.webp 800w, /media/produkte/vitrine/sign-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 842
+            }
+          },
+          {
+            "name": "blank",
+            "title": "Verdeckt sperren",
+            "caption": "Für vertrauliche Inhalte: große Uhr statt Durchsicht. Die Programme laufen trotzdem weiter.",
+            "alt": "Verdeckt gesperrt: dunkler Bildschirm mit großer Uhr 10:42 und Datum.",
+            "light": {
+              "src": "/media/produkte/vitrine/blank-light-1600.webp",
+              "srcset": "/media/produkte/vitrine/blank-light-800.webp 800w, /media/produkte/vitrine/blank-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 842
+            },
+            "dark": {
+              "src": "/media/produkte/vitrine/blank-dark-1600.webp",
+              "srcset": "/media/produkte/vitrine/blank-dark-800.webp 800w, /media/produkte/vitrine/blank-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 842
+            }
+          },
+          {
+            "name": "settings-audit",
+            "title": "Protokoll mit Hash-Kette",
+            "caption": "Jede Aktion mit Zeit, Person und Verfahren. Die SHA-256-Kette macht Änderungen sichtbar, dazu Netzwerkkopie und Ereignisprotokoll.",
+            "alt": "Einstellungen › Protokoll: Hash-Kette, Kopie auf dem Netzlaufwerk und die letzten Einträge mit „Kette vollständig“.",
+            "light": {
+              "src": "/media/produkte/vitrine/settings-audit-light-1600.webp",
+              "srcset": "/media/produkte/vitrine/settings-audit-light-800.webp 800w, /media/produkte/vitrine/settings-audit-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 842
+            },
+            "dark": {
+              "src": "/media/produkte/vitrine/settings-audit-dark-1600.webp",
+              "srcset": "/media/produkte/vitrine/settings-audit-dark-800.webp 800w, /media/produkte/vitrine/settings-audit-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 842
+            }
+          },
+          {
+            "name": "tray",
+            "title": "Infobereich im Windows-11-Stil",
+            "caption": "Flyout mit Status und Sperr-Knöpfen. Fluent-Design in Hell, Dunkel oder hohem Kontrast, mit Windows- oder Firmen-Akzentfarbe.",
+            "alt": "Infobereich-Flyout mit der Statuskarte „Bereit“ und den Einträgen „Jetzt durchsichtig sperren“, „Verdeckt sperren“ und „Protokoll“.",
+            "light": {
+              "src": "/media/produkte/vitrine/tray-light-1600.webp",
+              "srcset": "/media/produkte/vitrine/tray-light-800.webp 800w, /media/produkte/vitrine/tray-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 842
+            },
+            "dark": {
+              "src": "/media/produkte/vitrine/tray-dark-1600.webp",
+              "srcset": "/media/produkte/vitrine/tray-dark-800.webp 800w, /media/produkte/vitrine/tray-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 842
+            }
+          }
+        ],
+        "galleryNote": "Die Abbildungen stammen aus einer interaktiven Design-Vorschau der Anwendung; Namen und Werte sind Beispiele."
+      }
+    },
+    {
+      "id": "freigaben-berechtigungen",
+      "slug": "zutritt",
+      "nr": 35,
+      "name": "Zutritt",
+      "kind": "Freigaben-Berechtigungsbericht",
+      "tagline": "Wer darf wohin?",
+      "linie": "ot",
+      "status": "fast-fertig",
+      "statusKey": "vorabversion",
+      "statusLabel": "Vorabversion 0.1.0",
+      "version": "0.1.0",
+      "text": "Zeigt für Dateifreigaben, wer worauf zugreifen darf und über welche Gruppe. Findet verwaiste SIDs, Jeder-Rechte und tief versteckte Ausnahmen und erzeugt einen Bericht. Alternative zu Tools wie tenfold.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Auf Dateiservern und NAS wachsen Berechtigungen über Jahre: direkte Benutzerrechte, verschachtelte Gruppen, unterbrochene Vererbung, „Jeder“-Rechte, verwaiste SIDs von gelöschten Konten. Bei Audits (GMP, ISO 27001, NIS2) muss man zeigen, wer worauf zugreifen darf. Heute geht das nur mit teuren Tools oder gar nicht."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Desktop-Tool für Windows, liest Freigaben und NTFS-Rechte rekursiv (lokal oder per UNC-Pfad)",
+              "Gruppen im AD bis zur Person auflösen",
+              "Erkennt: Jeder/Authentifizierte Benutzer, direkte Benutzerrechte, unterbrochene Vererbung tief im Baum, verwaiste SIDs, Vollzugriff für Nicht-Admins",
+              "Sicht pro Ordner („wer darf hier rein“) und pro Person („wo darf Max überall hin“)",
+              "Vergleich mit dem letzten Lauf",
+              "Bericht als PDF/Excel zum Abzeichnen, passend zum User Review"
+            ]
+          }
+        ]
+      },
+      "highlights": [
+        "SMB + NTFS",
+        "Gruppen → Personen",
+        "14 Prüfregeln",
+        "Excel & PDF"
+      ],
+      "facts": [
+        {
+          "label": "Plattform",
+          "value": "Windows 10 und 11, x64"
+        },
+        {
+          "label": "Oberfläche",
+          "value": "Deutsch, auch die Berichte"
+        },
+        {
+          "label": "Zugriff",
+          "value": "nur lesend – Zutritt ändert keine Berechtigungen, Dateien oder Konten"
+        },
+        {
+          "label": "Betrieb",
+          "value": "kein Server, kein Agent, kein Dienst; ein Programm für Desktop und geplante Aufgaben"
+        },
+        {
+          "label": "Lieferform",
+          "value": "MSI für alle Benutzer oder eine einzelne Zutritt.exe ohne Installation"
+        }
+      ],
+      "media": {
+        "logo": "/media/produkte/zutritt/logo.svg",
+        "banner": null,
+        "demo": null,
+        "screenshots": [
+          {
+            "name": "folders",
+            "title": "Wer darf hier rein?",
+            "caption": "Pro Ordner jede Person mit dem effektiven Recht über Freigabe und NTFS – und die Gruppenkette, über die der Zugriff kommt.",
+            "alt": "Seite Ordner: Ordnerbaum mit Markierungen und der Reiter „Wer darf hier rein“, der jede Person mit dem effektiven Recht über die Freigabe, dem NTFS-Recht und den Gruppen auflistet, über die der Zugriff kommt.",
+            "light": {
+              "src": "/media/produkte/zutritt/folders-light-1600.webp",
+              "srcset": "/media/produkte/zutritt/folders-light-800.webp 800w, /media/produkte/zutritt/folders-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1067
+            },
+            "dark": {
+              "src": "/media/produkte/zutritt/folders-dark-1600.webp",
+              "srcset": "/media/produkte/zutritt/folders-dark-800.webp 800w, /media/produkte/zutritt/folders-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1067
+            }
+          },
+          {
+            "name": "overview",
+            "title": "Freigaben, Server und Ordner prüfen",
+            "caption": "Eine Freigabe, ein ganzer Server, lokale Ordner oder alle Freigaben dieses PCs. Verknüpfungspunkte werden erfasst, aber nicht verfolgt.",
+            "alt": "Seite Übersicht: Ergebniskacheln für 18.734 geprüfte Ordner, 41 mit eigenen Berechtigungen, 20 Personen, 2 nicht lesbar und Befunde nach Schweregrad; darunter das Formular für einen neuen Scan.",
+            "light": {
+              "src": "/media/produkte/zutritt/overview-light-1600.webp",
+              "srcset": "/media/produkte/zutritt/overview-light-800.webp 800w, /media/produkte/zutritt/overview-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1067
+            },
+            "dark": {
+              "src": "/media/produkte/zutritt/overview-dark-1600.webp",
+              "srcset": "/media/produkte/zutritt/overview-dark-800.webp 800w, /media/produkte/zutritt/overview-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1067
+            }
+          },
+          {
+            "name": "findings",
+            "title": "14 Regeln mit klarer Empfehlung",
+            "caption": "„Jeder“ darf schreiben, verwaiste SIDs, Rechte an Einzelpersonen, versteckte Vererbungsbrüche, verschobene Ordner – jeweils mit Erklärung, warum es wichtig ist.",
+            "alt": "Seite Befunde: Befunde nach Schweregrad gruppiert, mit dem Detailbereich für die Regel ZT01 mit Erklärung und Empfehlung.",
+            "light": {
+              "src": "/media/produkte/zutritt/findings-light-1600.webp",
+              "srcset": "/media/produkte/zutritt/findings-light-800.webp 800w, /media/produkte/zutritt/findings-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1067
+            },
+            "dark": {
+              "src": "/media/produkte/zutritt/findings-dark-1600.webp",
+              "srcset": "/media/produkte/zutritt/findings-dark-800.webp 800w, /media/produkte/zutritt/findings-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1067
+            }
+          },
+          {
+            "name": "people",
+            "title": "Wohin darf diese Person?",
+            "caption": "Jeder Ordner, den eine Person erreicht, mit dem effektiven Recht und den Gruppen dahinter – auch verschachtelte Gruppen und deaktivierte Konten.",
+            "alt": "Seite Personen: eine Beispielperson mit ihren Gruppenmitgliedschaften und allen 26 Ordnern, auf die sie zugreifen kann, jeweils mit Recht und Gruppenkette.",
+            "light": {
+              "src": "/media/produkte/zutritt/people-light-1600.webp",
+              "srcset": "/media/produkte/zutritt/people-light-800.webp 800w, /media/produkte/zutritt/people-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1067
+            },
+            "dark": {
+              "src": "/media/produkte/zutritt/people-dark-1600.webp",
+              "srcset": "/media/produkte/zutritt/people-dark-800.webp 800w, /media/produkte/zutritt/people-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1067
+            }
+          },
+          {
+            "name": "comparison",
+            "title": "Was hat sich seit dem letzten Lauf geändert?",
+            "caption": "Neue und erledigte Befunde, geänderte ACL-Einträge und Gruppenmitgliedschaften – und wer jetzt mehr oder weniger Zugriff hat.",
+            "alt": "Seite Vergleich: verglichen mit dem Lauf sieben Tage zuvor – 4 neue Befunde, 3 erledigt, 79 Zugriffsänderungen, 6 ACL-Änderungen und 1 geänderte Mitgliedschaft.",
+            "light": {
+              "src": "/media/produkte/zutritt/comparison-light-1600.webp",
+              "srcset": "/media/produkte/zutritt/comparison-light-800.webp 800w, /media/produkte/zutritt/comparison-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1067
+            },
+            "dark": {
+              "src": "/media/produkte/zutritt/comparison-dark-1600.webp",
+              "srcset": "/media/produkte/zutritt/comparison-dark-800.webp 800w, /media/produkte/zutritt/comparison-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1067
+            }
+          },
+          {
+            "name": "report",
+            "title": "Excel zum Arbeiten, PDF zum Abzeichnen",
+            "caption": "Filterbare Excel-Arbeitsmappe mit jedem Eintrag; PDF mit Deckblatt, Zusammenfassung, Befunden und einem Abzeichnungsblock für die Rechteprüfung.",
+            "alt": "Seite Bericht: Excel- oder PDF-Bericht speichern, den Vergleich einbeziehen und eine Vorschau des Abzeichnungsblocks.",
+            "light": {
+              "src": "/media/produkte/zutritt/report-light-1600.webp",
+              "srcset": "/media/produkte/zutritt/report-light-800.webp 800w, /media/produkte/zutritt/report-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1067
+            },
+            "dark": {
+              "src": "/media/produkte/zutritt/report-dark-1600.webp",
+              "srcset": "/media/produkte/zutritt/report-dark-800.webp 800w, /media/produkte/zutritt/report-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1067
+            }
+          }
+        ],
+        "galleryNote": "Abbildungen mit Beispieldaten aus dem Demo-Modus."
+      }
+    },
+    {
+      "id": "usb-pruefstation",
+      "slug": "usb-pruefstation",
+      "nr": 7,
+      "name": "USB-Prüfstation",
+      "kind": null,
+      "tagline": null,
+      "linie": "ot",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Datenschleuse vor der Halle: USB-Sticks auf Schadsoftware und echte Dateitypen prüfen, saubere Dateien umkopieren, alles protokollieren. Alternative zu OPSWAT MetaDefender Kiosk.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Im Werk werden USB-Sticks an Anlagen-PCs gesteckt. Darüber kommt Schadsoftware in das OT-Netz. Meist steht nur ein \"Virenscan-PC in der Ecke\"."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Eigener Rechner vor der Halle, Kiosk-Oberfläche",
+              "Prüfung mit Defender und ClamAV",
+              "Echte Dateitypen statt Endung prüfen, Makros erkennen, Größenlimits",
+              "Saubere Dateien auf freigegebenen Stick kopieren",
+              "Protokoll mit Hash-Kette, Basis aus Vitrine"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "securedesktop",
+      "slug": "securedesktop",
+      "nr": 8,
+      "name": "SecureDesktop",
+      "kind": null,
+      "tagline": null,
+      "linie": "ot",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Auf Anlagen-PCs dürfen nur freigegebene Programme laufen. Lernmodus, Scharf schalten, Wartungsfreigabe. Baut auf Windows WDAC auf.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Anlagen-PCs bekommen kaum Updates und haben veraltete Virensignaturen. Trotzdem werden dort Programme von USB-Sticks oder von Servicetechnikern gestartet."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Lernmodus: merkt sich, welche Programme der PC wirklich nutzt",
+              "Liste der erlaubten Programme mit Freigabe",
+              "Scharf schalten",
+              "Wartungsmodus mit Passwort oder Entra-Anmeldung, lernt neue Programme",
+              "Protokoll aller Blockierungen"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "user-review",
+      "slug": "user-review",
+      "nr": 9,
+      "name": "User Review",
+      "kind": null,
+      "tagline": null,
+      "linie": "ot",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Benutzer aus WinCC, DeltaV, Empower, Historian und AD abgleichen. Findet verwaiste Konten, Sammelkonten, Ausgeschiedene und Rollenabweichungen und erzeugt das Review-Sheet zum Abzeichnen.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Periodische Überprüfung der Benutzerkonten ist Pflicht (EU-GMP Annex 11, 21 CFR Part 11, zunehmend NIS2/IEC 62443). Wird heute fast überall manuell mit Excel und Ausdrucken gemacht."
+          }
+        ],
+        "ersetzt": [
+          {
+            "type": "p",
+            "text": "Excel und Handarbeit."
+          }
+        ],
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Import: AD (CSV oder LDAP), WinCC, DeltaV, Empower, Historian (PI/AVEVA)",
+              "Konten Personen aus dem AD zuordnen, auch per Regel",
+              "Erkennen: verwaiste Konten, Sammelkonten, Ausgeschiedene, Rollenabweichungen gegen Soll-Matrix, lange nicht angemeldet",
+              "Vergleich mit dem letzten Review, als Datei gespeichert",
+              "Review-Sheet als PDF/Excel zum Abzeichnen, optional elektronisch signiert (aus Vitrine)"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "haertungs-check",
+      "slug": "haertungs-check",
+      "nr": 22,
+      "name": "Härtungs-Check",
+      "kind": null,
+      "tagline": null,
+      "linie": "ot",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Prüft Windows-Rechner in der OT gegen BSI- oder CIS-Empfehlungen und erzeugt einen Bericht mit Abweichungen. Bewusste Ausnahmen lassen sich begründen, etwa weil die Anlagensoftware eine Einstellung braucht.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Windows-Rechner in Anlagen, Laboren und Leitständen sollen gehärtet sein (IEC 62443, NIS2, Audits), lassen sich aber oft nicht voll härten, weil die Anlagensoftware bestimmte Einstellungen braucht. Heute wird entweder gar nicht geprüft oder mit Werkzeugen, die jede Abweichung als Fehler zeigen. Am Ende fehlt ein Bericht, der zeigt: Was ist gehärtet, was ist bewusst offen und warum."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Desktop-Tool für Windows, läuft lokal auf dem Rechner oder wertet einen mitgebrachten Export aus (für Rechner ohne Netz)",
+              "Regelwerke: BSI-Empfehlungen (SiSyPHuS Windows), Microsoft Security Baselines, optional CIS",
+              "Ergebnis pro Regel: erfüllt, nicht erfüllt, bewusst offen",
+              "Ausnahmen mit Begründung, Name und Datum, als Datei pro Anlage gespeichert und beim nächsten Lauf wiederverwendet",
+              "Vergleich mit dem letzten Lauf: Was hat sich verschlechtert?",
+              "Bericht als PDF/Excel zum Abzeichnen",
+              "Optional: fehlende Einstellungen als GPO- oder Skript-Vorschlag ausgeben, nicht automatisch anwenden"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "wincc-audit-trail-viewer",
+      "slug": "wincc-audit-trail-viewer",
+      "nr": 28,
+      "name": "WinCC Audit-Trail-Viewer",
+      "kind": null,
+      "tagline": null,
+      "linie": "ot",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Audit-Trail von WinCC und anderen Leitsystemen modern anzeigen, filtern und als Bericht ausgeben.",
+      "sections": {
+        "problem": null,
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Audit-Trail einlesen",
+              "Filter nach Benutzer, Zeitraum, Objekt",
+              "Bericht für GMP-Prüfungen",
+              "Signatur aus Vitrine"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "gpo-doku",
+      "slug": "gpo-doku-und-vergleich",
+      "nr": 36,
+      "name": "GPO-Doku und -Vergleich",
+      "kind": null,
+      "tagline": null,
+      "linie": "ot",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Dokumentiert alle Gruppenrichtlinien lesbar, vergleicht zwei Stände und findet Konflikte und ungenutzte GPOs. Ergänzt den Härtungs-Check: der prüft den Rechner, das hier die Richtlinien dahinter.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "In großen Domänen gibt es Hunderte Gruppenrichtlinien. Niemand weiß genau, welche Einstellung woher kommt, welche GPOs sich widersprechen und welche gar nicht mehr wirken. Für Audits und Härtung fehlt eine lesbare Dokumentation und ein sauberer Vergleich zwischen zwei Ständen."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Desktop-Tool für Windows, liest alle GPOs einer Domäne oder einen Backup-Ordner (für Offline-Analyse)",
+              "Lesbare Dokumentation pro GPO und pro Einstellung, durchsuchbar, Export als PDF/Excel",
+              "Vergleich zweier Stände (vorher/nachher, Test/Produktion)",
+              "Findet Konflikte (gleiche Einstellung, verschiedene Werte), leere oder nicht verknüpfte GPOs, deaktivierte Verknüpfungen",
+              "Wirkt auf welche OU? Auflösung von Verknüpfung, Vererbung, Filterung"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "modbus-explorer",
+      "slug": "modbus-explorer",
+      "nr": 11,
+      "name": "Modbus-Explorer",
+      "kind": null,
+      "tagline": null,
+      "linie": "explorer",
+      "status": "fertig",
+      "statusKey": "verfuegbar",
+      "statusLabel": "Verfügbar",
+      "version": null,
+      "text": "Modbus-Geräte abfragen, Register lesen und schreiben.",
+      "sections": {
+        "problem": null,
+        "ersetzt": null,
+        "umfang": null
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "bacnet-explorer",
+      "slug": "hausmeister",
+      "nr": 12,
+      "name": "Hausmeister",
+      "kind": "BACnet-Explorer",
+      "tagline": null,
+      "linie": "explorer",
+      "status": "fast-fertig",
+      "statusKey": "vorabversion",
+      "statusLabel": "Vorabversion 0.1.0",
+      "version": "0.1.0",
+      "text": "Geräte der Gebäudeautomation finden, Objekte durchsuchen, Werte und Trendlogs ansehen, Geräteliste für Abnahmen exportieren. Alternative zu YABE.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Gebäudetechniker brauchen ein Werkzeug, um BACnet-Geräte zu finden und zu prüfen, zum Beispiel bei Abnahmen."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Geräte finden, Objekte und Eigenschaften durchsuchen",
+              "Werte live, Diagramme, schreiben mit Priorität",
+              "Trendlogs, Alarme und Ereignisse",
+              "Geräteliste exportieren",
+              "BACnet/IP zuerst, MS/TP später"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "snmp-explorer",
+      "slug": "fuehler",
+      "nr": 13,
+      "name": "Fühler",
+      "kind": "SNMP-Explorer",
+      "tagline": null,
+      "linie": "explorer",
+      "status": "fast-fertig",
+      "statusKey": "vorabversion",
+      "statusLabel": "Vorabversion 0.1.0",
+      "version": "0.1.0",
+      "text": "MIBs laden, Walk, Get und Set mit v1, v2c und v3, Traps live empfangen, Werte von USV, PDU und Klima als Diagramm, Netz nach SNMP-Geräten durchsuchen. Läuft als eine Datei mit lokaler Web-Oberfläche. Alternative zum iReasoning MIB Browser.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "In Rechenzentren laufen USVs, PDUs, Klima und Switches über SNMP."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "MIBs von APC, Eaton, Rittal usw. laden, verständlicher Baum",
+              "Walk, Get, Set mit v1, v2c und v3",
+              "Traps live empfangen",
+              "Werte als Diagramm",
+              "Netz nach SNMP-Geräten durchsuchen, Geräteliste exportieren"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "zertifikats-ablauf-scanner",
+      "slug": "frist",
+      "nr": 25,
+      "name": "Frist",
+      "kind": "Zertifikats-Ablauf-Scanner",
+      "tagline": null,
+      "linie": "explorer",
+      "status": "fast-fertig",
+      "statusKey": "vorabversion",
+      "statusLabel": "Vorabversion 0.1.0",
+      "version": "0.1.0",
+      "text": "Durchsucht Netze nach TLS-Zertifikaten, auch per STARTTLS, RDP und OPC UA, bewertet Ablauf und Schwächen und vergleicht jeden Lauf mit dem letzten. Bericht als HTML und CSV, Exitcodes für Aufgabenplanung und Icinga.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Netzbereich durchsuchen, alle TLS-Zertifikate mit Aussteller und Ablaufdatum auflisten und vor dem Ablauf warnen."
+          }
+        ],
+        "ersetzt": [
+          {
+            "type": "p",
+            "text": "Ersetzt Excel-Listen und Skripte. Bestehende Lösungen sind meist Teil großer Monitoring- oder PKI-Produkte."
+          }
+        ],
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "IP-Bereiche und Ports scannen (443, 8443, OPC UA, LDAPS usw.)",
+              "Liste mit Ablaufdatum, Aussteller, Schlüssellänge, selbstsigniert ja/nein",
+              "Export und Bericht",
+              "Wiederholter Lauf mit Vergleich"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "redfish-explorer",
+      "slug": "rundgang",
+      "nr": 30,
+      "name": "Rundgang",
+      "kind": "Redfish/IPMI-Explorer",
+      "tagline": null,
+      "linie": "explorer",
+      "status": "fast-fertig",
+      "statusKey": "vorabversion",
+      "statusLabel": "Vorabversion 0.1.0",
+      "version": "0.1.0",
+      "text": "Server-BMCs von Dell, HPE, Lenovo und Supermicro in einer Oberfläche: Zustand, Sensoren, Firmware, Ereignisse, Ein/Aus und Ortungs-LED über Redfish. Läuft als eine Datei mit lokaler Web-Oberfläche, dazu Inventur per Befehlszeile.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Server-BMCs von Dell, HPE, Supermicro und Lenovo einheitlich ansehen: Sensoren, Firmware, Ereignisse, Neustart."
+          }
+        ],
+        "ersetzt": [
+          {
+            "type": "p",
+            "text": "Ersetzt die einzelnen Oberflächen von iDRAC, iLO, XClarity und Supermicro IPMI."
+          }
+        ],
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "BMCs per Redfish, IPMI als Fallback",
+              "Sensoren, Lüfter, Netzteile, Temperaturen",
+              "Firmware-Stände und Ereignisprotokoll",
+              "Ein-/Ausschalten, Neustart"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "s7-explorer",
+      "slug": "merker",
+      "nr": 32,
+      "name": "Merker",
+      "kind": "S7-Explorer",
+      "tagline": null,
+      "linie": "explorer",
+      "status": "fast-fertig",
+      "statusKey": "vorabversion",
+      "statusLabel": "Vorabversion 0.1.0",
+      "version": "0.1.0",
+      "text": "Siemens-Steuerungen S7-300, S7-400, S7-1200 und S7-1500 finden, CPU-Daten und Diagnosepuffer lesen, Datenbausteine lesen und schreiben, Variablen live beobachten. Ohne TIA Portal, als eine Datei mit lokaler Web-Oberfläche.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Datenbausteine von Siemens-Steuerungen lesen und schreiben, Variablen beobachten."
+          }
+        ],
+        "ersetzt": [
+          {
+            "type": "p",
+            "text": "Ersetzt Notlösungen ohne TIA Portal und kostenpflichtige Tools."
+          }
+        ],
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Verbindung zu S7-300/400/1200/1500",
+              "Datenbausteine lesen und schreiben",
+              "Variablen live beobachten, als Diagramm",
+              "Beobachtungslisten speichern"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "ethernetip-explorer",
+      "slug": "lotse",
+      "nr": 33,
+      "name": "Lotse",
+      "kind": "EtherNet/IP-Explorer",
+      "tagline": null,
+      "linie": "explorer",
+      "status": "angefangen",
+      "statusKey": "in-entwicklung",
+      "statusLabel": "In Entwicklung",
+      "version": null,
+      "text": "Rockwell-Steuerungen (ControlLogix, CompactLogix, Micro800) und andere EtherNet/IP-Geräte im Netz finden, Identität und Zustand ansehen, Tags durchsuchen, lesen, beobachten und mit Bestätigung schreiben. Ohne RSLinx, als eine Datei mit lokaler Web-Oberfläche.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Rockwell-Steuerungen und EtherNet/IP-Geräte finden und Tags lesen."
+          }
+        ],
+        "ersetzt": [
+          {
+            "type": "p",
+            "text": "Ersetzt RSLinx-Browser und kostenpflichtige Tools."
+          }
+        ],
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Geräte finden (List Identity)",
+              "Tags durchsuchen und lesen, schreiben optional",
+              "Werte live beobachten",
+              "Export"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "opcua-explorer",
+      "slug": "opc-ua-explorer",
+      "nr": 10,
+      "name": "OPC-UA-Explorer",
+      "kind": null,
+      "tagline": null,
+      "linie": "explorer",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Server durchsuchen, Werte live als Diagramm, schreiben und Methoden aufrufen, vor allem eine verständliche Verwaltung der Zertifikate. Alternative zu UaExpert.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Inbetriebnehmer und Automatisierer brauchen täglich einen OPC-UA-Client. Am meisten Ärger machen Zertifikate."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Verständliche Verwaltung der Zertifikate",
+              "Server durchsuchen",
+              "Werte live als Diagramm",
+              "Werte schreiben, Methoden aufrufen",
+              "Lesezeichen, Arbeitsbereiche pro Anlage",
+              "Export als CSV/JSON"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "profinet-scanner",
+      "slug": "profinet-scanner",
+      "nr": 31,
+      "name": "Profinet-Scanner",
+      "kind": null,
+      "tagline": null,
+      "linie": "explorer",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Profinet-Geräte per DCP finden, Gerätenamen und IP setzen, Topologie anzeigen.",
+      "sections": {
+        "problem": null,
+        "ersetzt": [
+          {
+            "type": "p",
+            "text": "Ersetzt Siemens PRONETA und das Gerätesuche-Fenster im TIA Portal."
+          }
+        ],
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Geräte per DCP finden",
+              "Namen und IP setzen, Blinken zum Wiederfinden",
+              "Topologie per LLDP",
+              "Export der Geräteliste"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "iec61850-browser",
+      "slug": "iec-61850-browser",
+      "nr": 34,
+      "name": "IEC-61850-Browser",
+      "kind": null,
+      "tagline": null,
+      "linie": "explorer",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Geräte in Schaltanlagen nach IEC 61850 durchsuchen: logische Knoten, Datenpunkte, Berichte, GOOSE.",
+      "sections": {
+        "problem": null,
+        "ersetzt": [
+          {
+            "type": "p",
+            "text": "Ersetzt teure Spezialtools und ältere kostenlose Browser."
+          }
+        ],
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Verbindung per MMS",
+              "Modell durchsuchen",
+              "Werte und Berichte live",
+              "GOOSE mitlesen"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "explorer-framework",
+      "slug": "explorer-framework",
+      "nr": 38,
+      "name": "Explorer-Framework",
+      "kind": null,
+      "tagline": null,
+      "linie": "explorer",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Alle Explorer in einem Programm: S7, EtherNet/IP, BACnet, SNMP, Redfish, Modbus und später OPC UA als Module. Ein Netzscan findet alles, Beobachtungslisten mischen Werte aus allen Protokollen.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Für jede Anlage braucht der Techniker heute ein anderes Werkzeug: eines für Siemens, eines für Rockwell, eines für die Gebäudeleittechnik, eines für USV und Switches. Wer eine Anlage aufnehmen will, startet fünf Tools und bekommt fünf Listen."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Ein Programm, eine Datei. Alle Module sind eingebaut und lassen sich in den Einstellungen ausblenden. Kein Nachladen von Modulen aus dem Internet (OT-Netze sind oft offline, die IT will eine geprüfte Datei).",
+              "Ein Netzscan über alle Protokolle: S7 (102), EtherNet/IP (44818), BACnet (47808), Modbus (502), SNMP (161), Redfish (443), später OPC UA (4840). Ergebnis als ein Inventar mit CSV.",
+              "Oberfläche nach Geräten statt nach Protokollen: links alle Geräte, rechts die Tabs, die zum Gerät passen (Diagnosepuffer bei S7, Baugruppenträger bei Rockwell, Prioritäten bei BACnet).",
+              "Gemeinsames „Beobachten“: Werte aus verschiedenen Protokollen in einer Liste und einem Diagramm."
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "tftp-sftp-server",
+      "slug": "tftp-sftp-server",
+      "nr": 23,
+      "name": "TFTP/SFTP-Server",
+      "kind": null,
+      "tagline": null,
+      "linie": "service",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "TFTP- und SFTP-Server mit Oberfläche für den Service-Laptop: Firmware und Konfigurationen auf Switches und Steuerungen laden, mit Verlauf, wer wann was übertragen hat.",
+      "sections": {
+        "problem": null,
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Ein Klick: Server an, Ordner wählen, Netzwerkkarte wählen",
+              "TFTP und SFTP",
+              "Live-Liste der Übertragungen mit Prüfsumme",
+              "Protokoll als Datei"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "netzprofil-umschalter",
+      "slug": "netzprofil-umschalter",
+      "nr": 24,
+      "name": "Netzprofil-Umschalter",
+      "kind": null,
+      "tagline": null,
+      "linie": "service",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Für Service-Laptops: pro Anlage feste IP, Gateway, DNS, Proxy und Hosts-Einträge als Profil speichern und mit einem Klick umschalten.",
+      "sections": {
+        "problem": null,
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Profile pro Anlage und Netzwerkkarte",
+              "IP, Maske, Gateway, DNS, Proxy, Hosts-Einträge, Routen",
+              "Umschalten per Klick oder aus dem Infobereich",
+              "Profile exportieren und im Team teilen"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "fernwartung",
+      "slug": "fernwartung",
+      "nr": 14,
+      "name": "Fernwartung",
+      "kind": null,
+      "tagline": null,
+      "linie": "server",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Komplette Fernwartungs-Suite zum Selbstbetreiben: Agent, Viewer und Gateway-Server mit Aufzeichnung und Audit-Trail. Dazu zeitlich begrenzter, freigegebener Zugang für externe Techniker auf genau eine Anlage. Alternative zu PROXY Pro und Claroty SRA.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Anlagen-, Labor- und Leitstand-PCs müssen aus der Ferne unterstützt werden, oft hinter Firewalls, mit strengen Auflagen (GMP, IEC 62443, NIS2): Wer war wann auf welchem Rechner, was wurde gemacht? Cloud-Tools wie TeamViewer oder AnyDesk sind in OT-Netzen oft nicht erlaubt, VNC hat kein Audit und keine sauberen Rechte."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "p",
+            "text": "Das ist eine komplette Suite, kein Einzelplatz-Tool:"
+          },
+          {
+            "type": "ul",
+            "items": [
+              "**Agent** für Windows als Dienst: Anmeldebildschirm und UAC sichtbar, nur zusehen oder steuern, Zustimmungsabfrage beim Benutzer (abschaltbar), Dateiübertragung, Zwischenablage auch als Tastatureingabe",
+              "**Viewer** für Windows",
+              "**Gateway-Server** (selbst betrieben): Verzeichnis aller Rechner, Verbindung ohne eingehende Ports am Agent, AD/Entra-Anmeldung, Rechte pro Gruppe und Rechnergruppe",
+              "**Audit-Trail** jeder Sitzung, optional Bildschirmaufzeichnung",
+              "Verteilung per MSI, GPO, Intune, SOTI",
+              "**Herstellerzugang:** Externe Techniker bekommen zeitlich begrenzten Zugriff auf genau eine Anlage, erst nach Freigabe durch den Anlagenverantwortlichen, mit Aufzeichnung. IEC 62443 und NIS2 verlangen genau das."
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "label-print-server",
+      "slug": "label-print-server",
+      "nr": 15,
+      "name": "Label-Print-Server",
+      "kind": null,
+      "tagline": null,
+      "linie": "server",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Druckaufträge aus SAP, MES und LIMS annehmen, Vorlagen rendern und an Tausende Zebra-Drucker verteilen, mit Warteschlangen, Ausfallsicherheit und Druckprotokoll. Alternative zu NiceLabel/Loftware Automation und BarTender.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "In Lager, Abfüllung und Labor kommen Etiketten aus SAP, MES und LIMS und müssen auf Hunderten bis Tausenden Zebra-Druckern landen. Fällt der Druckdienst aus, steht die Produktion. Deshalb läuft das immer im eigenen Werk."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Aufträge annehmen: REST, Hotfolder (Dateien), Raw-Port 9100 durchreichen, später SAP (Output Management) direkt",
+              "Vorlagen aus dem Labeldesigner mit Variablen füllen und als ZPL ausgeben",
+              "Drucker-Verzeichnis mit Gruppen, Warteschlange pro Drucker, Wiederholen, Umleiten bei Ausfall",
+              "Druckprotokoll: wer, was, wann, welcher Drucker, Ergebnis",
+              "Zwei Knoten für Ausfallsicherheit",
+              "Web-Oberfläche für Status und Warteschlangen"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "zertifikatsserver",
+      "slug": "zertifikatsserver",
+      "nr": 16,
+      "name": "Zertifikatsserver",
+      "kind": "SCEP/EST",
+      "tagline": null,
+      "linie": "server",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Zertifikate per SCEP und EST an Scanner, Drucker, Anlagen-PCs und 802.1X-Geräte ausrollen und Abläufe überwachen, bevor Geräte aus dem Netz fliegen. Alternative zu Microsoft NDES.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Scanner, Drucker, Anlagen-PCs und andere Geräte brauchen Zertifikate für WLAN und 802.1X. Laufen sie ab, fliegen die Geräte aus dem Netz und die Produktion steht. Überblick, welches Gerät welches Zertifikat bis wann hat, fehlt meist. PKI betreibt niemand freiwillig in der Cloud."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "SCEP- und EST-Endpunkt vor einer bestehenden CA (z. B. Microsoft AD CS) oder mit eigener Sub-CA",
+              "Einmal-Passwörter bzw. Challenges pro Gerät, Anbindung an MDM (SOTI, Intune)",
+              "Inventar aller ausgestellten Zertifikate mit Gerät, Ablaufdatum, Status",
+              "Warnung vor Ablauf, automatische Erneuerung, Sperren",
+              "Web-Oberfläche und Bericht"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "dateischleuse",
+      "slug": "it-ot-dateischleuse",
+      "nr": 17,
+      "name": "IT/OT-Dateischleuse",
+      "kind": null,
+      "tagline": null,
+      "linie": "server",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Dateien aus der IT hochladen, mit mehreren Virenscannern und Dateityp-Prüfung kontrollieren, freigeben lassen und nur auf der OT-Seite abholen. Server-Gegenstück zur USB-Prüfstation, Alternative zu OPSWAT MetaDefender Vault.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Dateien (Rezepte, Software-Updates, Dokumente) müssen aus dem Büronetz in die OT. Heute per USB-Stick oder offener Freigabe, also unkontrolliert. IEC 62443 und NIS2 verlangen einen kontrollierten Übergang."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Upload auf der IT-Seite per Web",
+              "Prüfung: mehrere Virenscanner, echter Dateityp statt Endung, Archive auspacken, optional Inhalte entschärfen",
+              "Freigabe-Workflow (z. B. Anlagenverantwortlicher), danach Abholung nur auf der OT-Seite",
+              "Ablauf nach Frist, vollständiges Protokoll",
+              "Server steht in der DMZ, Zugriff aus beiden Netzen getrennt"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "update-server",
+      "slug": "update-server-fuer-ot",
+      "nr": 18,
+      "name": "Update-Server für OT",
+      "kind": null,
+      "tagline": null,
+      "linie": "server",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Selbst betriebener Ersatz für den abgekündigten WSUS, gebaut für abgeschottete Netze: Updates im IT-Netz holen und prüfen, über die Dateischleuse in die OT bringen, pro Anlagengruppe freigeben und in Wartungsfenstern verteilen, mit Nachweis.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Anlagen-, Labor- und Leitstand-PCs hängen in abgeschotteten Netzen und werden heute meist über WSUS gepatcht. Microsoft hat WSUS am 20.09.2024 abgekündigt (keine Weiterentwicklung, Support hängt am Server-Betriebssystem, auf Server 2025 bis 2034). Die Nachfolger von Microsoft (Intune, Autopatch, Azure Update Manager) setzen Cloud-Anbindung voraus. Für Netze ohne Internet gibt es keinen Ersatz."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "**IT-Seite:** Windows-Updates aus dem Microsoft Update Catalog synchronisieren, auswählen, prüfen, als signiertes Paket exportieren",
+              "**Transport:** über die Dateischleuse oder die USB-Prüfstation in die OT",
+              "**OT-Seite:** Paket importieren, Signatur prüfen, an Clients verteilen",
+              "**Freigabe:** erst Test auf Referenzanlage, dann Freigabe pro Anlagengruppe, mit Name und Datum (optional elektronische Signatur aus Vitrine)",
+              "**Wartungsfenster:** Installation und Neustart nur in festgelegten Zeiten",
+              "**Nachweis:** Bericht, welches Update wann auf welchem Rechner installiert ist",
+              "**Clients ohne Agent**, falls möglich: Windows wird per GPO auf unseren Server gezeigt, als wäre er ein WSUS"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "rz-energiebericht",
+      "slug": "rz-energiebericht",
+      "nr": 20,
+      "name": "RZ-Energiebericht",
+      "kind": null,
+      "tagline": null,
+      "linie": "server",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Holt Messwerte automatisch aus USV, PDU, Klima und Zählern (SNMP, Modbus), berechnet PUE, Abwärme- und Ökostromanteil und erzeugt die jährliche Meldung für das Rechenzentrumsregister nach Energieeffizienzgesetz, dazu die Verbrauchsauskunft pro Kunde.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Das Energieeffizienzgesetz (EnEfG) verpflichtet Rechenzentren ab 300 kW nicht-redundanter Nennanschlussleistung, jedes Jahr bis 31. März die Angaben aus Anlage 3 für das Vorjahr an das Rechenzentrumsregister beim BfEE zu melden und zu veröffentlichen. Ab 500 kW kommen die deutlich umfangreicheren Kennzahlen der EU-Verordnung 2024/1364 dazu; das BfEE leitet sie an die EU-Datenbank weiter. Verstöße sind bußgeldbewehrt."
+          },
+          {
+            "type": "p",
+            "text": "In der Praxis sehr aufwendig: Daten aus vielen Quellen zusammensuchen, oft erst bei Kunden anfragen."
+          }
+        ],
+        "ersetzt": [
+          {
+            "type": "p",
+            "text": "Excel und Handarbeit, teure DCIM-Suiten, Berater."
+          }
+        ],
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Datenquellen herstellerunabhängig: USV, PDU und Klima per SNMP, Zähler per Modbus TCP/RTU, CSV-Import für den Rest (z. B. Rechnungen, Ökostrom-Nachweise)",
+              "Zählerstruktur abbilden: Gesamtverbrauch, IT-Last, Kühlung, Kunden bzw. Räume",
+              "Kennzahlen: PUE, Abwärmeanteil, Anteil erneuerbarer Energie, Verbrauch pro Kunde",
+              "Ampel gegen die gesetzlichen Zielwerte",
+              "Jahresmeldung im Format des Registers erzeugen, dazu Veröffentlichung und Kundenauskunft als PDF",
+              "Messdaten revisionssicher aufbewahren (Nachweis bei Prüfung)"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "zebra-druckerflotte-monitor",
+      "slug": "zebra-druckerflotte-monitor",
+      "nr": 26,
+      "name": "Zebra-Druckerflotte-Monitor",
+      "kind": null,
+      "tagline": null,
+      "linie": "server",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Status, Papier, Farbband und Firmware aller Zebra-Drucker per SNMP und Link-OS überwachen, mit Alarm bei Stillstand.",
+      "sections": {
+        "problem": null,
+        "ersetzt": [
+          {
+            "type": "p",
+            "text": "Ersetzt Zebra Printer Profile Manager Enterprise und Teile von SOTI Connect."
+          }
+        ],
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Drucker im Netz finden",
+              "Status, Medien, Farbband, Druckkopf, Firmware",
+              "Alarm per Mail oder Webhook bei Stillstand",
+              "Übersicht nach Standort"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "plc-versionierung",
+      "slug": "plc-projekt-versionierung",
+      "nr": 27,
+      "name": "PLC-Projekt-Versionierung",
+      "kind": null,
+      "tagline": null,
+      "linie": "server",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Projekte von Siemens-, Rockwell- und Beckhoff-Steuerungen automatisch sichern, Änderungen erkennen und festhalten, wer wann was geladen hat.",
+      "sections": {
+        "problem": null,
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Automatisches Sichern der Projekte von den Steuerungen",
+              "Vergleich mit dem letzten Stand, Änderungen anzeigen",
+              "Verlauf: wer, wann, was",
+              "Alarm bei unerwarteter Änderung"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "pcs7-alternative",
+      "slug": "prozessleitsystem",
+      "nr": 29,
+      "name": "Prozessleitsystem",
+      "kind": "PCS-7-Alternative",
+      "tagline": null,
+      "linie": "server",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Modernes, offenes Prozessleitsystem als Alternative zu SIMATIC PCS 7: Engineering, Bedienung und Beobachtung, Alarme, Archiv und Audit-Trail für verfahrenstechnische Anlagen.",
+      "sections": {
+        "problem": null,
+        "ersetzt": [
+          {
+            "type": "p",
+            "text": "SIMATIC PCS 7. Andere Leitsysteme (Emerson DeltaV, ABB 800xA, Honeywell Experion) sind ebenfalls proprietär. Ein offenes Prozessleitsystem gibt es praktisch nicht."
+          }
+        ],
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Engineering (Anlagenstruktur, Bausteine, Ablaufsteuerungen)",
+              "Bedienen und Beobachten, Alarme, Archiv",
+              "Chargen (Batch), Audit-Trail, Benutzerverwaltung",
+              "Redundanz und Hochverfügbarkeit"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "visualisierung",
+      "slug": "moderne-visualisierung",
+      "nr": 37,
+      "name": "Moderne Visualisierung",
+      "kind": "WinCC-Alternative",
+      "tagline": null,
+      "linie": "server",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Modernes, offenes SCADA/HMI als Alternative zu WinCC: Bilder im Browser, Anbindung über OPC UA, S7 und Modbus, Alarme, Archiv, Benutzerverwaltung und Audit-Trail.",
+      "sections": {
+        "problem": null,
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Bilder im Browser, Editor für Anlagenbilder",
+              "Anbindung über OPC UA, S7, Modbus",
+              "Alarme, Archiv, Trends",
+              "Benutzerverwaltung mit AD/Entra, Audit-Trail, elektronische Signatur (aus Vitrine)"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "ppwr-verpackungsdaten",
+      "slug": "ppwr-verpackungsdaten",
+      "nr": 19,
+      "name": "PPWR-Verpackungsdaten",
+      "kind": null,
+      "tagline": null,
+      "linie": "neu",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Cloud-Dienst für die EU-Verpackungsverordnung (PPWR): Packmittel-Daten pflegen, Nachweise von Lieferanten einsammeln, Konformitätserklärungen erzeugen und per Kennung oder QR-Code mit dem Etikett verknüpfen, Mengenberichte pro Land.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Die EU-Verpackungsverordnung (PPWR, EU 2025/40) gilt seit dem 12.08.2026. Hersteller müssen pro Verpackungsart eine Konformitätsbewertung machen, eine EU-Konformitätserklärung mit technischer Dokumentation erstellen und mindestens 5 Jahre aufbewahren (Mehrweg 10 Jahre). Jede Verpackung braucht eine eindeutige Kennung (Charge, Seriennummer), die auf die Erklärung verweist, dazu Marke, Anschrift und elektronischen Kontakt, QR-Code ist zulässig. Lieferanten müssen Daten zur Zusammensetzung liefern. Registrierung und Mengenmeldungen in jedem EU-Land. Keine allgemeine Ausnahme für KMU, in Deutschland Bußgelder bis 200.000 €."
+          },
+          {
+            "type": "p",
+            "text": "Was noch kommt: 2027 digitale Kennzeichnung, 2028 einheitliche Material- und Entsorgungskennzeichnung, 2029 EU-Verpackungsregister statt LUCID, 2030 Recyclingfähigkeit, Leerraum, Mehrwegquoten, Rezyklatanteile."
+          },
+          {
+            "type": "p",
+            "text": "Größter Schmerz in der Praxis: Daten und Nachweise von Lieferanten einsammeln und aktuell halten."
+          }
+        ],
+        "ersetzt": [
+          {
+            "type": "p",
+            "text": "Excel, Ordner mit Lieferantenerklärungen, Berater. Daneben SAP-Module und erste SaaS-Anbieter mit PPWR-Modulen (z. B. Tanso)."
+          }
+        ],
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Packmittel-Stammdaten: Material, Komponenten, Gewicht, Volumen, Recyclingklasse, Rezyklatanteil",
+              "Lieferantenportal: Nachweise anfordern, hochladen lassen, Erinnerung, Ablaufüberwachung",
+              "Konformitätserklärung pro Verpackungsart nach Muster Anhang VIII erzeugen, versioniert und revisionssicher aufbewahrt",
+              "Kennung bzw. QR-Code mit der Erklärung verknüpfen, Übergabe an Labeldesigner und Label-Print-Server",
+              "Mengenberichte pro Land für Registrierung und Meldungen",
+              "Vorbereitet für das digitale Etikett ab 2027"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    },
+    {
+      "id": "verpackungsmengen-plugin",
+      "slug": "verpackungsmengen-plugin",
+      "nr": 21,
+      "name": "Verpackungsmengen-Plugin",
+      "kind": null,
+      "tagline": null,
+      "linie": "neu",
+      "status": "idee",
+      "statusKey": "geplant",
+      "statusLabel": "Geplant",
+      "version": null,
+      "text": "Kostenloses, offenes Plugin für Shopify und WooCommerce, das aus den Bestellungen die Kilo Verpackung pro Material berechnet, als Grundlage für die Meldung nach Verpackungsgesetz (LUCID, duales System).",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Online-Händler müssen nach dem Verpackungsgesetz ihre Verpackungsmengen im Register LUCID melden und bei einem dualen System lizenzieren, aufgeteilt nach Material (Papier/Pappe, Kunststoff, Glas, Weißblech usw.) in Kilo. Viele schätzen die Mengen grob oder rechnen sie von Hand in Excel aus den Bestellungen zusammen."
+          }
+        ],
+        "ersetzt": [
+          {
+            "type": "p",
+            "text": "Excel-Schätzungen. Einige duale Systeme bieten eigene Rechner, die sind aber an das jeweilige System gebunden."
+          }
+        ],
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Plugin für Shopify und WooCommerce",
+              "Verpackungsprofile pro Produkt oder Versandkarton hinterlegen: Material und Gewicht",
+              "Aus den Bestellungen eines Zeitraums die Kilo pro Material berechnen",
+              "Export als CSV und als Übersicht für die Meldung an LUCID und das duale System",
+              "Kostenlos und Open Source"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": null,
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
+      }
+    }
+  ]
+}

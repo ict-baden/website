@@ -1,0 +1,169 @@
+{
+  "$comment": [
+    "Kuratierte Bilder und Eckdaten je Produkt-Repo (Schlüssel = Repo-Name ohne Owner, Kleinschreibung).",
+    "Quelle aller Texte: README und Oberfläche des jeweiligen Repos (englische READMEs sinngemäß übersetzt).",
+    "Repos ohne Eintrag: logo.svg wird übernommen, Bildschirmfotos werden automatisch aus",
+    "docs/assets/screenshots/*-light.png (+ *-dark.png) erkannt, Banner nur mit 'banner': true (oft englischer Text)."
+  ],
+  "repos": {
+    "lupe": {
+      "tagline": "QR- und Barcodes lesen",
+      "banner": false,
+      "highlights": ["Win+Umschalt+Q", "QR · Data Matrix · EAN", "Tippt in jede Anwendung", "Link-Regeln"],
+      "facts": [
+        ["Plattform", "Windows 10 und 11, x64"],
+        ["Oberfläche", "Deutsch"],
+        ["Daten", "bleiben auf dem PC, nichts wird ins Internet gesendet"],
+        ["Formate", "22 Code-Formate, darunter QR Code, Data Matrix, Code 128 und EAN"],
+        ["Lieferform", "MSI für alle Benutzer oder eine einzelne Lupe.exe ohne Installation"]
+      ],
+      "galleryNote": "Abbildungen mit Beispieldaten aus dem Demo-Modus.",
+      "screenshots": [
+        {
+          "name": "file",
+          "title": "Dateien und Zwischenablage",
+          "caption": "Bild öffnen, auf die Seite „Datei“ ziehen oder mit Strg+V einfügen. Jeder Code im Bild wird gefunden und nummeriert.",
+          "alt": "Seite Datei: ein Lieferschein mit vier Codes, markiert als 1 QR-Code, 2 Code 128, 3 EAN-13 und 4 Data Matrix, darunter die Liste „4 Codes gefunden“ mit Kopieren und Link öffnen je Zeile."
+        },
+        {
+          "name": "selection",
+          "title": "Jeder Bildschirmausschnitt",
+          "caption": "In jedem Programm Win+Umschalt+Q drücken und ein Rechteck um den Code ziehen – über alle Monitore, auch bei geschlossenem Lupe-Fenster.",
+          "alt": "Auswahl über einem abgedunkelten Standbild des Desktops: eine PDF-Rechnung mit QR-Code, ein blaues Rechteck um den Code und der Hinweis „Rechteck um den Code aufziehen · Klick: ganzer Bildschirm · Esc: abbrechen“."
+        },
+        {
+          "name": "camera",
+          "title": "Webcam",
+          "caption": "Code vor die Kamera halten: Lupe markiert ihn und piept. Derselbe Code wird erst wieder gemeldet, wenn er 3 Sekunden nicht zu sehen war.",
+          "alt": "Seite Kamera: Livebild der Demo-Kamera mit einem QR-Code auf einem Etikett, markiert als „QR-Code“, Zielecken in der Mitte, darunter „Zuletzt erkannt“ mit dem Link und den Schaltflächen Kopieren und Link öffnen."
+        },
+        {
+          "name": "result",
+          "title": "Eingetippt in die Anwendung, aus der Sie kamen",
+          "caption": "Mit „Eintippen“ landet der Inhalt als Tastatureingabe in dem Fenster, das vor dem Scan aktiv war – auf Wunsch gefolgt von Enter oder Tab.",
+          "alt": "Ergebnis-Benachrichtigung „QR-Code erkannt“ mit einem Beispiel-Link, dem Status „Kopiert · Eingetippt“ und den Schaltflächen Kopieren, Link öffnen und In Lupe zeigen."
+        },
+        {
+          "name": "settings",
+          "title": "Link-Regeln",
+          "caption": "Ein regulärer Ausdruck und ein optionales Präfix machen aus einem Code einen Link, z. B. aus einer EAN die Artikelseite im ERP. Geöffnet werden nur http- und https-Links.",
+          "alt": "Seite Einstellungen: Aktionen je Quelle (Kopieren, Eintippen, Link öffnen), die Taste nach dem Eintippen, das Tastenkürzel Win+Umschalt+Q als bereit markiert und die Tabelle der Link-Regeln mit regulärem Ausdruck und Präfix."
+        },
+        {
+          "name": "history",
+          "title": "Verlauf",
+          "caption": "Alles, was Lupe gelesen hat – durchsuchbar und als CSV für Excel exportierbar. Gespeichert pro Benutzer oder abgeschaltet, dann wird die Datei gelöscht.",
+          "alt": "Seite Verlauf: zwölf Einträge mit Uhrzeit, Quelle (Kamera, Bildschirm, Datei, Zwischenablage), Format und Inhalt, ein Suchfeld und die Schaltflächen „Als CSV exportieren …“ und „Alles löschen“."
+        }
+      ]
+    },
+    "zutritt": {
+      "tagline": "Wer darf wohin?",
+      "banner": false,
+      "highlights": ["SMB + NTFS", "Gruppen → Personen", "14 Prüfregeln", "Excel & PDF"],
+      "facts": [
+        ["Plattform", "Windows 10 und 11, x64"],
+        ["Oberfläche", "Deutsch, auch die Berichte"],
+        ["Zugriff", "nur lesend – Zutritt ändert keine Berechtigungen, Dateien oder Konten"],
+        ["Betrieb", "kein Server, kein Agent, kein Dienst; ein Programm für Desktop und geplante Aufgaben"],
+        ["Lieferform", "MSI für alle Benutzer oder eine einzelne Zutritt.exe ohne Installation"]
+      ],
+      "galleryNote": "Abbildungen mit Beispieldaten aus dem Demo-Modus.",
+      "screenshots": [
+        {
+          "name": "folders",
+          "title": "Wer darf hier rein?",
+          "caption": "Pro Ordner jede Person mit dem effektiven Recht über Freigabe und NTFS – und die Gruppenkette, über die der Zugriff kommt.",
+          "alt": "Seite Ordner: Ordnerbaum mit Markierungen und der Reiter „Wer darf hier rein“, der jede Person mit dem effektiven Recht über die Freigabe, dem NTFS-Recht und den Gruppen auflistet, über die der Zugriff kommt."
+        },
+        {
+          "name": "overview",
+          "title": "Freigaben, Server und Ordner prüfen",
+          "caption": "Eine Freigabe, ein ganzer Server, lokale Ordner oder alle Freigaben dieses PCs. Verknüpfungspunkte werden erfasst, aber nicht verfolgt.",
+          "alt": "Seite Übersicht: Ergebniskacheln für 18.734 geprüfte Ordner, 41 mit eigenen Berechtigungen, 20 Personen, 2 nicht lesbar und Befunde nach Schweregrad; darunter das Formular für einen neuen Scan."
+        },
+        {
+          "name": "findings",
+          "title": "14 Regeln mit klarer Empfehlung",
+          "caption": "„Jeder“ darf schreiben, verwaiste SIDs, Rechte an Einzelpersonen, versteckte Vererbungsbrüche, verschobene Ordner – jeweils mit Erklärung, warum es wichtig ist.",
+          "alt": "Seite Befunde: Befunde nach Schweregrad gruppiert, mit dem Detailbereich für die Regel ZT01 mit Erklärung und Empfehlung."
+        },
+        {
+          "name": "people",
+          "title": "Wohin darf diese Person?",
+          "caption": "Jeder Ordner, den eine Person erreicht, mit dem effektiven Recht und den Gruppen dahinter – auch verschachtelte Gruppen und deaktivierte Konten.",
+          "alt": "Seite Personen: eine Beispielperson mit ihren Gruppenmitgliedschaften und allen 26 Ordnern, auf die sie zugreifen kann, jeweils mit Recht und Gruppenkette."
+        },
+        {
+          "name": "comparison",
+          "title": "Was hat sich seit dem letzten Lauf geändert?",
+          "caption": "Neue und erledigte Befunde, geänderte ACL-Einträge und Gruppenmitgliedschaften – und wer jetzt mehr oder weniger Zugriff hat.",
+          "alt": "Seite Vergleich: verglichen mit dem Lauf sieben Tage zuvor – 4 neue Befunde, 3 erledigt, 79 Zugriffsänderungen, 6 ACL-Änderungen und 1 geänderte Mitgliedschaft."
+        },
+        {
+          "name": "report",
+          "title": "Excel zum Arbeiten, PDF zum Abzeichnen",
+          "caption": "Filterbare Excel-Arbeitsmappe mit jedem Eintrag; PDF mit Deckblatt, Zusammenfassung, Befunden und einem Abzeichnungsblock für die Rechteprüfung.",
+          "alt": "Seite Bericht: Excel- oder PDF-Bericht speichern, den Vergleich einbeziehen und eine Vorschau des Abzeichnungsblocks."
+        }
+      ]
+    },
+    "vitrine": {
+      "tagline": "Ansehen, nicht anfassen.",
+      "banner": true,
+      "bannerAlt": "Vitrine – transparente Bildschirmsperre mit Microsoft Entra ID. Ansehen, nicht anfassen: Programme bleiben sichtbar und laufen weiter.",
+      "demo": {
+        "file": "demo.gif",
+        "alt": "Animation: Eine HPLC-Messkurve läuft unter der durchsichtigen Sperre weiter. Ein Klick öffnet den Entsperrdialog, „Weiter mit Microsoft“ entsperrt den Arbeitsplatz.",
+        "caption": "Die Messung läuft unter der Sperre weiter › Klick öffnet den Entsperrdialog › „Weiter mit Microsoft“ › entsperrt"
+      },
+      "highlights": ["Microsoft Entra ID", "E-Signaturen", "Audit-Hash-Kette", "GPO / Intune"],
+      "facts": [
+        ["Plattform", "Windows 10 und 11"],
+        ["Anmeldung", "Microsoft Entra ID, Windows-Kennwort, Windows Hello"],
+        ["Verwaltung", "Gruppenrichtlinie oder Intune per ADMX/ADML"],
+        ["Einsatz", "Labore, Produktion, Leitstände, Pharma"],
+        ["Lieferform", "MSI für alle Benutzer oder eine einzelne Vitrine.exe ohne Installation"]
+      ],
+      "galleryNote": "Die Abbildungen stammen aus einer interaktiven Design-Vorschau der Anwendung; Namen und Werte sind Beispiele.",
+      "screenshots": [
+        {
+          "name": "lock",
+          "title": "Durchsichtig sperren",
+          "caption": "Programme bleiben sichtbar und laufen weiter. Ein Overlay pro Monitor, DPI-genau, mit eigenem Hinweistext.",
+          "alt": "Durchsichtig gesperrt: Die Laborsoftware bleibt sichtbar, unten die Hinweisleiste „Messung läuft – bitte nicht berühren“."
+        },
+        {
+          "name": "unlock",
+          "title": "Anmelden mit Microsoft Entra ID",
+          "caption": "Über den Windows-Kontobroker: MFA, Authenticator, Passkeys/FIDO2, Windows Hello for Business, Conditional Access.",
+          "alt": "Entsperrdialog mit den Verfahren Microsoft, Kennwort und Hello und der Schaltfläche „Weiter mit Microsoft“."
+        },
+        {
+          "name": "sign",
+          "title": "Elektronische Signaturen",
+          "caption": "Fachanwendungen fordern über eine lokale Schnittstelle eine Signatur an. Person, Zeitpunkt, Grund und Bedeutung landen im Protokoll.",
+          "alt": "Signaturdialog: „Sie signieren elektronisch – Freigabe Sequenz QC-2026-1012, Bedeutung: Geprüft und freigegeben, angefordert von ChromLab 7“."
+        },
+        {
+          "name": "blank",
+          "title": "Verdeckt sperren",
+          "caption": "Für vertrauliche Inhalte: große Uhr statt Durchsicht. Die Programme laufen trotzdem weiter.",
+          "alt": "Verdeckt gesperrt: dunkler Bildschirm mit großer Uhr 10:42 und Datum."
+        },
+        {
+          "name": "settings-audit",
+          "title": "Protokoll mit Hash-Kette",
+          "caption": "Jede Aktion mit Zeit, Person und Verfahren. Die SHA-256-Kette macht Änderungen sichtbar, dazu Netzwerkkopie und Ereignisprotokoll.",
+          "alt": "Einstellungen › Protokoll: Hash-Kette, Kopie auf dem Netzlaufwerk und die letzten Einträge mit „Kette vollständig“."
+        },
+        {
+          "name": "tray",
+          "title": "Infobereich im Windows-11-Stil",
+          "caption": "Flyout mit Status und Sperr-Knöpfen. Fluent-Design in Hell, Dunkel oder hohem Kontrast, mit Windows- oder Firmen-Akzentfarbe.",
+          "alt": "Infobereich-Flyout mit der Statuskarte „Bereit“ und den Einträgen „Jetzt durchsichtig sperren“, „Verdeckt sperren“ und „Protokoll“."
+        }
+      ]
+    }
+  }
+}

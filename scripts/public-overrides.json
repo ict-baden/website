@@ -1,0 +1,111 @@
+{
+  "$comment": [
+    "Redaktionelle Regeln für die öffentliche Produktseite. Wird von scripts/sync-products.mjs angewendet.",
+    "Grundsätze: Nur Kürzen oder anhand der Produkt-README berichtigen, nie Hinzudichten. 'Was es ersetzt' wird nur übernommen, wenn hier 'ersetzt': true steht",
+    "(neutraler Produktvergleich ohne Werturteile über benannte Fremdprodukte). Neue Produkte erscheinen deshalb",
+    "zunächst ohne diesen Abschnitt, bis jemand ihn geprüft hat.",
+    "Felder je Produkt-id: ersetzt (bool), problem (false = Abschnitt weglassen), dropSentences / dropBlocks / dropItems",
+    "(Teilstrings; ganze Sätze, Absätze/Listen bzw. Listenpunkte, die sie enthalten, entfallen), replace ([alt, neu]),",
+    "textReplace ([alt, neu]) für das Feld 'text', reason (Begründung, wird nicht veröffentlicht)."
+  ],
+  "products": {
+    "ethernetip-explorer": {
+      "ersetzt": true
+    },
+    "iec61850-browser": {
+      "ersetzt": true
+    },
+    "pcs7-alternative": {
+      "ersetzt": true,
+      "problem": false,
+      "dropBlocks": [
+        "Noch offen. Ein vollständiges Leitsystem ist sehr groß"
+      ],
+      "reason": "Ausgangslage enthält Werturteile über ein benanntes Fremdprodukt; Umfang beginnt mit internem Satz."
+    },
+    "ppwr-verpackungsdaten": {
+      "ersetzt": true
+    },
+    "profinet-scanner": {
+      "ersetzt": true
+    },
+    "redfish-explorer": {
+      "ersetzt": true
+    },
+    "rz-energiebericht": {
+      "ersetzt": true,
+      "dropBlocks": [
+        "Weitere Pflichten",
+        "PUE ≤ 1,3"
+      ],
+      "reason": "Liste weiterer Pflichten ist intern als 'vor dem Bauen gegen aktuelle Fassung prüfen' markiert."
+    },
+    "s7-explorer": {
+      "ersetzt": true
+    },
+    "user-review": {
+      "ersetzt": true
+    },
+    "verpackungsmengen-plugin": {
+      "ersetzt": true
+    },
+    "zebra-druckerflotte-monitor": {
+      "ersetzt": true
+    },
+    "zertifikats-ablauf-scanner": {
+      "ersetzt": true
+    },
+    "explorer-framework": {
+      "dropSentences": [
+        "Unsere eigenen Explorer"
+      ],
+      "dropItems": [
+        "Einzelausgaben"
+      ],
+      "reason": "Interne Bemerkungen (Personen, Repos, Build-Varianten)."
+    },
+    "visualisierung": {
+      "problem": false,
+      "replace": [
+        [
+          " (Code aus den Explorern wiederverwenden)",
+          ""
+        ]
+      ],
+      "reason": "Ausgangslage besteht aus Werturteilen über ein benanntes Fremdprodukt; interne Technik-Notiz im Umfang."
+    },
+    "update-server": {
+      "dropBlocks": [
+        "Täglicher Schmerz mit WSUS"
+      ],
+      "reason": "Werturteile über ein benanntes Fremdprodukt."
+    },
+    "vial-scanner": {
+      "textReplace": [
+        [
+          "Eigener Nachbau als Alternative zu Ziath DataPaq.",
+          "Alternative zu Ziath DataPaq."
+        ]
+      ],
+      "reason": "'Nachbau' ist eine interne Formulierung."
+    },
+    "freigaben-berechtigungen": {
+      "textReplace": [
+        [
+          "Alternative zu teuren Tools wie tenfold.",
+          "Alternative zu Tools wie tenfold."
+        ]
+      ],
+      "reason": "Werturteil über ein benanntes Fremdprodukt im Kurztext."
+    },
+    "vitrine": {
+      "textReplace": [
+        [
+          "manipulationssicherem Protokoll",
+          "manipulationserkennendem Protokoll"
+        ]
+      ],
+      "reason": "README von Vitrine: Das Protokoll ist manipulationserkennend, nicht manipulationssicher."
+    }
+  }
+}
