@@ -1,0 +1,108 @@
+---
+// Grundlayout aller Seiten: Kopf mit Metadaten, Kopfzeile, Inhalt, Fußzeile.
+import '@fontsource-variable/inter/wght.css';
+import '@fontsource-variable/archivo/wdth.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/components.css';
+import '../styles/art.css';
+import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import archivoLatin from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { COMPANY, SITE_URL, STAGING } from '../config';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Titel ohne " – ICT Baden" (Startseite) */
+  bareTitle?: boolean;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  /** zusätzliche Skripte (Pfad unter /js/), werden mit defer geladen */
+  scripts?: string[];
+  /** Modul-Skripte (Pfad unter /js/) */
+  modules?: string[];
+  jsonLd?: Record<string, unknown>;
+  bodyClass?: string;
+}
+
+const { title, description, bareTitle = false, ogImage = '/og/ict-baden.png', ogType = 'website', scripts = [], modules = [], jsonLd, bodyClass } = Astro.props;
+const fullTitle = bareTitle ? title : `${title} – ICT Baden`;
+const path = Astro.url.pathname;
+const canonical = `${SITE_URL}${path}`;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`;
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {STAGING && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f6f2" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0d11" />
+    <script is:inline src="/js/theme-init.js"></script>
+    <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={archivoLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/produkt-farben.css" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="sitemap" href="/sitemap.xml" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={COMPANY.name} />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <script is:inline src="/js/site.js" defer></script>
+    {scripts.map((s) => <script is:inline src={`/js/${s}`} defer></script>)}
+    {modules.map((s) => <script is:inline type="module" src={`/js/${s}`}></script>)}
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+    {STAGING && (
+      <div class="staging-bar">
+        <span>Vorschau der neuen Website von ICT Baden</span>
+      </div>
+    )}
+    <Header />
+    <main id="inhalt" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  .staging-bar {
+    padding: 0.4rem var(--gutter);
+    background: var(--bg-inverse);
+    color: var(--ink-inverse-2);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.02em;
+    text-align: center;
+  }
+  .staging-bar span::before {
+    content: '';
+    display: inline-block;
+    width: 0.5em;
+    height: 0.5em;
+    margin-right: 0.6em;
+    border-radius: 50%;
+    background: var(--brand-yellow);
+    vertical-align: 0.1em;
+  }
+  main:focus { outline: none; }
+</style>

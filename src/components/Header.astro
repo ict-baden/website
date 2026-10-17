@@ -1,0 +1,181 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { NAV, mailto } from '../config';
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="ICT Baden – zur Startseite">
+      <Logo uid="h" />
+    </a>
+
+    <nav class="nav" aria-label="Hauptnavigation">
+      <ul>
+        {NAV.map((item) => (
+          <li>
+            <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-pressed="false" hidden>
+        <span class="visually-hidden">Dunkles Design</span>
+        <Icon name="moon" class="i-moon" />
+        <Icon name="sun" class="i-sun" />
+      </button>
+      <a class="btn btn--sm header-cta" href={mailto('Anfrage über die Website')}>
+        <Icon name="mail" />
+        Anfrage senden
+      </a>
+      <details class="mnav" data-mnav>
+        <summary class="icon-btn" aria-label="Menü">
+          <Icon name="menu" class="i-open" />
+          <Icon name="x" class="i-close" />
+        </summary>
+        <div class="mnav-panel">
+          <nav aria-label="Hauptnavigation (mobil)">
+            <ul>
+              <li><a href="/" aria-current={path === '/' ? 'page' : undefined}>Start</a></li>
+              {NAV.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                    {item.label}
+                    <Icon name="arrow-right" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <a class="btn mnav-cta" href={mailto('Anfrage über die Website')}>
+            <Icon name="mail" /> Anfrage senden
+          </a>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    view-transition-name: site-header;
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter: saturate(1.6) blur(14px);
+    -webkit-backdrop-filter: saturate(1.6) blur(14px);
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--s-5);
+    min-height: 72px;
+  }
+  .brand { display: inline-flex; color: var(--ink); flex: none; border-radius: 12px; }
+  .brand :global(.logo) { height: 40px; width: auto; }
+
+  .nav { margin-left: auto; }
+  .nav ul { display: flex; gap: 0.25rem; padding: 0; margin: 0; list-style: none; }
+  .nav a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 0.85rem;
+    border-radius: var(--r-pill);
+    color: var(--ink-2);
+    font-size: var(--fs-sm);
+    font-weight: 560;
+    text-decoration: none;
+    transition: color var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out);
+  }
+  .nav a:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, transparent); }
+  .nav a[aria-current='page'] { color: var(--ink); }
+  .nav a[aria-current='page']::after {
+    content: '';
+    position: absolute;
+    left: 0.85rem; right: 0.85rem; bottom: 6px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--brand-yellow) 0 62%, var(--brand-red) 62% 100%);
+  }
+
+  .header-actions { display: flex; align-items: center; gap: var(--s-2); }
+  .icon-btn {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--bg-elev);
+    color: var(--ink);
+    transition: border-color var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out);
+  }
+  .icon-btn:hover { border-color: var(--ink-3); }
+  .icon-btn[hidden] { display: none; }
+  .theme-toggle :global(.icon) { grid-area: 1 / 1; transition: opacity var(--dur), transform 400ms var(--ease-out); }
+  .theme-toggle :global(.i-sun) { opacity: 0; transform: rotate(-60deg) scale(0.6); }
+  .theme-toggle[aria-pressed='true'] :global(.i-sun) { opacity: 1; transform: none; }
+  .theme-toggle[aria-pressed='true'] :global(.i-moon) { opacity: 0; transform: rotate(60deg) scale(0.6); }
+
+  /* Mobile Navigation */
+  .mnav { display: none; }
+  .mnav summary { list-style: none; }
+  .mnav summary::-webkit-details-marker { display: none; }
+  .mnav summary :global(.icon) { grid-area: 1 / 1; }
+  .mnav :global(.i-close) { display: none; }
+  .mnav[open] :global(.i-close) { display: block; }
+  .mnav[open] :global(.i-open) { display: none; }
+  .mnav-panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    max-height: calc(100dvh - 96px);
+    overflow-y: auto;
+    padding: var(--s-4) var(--gutter) var(--s-6);
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow-lg);
+  }
+  .mnav-panel ul { padding: 0; margin: 0 0 var(--s-5); list-style: none; }
+  .mnav-panel li + li { border-top: 1px solid var(--line); }
+  .mnav-panel a:not(.btn) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 56px;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    font-stretch: 104%;
+    letter-spacing: -0.015em;
+    text-decoration: none;
+  }
+  .mnav-panel a:not(.btn) :global(.icon) { color: var(--ink-3); }
+  .mnav-panel a[aria-current='page'] { color: var(--accent); }
+  .mnav-cta { width: 100%; }
+  @media (prefers-reduced-motion: no-preference) {
+    .mnav[open] .mnav-panel { animation: drop 260ms var(--ease-out); }
+  }
+  @keyframes drop { from { opacity: 0; transform: translateY(-8px); } }
+
+  @media (max-width: 1060px) {
+    .header-cta { display: none; }
+  }
+  @media (max-width: 860px) {
+    .nav { display: none; }
+    .header-actions { margin-left: auto; }
+    .mnav { display: block; }
+    .header-inner { min-height: 64px; }
+    .brand :global(.logo) { height: 34px; }
+  }
+</style>

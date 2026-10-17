@@ -1,0 +1,122 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { COMPANY, NAV, STAGING } from '../config';
+import { linien, lineAnchor } from '../lib/products';
+
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="footer-logo" href="/" aria-label="ICT Baden – zur Startseite"><Logo uid="f" /></a>
+        <p class="footer-claim">Softwareentwicklung</p>
+        <address>
+          {COMPANY.name}<br />
+          {COMPANY.street}<br />
+          {COMPANY.zip}&nbsp;{COMPANY.city}
+        </address>
+        <ul class="footer-contact">
+          <li><a href={`mailto:${COMPANY.email}`}><Icon name="mail" />{COMPANY.email}</a></li>
+          <li><a href={COMPANY.mobileHref}><Icon name="phone" />{COMPANY.mobile}</a></li>
+        </ul>
+      </div>
+
+      <nav class="footer-col" aria-label="Website">
+        <h2>Website</h2>
+        <ul>
+          <li><a href="/">Start</a></li>
+          {NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="Produktlinien">
+        <h2>Produktlinien</h2>
+        <ul>
+          {linien.map((l) => <li><a href={lineAnchor(l.id)}>{l.name}</a></li>)}
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="Werkzeuge und Rechtliches">
+        <h2>Werkzeuge</h2>
+        <ul>
+          <li><a href="/werkzeuge/pulswertigkeit/">Energiezähler-Pulswertigkeit</a></li>
+          <li><a href="/downloads/#modbus">ModbusExplorer</a></li>
+        </ul>
+        <h2 class="mt">Rechtliches</h2>
+        <ul>
+          <li><a href="/impressum/">Impressum</a></li>
+          <li><a href="/datenschutz/">Datenschutz</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <p>©{year} {COMPANY.name}</p>
+      <p class="footer-note">
+        Statische Website ohne Tracking{STAGING && ' · Vorschau, nicht für Suchmaschinen freigegeben'}
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--section-y);
+    padding-block: var(--s-8) var(--s-6);
+    border-top: 1px solid var(--line);
+    background: var(--bg-elev-2);
+    font-size: var(--fs-sm);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr repeat(3, 1fr);
+    gap: var(--s-7) var(--s-6);
+  }
+  .footer-logo { display: inline-flex; color: var(--ink); border-radius: 10px; }
+  .footer-logo :global(.logo) { height: 40px; width: auto; }
+  .footer-claim { margin-top: var(--s-4); font-weight: 650; color: var(--ink); }
+  address { margin-top: var(--s-2); font-style: normal; color: var(--ink-2); line-height: 1.6; }
+  .footer-contact { display: grid; gap: var(--s-2); margin-top: var(--s-4); padding: 0; list-style: none; }
+  .footer-contact a { display: inline-flex; align-items: center; gap: 0.55em; color: var(--ink-2); text-decoration: none; }
+  .footer-contact a:hover { color: var(--accent); }
+  .footer-contact :global(.icon) { width: 1.05rem; height: 1.05rem; color: var(--ink-3); }
+  .footer-col h2 {
+    margin-bottom: var(--s-3);
+    font-family: var(--font-sans);
+    font-size: var(--fs-xs);
+    font-weight: 650;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .footer-col h2.mt { margin-top: var(--s-6); }
+  .footer-col ul { display: grid; gap: 0.15rem; padding: 0; margin: 0; list-style: none; }
+  .footer-col a {
+    display: inline-flex;
+    min-height: 32px;
+    align-items: center;
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+  .footer-col a:hover { color: var(--accent); text-decoration: underline; }
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--s-3) var(--s-6);
+    margin-top: var(--s-8);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--line);
+    color: var(--ink-3);
+    font-size: var(--fs-xs);
+  }
+  @media (max-width: 960px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 520px) {
+    .footer-grid { grid-template-columns: 1fr; gap: var(--s-6); }
+  }
+</style>

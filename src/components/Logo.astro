@@ -1,0 +1,33 @@
+---
+// Wortmarke ICT BADEN als Vektor (Umrisse aus Archivo ExtraBold, siehe src/assets/brand/wordmark.json).
+// "BADEN" folgt der Textfarbe, damit die Marke im hellen und dunklen Design funktioniert.
+import mark from '../assets/brand/wordmark.json';
+
+interface Props {
+  /** eindeutiger Zusatz für die Verlaufs-ID, wenn das Logo mehrfach auf einer Seite steht */
+  uid: string;
+  tileOnly?: boolean;
+  class?: string;
+}
+const { uid, tileOnly = false, class: className } = Astro.props;
+const gid = `ictb-y-${uid}`;
+const width = tileOnly ? mark.tile : mark.width;
+---
+<svg
+  class:list={['logo', className]}
+  viewBox={`0 0 ${width} ${mark.height}`}
+  role="img"
+  aria-label="ICT Baden"
+  focusable="false"
+>
+  <defs>
+    <linearGradient id={gid} x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color={mark.colors.yellowTop} />
+      <stop offset="0.55" stop-color={mark.colors.yellowMid} />
+      <stop offset="1" stop-color={mark.colors.yellowBottom} />
+    </linearGradient>
+  </defs>
+  <rect x="0.5" y="0.5" width="63" height="63" rx="11.5" fill={`url(#${gid})`} stroke={mark.colors.edge} stroke-opacity="0.55" />
+  <path d={mark.ict} fill={mark.colors.red} />
+  {!tileOnly && <path d={mark.baden} fill="currentColor" />}
+</svg>
