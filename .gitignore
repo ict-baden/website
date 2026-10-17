@@ -1,0 +1,17 @@
+# Abhängigkeiten und Build
+node_modules/
+dist/
+.astro/
+
+# Lokale Prüf- und Bildschirmfotos
+.screenshots/
+.lighthouse/
+
+# Editor und System
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+.env
+.env.*
