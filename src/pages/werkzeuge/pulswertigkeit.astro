@@ -1,0 +1,207 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Icon from '../../components/Icon.astro';
+
+// Startwerte wie auf der bisherigen Seite; Ergebnis wird für Browser ohne JavaScript vorberechnet
+const D = { impulses: 20000, factor: 100, MwImpulses: 20000, MwVolts: 20000, MwVoltsDiv: 100, MwAmps: 100, MwAmpsDiv: 5 };
+const fmt = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 6 });
+const pulse = (D.factor * 1000) / D.impulses;
+const mwFactor = (D.MwVolts / D.MwVoltsDiv) * (D.MwAmps / D.MwAmpsDiv);
+const mwPulse = (mwFactor * 1000) / D.MwImpulses;
+const num = (n: number) => fmt.format(n);
+---
+<Base
+  title="Energiezähler | Pulswertigkeit"
+  description="Online-Rechner: Primär-Impulskonstante eines Energiezählers aus Zähler-Impulskonstante und Wandlerkonstante oder aus den Daten eines Messwandlerzählers (Impulse, Spannungs- und Stromwandler)."
+  modules={['pulse.js']}
+>
+  <PageHero
+    eyebrow="Werkzeug"
+    title="Energiezähler | Pulswertigkeit"
+    lead="Berechnung der Pulswertigkeit aus den gegebenen Daten."
+    crumbs={[{ href: '/downloads/#werkzeuge', label: 'Werkzeuge' }, { label: 'Pulswertigkeit' }]}
+  />
+
+  <form class="container calc" data-pulse novalidate aria-label="Rechner Pulswertigkeit">
+    <p class="callout calc-js" data-js-hint><Icon name="info" /> Der Rechner benötigt JavaScript. Angezeigt sind die Ergebnisse für die Startwerte.</p>
+
+    <div class="calc-grid">
+      <section class="calc-card" aria-labelledby="c1">
+        <p class="calc-step">Vorgaben</p>
+        <h2 id="c1">Aus Wandlerkonstante</h2>
+        <div class="fields">
+          <div class="field">
+            <label for="impulses">Zähler-Impulskonstante</label>
+            <div class="input-unit">
+              <input class="input" id="impulses" name="impulses" inputmode="decimal" autocomplete="off" value={num(D.impulses)} />
+              <span class="unit">Imp./kWh, kvarh</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="factor">Wandlerkonstante</label>
+            <div class="input-unit">
+              <input class="input" id="factor" name="factor" inputmode="decimal" autocomplete="off" value={num(D.factor)} />
+              <span class="unit" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+        <div class="result">
+          <p class="result-label">Ergebnis · Primär-Impulskonstante</p>
+          <p class="result-value">1 Impuls = <output id="pulse" for="impulses factor">{num(pulse)}</output> <span class="result-unit">Wh</span></p>
+          <p class="result-sub" id="pulse-kwh">= {num(pulse / 1000)} kWh</p>
+        </div>
+        <p class="formula"><span class="formula-k">Formel</span> Wandlerkonstante × 1000 ÷ Zähler-Impulskonstante</p>
+      </section>
+
+      <section class="calc-card" aria-labelledby="c2">
+        <p class="calc-step">Vorgaben</p>
+        <h2 id="c2">Oder von Messwandlerzähler</h2>
+        <div class="fields">
+          <div class="field">
+            <label for="MwImpulses"><span class="mark" aria-hidden="true">1</span> <span>Impulse (R<sub>A</sub>)</span></label>
+            <div class="input-unit">
+              <input class="input" id="MwImpulses" name="MwImpulses" inputmode="decimal" autocomplete="off" value={num(D.MwImpulses)} />
+              <span class="unit">imp/kWh</span>
+            </div>
+          </div>
+          <div class="field">
+            <span class="field-label" id="lbl-volts"><span class="mark" aria-hidden="true">2</span> Spannungswandler</span>
+            <div class="ratio" role="group" aria-labelledby="lbl-volts">
+              <input class="input" id="MwVolts" name="MwVolts" inputmode="decimal" autocomplete="off" value={num(D.MwVolts)} aria-label="Spannungswandler primär (V)" />
+              <span class="ratio-sep" aria-hidden="true">/</span>
+              <input class="input" id="MwVoltsDiv" name="MwVoltsDiv" inputmode="decimal" autocomplete="off" value={num(D.MwVoltsDiv)} aria-label="Spannungswandler sekundär (V)" />
+              <span class="unit">V</span>
+            </div>
+          </div>
+          <div class="field">
+            <span class="field-label" id="lbl-amps"><span class="mark" aria-hidden="true">3</span> Stromwandler</span>
+            <div class="ratio" role="group" aria-labelledby="lbl-amps">
+              <input class="input" id="MwAmps" name="MwAmps" inputmode="decimal" autocomplete="off" value={num(D.MwAmps)} aria-label="Stromwandler primär (A)" />
+              <span class="ratio-sep" aria-hidden="true">/</span>
+              <input class="input" id="MwAmpsDiv" name="MwAmpsDiv" inputmode="decimal" autocomplete="off" value={num(D.MwAmpsDiv)} aria-label="Stromwandler sekundär (A)" />
+              <span class="unit">A</span>
+            </div>
+          </div>
+        </div>
+        <div class="result">
+          <p class="result-label">Ergebnis · Primär-Impulskonstante</p>
+          <p class="result-value">1 Impuls = <output id="MwPulse" for="MwImpulses MwVolts MwVoltsDiv MwAmps MwAmpsDiv">{num(mwPulse)}</output> <span class="result-unit">Wh</span></p>
+          <p class="result-sub" id="MwPulse-kwh">= {num(mwPulse / 1000)} kWh</p>
+        </div>
+        <p class="formula"><span class="formula-k">Formel</span> Wandlerfaktor × 1000 ÷ Impulse, mit Wandlerfaktor = (Spannungswandler primär ÷ sekundär) × (Stromwandler primär ÷ sekundär) = <output id="MwFactor">{num(mwFactor)}</output></p>
+      </section>
+    </div>
+
+    <p class="calc-hint">Dezimalzahlen mit Komma eingeben, z. B. 0,5. Der Punkt gilt als Tausendertrennzeichen (20.000 = 20000).</p>
+  </form>
+
+  <section class="container ref" aria-labelledby="ref-titel">
+    <h2 id="ref-titel" class="ref-title">Wo stehen die Werte?</h2>
+    <div class="ref-grid">
+      <figure class="ref-fig reveal">
+        <img src="/media/werkzeuge/messwandlerzaehler-typenschild.webp" width="400" height="157" loading="lazy" decoding="async"
+          alt="Typenschild eines Messwandlerzählers (Landis+Gyr ZMK410CE) mit Markierungen: (1) Impulskonstante in imp/kWh oben neben dem Herstellerlogo, (2) Feld des Spannungswandlers und (3) Feld des Stromwandlers im Bereich R_A unten rechts." />
+        <figcaption>Typenschild eines Messwandlerzählers: <strong>(1)</strong> Impulse R<sub>A</sub>, <strong>(2)</strong> Spannungswandler, <strong>(3)</strong> Stromwandler.</figcaption>
+      </figure>
+
+      <div class="ref-tables">
+        <div class="table-wrap reveal">
+          <table class="table">
+            <caption>Landis+Gyr Impulswertigkeiten am IM-E2A07</caption>
+            <thead><tr><th scope="col">Spannung [V]</th><th scope="col">Strom [A]</th><th scope="col">Impulskonstante [Imp/kWh]</th></tr></thead>
+            <tbody>
+              <tr><td>3 x 230/400</td><td>5(100)</td><td class="num">250</td></tr>
+              <tr><td>3 x 230/400</td><td>1(6)</td><td class="num">5000</td></tr>
+              <tr><td>3 x 58/100</td><td>1(6)</td><td class="num">20000</td></tr>
+              <tr><td>3 x 58/100</td><td>1(2)</td><td class="num">100000</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-wrap reveal">
+          <table class="table">
+            <caption>Bestimmung durch Auslesen der Zählerparameter</caption>
+            <thead><tr><th scope="col">Kennziffer</th><th scope="col">Impulskonstante</th></tr></thead>
+            <tbody>
+              <tr><td class="num">0.3.0</td><td>Prüf-LED-Konstante P+/- [Imp/kWh]</td></tr>
+              <tr class="is-key"><td class="num"><strong>0.3.3</strong></td><td><strong>Impulsausgangskonstante P+/- [Imp/kWh]</strong></td></tr>
+              <tr><td class="num">0.3.4</td><td>Impulsausgangskonstante Q+/- [Imp/kvarh]</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .calc { display: grid; gap: var(--s-5); }
+  .calc-js { margin: 0; }
+  .calc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); align-items: start; }
+  .calc-card {
+    display: grid;
+    align-content: start;
+    gap: var(--s-4);
+    padding: clamp(1.4rem, 1rem + 1.5vw, 2.4rem);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    background: var(--bg-elev);
+    box-shadow: var(--shadow-md);
+  }
+  .calc-step { color: var(--ink-3); font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; }
+  .calc-card h2 { margin-top: -0.4rem; font-size: var(--fs-xl); }
+  .fields { display: grid; gap: var(--s-4); }
+  .field-label { font-size: var(--fs-sm); font-weight: 600; color: var(--ink); }
+  .field label, .field-label { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .mark {
+    display: inline-grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: var(--brand-yellow);
+    color: #14161b;
+    font-size: 0.75rem;
+    font-weight: 750;
+  }
+  .ratio { display: grid; grid-template-columns: minmax(0, 1.4fr) auto minmax(0, 1fr) 3.5em; align-items: center; gap: 0.5rem; }
+  .ratio-sep { color: var(--ink-3); font-size: 1.25rem; }
+  .ratio .unit { color: var(--ink-3); font-size: var(--fs-sm); }
+  .input-unit .unit { min-width: 7.5em; }
+
+  .result {
+    margin-top: var(--s-2);
+    padding: var(--s-5);
+    border-radius: var(--r-lg);
+    background:
+      radial-gradient(120% 120% at 100% 0%, color-mix(in srgb, var(--brand-yellow) 30%, transparent), transparent 60%),
+      var(--bg-elev-2);
+    border: 1px solid var(--line);
+  }
+  .result-label { color: var(--ink-3); font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; }
+  .result-value { margin-top: var(--s-2); font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 760; font-stretch: 104%; letter-spacing: -0.02em; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .result-value output { color: var(--ink); }
+  .result-unit { color: var(--ink-2); }
+  .result-sub { margin-top: 0.15rem; color: var(--ink-3); font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
+  .formula { color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.6; }
+  .formula-k { margin-right: 0.5em; color: var(--ink-3); font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; }
+  .formula output { font-weight: 650; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .calc-hint { color: var(--ink-3); font-size: var(--fs-sm); }
+
+  .ref { margin-top: var(--section-y); }
+  .ref-title { font-size: var(--fs-2xl); margin-bottom: var(--s-6); }
+  .ref-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: var(--s-6); align-items: start; }
+  .ref-fig { margin: 0; }
+  .ref-fig img { width: 100%; height: auto; border-radius: var(--r-md); box-shadow: var(--shadow-md); image-rendering: auto; }
+  .ref-fig figcaption { margin-top: var(--s-3); color: var(--ink-2); font-size: var(--fs-sm); }
+  .ref-tables { display: grid; gap: var(--s-5); }
+
+  @media (max-width: 960px) {
+    .calc-grid, .ref-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 420px) {
+    .input-unit { flex-wrap: wrap; }
+    .input-unit .unit { min-width: 0; }
+    .ratio { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) 1.5em; }
+  }
+</style>
