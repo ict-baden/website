@@ -1,0 +1,183 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ProductCard from '../../components/product/ProductCard.astro';
+import ContactBand from '../../components/ContactBand.astro';
+import Icon from '../../components/Icon.astro';
+import { productGlyph } from '../../lib/art';
+import { linien, products, productsOfLine, statusCounts, STATUS_ORDER, STATUS_LABEL, STATUS_HELP, plural } from '../../lib/products';
+
+const total = statusCounts(products);
+---
+<Base
+  title="Produkte"
+  description={`${products.length} Software-Produkte von ICT Baden in ${linien.length} Produktlinien: Android & Zebra, Labor, OT-Sicherheit, Explorer für Industrieprotokolle, Service-Laptop und Self-hosted Server-Apps.`}
+  scripts={['products.js']}
+>
+  <PageHero
+    eyebrow="Eigene Produkte"
+    title="Software-Produkte für Industrie, Labor und IT"
+    lead={`${plural(products.length, 'Produkt', 'Produkte')} in ${linien.length} Produktlinien – von der fertigen Anwendung bis zur geplanten Lösung. Zu jedem Produkt beraten wir Sie gern persönlich.`}
+    crumbs={[{ label: 'Produkte' }]}
+  >
+    <ul class="legend" aria-label="Status der Produkte">
+      {STATUS_ORDER.map((k) => (
+        <li>
+          <span class:list={['badge', `badge--${k}`]}>{STATUS_LABEL[k]}</span>
+          <span class="legend-n tabular">{total[k]}</span>
+          <span class="legend-help">{STATUS_HELP[k]}</span>
+        </li>
+      ))}
+    </ul>
+  </PageHero>
+
+  <div class="container catalog">
+    <div class="filters" data-filters hidden>
+      <div class="fgroup">
+        <span class="flabel" id="f-linie"><Icon name="filter" /> Produktlinie</span>
+        <div class="chips" role="group" aria-labelledby="f-linie">
+          <button class="chip" type="button" data-filter="linie" data-value="" aria-pressed="true">Alle <span class="count">{products.length}</span></button>
+          {linien.map((l) => (
+            <button class="chip" type="button" data-filter="linie" data-value={l.id} aria-pressed="false">{l.name} <span class="count">{productsOfLine(l.id).length}</span></button>
+          ))}
+        </div>
+      </div>
+      <div class="fgroup">
+        <span class="flabel" id="f-status"><Icon name="check-circle" /> Status</span>
+        <div class="chips" role="group" aria-labelledby="f-status">
+          <button class="chip" type="button" data-filter="status" data-value="" aria-pressed="true">Alle</button>
+          {STATUS_ORDER.map((k) => (
+            <button class="chip" type="button" data-filter="status" data-value={k} aria-pressed="false">{STATUS_LABEL[k]} <span class="count">{total[k]}</span></button>
+          ))}
+        </div>
+      </div>
+      <p class="fresult" data-result aria-live="polite">{plural(products.length, 'Produkt', 'Produkte')}</p>
+    </div>
+
+    {linien.map((l) => {
+      const list = productsOfLine(l.id);
+      return (
+        <section class="pline" id={`linie-${l.id}`} data-line-section={l.id} aria-labelledby={`h-${l.id}`}>
+          <header class="pline-head">
+            <span class="pline-icon" set:html={productGlyph(`linie-${l.id}`, l.id, '-cat')} />
+            <div>
+              <h2 id={`h-${l.id}`}>{l.name}</h2>
+              <p>{l.text}</p>
+            </div>
+            <span class="pline-n" data-line-count>{plural(list.length, 'Produkt', 'Produkte')}</span>
+          </header>
+          {list.some((p) => p.statusKey !== 'geplant') && (
+            <ul class="pgrid" role="list">
+              {list.filter((p) => p.statusKey !== 'geplant').map((p) => (
+                <li data-linie={p.linie} data-status={p.statusKey} class="reveal">
+                  <ProductCard product={p} />
+                </li>
+              ))}
+            </ul>
+          )}
+          {list.some((p) => p.statusKey === 'geplant') && (
+            <ul class="pgrid pgrid--compact" role="list">
+              {list.filter((p) => p.statusKey === 'geplant').map((p) => (
+                <li data-linie={p.linie} data-status={p.statusKey} class="reveal">
+                  <ProductCard product={p} compact />
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      );
+    })}
+
+    <div class="pempty" data-empty hidden>
+      <p>Für diese Auswahl gibt es noch kein Produkt.</p>
+      <button class="btn btn--secondary" type="button" data-reset>Filter zurücksetzen</button>
+    </div>
+  </div>
+
+  <ContactBand
+    title="Interesse an einem Produkt?"
+    text="Schreiben Sie uns, welches Produkt Sie interessiert und wofür Sie es einsetzen möchten – wir melden uns persönlich."
+    subject="Anfrage zu den Produkten"
+  />
+</Base>
+
+<style>
+  .legend { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-5); margin-top: var(--s-6); padding: 0; list-style: none; }
+  .legend li { display: inline-flex; align-items: center; gap: 0.55rem; font-size: var(--fs-sm); }
+  .legend-n { font-weight: 700; color: var(--ink); }
+  .legend-help { color: var(--ink-3); }
+
+  .catalog { display: grid; gap: var(--s-8); }
+  .filters {
+    position: sticky;
+    top: 72px;
+    z-index: 20;
+    display: grid;
+    gap: var(--s-3);
+    margin-top: var(--s-2);
+    padding: var(--s-4) var(--s-5);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: color-mix(in srgb, var(--bg-elev) 88%, transparent);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    box-shadow: var(--shadow-md);
+  }
+  .filters[hidden] { display: none; }
+  .fgroup { display: flex; align-items: center; gap: var(--s-4); min-width: 0; }
+  .flabel { display: inline-flex; align-items: center; gap: 0.4rem; flex: none; width: 8.5rem; color: var(--ink-3); font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; }
+  .flabel :global(.icon) { width: 1rem; height: 1rem; }
+  .chips {
+    display: flex;
+    gap: var(--s-2);
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 3px;
+    margin: -3px;
+    mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent);
+  }
+  .chips::-webkit-scrollbar { display: none; }
+  @media (min-width: 861px) {
+    .chips { flex-wrap: wrap; overflow: visible; mask-image: none; }
+  }
+  .fresult { color: var(--ink-2); font-size: var(--fs-sm); font-weight: 560; }
+
+  .pline { scroll-margin-top: 240px; }
+  .pline[hidden] { display: none; }
+  .pline-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--s-4);
+    margin-bottom: var(--s-5);
+    padding-bottom: var(--s-4);
+    border-bottom: 1px solid var(--line);
+  }
+  .pline-icon { display: block; width: 52px; height: 52px; }
+  .pline-head h2 { font-size: var(--fs-xl); }
+  .pline-head p { color: var(--ink-2); font-size: var(--fs-sm); }
+  .pline-n { color: var(--ink-3); font-size: var(--fs-sm); font-weight: 560; white-space: nowrap; }
+  .pgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); padding: 0; margin: 0; list-style: none; }
+  .pgrid > li { display: grid; }
+  .pgrid--compact { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); }
+  .pgrid--compact > li[hidden], .pgrid[hidden] { display: none; }
+  .pgrid:not([hidden]) + .pgrid { margin-top: var(--s-5); }
+  .pgrid > li[hidden] { display: none; }
+  .pempty { display: grid; justify-items: center; gap: var(--s-4); padding: var(--s-8) 0; text-align: center; color: var(--ink-2); }
+  .pempty[hidden] { display: none; }
+
+  @media (max-width: 1060px) { .pgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 860px) {
+    .filters { top: 64px; padding: var(--s-3) var(--s-4); }
+    .fgroup { flex-direction: column; align-items: stretch; gap: var(--s-2); }
+    .flabel { width: auto; }
+  }
+  @media (max-width: 760px) { .pgrid--compact { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 640px) {
+    .pgrid { grid-template-columns: minmax(0, 1fr); }
+    .pline-head { grid-template-columns: auto 1fr; }
+    .pline-n { grid-column: 2; }
+    .filters { position: static; }
+  }
+</style>

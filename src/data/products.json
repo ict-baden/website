@@ -1,5 +1,5 @@
 {
-  "stand": "2026-10-14",
+  "stand": "2026-10-17",
   "linien": [
     {
       "id": "android",
@@ -60,6 +60,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -88,6 +89,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -116,6 +118,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -185,6 +188,10 @@
       ],
       "media": {
         "logo": "/media/produkte/lupe/logo.svg",
+        "colors": [
+          "#f7a531",
+          "#e8505b"
+        ],
         "banner": null,
         "demo": null,
         "screenshots": [
@@ -337,6 +344,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -391,13 +399,11 @@
       ],
       "media": {
         "logo": "/media/produkte/vitrine/logo.svg",
-        "banner": {
-          "src": "/media/produkte/vitrine/banner-2560.webp",
-          "srcset": "/media/produkte/vitrine/banner-1280.webp 1280w, /media/produkte/vitrine/banner-2560.webp 2560w",
-          "width": 2560,
-          "height": 840,
-          "alt": "Vitrine – transparente Bildschirmsperre mit Microsoft Entra ID. Ansehen, nicht anfassen: Programme bleiben sichtbar und laufen weiter."
-        },
+        "colors": [
+          "#5b8cff",
+          "#8b5cf6"
+        ],
+        "banner": null,
         "demo": {
           "src": "/media/produkte/vitrine/demo.webp",
           "still": "/media/produkte/vitrine/demo-still.webp",
@@ -584,6 +590,10 @@
       ],
       "media": {
         "logo": "/media/produkte/zutritt/logo.svg",
+        "colors": [
+          "#22c3a6",
+          "#3b6cf6"
+        ],
         "banner": null,
         "demo": null,
         "screenshots": [
@@ -737,6 +747,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -781,6 +792,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -830,6 +842,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -876,6 +889,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -914,6 +928,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -958,6 +973,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -986,6 +1002,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1030,6 +1047,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1074,6 +1092,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1122,6 +1141,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1170,6 +1190,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1218,6 +1239,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1266,6 +1288,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1311,6 +1334,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1354,6 +1378,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1397,6 +1422,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1440,6 +1466,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1478,6 +1505,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1496,7 +1524,7 @@
       "statusKey": "geplant",
       "statusLabel": "Geplant",
       "version": null,
-      "text": "Für Service-Laptops: pro Anlage feste IP, Gateway, DNS, Proxy und Hosts-Einträge als Profil speichern und mit einem Klick umschalten.",
+      "text": "Für Service-Laptops: pro Anlage feste IP, Gateway, DNS, Proxy und Hosts-Einträge als Profil speichern und mit einem Klick umschalten. Prüft vor dem Umschalten, ob die IP schon belegt ist, und zeigt das Gerät, das sie benutzt.",
       "sections": {
         "problem": null,
         "ersetzt": null,
@@ -1507,7 +1535,10 @@
               "Profile pro Anlage und Netzwerkkarte",
               "IP, Maske, Gateway, DNS, Proxy, Hosts-Einträge, Routen",
               "Umschalten per Klick oder aus dem Infobereich",
-              "Profile exportieren und im Team teilen"
+              "Profile exportieren und im Team teilen",
+              "Doppelte-IP-Erkennung: vor dem Setzen einer festen IP per ARP-Probe prüfen, ob die Adresse schon belegt ist (Address Conflict Detection nach RFC 5227). Bei Konflikt nicht umschalten, sondern warnen und MAC-Adresse plus Hersteller (OUI) des belegenden Geräts anzeigen. „Trotzdem anwenden“ nur mit Bestätigung.",
+              "Auch während ein Profil aktiv ist auf Konflikte achten (fremde ARP-Antworten für die eigene IP, Windows-Adressstatus „Duplicate“) und sofort melden",
+              "Optional: freie Adressen im Subnetz vorschlagen"
             ]
           }
         ]
@@ -1516,6 +1547,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1565,6 +1597,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1610,6 +1643,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1654,6 +1688,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1698,6 +1733,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1744,6 +1780,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1798,6 +1835,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1841,6 +1879,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1879,6 +1918,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1922,6 +1962,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -1960,6 +2001,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -2018,6 +2060,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
@@ -2067,6 +2110,7 @@
       "facts": [],
       "media": {
         "logo": null,
+        "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],

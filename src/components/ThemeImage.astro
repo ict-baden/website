@@ -1,0 +1,17 @@
+---
+// Bild mit heller und (optional) dunkler Fassung; sichtbar ist die zum aktiven Design passende.
+import type { ImageSet } from '../lib/products';
+
+interface Props {
+  light: ImageSet;
+  dark?: ImageSet | null;
+  alt: string;
+  sizes: string;
+  eager?: boolean;
+  class?: string;
+}
+const { light, dark, alt, sizes, eager = false, class: className } = Astro.props;
+const common = { sizes, loading: eager ? ('eager' as const) : ('lazy' as const), decoding: 'async' as const };
+---
+<img class:list={[dark && 'theme-light', className]} src={light.src} srcset={light.srcset} width={light.width} height={light.height} alt={alt} {...common} fetchpriority={eager ? 'high' : undefined} />
+{dark && <img class:list={['theme-dark', className]} src={dark.src} srcset={dark.srcset} width={dark.width} height={dark.height} alt={alt} {...common} />}

@@ -110,7 +110,7 @@
     },
     "vitrine": {
       "tagline": "Ansehen, nicht anfassen.",
-      "banner": true,
+      "banner": false,
       "bannerAlt": "Vitrine – transparente Bildschirmsperre mit Microsoft Entra ID. Ansehen, nicht anfassen: Programme bleiben sichtbar und laufen weiter.",
       "demo": {
         "file": "demo.gif",

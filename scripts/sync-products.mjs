@@ -175,12 +175,15 @@ async function buildMedia(dir, slug, productName, cfg) {
   const outDir = join(OUT_MEDIA, slug);
   rmSync(outDir, { recursive: true, force: true });
   mkdirSync(outDir, { recursive: true });
-  const media = { logo: null, banner: null, demo: null, screenshots: [], galleryNote: cfg.galleryNote ?? null, source: [] };
+  const media = { logo: null, colors: null, banner: null, demo: null, screenshots: [], galleryNote: cfg.galleryNote ?? null, source: [] };
 
   const logo = join(assets, 'logo.svg');
   if (existsSync(logo)) {
     writeFileSync(join(outDir, 'logo.svg'), sanitizeSvg(readFileSync(logo, 'utf8')));
     media.logo = `${MEDIA_URL}/${slug}/logo.svg`;
+    // Markenfarben des Produkts: die ersten beiden Verlaufsfarben im Logo
+    const stops = [...readFileSync(logo, "utf8").matchAll(/stop-color="(#[0-9a-fA-F]{3,8})"/g)].map((m) => m[1].toLowerCase());
+    if (stops.length >= 2) media.colors = [stops[0], stops[stops.length - 1]];
     media.source.push('logo.svg');
   }
 
@@ -317,7 +320,7 @@ for (const p of source.projekte) {
     sections,
     highlights: cfg.highlights ?? [],
     facts: (cfg.facts ?? []).map(([label, value]) => ({ label, value })),
-    media: media ?? { logo: null, banner: null, demo: null, screenshots: [], galleryNote: null },
+    media: media ?? { logo: null, colors: null, banner: null, demo: null, screenshots: [], galleryNote: null },
   });
   report.push({
     id: p.id,

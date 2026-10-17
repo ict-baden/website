@@ -1,0 +1,111 @@
+---
+import ProductCover from './ProductCover.astro';
+import ProductIcon from './ProductIcon.astro';
+import StatusBadge from '../StatusBadge.astro';
+import Icon from '../Icon.astro';
+import { lineById, productUrl, type Product } from '../../lib/products';
+
+interface Props {
+  product: Product;
+  uid?: string;
+  headingLevel?: 'h2' | 'h3' | 'h4';
+  showLine?: boolean;
+  /** kompakte Karte (für geplante Produkte in der Übersicht) */
+  compact?: boolean;
+}
+const { product, uid = '', headingLevel = 'h3', showLine = false, compact = false } = Astro.props;
+const H = headingLevel;
+const line = lineById(product.linie);
+---
+<article class:list={['pcard', compact && 'pcard--compact']}>
+  <ProductCover product={product} uid={uid} />
+  <div class="pcard-body">
+    <div class="pcard-top">
+      <ProductIcon product={product} uid={`${uid}-i`} class="pcard-icon" />
+      <StatusBadge product={product} />
+    </div>
+    <H class="pcard-title">
+      <a href={productUrl(product)}>{product.name}</a>
+    </H>
+    {(product.kind || showLine) && (
+      <p class="pcard-kind">{product.kind ?? line.name}{showLine && product.kind && <span class="sep"> · {line.name}</span>}</p>
+    )}
+    <p class="pcard-text">{product.text}</p>
+    <span class="pcard-more" aria-hidden="true">Details <Icon name="arrow-right" /></span>
+  </div>
+</article>
+
+<style>
+  .pcard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--bg-elev);
+    box-shadow: var(--shadow-sm);
+    transition: transform 380ms var(--ease-out), box-shadow 380ms var(--ease-out), border-color 380ms var(--ease-out);
+  }
+  .pcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--line-strong); }
+  .pcard:hover :global(.motif) { transform: scale(1.045); }
+  .pcard:hover :global(.pcover-shot) { transform: translate(-2%, -3%) scale(1.03); }
+  .pcard:has(.pcard-title a:focus-visible) { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .pcard-body {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--s-2);
+    padding: 0 clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem) clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem);
+  }
+  .pcard-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--s-3);
+    margin-top: -26px;
+    margin-bottom: var(--s-2);
+  }
+  .pcard-top :global(.pcard-icon) { --picon-size: 56px; }
+  .pcard-title { font-size: 1.3rem; letter-spacing: -0.015em; }
+  .pcard-title a { color: var(--ink); text-decoration: none; }
+  .pcard-title a::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+  .pcard-title a:focus-visible { outline: none; }
+  .pcard-kind { margin-top: -0.2rem; color: var(--ink-3); font-size: var(--fs-sm); font-weight: 520; }
+  .pcard-kind .sep { color: var(--ink-3); }
+  .pcard-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    overflow: hidden;
+    color: var(--ink-2);
+    font-size: var(--fs-sm);
+    line-height: 1.55;
+  }
+  .pcard-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    margin-top: auto;
+    padding-top: var(--s-3);
+    color: var(--ink);
+    font-size: var(--fs-sm);
+    font-weight: 620;
+  }
+  /* Kompakt: Motiv als Streifen links, Inhalt rechts */
+  .pcard--compact { flex-direction: row; }
+  .pcard--compact :global(.pcover) { flex: none; width: 34%; aspect-ratio: auto; min-height: 100%; }
+  .pcard--compact .pcard-body { padding: var(--s-4) var(--s-5) var(--s-4) var(--s-5); gap: var(--s-1); }
+  .pcard--compact .pcard-top { margin-top: 0; margin-bottom: var(--s-1); align-items: center; }
+  .pcard--compact .pcard-top :global(.pcard-icon) { --picon-size: 40px; }
+  .pcard--compact .pcard-title { font-size: 1.1rem; }
+  .pcard--compact .pcard-text { -webkit-line-clamp: 3; line-clamp: 3; }
+  .pcard--compact .pcard-more { padding-top: var(--s-2); }
+  @media (max-width: 420px) {
+    .pcard--compact :global(.pcover) { width: 26%; }
+  }
+  .pcard-more :global(.icon) { width: 1em; height: 1em; color: var(--accent); transition: transform var(--dur) var(--ease-out); }
+  .pcard:hover .pcard-more :global(.icon) { transform: translateX(4px); }
+</style>

@@ -41,6 +41,10 @@ export function findLeaks(data) {
     }
     for (const [path, s] of strings(p)) {
       if (path === 'id' || path === 'slug' || path === 'linie' || path === 'status' || path === 'statusKey') continue;
+      if (/^media\.colors\[\d\]$/.test(path)) {
+        if (!/^#[0-9a-f]{3,8}$/.test(s)) problems.push(`${p.id}.${path}: unerwartete Farbe "${s}"`);
+        continue;
+      }
       if (path.startsWith('media.') && s.startsWith('/')) {
         // Bildpfade und srcset-Listen: nur Dateien unter /media/produkte/<slug>/
         const urls = s.split(',').map((part) => part.trim().split(/\s+/)[0]);

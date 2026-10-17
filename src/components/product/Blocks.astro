@@ -1,0 +1,55 @@
+---
+// Absätze und Listen aus den Produktnotizen. Erlaubt ist nur **fett**; alles andere wird als Text ausgegeben.
+import Icon from '../Icon.astro';
+import type { Block } from '../../lib/products';
+
+interface Props { blocks: Block[]; checks?: boolean }
+const { blocks, checks = false } = Astro.props;
+
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const inline = (s: string) => esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\s"([^"]+)"/g, ' „$1“');
+---
+{blocks.map((b) =>
+  b.type === 'p'
+    ? <p class="blk-p" set:html={inline(b.text)} />
+    : (
+      <ul class:list={['blk-ul', checks && 'blk-ul--checks']}>
+        {b.items.map((i) => (
+          <li>
+            {checks && <Icon name="check" class="blk-check" />}
+            <span set:html={inline(i)} />
+          </li>
+        ))}
+      </ul>
+    )
+)}
+
+<style>
+  .blk-p { color: var(--ink-2); max-width: 68ch; }
+  .blk-p + .blk-p, .blk-p + .blk-ul, .blk-ul + .blk-p { margin-top: var(--s-4); }
+  .blk-ul { display: grid; gap: 0.55rem; padding-left: 1.2rem; color: var(--ink-2); max-width: 70ch; }
+  .blk-ul li::marker { color: var(--ink-3); }
+  .blk-ul--checks { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); padding: 0; list-style: none; max-width: none; }
+  .blk-ul--checks li {
+    display: flex;
+    gap: 0.7rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--bg-elev);
+    line-height: 1.5;
+  }
+  .blk-ul--checks :global(.blk-check) {
+    flex: none;
+    width: 1.35rem;
+    height: 1.35rem;
+    padding: 3px;
+    margin-top: 0.05rem;
+    border-radius: 50%;
+    background: var(--st-ok-bg);
+    color: var(--st-ok-ink);
+    stroke-width: 2.5;
+  }
+  .blk-ul strong { color: var(--ink); }
+  @media (max-width: 720px) { .blk-ul--checks { grid-template-columns: minmax(0, 1fr); } }
+</style>
