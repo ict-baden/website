@@ -97,6 +97,9 @@ small { font-size: var(--fs-sm); }
 }
 .skip-link:focus { top: 12px; color: var(--btn-ink); }
 
+/* Hinweise nur für Browser ohne JavaScript (theme-init.js setzt .js) */
+.js [data-js-hint] { display: none !important; }
+
 /* Container und Abschnitte */
 .container {
   width: 100%;

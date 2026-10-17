@@ -17,6 +17,8 @@ export default defineConfig({
   },
   vite: {
     build: {
+      // Ein gemeinsames Stylesheet für alle Seiten: eine Anfrage, danach aus dem Cache
+      cssCodeSplit: false,
       // Keine data:-URIs für Schriften oder Bilder – alles als eigene Datei mit Hash im Namen
       assetsInlineLimit: 0,
     },

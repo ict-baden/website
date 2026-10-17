@@ -31,6 +31,5 @@ function calc() {
 const form = document.querySelector('[data-pulse]');
 if (form) {
   form.addEventListener('input', calc);
-  form.querySelector('[data-js-hint]')?.remove();
   calc();
 }

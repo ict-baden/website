@@ -18,6 +18,7 @@ import { PUBLIC_SECTIONS, sentences, splitSections, toBlocks } from './lib/notes
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_JSON = join(ROOT, 'src', 'data', 'products.json');
 const OUT_MEDIA = join(ROOT, 'public', 'media', 'produkte');
+const OUT_COLORS = join(ROOT, 'src', 'styles', 'product-colors.css');
 const MEDIA_URL = '/media/produkte';
 
 const STATUS = {
@@ -352,6 +353,13 @@ if (existsSync(OUT_MEDIA)) {
 }
 mkdirSync(dirname(OUT_JSON), { recursive: true });
 writeFileSync(OUT_JSON, JSON.stringify(output, null, 2) + '\n');
+
+// Markenfarben der Produkte mit Logo (Klasse pc--<slug>); wird mit dem Haupt-Stylesheet gebündelt
+const colorCss = products
+  .filter((p) => p.media.colors)
+  .map((p) => `.pc--${p.slug}.pc--${p.slug} { --l1: ${p.media.colors[0]}; --l2: ${p.media.colors[1]}; }`)
+  .join('\n');
+writeFileSync(OUT_COLORS, `/* Erzeugt von scripts/sync-products.mjs aus den Produkt-Logos – nicht von Hand ändern */\n${colorCss}\n`);
 
 console.log(`${products.length} Produkte in ${linien.length} Linien → ${OUT_JSON}`);
 console.table(report);
