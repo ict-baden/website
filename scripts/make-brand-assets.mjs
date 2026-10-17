@@ -102,6 +102,20 @@ if (!process.argv.includes('--no-og')) {
     for (const slug of ['ict-baden', ...products.map((p) => p.slug)].filter((s) => !only || only.includes(s))) {
       await page.goto(`${url}/og-vorlage/${slug}/`, { waitUntil: 'networkidle' });
       await page.evaluate(() => document.fonts.ready);
+      // Produktname: Schrift verkleinern, bis kein Teil über die Textspalte ragt und er höchstens zwei Zeilen hat
+      const fit = await page.evaluate(() => {
+        const h = document.querySelector('.og--product h1');
+        if (!h) return null;
+        let size = parseFloat(getComputedStyle(h).fontSize);
+        const lines = () => Math.round(h.getBoundingClientRect().height / (size * 0.98));
+        const bad = () => h.scrollWidth > h.clientWidth + 1 || lines() > 2;
+        while (bad() && size > 40) {
+          size -= 2;
+          h.style.fontSize = size + 'px';
+        }
+        return { size, ok: !bad() };
+      });
+      if (fit && !fit.ok) throw new Error(`${slug}: Produktname passt auch in ${fit.size} px nicht ins Open-Graph-Bild`);
       const shot = await page.screenshot({ type: 'png', clip: { x: 0, y: 0, width: 1200, height: 630 } });
       if (slug === 'ict-baden') writeFileSync(pub('og', 'ict-baden.png'), await sharp(shot).png({ compressionLevel: 9, palette: false }).toBuffer());
       else writeFileSync(pub('og', 'produkte', `${slug}.jpg`), await sharp(shot).jpeg({ quality: 84, mozjpeg: true }).toBuffer());

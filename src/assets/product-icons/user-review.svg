@@ -1,9 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 32 32">
-  <!-- user-review: Person mit Haken. Erzeugt von scripts/make-product-icons.mjs – nicht von Hand ändern. -->
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0abcbb"/>
-      <stop offset="1" stop-color="#026c82"/>
+      <stop offset="0" stop-color="#90e2e1"/>
+      <stop offset="1" stop-color="#389560"/>
     </linearGradient>
   </defs>
   <rect x="2" y="2" width="28" height="28" rx="7" fill="url(#g)"/>

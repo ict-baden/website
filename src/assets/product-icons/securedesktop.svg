@@ -1,5 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 32 32">
-  <!-- securedesktop: Programmfenster mit Haken. Erzeugt von scripts/make-product-icons.mjs – nicht von Hand ändern. -->
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#579e3c"/>

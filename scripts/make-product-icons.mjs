@@ -38,13 +38,19 @@ function oklab(hex) {
   return [0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s, 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s];
 }
 const dE = (a, b) => Math.hypot(...oklab(a).map((v, i) => v - oklab(b)[i]));
+// Mittelton des Verlaufs (Mittel beider Farben in OKLab): so wirkt das Symbol in Kartengröße. Zwei Paare
+// mit verschiedenen Enden können denselben Mittelton haben und sehen dann wie Zwillinge aus.
+const mid = (c) => oklab(c[0]).map((v, i) => (v + oklab(c[1])[i]) / 2);
 const MIN_DISTANCE = 0.04;
+const MIN_MID_DISTANCE = 0.05;
 const pairs = data.products.map((p) => [p, productColors(p)]).filter(([, c]) => c);
 for (let i = 0; i < pairs.length; i++) {
   for (let j = i + 1; j < pairs.length; j++) {
     const [[p, a], [q, b]] = [pairs[i], pairs[j]];
     const d = (dE(a[0], b[0]) + dE(a[1], b[1])) / 2;
     if (d < MIN_DISTANCE) problems.push(`${p.slug} und ${q.slug}: Farbpaare zu ähnlich (${d.toFixed(3)})`);
+    const dm = Math.hypot(...mid(a).map((v, k) => v - mid(b)[k]));
+    if (dm < MIN_MID_DISTANCE) problems.push(`${p.slug} und ${q.slug}: Mitteltöne der Verläufe zu ähnlich (${dm.toFixed(3)})`);
   }
 }
 if (problems.length) {

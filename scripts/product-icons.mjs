@@ -47,7 +47,7 @@ export const ICON_SPECS = {
     symbol: '<rect x="7.5" y="8" width="17" height="16" rx="2.5"/><path d="M7.5 12.3h17"/><path d="m12.6 18 2.3 2.3 4.6-4.7"/>',
   },
   'user-review': {
-    colors: ['#0abcbb', '#026c82'],
+    colors: ['#90e2e1', '#389560'],
     motif: 'Person mit Haken',
     en: 'person with check mark',
     symbol: '<circle cx="13" cy="12" r="3.6"/><path d="M7 24a6 6 0 0 1 12 0"/><path d="m18.6 16.4 2 2 3.9-4.2"/>',
@@ -145,7 +145,7 @@ export const ICON_SPECS = {
   },
   // ---------------------------------------------------------------- Service-Laptop
   'tftp-sftp-server': {
-    colors: ['#24dda6', '#018985'],
+    colors: ['#a9cf7a', '#8a6a0a'],
     motif: 'Hoch- und Herunterladen',
     en: 'upload and download',
     symbol: '<path d="M12 23V9.5M8.3 13.2 12 9.5l3.7 3.7"/><path d="M20 9v13.5M16.3 18.8 20 22.5l3.7-3.7"/>',
@@ -194,25 +194,25 @@ export const ICON_SPECS = {
     symbol: '<rect x="8.5" y="6.5" width="15" height="19" rx="2.5"/><path d="m17.2 10.2-3.7 5.6h4.6l-1.3 5.2"/>',
   },
   'zebra-druckerflotte-monitor': {
-    colors: ['#ff9bba', '#ae4c9c'],
+    colors: ['#ff99c2', '#94468f'],
     motif: 'Drucker mit Pulslinie',
     en: 'printer with pulse line',
     symbol: '<path d="M11 11V7.5h10V11"/><rect x="7" y="11" width="18" height="12" rx="2"/><path d="M10 17.5h3.2l1.6-3 2.6 6 1.6-3H22"/>',
   },
   'plc-versionierung': {
-    colors: ['#17d2fe', '#027dc7'],
+    colors: ['#5ad0ac', '#446a2c'],
     motif: 'Versionszweig',
     en: 'version branch',
     symbol: '<circle cx="11" cy="9" r="2.3"/><circle cx="11" cy="23" r="2.3"/><circle cx="21" cy="12.5" r="2.3"/><path d="M11 11.3v9.4M21 14.8c0 3.6-3.2 4.6-8.4 6.4"/>',
   },
   'pcs7-alternative': {
-    colors: ['#9f6ed1', '#413c9b'],
+    colors: ['#9264ef', '#442e9d'],
     motif: 'Anzeigeinstrument',
     en: 'gauge',
     symbol: '<path d="M8.2 21a7.8 7.8 0 1 1 15.6 0"/><path d="m16 21 4.4-5.4"/><path d="M8.5 24h15"/>',
   },
   visualisierung: {
-    colors: ['#adb8fe', '#1879d2'],
+    colors: ['#b47fa2', '#543652'],
     motif: 'Bildschirm mit Kurve',
     en: 'screen with trend curve',
     symbol: '<rect x="7" y="7.5" width="18" height="13" rx="2"/><path d="M13 24.5h6"/><path d="m10.5 16.8 3.2-3.3 2.6 2.4 5.2-5"/>',
@@ -232,11 +232,11 @@ export const ICON_SPECS = {
   },
 };
 
-/** Vollständiges SVG eines Produktsymbols. */
+/** Vollständiges SVG eines Produktsymbols. Ohne Kommentar: die Datei wird so ausgeliefert (Motiv und
+ * Quelle stehen in der Tabelle im README). */
 export function iconSvg(id, spec) {
   const [top, bottom] = spec.colors;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 32 32">
-  <!-- ${id}: ${spec.motif}. Erzeugt von scripts/make-product-icons.mjs – nicht von Hand ändern. -->
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="${top}"/>

@@ -1,9 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 32 32">
-  <!-- zebra-druckerflotte-monitor: Drucker mit Pulslinie. Erzeugt von scripts/make-product-icons.mjs – nicht von Hand ändern. -->
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ff9bba"/>
-      <stop offset="1" stop-color="#ae4c9c"/>
+      <stop offset="0" stop-color="#ff99c2"/>
+      <stop offset="1" stop-color="#94468f"/>
     </linearGradient>
   </defs>
   <rect x="2" y="2" width="28" height="28" rx="7" fill="url(#g)"/>

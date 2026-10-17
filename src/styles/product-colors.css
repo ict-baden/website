@@ -8,7 +8,7 @@
 .pc--zutritt.pc--zutritt { --l1: #22c3a6; --l2: #3b6cf6; }
 .pc--usb-pruefstation.pc--usb-pruefstation { --l1: #cf5d85; --l2: #7b226d; }
 .pc--securedesktop.pc--securedesktop { --l1: #579e3c; --l2: #025c3f; }
-.pc--user-review.pc--user-review { --l1: #0abcbb; --l2: #026c82; }
+.pc--user-review.pc--user-review { --l1: #90e2e1; --l2: #389560; }
 .pc--haertungs-check.pc--haertungs-check { --l1: #f3821d; --l2: #ac281b; }
 .pc--wincc-audit-trail-viewer.pc--wincc-audit-trail-viewer { --l1: #829cb3; --l2: #3c4e66; }
 .pc--gpo-doku-und-vergleich.pc--gpo-doku-und-vergleich { --l1: #d1a9ff; --l2: #6868d2; }
@@ -23,7 +23,7 @@
 .pc--profinet-scanner.pc--profinet-scanner { --l1: #8fb51f; --l2: #017530; }
 .pc--iec-61850-browser.pc--iec-61850-browser { --l1: #efb219; --l2: #b15f01; }
 .pc--explorer-framework.pc--explorer-framework { --l1: #bc63b1; --l2: #632f8b; }
-.pc--tftp-sftp-server.pc--tftp-sftp-server { --l1: #24dda6; --l2: #018985; }
+.pc--tftp-sftp-server.pc--tftp-sftp-server { --l1: #a9cf7a; --l2: #8a6a0a; }
 .pc--netzprofil-umschalter.pc--netzprofil-umschalter { --l1: #fd7466; --l2: #a82457; }
 .pc--fernwartung.pc--fernwartung { --l1: #e078d3; --l2: #7a3daa; }
 .pc--label-print-server.pc--label-print-server { --l1: #d56054; --l2: #891845; }
@@ -31,9 +31,9 @@
 .pc--it-ot-dateischleuse.pc--it-ot-dateischleuse { --l1: #04a177; --l2: #015956; }
 .pc--update-server-fuer-ot.pc--update-server-fuer-ot { --l1: #029bab; --l2: #025474; }
 .pc--rz-energiebericht.pc--rz-energiebericht { --l1: #c5c632; --l2: #4a8b10; }
-.pc--zebra-druckerflotte-monitor.pc--zebra-druckerflotte-monitor { --l1: #ff9bba; --l2: #ae4c9c; }
-.pc--plc-projekt-versionierung.pc--plc-projekt-versionierung { --l1: #17d2fe; --l2: #027dc7; }
-.pc--prozessleitsystem.pc--prozessleitsystem { --l1: #9f6ed1; --l2: #413c9b; }
-.pc--moderne-visualisierung.pc--moderne-visualisierung { --l1: #adb8fe; --l2: #1879d2; }
+.pc--zebra-druckerflotte-monitor.pc--zebra-druckerflotte-monitor { --l1: #ff99c2; --l2: #94468f; }
+.pc--plc-projekt-versionierung.pc--plc-projekt-versionierung { --l1: #5ad0ac; --l2: #446a2c; }
+.pc--prozessleitsystem.pc--prozessleitsystem { --l1: #9264ef; --l2: #442e9d; }
+.pc--moderne-visualisierung.pc--moderne-visualisierung { --l1: #b47fa2; --l2: #543652; }
 .pc--ppwr-verpackungsdaten.pc--ppwr-verpackungsdaten { --l1: #cc6c13; --l2: #8d1c11; }
 .pc--verpackungsmengen-plugin.pc--verpackungsmengen-plugin { --l1: #b59a75; --l2: #6c4932; }

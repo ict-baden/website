@@ -102,7 +102,8 @@ and aborts the sync (and the CI) if anything slips through.
   judgements about named third-party products. New products therefore start without that section.
 - sentences/blocks can be dropped (`dropSentences`, `dropBlocks`, `dropItems`) or corrected (`textReplace`),
   e.g. Vitrine's log is „manipulationserkennend“ (as its README says), not „manipulationssicher“.
-- a *Problem* section that only repeats the short text is dropped automatically.
+- a *Problem* section that only repeats the short text is dropped automatically; `"problem": false` or
+  `"umfang": false` drop a section explicitly (e.g. the Prozessleitsystem, whose v1 scope is still open).
 
 **Curated media** live in `scripts/product-media.json` (key = repository name): German tagline, kind (optional),
 highlights, facts, which screenshots to use with German titles/captions/alt texts (taken from the product
@@ -168,11 +169,12 @@ Every product has an app icon in the style of `marke/app-icon-vorlage.svg` from 
 (stroke 2–2.6, round caps, at most two or three shapes, legible at 16 px), no text, no third-party logos.
 
 - Products whose repository has its own icon in this style keep it (Lupe, Zutritt, Vitrine; EnterpriseBrowser
-  and Industrial Keyboard with their Android app icons).
+  and Industrial Keyboard with their Android app icons). Raster app icons are fitted into the template geometry
+  by the sync (tile 28/32 with a 2/32 margin, corner radius 7/32), so they match the generated icons in size.
 - All others get a generated icon: `scripts/product-icons.mjs` defines colour pair and symbol per project id,
   `npm run icons` writes `src/assets/product-icons/<id>.svg`, `src/styles/product-colors.css` and the table below,
-  checks that every pair is distinct from all others (OKLab distance, including the repository icons) and can
-  render a contact sheet (`npm run icons -- --sheet sheet.png`).
+  checks that every pair is distinct from all others (OKLab distance of the two stops and of the gradient's
+  mid-tone, including the repository icons) and can render a contact sheet (`npm run icons -- --sheet sheet.png`).
 - Hausmeister, Fühler, Frist, Rundgang, Merker and Lotse have a single-colour line symbol as `docs/assets/logo.svg`
   in their repositories, without tile or gradient. Their symbol is taken over unchanged (same paths, scaled into
   the tile) and set in the template – white on its own gradient. The repositories can adopt these icons.
@@ -191,7 +193,7 @@ Every product has an app icon in the style of `marke/app-icon-vorlage.svg` from 
 | Zutritt | OT-Sicherheit & Compliance | `#22c3a6` | `#3b6cf6` | own | own icon from the repo |
 | USB-Prüfstation | OT-Sicherheit & Compliance | `#cf5d85` | `#7b226d` | USB plug with check mark | generated |
 | SecureDesktop | OT-Sicherheit & Compliance | `#579e3c` | `#025c3f` | app window with check mark | generated |
-| User Review | OT-Sicherheit & Compliance | `#0abcbb` | `#026c82` | person with check mark | generated |
+| User Review | OT-Sicherheit & Compliance | `#90e2e1` | `#389560` | person with check mark | generated |
 | Härtungs-Check | OT-Sicherheit & Compliance | `#f3821d` | `#ac281b` | shield with check mark | generated |
 | WinCC Audit-Trail-Viewer | OT-Sicherheit & Compliance | `#829cb3` | `#3c4e66` | timeline with entries | generated |
 | GPO-Doku und -Vergleich | OT-Sicherheit & Compliance | `#d1a9ff` | `#6868d2` | two documents compared | generated |
@@ -206,7 +208,7 @@ Every product has an app icon in the style of `marke/app-icon-vorlage.svg` from 
 | Profinet-Scanner | Explorer | `#8fb51f` | `#017530` | radar | generated |
 | IEC-61850-Browser | Explorer | `#efb219` | `#b15f01` | lightning bolt | generated |
 | Explorer-Framework | Explorer | `#bc63b1` | `#632f8b` | stacked layers (modules) | generated |
-| TFTP/SFTP-Server | Service-Laptop | `#24dda6` | `#018985` | upload and download | generated |
+| TFTP/SFTP-Server | Service-Laptop | `#a9cf7a` | `#8a6a0a` | upload and download | generated |
 | Netzprofil-Umschalter | Service-Laptop | `#fd7466` | `#a82457` | toggle switch | generated |
 | Fernwartung | Self-hosted Server-Apps | `#e078d3` | `#7a3daa` | screen with pointer | generated |
 | Label-Print-Server | Self-hosted Server-Apps | `#d56054` | `#891845` | printer | generated |
@@ -214,10 +216,10 @@ Every product has an app icon in the style of `marke/app-icon-vorlage.svg` from 
 | IT/OT-Dateischleuse | Self-hosted Server-Apps | `#04a177` | `#015956` | arrow through an airlock | generated |
 | Update-Server für OT | Self-hosted Server-Apps | `#029bab` | `#025474` | circular arrow with download | generated |
 | RZ-Energiebericht | Self-hosted Server-Apps | `#c5c632` | `#4a8b10` | report with lightning bolt | generated |
-| Zebra-Druckerflotte-Monitor | Self-hosted Server-Apps | `#ff9bba` | `#ae4c9c` | printer with pulse line | generated |
-| PLC-Projekt-Versionierung | Self-hosted Server-Apps | `#17d2fe` | `#027dc7` | version branch | generated |
-| Prozessleitsystem | Self-hosted Server-Apps | `#9f6ed1` | `#413c9b` | gauge | generated |
-| Moderne Visualisierung | Self-hosted Server-Apps | `#adb8fe` | `#1879d2` | screen with trend curve | generated |
+| Zebra-Druckerflotte-Monitor | Self-hosted Server-Apps | `#ff99c2` | `#94468f` | printer with pulse line | generated |
+| PLC-Projekt-Versionierung | Self-hosted Server-Apps | `#5ad0ac` | `#446a2c` | version branch | generated |
+| Prozessleitsystem | Self-hosted Server-Apps | `#9264ef` | `#442e9d` | gauge | generated |
+| Moderne Visualisierung | Self-hosted Server-Apps | `#b47fa2` | `#543652` | screen with trend curve | generated |
 | PPWR-Verpackungsdaten | Neue Ideen | `#cc6c13` | `#8d1c11` | package | generated |
 | Verpackungsmengen-Plugin | Neue Ideen | `#b59a75` | `#6c4932` | weight | generated |
 <!-- product-icons:end -->
