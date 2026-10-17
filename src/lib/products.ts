@@ -70,15 +70,18 @@ export const lineById = (id: string): Linie => {
   return l;
 };
 export const productsOfLine = (id: string) => products.filter((p) => p.linie === id);
-/** Klassen für die Farbgebung: Produktlinie, bei eigenem Logo die Markenfarben des Produkts. */
-export const colorClasses = (p: Product) => [`art--${p.linie}`, p.media.colors ? `pc--${p.slug}` : null];
+/** Klassen für die Farbgebung: Motiv der Produktlinie und Farbpaar des Produkts (src/styles/product-colors.css). */
+export const colorClasses = (p: Product) => [`art--${p.linie}`, `pc--${p.slug}`];
 export const productUrl = (p: Product) => `/produkte/${p.slug}/`;
+/** Hochformat (Telefon-Bildschirmfotos der Android-Apps). */
+export const isPortrait = (s: Shot) => s.light.height > s.light.width;
 export const lineAnchor = (id: string) => `/produkte/#linie-${id}`;
 
-/** Produkte mit eigenen Bildern zuerst – für die Startseite. */
-export const featured = products
-  .filter((p) => p.media.screenshots.length > 0 && (p.statusKey === 'verfuegbar' || p.statusKey === 'vorabversion'))
-  .sort((a, b) => b.media.screenshots.length - a.media.screenshots.length || a.nr - b.nr);
+/** Auswahl für die großen Karten auf der Startseite (verfügbar oder Vorabversion, mit Bildschirmfotos). */
+const FEATURED = ['vitrine', 'lupe', 'zutritt', 'hausmeister', 'merker'];
+export const featured = FEATURED
+  .map((slug) => products.find((p) => p.slug === slug))
+  .filter((p): p is Product => Boolean(p && p.media.screenshots.length > 0 && (p.statusKey === 'verfuegbar' || p.statusKey === 'vorabversion')));
 
 export function statusCounts(list: Product[]) {
   const c: Record<StatusKey, number> = { verfuegbar: 0, vorabversion: 0, 'in-entwicklung': 0, geplant: 0 };

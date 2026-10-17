@@ -40,11 +40,11 @@
   "products": [
     {
       "id": "industrialkeyboard",
-      "slug": "industrialkeyboard",
+      "slug": "industrial-keyboard",
       "nr": 3,
-      "name": "IndustrialKeyboard",
-      "kind": null,
-      "tagline": null,
+      "name": "Industrial Keyboard",
+      "kind": "Android-Tastatur",
+      "tagline": "Schnelle, zuverlässige Dateneingabe auf robusten Android-Geräten.",
       "linie": "android",
       "status": "fertig",
       "statusKey": "verfuegbar",
@@ -56,15 +56,123 @@
         "ersetzt": null,
         "umfang": null
       },
-      "highlights": [],
-      "facts": [],
+      "highlights": [
+        "F1–F24",
+        "Scan-Taste eingebaut",
+        "Große Tasten für Handschuhe",
+        "Konfiguration per MDM"
+      ],
+      "facts": [
+        {
+          "label": "Plattform",
+          "value": "Android 8.0 und neuer, Zebra und Honeywell"
+        },
+        {
+          "label": "Tasten",
+          "value": "F1–F24, Esc, Ins, Del, Pfeiltasten, eigene Tasten und Makros"
+        },
+        {
+          "label": "Layouts",
+          "value": "QWERTY, QWERTZ, AZERTY, Nordisch und Spanisch"
+        },
+        {
+          "label": "Verwaltung",
+          "value": "Managed Configuration per MDM (SOTI, Intune, Workspace ONE), Konfigurationsdatei, StageNow"
+        },
+        {
+          "label": "Datenschutz",
+          "value": "keine Internet-Berechtigung, kein Wörterbuch, nichts Getipptes wird gespeichert"
+        }
+      ],
       "media": {
-        "logo": null,
-        "colors": null,
+        "logo": "/media/produkte/industrial-keyboard/logo.webp",
+        "colors": [
+          "#2b5996",
+          "#08759b"
+        ],
         "banner": null,
         "demo": null,
-        "screenshots": [],
-        "galleryNote": null
+        "screenshots": [
+          {
+            "name": "screen-alpha",
+            "title": "Buchstaben",
+            "caption": "Tastenvorschau über dem Finger, Reiter für Zahlen, Zeichen, Funktionstasten und Scan.",
+            "alt": "Testformular mit den Feldern Item number, Quantity, Weight (kg) und Phone, darunter die Tastatur mit QWERTZ-Buchstaben, der Reiterleiste ABC, 123, #+=, Fn und Scan und der Vorschau der gedrückten Taste g.",
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/screen-alpha-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/screen-alpha-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-numeric",
+            "title": "Zahlenblock",
+            "caption": "Öffnet sich in Zahlenfeldern von selbst.",
+            "alt": "Feld Quantity aktiv, die Tastatur zeigt im dunklen Design den Zahlenblock mit Ziffern, Komma, Punkt, Tab und Enter.",
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/screen-numeric-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/screen-numeric-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-scan",
+            "title": "Scan-Reiter",
+            "caption": "Tippen zum Scannen, halten für Dauerscan.",
+            "alt": "Scan-Reiter mit großer blauer Auslösefläche „Scanning …“ und dem Hinweis auf Dauerscan mit Zebra DataWedge.",
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/screen-scan-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/screen-scan-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-function",
+            "title": "Funktionstasten",
+            "caption": "F1–F24, Esc, Ins, Del und Pfeiltasten – etwa für Terminal-Emulatoren.",
+            "alt": "Fn-Reiter im kontrastreichen Design mit F1 bis F12, Esc, Home, End, PgUp, PgDn, Ins, Del und den Pfeiltasten.",
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/screen-function-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/screen-function-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-custom",
+            "title": "Eigene Layouts",
+            "caption": "Eigene Tasten als zusätzlicher Reiter, festgelegt in der Konfiguration – ohne App-Update.",
+            "alt": "Eigener Reiter Pick mit den Tasten OK, Skip, Short, Damaged, Scan und Numbers.",
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/screen-custom-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/screen-custom-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-settings",
+            "title": "Einstellungen",
+            "caption": "Mit Live-Vorschau, durch Kennwort geschützt.",
+            "alt": "Keyboard settings mit Vorschau der Tastatur, Design System, Light, Dark oder High contrast, Akzentfarbe und Tastenhöhe 100 %.",
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/screen-settings-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/screen-settings-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          }
+        ],
+        "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert."
       }
     },
     {
@@ -101,8 +209,8 @@
       "slug": "enterprisebrowser",
       "nr": 2,
       "name": "EnterpriseBrowser",
-      "kind": null,
-      "tagline": null,
+      "kind": "Kiosk-Browser",
+      "tagline": "Web-Apps auf robusten Android-Geräten.",
       "linie": "android",
       "status": "fast-fertig",
       "statusKey": "vorabversion",
@@ -114,15 +222,123 @@
         "ersetzt": null,
         "umfang": null
       },
-      "highlights": [],
-      "facts": [],
+      "highlights": [
+        "Zebra DataWedge",
+        "Honeywell",
+        "Kioskmodus",
+        "MDM: SOTI, Intune, StageNow"
+      ],
+      "facts": [
+        {
+          "label": "Plattform",
+          "value": "Android 8.0 und neuer, Zebra und Honeywell"
+        },
+        {
+          "label": "Scannen",
+          "value": "Zebra DataWedge, Honeywell oder jede Scanner-App per Intent"
+        },
+        {
+          "label": "Verwaltung",
+          "value": "Managed Configuration per MDM (SOTI, Intune, Workspace ONE), Konfigurationsdatei, StageNow, QR-Code"
+        },
+        {
+          "label": "Sicherheit",
+          "value": "strenge TLS-Prüfung, Client-Zertifikate, Kennwörter nur als Hash"
+        },
+        {
+          "label": "Lieferform",
+          "value": "APK zur Verteilung per MDM"
+        }
+      ],
       "media": {
-        "logo": null,
-        "colors": null,
+        "logo": "/media/produkte/enterprisebrowser/logo.webp",
+        "colors": [
+          "#0d47a1",
+          "#0d47a1"
+        ],
         "banner": null,
         "demo": null,
-        "screenshots": [],
-        "galleryNote": null
+        "screenshots": [
+          {
+            "name": "screen-launcher",
+            "title": "Profile",
+            "caption": "Ein Tipp öffnet die Web-App. Mehrere Web-Apps auf einem Gerät, jede mit eigener Start-Adresse und eigenen Regeln.",
+            "alt": "Startbildschirm von EnterpriseBrowser auf einem Zebra TC58 mit den Profilen Goods receipt, Picking, Shipping & labels und Demo & scanner test, jeweils mit Adresse und Kennzeichen wie Autostart, Allowlist, Kiosk oder Scanner off.",
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/screen-launcher-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/screen-launcher-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-browser",
+            "title": "Scannen",
+            "caption": "Der Barcode landet im Feld, auf Wunsch gefolgt von Tab oder Enter – und als JavaScript-Ereignis für die Web-App.",
+            "alt": "Demo-Seite „Scanner & Bridge Demo“: im Feld Item der gescannte EAN 4006381333931, darunter das Feld Location, die Schaltflächen Scan, Beep, Vibration und Device und die Liste der letzten Scans mit EAN13 und CODE128.",
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/screen-browser-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/screen-browser-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-menu",
+            "title": "Menü",
+            "caption": "Alles in Daumenreichweite.",
+            "alt": "Aufgeklapptes Menü über der Demo-Seite mit Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings und Exit.",
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/screen-menu-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/screen-menu-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-launcher-branded",
+            "title": "Eigenes Design",
+            "caption": "Titel, Untertitel, Logo und Markenfarbe kommen aus der Konfiguration oder werden direkt in der App eingestellt.",
+            "alt": "Startbildschirm im eigenen Design: grüner Kopf mit dem Kürzel NL, dem Titel North Logistics Center und Shift A · Hall 3, darunter die Profile.",
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/screen-launcher-branded-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/screen-launcher-branded-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-profile-editor",
+            "title": "Profil mit eigener Farbe",
+            "caption": "Jedes Profil kann eine eigene Farbe haben, die auch die Werkzeugleiste in der Web-App einfärbt.",
+            "alt": "Dialog Edit profile mit Name Goods receipt, Start-URL, erlaubten Hosts, Profilfarbe und den Schaltern Open on app start, Hide toolbar und Full screen.",
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/screen-profile-editor-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/screen-profile-editor-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-settings",
+            "title": "Einstellungen",
+            "caption": "Mit Kennwort geschützt: Profile, Design und Konfiguration.",
+            "alt": "Einstellungen mit der Profilliste, Add profile und dem Bereich Design mit Titel, Markenfarbe und Logo.",
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/screen-settings-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/screen-settings-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          }
+        ],
+        "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert; Namen und Adressen sind Beispiele."
       }
     },
     {
@@ -1015,7 +1231,7 @@
       "nr": 12,
       "name": "Hausmeister",
       "kind": "BACnet-Explorer",
-      "tagline": null,
+      "tagline": "BACnet-Geräte finden, Datenpunkte prüfen, Werte setzen.",
       "linie": "explorer",
       "status": "fast-fertig",
       "statusKey": "vorabversion",
@@ -1043,15 +1259,114 @@
           }
         ]
       },
-      "highlights": [],
-      "facts": [],
+      "highlights": [
+        "BACnet/IP",
+        "16 Prioritäten im Blick",
+        "Trendlogs und Alarme",
+        "Punkteliste als CSV"
+      ],
+      "facts": [
+        {
+          "label": "Plattform",
+          "value": "Windows 10 und 11, Linux (x64 und ARM64)"
+        },
+        {
+          "label": "Oberfläche",
+          "value": "Deutsch, im Browser, nur auf diesem Rechner erreichbar"
+        },
+        {
+          "label": "Protokoll",
+          "value": "BACnet/IP, herstellerunabhängig"
+        },
+        {
+          "label": "Betrieb",
+          "value": "Nur-Lesen-Modus für Abnahmen und Begehungen"
+        },
+        {
+          "label": "Lieferform",
+          "value": "eine Datei, keine Installation"
+        }
+      ],
       "media": {
-        "logo": null,
+        "logo": "/media/produkte/hausmeister/logo.svg",
         "colors": null,
         "banner": null,
         "demo": null,
-        "screenshots": [],
-        "galleryNote": null
+        "screenshots": [
+          {
+            "name": "uebersicht",
+            "title": "Alle Datenpunkte eines Controllers",
+            "caption": "Mit Wert, Einheit und Zustand. Beim Ausgang ist sofort zu sehen, welche Priorität ihn steuert.",
+            "alt": "Hausmeister im Browser: links vier Geräte (Lüftung, Heizung, Raumregler, Energiezähler). Rechts die Datenpunkte der Lüftungsanlage mit Objekt, Name, Beschreibung, Wert mit Einheit und Zustand, etwa die Zulufttemperatur in °C, den Zuluftventilator „Ein“ und die Betriebsart „Automatik“. Daneben das Heizregisterventil mit seinen 16 Prioritäten: Priorität 8 ist mit 62,5 % belegt und bestimmt den Wert.",
+            "light": {
+              "src": "/media/produkte/hausmeister/uebersicht-light-1600.webp",
+              "srcset": "/media/produkte/hausmeister/uebersicht-light-800.webp 800w, /media/produkte/hausmeister/uebersicht-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            },
+            "dark": {
+              "src": "/media/produkte/hausmeister/uebersicht-dark-1600.webp",
+              "srcset": "/media/produkte/hausmeister/uebersicht-dark-800.webp 800w, /media/produkte/hausmeister/uebersicht-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            }
+          },
+          {
+            "name": "trendlog",
+            "title": "Trendlogs aus dem Controller",
+            "caption": "Per ReadRange gelesen, als Diagramm und CSV. Einheit und Zeitbereich kommen aus dem Gerät.",
+            "alt": "Trendlog der Außenlufttemperatur über 24 Stunden als Linie mit Tagesgang, das Fadenkreuz zeigt Wert in °C und Uhrzeit eines Eintrags. Darüber die Auswahl der letzten 500 Einträge, Als CSV und Schließen.",
+            "light": {
+              "src": "/media/produkte/hausmeister/trendlog-light-1600.webp",
+              "srcset": "/media/produkte/hausmeister/trendlog-light-800.webp 800w, /media/produkte/hausmeister/trendlog-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 562
+            },
+            "dark": {
+              "src": "/media/produkte/hausmeister/trendlog-dark-1600.webp",
+              "srcset": "/media/produkte/hausmeister/trendlog-dark-800.webp 800w, /media/produkte/hausmeister/trendlog-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 562
+            }
+          },
+          {
+            "name": "setzen",
+            "title": "Werte setzen, mit Bedacht",
+            "caption": "Present_Value mit Priorität schreiben oder eine Priorität freigeben. Hausmeister warnt, wenn eine höhere Priorität Vorrang hat.",
+            "alt": "Dialog „Wert setzen: AO 1 · LTA01_HZ_VENTIL“ für das Gerät LTA-01 Lüftung Halle 2, aktuell 35 %. Hinweis: Priorität 8 ist belegt und hat Vorrang. Neuer Wert 45, Priorität 10, Kästchen „Diese Priorität freigeben“, Warnung „Wirkt sofort auf die Anlage“ und die Schaltfläche „Mit Priorität 10 setzen“.",
+            "light": {
+              "src": "/media/produkte/hausmeister/setzen-light-1040.webp",
+              "srcset": "/media/produkte/hausmeister/setzen-light-800.webp 800w, /media/produkte/hausmeister/setzen-light-1040.webp 1040w",
+              "width": 1040,
+              "height": 832
+            },
+            "dark": {
+              "src": "/media/produkte/hausmeister/setzen-dark-1040.webp",
+              "srcset": "/media/produkte/hausmeister/setzen-dark-800.webp 800w, /media/produkte/hausmeister/setzen-dark-1040.webp 1040w",
+              "width": 1040,
+              "height": 832
+            }
+          },
+          {
+            "name": "alarme",
+            "title": "Objekte im Alarm",
+            "caption": "Alle Geräte auf Objekte im Alarm abfragen, mit Zustand, Wert und Zeitpunkt.",
+            "alt": "Tabelle „Objekte im Alarm“: das Gerät HZG-UG Heizung Untergeschoss meldet für AI 3 HZG_DRUCK den Zustand „Grenzwert unten“ mit 1,32 bar, nicht quittiert. Daneben die Schaltflächen „Alle Geräte abfragen“ und „Als CSV“.",
+            "light": {
+              "src": "/media/produkte/hausmeister/alarme-light-1600.webp",
+              "srcset": "/media/produkte/hausmeister/alarme-light-800.webp 800w, /media/produkte/hausmeister/alarme-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 195
+            },
+            "dark": {
+              "src": "/media/produkte/hausmeister/alarme-dark-1600.webp",
+              "srcset": "/media/produkte/hausmeister/alarme-dark-800.webp 800w, /media/produkte/hausmeister/alarme-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 195
+            }
+          }
+        ],
+        "galleryNote": "Abbildungen mit erfundenen Geräten und Werten aus dem Demo-Modus."
       }
     },
     {
@@ -1060,7 +1375,7 @@
       "nr": 13,
       "name": "Fühler",
       "kind": "SNMP-Explorer",
-      "tagline": null,
+      "tagline": "SNMP verstehen statt OIDs raten.",
       "linie": "explorer",
       "status": "fast-fertig",
       "statusKey": "vorabversion",
@@ -1088,15 +1403,96 @@
           }
         ]
       },
-      "highlights": [],
-      "facts": [],
+      "highlights": [
+        "SNMP v1 · v2c · v3",
+        "MIB-Baum mit Suche",
+        "Traps live",
+        "Netzsuche"
+      ],
+      "facts": [
+        {
+          "label": "Plattform",
+          "value": "Windows 10 und 11, Windows Server, Linux (x64 und ARM64)"
+        },
+        {
+          "label": "Oberfläche",
+          "value": "Deutsch, im Browser, nur auf diesem Rechner erreichbar"
+        },
+        {
+          "label": "Geräte",
+          "value": "USVs, Switche, Drucker, Klimageräte und SPS-Gateways"
+        },
+        {
+          "label": "MIBs",
+          "value": "Standard-MIBs eingebaut, Hersteller-MIBs wählbar"
+        },
+        {
+          "label": "Lieferform",
+          "value": "eine Datei, keine Installation"
+        }
+      ],
       "media": {
-        "logo": null,
+        "logo": "/media/produkte/fuehler/logo.svg",
         "colors": null,
         "banner": null,
         "demo": null,
-        "screenshots": [],
-        "galleryNote": null
+        "screenshots": [
+          {
+            "name": "uebersicht",
+            "title": "Hersteller-MIB statt nackter Zahlen",
+            "caption": "Eine USV mit geladener Hersteller-MIB: Namen, Einheiten, Aufzählungen und Kommastellen.",
+            "alt": "Fühler im Browser: links vier Geräte (USV, Switch, Drucker, SPS-Gateway). In der Mitte der MIB-Baum, aufgeklappt bis zur Batterietemperatur einer USV aus einer Hersteller-MIB. Rechts die Beschreibung des Eintrags mit Typ, Einheit °C und Darstellung d-1, darunter ein Walk mit Werten wie „normal (2)“, Ladezustand in Prozent, Temperatur mit Dezimalkomma in °C und der Stromquelle der USV.",
+            "light": {
+              "src": "/media/produkte/fuehler/uebersicht-light-1600.webp",
+              "srcset": "/media/produkte/fuehler/uebersicht-light-800.webp 800w, /media/produkte/fuehler/uebersicht-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1075
+            },
+            "dark": {
+              "src": "/media/produkte/fuehler/uebersicht-dark-1600.webp",
+              "srcset": "/media/produkte/fuehler/uebersicht-dark-800.webp 800w, /media/produkte/fuehler/uebersicht-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1075
+            }
+          },
+          {
+            "name": "traps",
+            "title": "Traps live empfangen",
+            "caption": "v1, v2c und v3, jeder Trap mit Namen und Beschreibung aus der MIB.",
+            "alt": "Trap-Ansicht: Fühler lauscht auf Port 1162. Oben der SNMPv1-Trap „MUSTER-USV-MIB::usvPowerRestored“ mit der Beschreibung „Das Netz ist zurück, die USV lädt die Batterie wieder.“, usvOutputSource utility (1), Agentenadresse und Enterprise. Darunter linkUp und linkDown eines Switch-Ports mit ifIndex, ifAdminStatus und ifOperStatus, dann „usvOnBattery“ mit usvOutputSource battery (2) und Ladezustand 100 %.",
+            "light": {
+              "src": "/media/produkte/fuehler/traps-light-1600.webp",
+              "srcset": "/media/produkte/fuehler/traps-light-800.webp 800w, /media/produkte/fuehler/traps-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1075
+            },
+            "dark": {
+              "src": "/media/produkte/fuehler/traps-dark-1600.webp",
+              "srcset": "/media/produkte/fuehler/traps-dark-800.webp 800w, /media/produkte/fuehler/traps-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1075
+            }
+          },
+          {
+            "name": "diagramme",
+            "title": "Diagramme",
+            "caption": "Ein Klick verfolgt einen Wert. Zähler werden zur Rate pro Sekunde, Bytes zu Bit/s.",
+            "alt": "Vier kleine Diagramme: eingehender und ausgehender Verkehr des Uplink-Ports in Mbit/s, eingehender Verkehr eines zweiten Ports und Eingangsfehler pro Sekunde an Port 6. Über dem ersten Diagramm ein Fadenkreuz mit Wert und Uhrzeit des Messpunkts.",
+            "light": {
+              "src": "/media/produkte/fuehler/diagramme-light-1204.webp",
+              "srcset": "/media/produkte/fuehler/diagramme-light-800.webp 800w, /media/produkte/fuehler/diagramme-light-1204.webp 1204w",
+              "width": 1204,
+              "height": 792
+            },
+            "dark": {
+              "src": "/media/produkte/fuehler/diagramme-dark-1204.webp",
+              "srcset": "/media/produkte/fuehler/diagramme-dark-800.webp 800w, /media/produkte/fuehler/diagramme-dark-1204.webp 1204w",
+              "width": 1204,
+              "height": 792
+            }
+          }
+        ],
+        "galleryNote": "Abbildungen mit erfundenen Geräten und MIBs aus dem Demo-Modus."
       }
     },
     {
@@ -1105,7 +1501,7 @@
       "nr": 25,
       "name": "Frist",
       "kind": "Zertifikats-Ablauf-Scanner",
-      "tagline": null,
+      "tagline": "Findet TLS-Zertifikate im Netz und warnt, bevor sie ablaufen.",
       "linie": "explorer",
       "status": "fast-fertig",
       "statusKey": "vorabversion",
@@ -1137,15 +1533,78 @@
           }
         ]
       },
-      "highlights": [],
-      "facts": [],
+      "highlights": [
+        "HTTPS, STARTTLS, RDP, OPC UA",
+        "Vergleich mit dem letzten Lauf",
+        "HTML- und CSV-Bericht",
+        "Exitcodes für Icinga"
+      ],
+      "facts": [
+        {
+          "label": "Plattform",
+          "value": "Windows 10 und 11, Windows Server 2016 und neuer, Linux (x64 und ARM64)"
+        },
+        {
+          "label": "Bewertung",
+          "value": "Kritisch, Warnung, Hinweis oder OK – jeweils mit Begründung"
+        },
+        {
+          "label": "Bericht",
+          "value": "eine HTML-Datei, offline lesbar, hell und dunkel; CSV für Excel"
+        },
+        {
+          "label": "Betrieb",
+          "value": "Befehlszeile für Aufgabenplanung und Monitoring"
+        },
+        {
+          "label": "Lieferform",
+          "value": "eine Datei, keine Installation"
+        }
+      ],
       "media": {
-        "logo": null,
+        "logo": "/media/produkte/frist/logo.svg",
         "colors": null,
         "banner": null,
         "demo": null,
-        "screenshots": [],
-        "galleryNote": null
+        "screenshots": [
+          {
+            "name": "bericht",
+            "title": "Der HTML-Bericht",
+            "caption": "Eine Datei, offline lesbar, hell und dunkel – mit Abläufen pro Monat und den Änderungen seit dem letzten Lauf.",
+            "alt": "HTML-Bericht von Frist: oben die Kacheln Kritisch 3, Warnung 3, Hinweis 5, OK 6, Ohne Zertifikat 1. Darunter ein Säulendiagramm der Abläufe pro Monat und die Änderungen seit dem letzten Lauf (weg, neu, erneuert). Unten die Tabelle, ganz oben eine OPC-UA-Steuerung mit abgelaufenem Zertifikat.",
+            "light": {
+              "src": "/media/produkte/frist/bericht-light-1600.webp",
+              "srcset": "/media/produkte/frist/bericht-light-800.webp 800w, /media/produkte/frist/bericht-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1161
+            },
+            "dark": {
+              "src": "/media/produkte/frist/bericht-dark-1600.webp",
+              "srcset": "/media/produkte/frist/bericht-dark-800.webp 800w, /media/produkte/frist/bericht-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1161
+            }
+          },
+          {
+            "name": "detail",
+            "title": "Zertifikat, Kette, Befunde",
+            "caption": "Klick auf eine Zeile: Zertifikat, Kette, Befunde, Verbindung. Bei OPC UA auch die angebotenen Sicherheitsrichtlinien.",
+            "alt": "Aufgeklappte Zeile einer OPC-UA-Steuerung: Zertifikat mit Antragsteller, alternativen Namen, Gültigkeit „seit 3 Tagen abgelaufen“, Schlüssel und Fingerabdruck. Daneben die Befunde und die angebotenen OPC-UA-Sicherheitsrichtlinien, darunter None und das veraltete Basic256.",
+            "light": {
+              "src": "/media/produkte/frist/detail-light-1600.webp",
+              "srcset": "/media/produkte/frist/detail-light-800.webp 800w, /media/produkte/frist/detail-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 703
+            },
+            "dark": {
+              "src": "/media/produkte/frist/detail-dark-1600.webp",
+              "srcset": "/media/produkte/frist/detail-dark-800.webp 800w, /media/produkte/frist/detail-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 703
+            }
+          }
+        ],
+        "galleryNote": "Abbildungen mit erfundenen Beispieldaten."
       }
     },
     {
@@ -1154,7 +1613,7 @@
       "nr": 30,
       "name": "Rundgang",
       "kind": "Redfish/IPMI-Explorer",
-      "tagline": null,
+      "tagline": "Alle Server-BMCs auf einen Blick.",
       "linie": "explorer",
       "status": "fast-fertig",
       "statusKey": "vorabversion",
@@ -1186,15 +1645,96 @@
           }
         ]
       },
-      "highlights": [],
-      "facts": [],
+      "highlights": [
+        "Redfish",
+        "Dell · HPE · Lenovo · Supermicro",
+        "Sensoren und Firmware",
+        "Ortungs-LED"
+      ],
+      "facts": [
+        {
+          "label": "Plattform",
+          "value": "Windows 10 und 11, Windows Server, Linux (x64 und ARM64)"
+        },
+        {
+          "label": "Oberfläche",
+          "value": "Deutsch, im Browser, nur auf diesem Rechner erreichbar"
+        },
+        {
+          "label": "Schnittstelle",
+          "value": "Redfish – Dell iDRAC, HPE iLO, Lenovo XClarity, Supermicro und jedes andere BMC mit Redfish"
+        },
+        {
+          "label": "Inventur",
+          "value": "Liste als CSV, dazu Befehlszeile"
+        },
+        {
+          "label": "Lieferform",
+          "value": "eine Datei, keine Installation"
+        }
+      ],
       "media": {
-        "logo": null,
+        "logo": "/media/produkte/rundgang/logo.svg",
         "colors": null,
         "banner": null,
         "demo": null,
-        "screenshots": [],
-        "galleryNote": null
+        "screenshots": [
+          {
+            "name": "uebersicht",
+            "title": "Vier Server, vier Hersteller, eine Liste",
+            "caption": "Zustand, Seriennummer, Strom und Firmware aller Server; darunter die Sensoren mit Grenzwerten.",
+            "alt": "Rundgang im Browser: oben vier Server von Dell, HPE, Supermicro und Lenovo mit Zustand, Seriennummer, Strom, BIOS und BMC-Firmware. Der Dell-Server ist kritisch. Darunter seine Sensoren: CPU- und Ansaugtemperaturen mit Grenzwerten, Lüfter 1B mit 0 U/min als kritisch markiert.",
+            "light": {
+              "src": "/media/produkte/rundgang/uebersicht-light-1600.webp",
+              "srcset": "/media/produkte/rundgang/uebersicht-light-800.webp 800w, /media/produkte/rundgang/uebersicht-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1110
+            },
+            "dark": {
+              "src": "/media/produkte/rundgang/uebersicht-dark-1600.webp",
+              "srcset": "/media/produkte/rundgang/uebersicht-dark-800.webp 800w, /media/produkte/rundgang/uebersicht-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1110
+            }
+          },
+          {
+            "name": "ereignisse",
+            "title": "Ereignisse",
+            "caption": "Systemereignisse aller Protokolle des BMC, neueste zuerst, mit Suche und Filter.",
+            "alt": "Reiter Ereignisse des Servers esx-07.werk.local (Dell PowerEdge R760): drei Einträge mit Zeit, Stufe und Meldung – kritisch „Lüfter 1B ausgefallen.“, OK „Server eingeschaltet.“ und Warnung „Netzteil 2 kurz ohne Eingangsspannung.“, darüber Suche und Filter nach Stufe und Protokoll.",
+            "light": {
+              "src": "/media/produkte/rundgang/ereignisse-light-1600.webp",
+              "srcset": "/media/produkte/rundgang/ereignisse-light-800.webp 800w, /media/produkte/rundgang/ereignisse-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 521
+            },
+            "dark": {
+              "src": "/media/produkte/rundgang/ereignisse-dark-1600.webp",
+              "srcset": "/media/produkte/rundgang/ereignisse-dark-800.webp 800w, /media/produkte/rundgang/ereignisse-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 521
+            }
+          },
+          {
+            "name": "einaus",
+            "title": "Ein, Aus, Neustart – mit Bestätigung",
+            "caption": "Was den Server ausschaltet oder neu startet, will den Namen des Servers als Bestätigung.",
+            "alt": "Ein/Aus-Seite mit Knöpfen für Einschalten, Herunterfahren, Neu starten, Sofort aus, Neustart erzwingen und Aus und wieder ein. Darüber der Dialog „Neu starten?“, in dem zur Bestätigung der Servername esx-07.werk.local eingetippt ist.",
+            "light": {
+              "src": "/media/produkte/rundgang/einaus-light-1600.webp",
+              "srcset": "/media/produkte/rundgang/einaus-light-800.webp 800w, /media/produkte/rundgang/einaus-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1110
+            },
+            "dark": {
+              "src": "/media/produkte/rundgang/einaus-dark-1600.webp",
+              "srcset": "/media/produkte/rundgang/einaus-dark-800.webp 800w, /media/produkte/rundgang/einaus-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1110
+            }
+          }
+        ],
+        "galleryNote": "Abbildungen mit erfundenen Daten aus Demo-BMCs."
       }
     },
     {
@@ -1203,7 +1743,7 @@
       "nr": 32,
       "name": "Merker",
       "kind": "S7-Explorer",
-      "tagline": null,
+      "tagline": "Siemens-Steuerungen ansehen – ohne TIA Portal.",
       "linie": "explorer",
       "status": "fast-fertig",
       "statusKey": "vorabversion",
@@ -1235,15 +1775,132 @@
           }
         ]
       },
-      "highlights": [],
-      "facts": [],
+      "highlights": [
+        "S7-300 bis S7-1500",
+        "Diagnosepuffer",
+        "Datenbausteine mit Namen",
+        "Beobachten und Schreiben"
+      ],
+      "facts": [
+        {
+          "label": "Plattform",
+          "value": "Windows 10 und 11, Linux (x64 und ARM64)"
+        },
+        {
+          "label": "Oberfläche",
+          "value": "Deutsch, im Browser, nur auf diesem Rechner erreichbar"
+        },
+        {
+          "label": "Steuerungen",
+          "value": "S7-300, S7-400, S7-1200 und S7-1500 über das S7-Protokoll (PUT/GET)"
+        },
+        {
+          "label": "Betrieb",
+          "value": "Nur-Lesen-Modus für Begehungen und Störungssuche"
+        },
+        {
+          "label": "Lieferform",
+          "value": "eine Datei, keine Installation"
+        }
+      ],
       "media": {
-        "logo": null,
+        "logo": "/media/produkte/merker/logo.svg",
         "colors": null,
         "banner": null,
         "demo": null,
-        "screenshots": [],
-        "galleryNote": null
+        "screenshots": [
+          {
+            "name": "datenbaustein",
+            "title": "Datenbausteine mit Namen",
+            "caption": "Ein Datenbaustein mit Namen, Typen und Kommentaren aus der Quelle von TIA Portal.",
+            "alt": "Merker im Browser: links drei Steuerungen (Abfüllung Halle 2 mit CPU 1516-3 PN/DP, Kesselhaus mit CPU 315-2 PN/DP, Verpackung Linie 3 mit CPU 1214C), alle in RUN. Rechts Datenbaustein DB1 „Tank“ mit Adresse, Name, Typ, aktuellem Wert und Kommentar aus der Quelle, etwa Füllstand als REAL, Pumpe_Ein als BOOL, Laufzeit_Pumpe als TIME und Produkt als STRING. Jede Zeile hat „Beobachten“ und „Schreiben …“.",
+            "light": {
+              "src": "/media/produkte/merker/datenbaustein-light-1600.webp",
+              "srcset": "/media/produkte/merker/datenbaustein-light-800.webp 800w, /media/produkte/merker/datenbaustein-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            },
+            "dark": {
+              "src": "/media/produkte/merker/datenbaustein-dark-1600.webp",
+              "srcset": "/media/produkte/merker/datenbaustein-dark-800.webp 800w, /media/produkte/merker/datenbaustein-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            }
+          },
+          {
+            "name": "diagnose",
+            "title": "Der Diagnosepuffer",
+            "caption": "Wie ihn die CPU liefert, mit deutschem Text. „Kommend“ und „gehend“ zeigen, wann eine Störung anfing und wann sie wieder weg war.",
+            "alt": "Diagnosepuffer der CPU 315-2 PN/DP im Kesselhaus mit 31 Einträgen, neuester zuerst: Betriebszustandsübergang von ANLAUF nach RUN, Ausfall einer Station der dezentralen Peripherie kommend und gehend, Baugruppe gestört, Bereichslängenfehler beim Lesen, Zykluszeitüberschreitung. Jeweils mit Zeit der CPU, Ereignis-ID und Details zu OB und Prioritätsklasse.",
+            "light": {
+              "src": "/media/produkte/merker/diagnose-light-1600.webp",
+              "srcset": "/media/produkte/merker/diagnose-light-800.webp 800w, /media/produkte/merker/diagnose-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            },
+            "dark": {
+              "src": "/media/produkte/merker/diagnose-dark-1600.webp",
+              "srcset": "/media/produkte/merker/diagnose-dark-800.webp 800w, /media/produkte/merker/diagnose-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            }
+          },
+          {
+            "name": "uebersicht",
+            "title": "Zustand der CPU",
+            "caption": "Typ, Bestellnummer, Firmware, Anlagen- und Ortskennzeichen, Betriebszustand, Schutzstufe und Uhrzeit der CPU.",
+            "alt": "Übersicht der Steuerung Abfüllung Halle 2 mit CPU 1516-3 PN/DP in RUN: Bestellnummer, Firmware V2.9.4, Baugruppenname, Anlagen- und Ortskennzeichen, Seriennummer, Betriebszustand RUN, Schutzstufe 1, Betriebsartenschalter RUN-P und die Uhrzeit der CPU, die mit diesem Rechner übereinstimmt.",
+            "light": {
+              "src": "/media/produkte/merker/uebersicht-light-1600.webp",
+              "srcset": "/media/produkte/merker/uebersicht-light-800.webp 800w, /media/produkte/merker/uebersicht-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            },
+            "dark": {
+              "src": "/media/produkte/merker/uebersicht-dark-1600.webp",
+              "srcset": "/media/produkte/merker/uebersicht-dark-800.webp 800w, /media/produkte/merker/uebersicht-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            }
+          },
+          {
+            "name": "beobachten",
+            "title": "Beobachten",
+            "caption": "Beobachtungslisten mit Adressen in TIA-Schreibweise, laufend gelesen, mit Verlauf als Diagramm.",
+            "alt": "Beobachtungsliste „Tank und Antriebe“ der Steuerung Abfüllung Halle 2, alle 0,5 s gelesen: Füllstand, Temperatur, Pumpe ein, Sollwert, Drehzahl und Strom eines Antriebs, ein Zykluszähler und ein Eingangsbyte mit Adresse, Typ und Wert. Darunter der Verlauf von Füllstand und Antriebsstrom als kleine Diagramme.",
+            "light": {
+              "src": "/media/produkte/merker/beobachten-light-1600.webp",
+              "srcset": "/media/produkte/merker/beobachten-light-800.webp 800w, /media/produkte/merker/beobachten-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            },
+            "dark": {
+              "src": "/media/produkte/merker/beobachten-dark-1600.webp",
+              "srcset": "/media/produkte/merker/beobachten-dark-800.webp 800w, /media/produkte/merker/beobachten-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            }
+          },
+          {
+            "name": "schreiben",
+            "title": "Schreiben, mit Bedacht",
+            "caption": "Einzelne Variablen schreiben – mit klarer Warnung, dass der Wert sofort in die laufende Steuerung geht.",
+            "alt": "Dialog „Schreiben: Sollwert Füllstand · DB1.DBD16:REAL“ für die Steuerung Abfüllung Halle 2, aktuell 80, neuer Wert 85. Darunter der Hinweis „Schreibt sofort in die laufende Steuerung“ und die Schaltflächen Abbrechen und Schreiben.",
+            "light": {
+              "src": "/media/produkte/merker/schreiben-light-1040.webp",
+              "srcset": "/media/produkte/merker/schreiben-light-800.webp 800w, /media/produkte/merker/schreiben-light-1040.webp 1040w",
+              "width": 1040,
+              "height": 612
+            },
+            "dark": {
+              "src": "/media/produkte/merker/schreiben-dark-1040.webp",
+              "srcset": "/media/produkte/merker/schreiben-dark-800.webp 800w, /media/produkte/merker/schreiben-dark-1040.webp 1040w",
+              "width": 1040,
+              "height": 612
+            }
+          }
+        ],
+        "galleryNote": "Abbildungen mit erfundenen Steuerungen und Werten aus dem Demo-Modus."
       }
     },
     {
@@ -1252,7 +1909,7 @@
       "nr": 33,
       "name": "Lotse",
       "kind": "EtherNet/IP-Explorer",
-      "tagline": null,
+      "tagline": "EtherNet/IP-Geräte finden, Rockwell-Steuerungen ansehen, Tags lesen.",
       "linie": "explorer",
       "status": "angefangen",
       "statusKey": "in-entwicklung",
@@ -1284,15 +1941,150 @@
           }
         ]
       },
-      "highlights": [],
-      "facts": [],
+      "highlights": [
+        "ControlLogix · CompactLogix",
+        "Baugruppenträger",
+        "Tags ohne Projekt",
+        "Schreiben mit Bestätigung"
+      ],
+      "facts": [
+        {
+          "label": "Plattform",
+          "value": "Windows 10 und 11, Linux (x64 und ARM64)"
+        },
+        {
+          "label": "Oberfläche",
+          "value": "Deutsch, im Browser, nur auf diesem Rechner erreichbar"
+        },
+        {
+          "label": "Geräte",
+          "value": "ControlLogix, CompactLogix und alle Geräte mit EtherNet/IP: Umrichter, E/A-Koppler, Sensoren, Roboter"
+        },
+        {
+          "label": "Betrieb",
+          "value": "Nur-Lesen-Modus für Begehungen und Störungssuche"
+        },
+        {
+          "label": "Lieferform",
+          "value": "eine Datei, keine Installation"
+        }
+      ],
       "media": {
-        "logo": null,
+        "logo": "/media/produkte/lotse/logo.svg",
         "colors": null,
         "banner": null,
         "demo": null,
-        "screenshots": [],
-        "galleryNote": null
+        "screenshots": [
+          {
+            "name": "tags",
+            "title": "Tags ohne Projekt",
+            "caption": "Die Tags einer CompactLogix mit aufgeklapptem UDT-Array – Controller- und Programm-Tags samt Datentyp.",
+            "alt": "Lotse im Browser: links vier Geräte (CompactLogix 1769-L33ER und ControlLogix 1756-L83E in RUN, ein PowerFlex 525 mit leichtem Fehler, ein WAGO-Koppler ohne I/O-Verbindung). Rechts die Tags der CompactLogix: Liste mit Controller- und Programm-Tags samt Datentyp, daneben das Array Tanks vom Typ Tank[3] aufgeklappt mit Füllstand, Temperatur, Sollwert, Pumpe, Ventil, Störung, Zähler und Bezeichnung. Jeder Wert hat „Schreiben …“ und „Beobachten“.",
+            "light": {
+              "src": "/media/produkte/lotse/tags-light-1600.webp",
+              "srcset": "/media/produkte/lotse/tags-light-800.webp 800w, /media/produkte/lotse/tags-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            },
+            "dark": {
+              "src": "/media/produkte/lotse/tags-dark-1600.webp",
+              "srcset": "/media/produkte/lotse/tags-dark-800.webp 800w, /media/produkte/lotse/tags-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            }
+          },
+          {
+            "name": "suche",
+            "title": "Die Suche liefert das Inventar",
+            "caption": "Hersteller, Typ, Version, Seriennummer und Zustand jedes Geräts, als CSV.",
+            "alt": "Suchergebnis über vier Adressen: CompactLogix 1769-L33ER/A in RUN mit Schlüssel auf REM, Ethernet-Karte 1756-EN2T/D, Frequenzumrichter PowerFlex 525 mit „leichter Fehler“ in Rot, WAGO 750-363 ohne I/O-Verbindung. Jeweils mit Hersteller, Typ, Version, Seriennummer, der IP-Adresse, die das Gerät selbst nennt, und „Verbinden“.",
+            "light": {
+              "src": "/media/produkte/lotse/suche-light-1600.webp",
+              "srcset": "/media/produkte/lotse/suche-light-800.webp 800w, /media/produkte/lotse/suche-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            },
+            "dark": {
+              "src": "/media/produkte/lotse/suche-dark-1600.webp",
+              "srcset": "/media/produkte/lotse/suche-dark-800.webp 800w, /media/produkte/lotse/suche-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            }
+          },
+          {
+            "name": "uebersicht",
+            "title": "Kennung und Netzwerk",
+            "caption": "Zustand im Klartext, bei Rockwell-Steuerungen RUN oder PROGRAM und der Schlüsselschalter, dazu die Netzwerkeinstellungen.",
+            "alt": "Übersicht der ControlLogix 1756-L83E/B in RUN mit Schlüssel auf REM: Produkt, Hersteller, Gerätetyp, Version und Seriennummer der Steuerung und der Ethernet-Schnittstelle 1756-EN2T/D, darunter das Netzwerk mit IP-Adresse, Maske, Gateway, DNS und Domäne.",
+            "light": {
+              "src": "/media/produkte/lotse/uebersicht-light-1600.webp",
+              "srcset": "/media/produkte/lotse/uebersicht-light-800.webp 800w, /media/produkte/lotse/uebersicht-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            },
+            "dark": {
+              "src": "/media/produkte/lotse/uebersicht-dark-1600.webp",
+              "srcset": "/media/produkte/lotse/uebersicht-dark-800.webp 800w, /media/produkte/lotse/uebersicht-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            }
+          },
+          {
+            "name": "baugruppentraeger",
+            "title": "Baugruppenträger",
+            "caption": "Ein ControlLogix-Chassis Steckplatz für Steckplatz: Steuerung, Ethernet- und E/A-Karten mit Version, Seriennummer und Fehlern.",
+            "alt": "Reiter Baugruppenträger der ControlLogix: Steckplätze 0 bis 15 mit Produkt, Typ, Hersteller, Version, Seriennummer und Zustand – Steuerung in Platz 0, Kommunikationsadapter in Platz 2, digitale Ein- und Ausgänge in Platz 3 und 4, eine davon mit „leichter Fehler“ in Rot, die übrigen Plätze leer.",
+            "light": {
+              "src": "/media/produkte/lotse/baugruppentraeger-light-1600.webp",
+              "srcset": "/media/produkte/lotse/baugruppentraeger-light-800.webp 800w, /media/produkte/lotse/baugruppentraeger-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            },
+            "dark": {
+              "src": "/media/produkte/lotse/baugruppentraeger-dark-1600.webp",
+              "srcset": "/media/produkte/lotse/baugruppentraeger-dark-800.webp 800w, /media/produkte/lotse/baugruppentraeger-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            }
+          },
+          {
+            "name": "beobachten",
+            "title": "Beobachten",
+            "caption": "Beobachtungslisten mit Tag-Namen, laufend gelesen, mit Verlauf als Diagramm.",
+            "alt": "Beobachtungsliste „Abfüllung“ der CompactLogix, alle 0,5 s gelesen: Füllstand, Temperatur, Pumpe, Sollwert, Produktions- und Verpackungszähler, ein Rezept als Zeichenkette und ein Freigabe-Bit mit Tag, Typ und Wert. Darunter der Verlauf von Füllstand und Temperatur als kleine Diagramme.",
+            "light": {
+              "src": "/media/produkte/lotse/beobachten-light-1600.webp",
+              "srcset": "/media/produkte/lotse/beobachten-light-800.webp 800w, /media/produkte/lotse/beobachten-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            },
+            "dark": {
+              "src": "/media/produkte/lotse/beobachten-dark-1600.webp",
+              "srcset": "/media/produkte/lotse/beobachten-dark-800.webp 800w, /media/produkte/lotse/beobachten-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1035
+            }
+          },
+          {
+            "name": "schreiben",
+            "title": "Schreiben mit Bestätigung",
+            "caption": "Ein Wert geht erst nach Bestätigung in die laufende Steuerung – mit klarer Warnung.",
+            "alt": "Dialog „Schreiben: Sollwert Füllstand · Tank1.Sollwert“ für die CompactLogix, aktuell 75, neuer Wert 80. Darunter der Hinweis „Schreibt sofort in die laufende Steuerung“ und die Schaltflächen Abbrechen und Schreiben.",
+            "light": {
+              "src": "/media/produkte/lotse/schreiben-light-1040.webp",
+              "srcset": "/media/produkte/lotse/schreiben-light-800.webp 800w, /media/produkte/lotse/schreiben-light-1040.webp 1040w",
+              "width": 1040,
+              "height": 612
+            },
+            "dark": {
+              "src": "/media/produkte/lotse/schreiben-dark-1040.webp",
+              "srcset": "/media/produkte/lotse/schreiben-dark-800.webp 800w, /media/produkte/lotse/schreiben-dark-1040.webp 1040w",
+              "width": 1040,
+              "height": 612
+            }
+          }
+        ],
+        "galleryNote": "Abbildungen mit erfundenen Geräten und Werten aus dem Demo-Modus."
       }
     },
     {

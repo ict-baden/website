@@ -8,7 +8,7 @@ import ProductIcon from '../../components/product/ProductIcon.astro';
 import ProductCard from '../../components/product/ProductCard.astro';
 import Blocks from '../../components/product/Blocks.astro';
 import { coverArt } from '../../lib/art';
-import { colorClasses, lineAnchor, lineById, products, productsOfLine, STATUS_HELP, STATUS_ORDER, type Product } from '../../lib/products';
+import { colorClasses, isPortrait, lineAnchor, lineById, products, productsOfLine, STATUS_HELP, STATUS_ORDER, type Product, type Shot } from '../../lib/products';
 import { mailto } from '../../config';
 import { existsSync } from 'node:fs';
 
@@ -21,8 +21,13 @@ const { product: p } = Astro.props;
 const line = lineById(p.linie);
 const m = p.media;
 const hero = m.screenshots[0];
+// Telefon-Bildschirmfotos (Android-Apps): oben drei Geräte als Vorschau, in der Galerie alle mit Text
+const phones = Boolean(hero && isPortrait(hero));
+const heroPhones = phones ? m.screenshots.slice(0, 3) : [];
 // Bühne oben: Animation, sonst erstes Bildschirmfoto, sonst erzeugtes Motiv
-const gallery = m.demo ? m.screenshots : m.screenshots.slice(1);
+const gallery = m.demo || phones ? m.screenshots : m.screenshots.slice(1);
+/** Darstellung in der Galerie: breite Streifen über die volle Breite, kleine Dialoge in Originalgröße */
+const shotKind = (x: Shot) => (isPortrait(x) ? 'phone' : x.light.width / x.light.height >= 2.4 ? 'wide' : x.light.width <= 1100 ? 'small' : 'normal');
 const planned = p.statusKey === 'geplant';
 const related = productsOfLine(p.linie)
   .filter((x) => x.slug !== p.slug)
@@ -82,6 +87,16 @@ const og = existsSync(`public/og/produkte/${p.slug}.jpg`) ? `/og/produkte/${p.sl
             </div>
             {m.demo.caption && <figcaption>{m.demo.caption}</figcaption>}
           </figure>
+        ) : phones ? (
+          <div class="dvis dvis--phones" aria-hidden="true">
+            <div class="dvis-frame dvis-frame--phones">
+              {heroPhones.map((x, i) => (
+                <div class="dphone">
+                  <ThemeImage light={x.light} dark={x.dark} alt="" sizes="(min-width: 1100px) 190px, 28vw" eager={i === 0} />
+                </div>
+              ))}
+            </div>
+          </div>
         ) : hero ? (
           <figure class="dvis dvis--shot">
             <div class="dvis-frame">
@@ -153,12 +168,12 @@ const og = existsSync(`public/og/produkte/${p.slug}.jpg`) ? `/og/produkte/${p.sl
         <h2 id="s-bilder">So sieht {p.name} aus</h2>
         {m.galleryNote && <p class="muted">{m.galleryNote}</p>}
       </div>
-      <ul class="shots" role="list">
+      <ul class:list={['shots', phones && 'shots--phones']} role="list">
         {gallery.map((s) => (
-          <li class="reveal">
+          <li class:list={['reveal', `shot-item--${shotKind(s)}`]}>
             <figure>
-              <a class="shot shot-link" href={s.light.src} aria-label={`${s.title}: Bild in voller Größe öffnen`}>
-                <ThemeImage light={s.light} dark={s.dark} alt={s.alt} sizes="(min-width: 1100px) 600px, (min-width: 720px) 46vw, 92vw" />
+              <a class:list={['shot', 'shot-link', shotKind(s) === 'phone' && 'shot--bare']} href={s.light.src} aria-label={`${s.title}: Bild in voller Größe öffnen`}>
+                <ThemeImage light={s.light} dark={s.dark} alt={s.alt} sizes={shotKind(s) === 'wide' ? '(min-width: 1300px) 1240px, 94vw' : shotKind(s) === 'phone' ? '(min-width: 1100px) 260px, 44vw' : '(min-width: 1100px) 600px, (min-width: 720px) 46vw, 92vw'} />
               </a>
               <figcaption><strong>{s.title}</strong>{s.caption && <span>{s.caption}</span>}</figcaption>
             </figure>
@@ -235,6 +250,11 @@ const og = existsSync(`public/og/produkte/${p.slug}.jpg`) ? `/og/produkte/${p.sl
   .dvis-frame :global(img) { width: 100%; height: auto; border-radius: 10px 0 0 0; box-shadow: 0 -8px 30px -8px rgb(0 0 0 / 0.35); }
   .dvis--shot figcaption { margin-top: var(--s-3); color: var(--ink-3); font-size: var(--fs-sm); }
   .dvis--shot figcaption strong { color: var(--ink); margin-right: 0.3em; }
+  .dvis-frame--phones { display: flex; justify-content: center; gap: 5%; padding: clamp(18px, 3vw, 36px) clamp(12px, 2vw, 24px) 0; aspect-ratio: 16 / 11; }
+  .dphone { width: 29%; flex: none; filter: drop-shadow(0 18px 26px rgb(0 0 0 / 0.35)); }
+  .dphone:nth-child(2) { margin-top: 8%; }
+  .dphone:nth-child(3) { margin-top: 16%; }
+  .dvis-frame--phones :global(img) { width: 100%; height: auto; border-radius: 0; box-shadow: none; }
   .dvis--art { aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--r-lg); box-shadow: var(--shadow-lg); background: linear-gradient(135deg, var(--l1), var(--l2)); }
   .dvis--art :global(.art) { width: 100%; height: 100%; }
 
@@ -259,7 +279,14 @@ const og = existsSync(`public/og/produkte/${p.slug}.jpg`) ? `/og/produkte/${p.sl
   .dgallery { margin-top: var(--section-y); }
   .dgallery-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-3); margin-bottom: var(--s-6); }
   .dgallery-head h2 { font-size: var(--fs-2xl); }
-  .shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-7) var(--s-6); padding: 0; margin: 0; list-style: none; }
+  .shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: row dense; gap: var(--s-7) var(--s-6); padding: 0; margin: 0; list-style: none; }
+  .shot-item--wide { grid-column: 1 / -1; }
+  .shot-item--small .shot-link { max-width: 520px; }
+  .shots--phones { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .shots--phones figure { display: grid; justify-items: center; text-align: center; }
+  .shots--phones figcaption { justify-items: center; }
+  .shot--bare { max-width: 260px; border: 0; border-radius: 0; background: none; box-shadow: none; overflow: visible; filter: drop-shadow(0 18px 28px rgb(17 17 17 / 0.22)); }
+  .shot--bare:hover { box-shadow: none; }
   .shots figure { margin: 0; }
   .shot-link { display: block; transition: transform 500ms var(--ease-out), box-shadow 500ms var(--ease-out); }
   .shot-link:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
@@ -283,6 +310,7 @@ const og = existsSync(`public/og/produkte/${p.slug}.jpg`) ? `/og/produkte/${p.sl
   }
   @media (max-width: 720px) {
     .shots, .rgrid, .daside, .dbody--solo .daside, .dbody--solo .dfacts dl { grid-template-columns: minmax(0, 1fr); }
+    .shots--phones { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6) var(--s-4); }
     .dhead { gap: var(--s-4); }
     .dhead :global(.dicon) { --picon-size: 60px; }
   }

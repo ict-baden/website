@@ -2,23 +2,24 @@
 // Erzeugt src/data/products.json und die Produktbilder unter public/media/produkte/ aus dem (privaten)
 // Projekt-Repo ict-baden-projekte und – soweit vorhanden – aus den Produkt-Repos.
 //
-//   node scripts/sync-products.mjs <pfad-zu-ict-baden-projekte> [<ordner-mit-produkt-repos>]
+//   node scripts/sync-products.mjs <pfad-zu-ict-baden-projekte> [<ordner-mit-produkt-repos> …]
 //
-// Ohne zweiten Parameter werden die Produkt-Repos neben ict-baden-projekte gesucht (z. B. ../lupe).
+// Produkt-Repos werden in allen angegebenen Ordnern und immer auch neben ict-baden-projekte gesucht
+// (z. B. ../lupe); bei mehreren Treffern gilt der zuerst angegebene Ordner.
 // Übernommen werden nur öffentliche Felder (siehe scripts/lib/public-guard.mjs). Das Ergebnis wird
 // eingecheckt, damit der Build ohne Zugriff auf die privaten Repos funktioniert.
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
-import { basename, dirname, join, resolve } from 'node:path';
+import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import { findLeaks } from './lib/public-guard.mjs';
+import { writeProductColors } from './lib/product-colors.mjs';
 import { PUBLIC_SECTIONS, sentences, splitSections, toBlocks } from './lib/notes.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_JSON = join(ROOT, 'src', 'data', 'products.json');
 const OUT_MEDIA = join(ROOT, 'public', 'media', 'produkte');
-const OUT_COLORS = join(ROOT, 'src', 'styles', 'product-colors.css');
 const MEDIA_URL = '/media/produkte';
 
 const STATUS = {
@@ -34,13 +35,13 @@ const BANNER_WIDTHS = [1280, 2560];
 // ---------------------------------------------------------------------------------------------
 // Aufruf prüfen
 
-const [projektePathArg, reposDirArg] = process.argv.slice(2);
+const [projektePathArg, ...reposDirArgs] = process.argv.slice(2);
 if (!projektePathArg) {
-  console.error('Aufruf: node scripts/sync-products.mjs <pfad-zu-ict-baden-projekte> [<ordner-mit-produkt-repos>]');
+  console.error('Aufruf: node scripts/sync-products.mjs <pfad-zu-ict-baden-projekte> [<ordner-mit-produkt-repos> …]');
   process.exit(2);
 }
 const projektePath = resolve(projektePathArg);
-const reposDir = resolve(reposDirArg ?? dirname(projektePath));
+const reposDirs = [...new Set([...reposDirArgs.map((d) => resolve(d)), dirname(projektePath)])];
 const projekteFile = join(projektePath, 'projekte.json');
 if (!existsSync(projekteFile)) {
   console.error(`projekte.json nicht gefunden: ${projekteFile}`);
@@ -131,17 +132,15 @@ function readmeName(readme) {
 // ---------------------------------------------------------------------------------------------
 // Repos und Bilder
 
-const repoDirs = existsSync(reposDir) ? readdirSync(reposDir).filter((d) => {
-  try { return statSync(join(reposDir, d)).isDirectory(); } catch { return false; }
-}) : [];
+const repoCandidates = reposDirs.flatMap((base) => (existsSync(base) ? readdirSync(base) : [])
+  .filter((d) => { try { return statSync(join(base, d)).isDirectory(); } catch { return false; } })
+  .map((d) => ({ name: d.toLowerCase(), dir: join(base, d) })));
 
 function findRepoDir(repo) {
   if (!repo) return null;
-  const name = repo.split('/').pop();
-  const hit = repoDirs.find((d) => d.toLowerCase() === name.toLowerCase());
-  if (!hit) return null;
-  const dir = join(reposDir, hit);
-  return existsSync(join(dir, 'README.md')) || existsSync(join(dir, 'docs', 'assets')) ? dir : null;
+  const name = repo.split('/').pop().toLowerCase();
+  const hit = repoCandidates.find((c) => c.name === name && (existsSync(join(c.dir, 'README.md')) || existsSync(join(c.dir, 'docs'))));
+  return hit ? hit.dir : null;
 }
 
 function sanitizeSvg(svg) {
@@ -170,15 +169,42 @@ async function webpVariants(file, outDir, base, widths, quality = 82) {
   };
 }
 
+/** Mittlere Farbe der deckenden Pixel eines waagrechten Streifens (Anteil der Höhe). */
+async function bandColor(file, at) {
+  const { data, info } = await sharp(file).resize(64, 64, { fit: 'fill' }).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const y = Math.round(at * (info.height - 1));
+  let r = 0, g = 0, b = 0, n = 0;
+  for (let x = Math.round(info.width * 0.3); x < Math.round(info.width * 0.7); x++) {
+    const i = (y * info.width + x) * 4;
+    if (data[i + 3] < 250) continue;
+    r += data[i]; g += data[i + 1]; b += data[i + 2]; n++;
+  }
+  if (!n) return null;
+  return '#' + [r, g, b].map((v) => Math.round(v / n).toString(16).padStart(2, '0')).join('');
+}
+
+/** Bildschirmfoto suchen: docs/assets/screenshots, docs/assets, docs/images (Android-Apps). */
+function findShot(dir, name, variant) {
+  const docs = join(dir, 'docs');
+  const names = variant === 'light' ? [`${name}-light.png`, `${name}.png`] : [`${name}-dark.png`];
+  for (const sub of [join(docs, 'assets', 'screenshots'), join(docs, 'assets'), join(docs, 'images')]) {
+    for (const n of names) if (existsSync(join(sub, n))) return join(sub, n);
+  }
+  return null;
+}
+
 async function buildMedia(dir, slug, productName, cfg) {
-  const assets = join(dir, 'docs', 'assets');
-  if (!existsSync(assets)) return null;
+  const docs = join(dir, 'docs');
+  const assets = join(docs, 'assets');
+  if (!existsSync(docs)) return null;
   const outDir = join(OUT_MEDIA, slug);
   rmSync(outDir, { recursive: true, force: true });
   mkdirSync(outDir, { recursive: true });
   const media = { logo: null, colors: null, banner: null, demo: null, screenshots: [], galleryNote: cfg.galleryNote ?? null, source: [] };
 
   const logo = join(assets, 'logo.svg');
+  // App-Symbol als PNG (Android-Apps): erst aus der Doku, sonst das Play-Store-Symbol der App
+  const pngLogo = [join(docs, 'images', 'logo.png'), join(assets, 'logo.png'), join(dir, 'app', 'src', 'main', 'ic_launcher-playstore.png')].find(existsSync);
   if (existsSync(logo)) {
     writeFileSync(join(outDir, 'logo.svg'), sanitizeSvg(readFileSync(logo, 'utf8')));
     media.logo = `${MEDIA_URL}/${slug}/logo.svg`;
@@ -186,6 +212,15 @@ async function buildMedia(dir, slug, productName, cfg) {
     const stops = [...readFileSync(logo, "utf8").matchAll(/stop-color="(#[0-9a-fA-F]{3,8})"/g)].map((m) => m[1].toLowerCase());
     if (stops.length >= 2) media.colors = [stops[0], stops[stops.length - 1]];
     media.source.push('logo.svg');
+  } else if (pngLogo) {
+    await sharp(pngLogo).resize(256, 256, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+      .webp({ quality: 90, alphaQuality: 100, effort: 6 }).toFile(join(outDir, 'logo.webp'));
+    media.logo = `${MEDIA_URL}/${slug}/logo.webp`;
+    // Markenfarben: Fläche oben und unten im Symbol
+    const top = await bandColor(pngLogo, 0.1);
+    const bottom = await bandColor(pngLogo, 0.9);
+    if (top && bottom) media.colors = [top, bottom];
+    media.source.push(basename(pngLogo));
   }
 
   const banner = join(assets, 'banner.png');
@@ -211,30 +246,30 @@ async function buildMedia(dir, slug, productName, cfg) {
     media.source.push(cfg.demo.file);
   }
 
-  const shotsDir = join(assets, 'screenshots');
   let shots = cfg.screenshots;
-  if (!shots && existsSync(shotsDir)) {
-    // Ohne Kuratierung: Paare *-light.png / *-dark.png in Dateireihenfolge, höchstens sechs
-    shots = readdirSync(shotsDir)
-      .filter((f) => /-light\.png$/.test(f) && !/^about-/.test(f))
-      .slice(0, 6)
-      .map((f) => {
-        const name = f.replace(/-light\.png$/, '');
-        const title = name.replace(/-/g, ' ').replace(/^\w/, (c) => c.toUpperCase());
-        return { name, title, caption: null, alt: `Bildschirmfoto von ${productName}: ${title}` };
-      });
+  if (!shots) {
+    // Ohne Kuratierung: Paare *-light.png / *-dark.png (Android: screen-*.png) in Dateireihenfolge, höchstens sechs
+    const found = [];
+    for (const sub of [join(assets, 'screenshots'), assets]) {
+      if (existsSync(sub)) found.push(...readdirSync(sub).filter((f) => /-light\.png$/.test(f) && !/^about-/.test(f)).map((f) => f.replace(/-light\.png$/, '')));
+    }
+    if (existsSync(join(docs, 'images'))) found.push(...readdirSync(join(docs, 'images')).filter((f) => /^screen-.*\.png$/.test(f)).map((f) => f.replace(/\.png$/, '')));
+    shots = [...new Set(found)].slice(0, 6).map((name) => {
+      const title = name.replace(/^screen-/, '').replace(/-/g, ' ').replace(/^\w/, (c) => c.toUpperCase());
+      return { name, title, caption: null, alt: `Bildschirmfoto von ${productName}: ${title}` };
+    });
   }
-  for (const s of shots ?? []) {
-    const lightFile = [join(shotsDir, `${s.name}-light.png`), join(shotsDir, `${s.name}.png`)].find(existsSync);
+  for (const s of shots) {
+    const lightFile = findShot(dir, s.name, 'light');
     if (!lightFile) {
       console.warn(`  ! ${slug}: Bildschirmfoto "${s.name}" nicht gefunden`);
       continue;
     }
-    const darkFile = join(shotsDir, `${s.name}-dark.png`);
+    const darkFile = findShot(dir, s.name, 'dark');
     const light = await webpVariants(lightFile, outDir, `${s.name}-light`, SHOT_WIDTHS);
-    const dark = existsSync(darkFile) ? await webpVariants(darkFile, outDir, `${s.name}-dark`, SHOT_WIDTHS) : null;
+    const dark = darkFile ? await webpVariants(darkFile, outDir, `${s.name}-dark`, SHOT_WIDTHS) : null;
     media.screenshots.push({ name: s.name, title: s.title, caption: s.caption ?? null, alt: s.alt, light, dark });
-    media.source.push(`screenshots/${basename(lightFile)}${dark ? ' (+ dark)' : ''}`);
+    media.source.push(`${relative(docs, lightFile).split('\\').join('/')}${dark ? ' (+ dark)' : ''}`);
   }
   return media;
 }
@@ -261,10 +296,13 @@ for (const p of source.projekte) {
   let name = base.name;
   let kind = base.kind;
   const fromReadme = repoDir && existsSync(join(repoDir, 'README.md')) ? readmeName(readFileSync(join(repoDir, 'README.md'), 'utf8')) : null;
+  // Nur anders geschrieben ("IndustrialKeyboard" -> "Industrial Keyboard") ist keine eigene Art
+  const squash = (s) => s.toLowerCase().replace(/[^a-z0-9äöüß]+/g, '');
   if (fromReadme && fromReadme !== name) {
-    kind = kind ?? base.name;
+    if (squash(fromReadme) !== squash(name)) kind = kind ?? base.name;
     name = fromReadme;
   }
+  if (cfg.kind) kind = cfg.kind;
   const slug = slugify(name);
   if (seenSlugs.has(slug)) throw new Error(`Doppelter Slug "${slug}" (${p.id})`);
   seenSlugs.add(slug);
@@ -354,12 +392,8 @@ if (existsSync(OUT_MEDIA)) {
 mkdirSync(dirname(OUT_JSON), { recursive: true });
 writeFileSync(OUT_JSON, JSON.stringify(output, null, 2) + '\n');
 
-// Markenfarben der Produkte mit Logo (Klasse pc--<slug>); wird mit dem Haupt-Stylesheet gebündelt
-const colorCss = products
-  .filter((p) => p.media.colors)
-  .map((p) => `.pc--${p.slug}.pc--${p.slug} { --l1: ${p.media.colors[0]}; --l2: ${p.media.colors[1]}; }`)
-  .join('\n');
-writeFileSync(OUT_COLORS, `/* Erzeugt von scripts/sync-products.mjs aus den Produkt-Logos – nicht von Hand ändern */\n${colorCss}\n`);
+// Farbpaare aller Produkte (Klasse pc--<slug>): erzeugte Symbole und eigene Logos
+writeProductColors(products);
 
 console.log(`${products.length} Produkte in ${linien.length} Linien → ${OUT_JSON}`);
 console.table(report);

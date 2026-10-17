@@ -1,19 +1,32 @@
 ---
-// Titelbild einer Produktkarte: Bildschirmfoto im Verlaufsrahmen der Produktlinie, sonst erzeugtes Motiv.
+// Titelbild einer Produktkarte: Bildschirmfoto auf dem Verlauf des Produkts (Telefon-Fotos zu zweit
+// nebeneinander), sonst erzeugtes Motiv der Produktlinie.
 import ThemeImage from '../ThemeImage.astro';
 import { coverArt } from '../../lib/art';
-import { colorClasses, type Product } from '../../lib/products';
+import { colorClasses, isPortrait, type Product } from '../../lib/products';
 interface Props { product: Product; uid?: string; sizes?: string; eager?: boolean; shot?: number }
 const { product, uid = '', sizes = '(min-width: 1100px) 380px, (min-width: 700px) 45vw, 92vw', eager = false, shot = 0 } = Astro.props;
 const s = product.media.screenshots[shot] ?? product.media.screenshots[0];
+const portrait = s ? isPortrait(s) : false;
+const phones = portrait ? product.media.screenshots.filter(isPortrait).slice(0, 2) : [];
 ---
-<div class:list={['pcover', ...colorClasses(product), s && 'pcover--shot']}>
+<div class:list={['pcover', ...colorClasses(product), s && 'pcover--shot', portrait && 'pcover--phones']}>
   {s ? (
     <>
       <span class="pcover-bg" aria-hidden="true"></span>
-      <div class="pcover-shot">
-        <ThemeImage light={s.light} dark={s.dark} alt="" sizes={sizes} eager={eager} />
-      </div>
+      {portrait ? (
+        <div class="pcover-phones">
+          {phones.map((p) => (
+            <div class="pcover-phone">
+              <ThemeImage light={p.light} dark={p.dark} alt="" sizes="(min-width: 1100px) 150px, 40vw" eager={eager} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="pcover-shot">
+          <ThemeImage light={s.light} dark={s.dark} alt="" sizes={sizes} eager={eager} />
+        </div>
+      )}
     </>
   ) : (
     <Fragment set:html={coverArt(product.slug, product.linie, uid)} />
@@ -47,4 +60,16 @@ const s = product.media.screenshots[shot] ?? product.media.screenshots[0];
     transition: transform 700ms var(--ease-out);
   }
   .pcover-shot :global(img) { width: 100%; height: auto; }
+  /* Telefon-Bildschirmfotos (mit eigenem Rahmen, freigestellt): zwei Geräte, unten angeschnitten */
+  .pcover-phones {
+    position: absolute;
+    inset: 12% 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 6%;
+    transition: transform 700ms var(--ease-out);
+  }
+  .pcover-phone { width: 34%; filter: drop-shadow(0 18px 24px rgb(0 0 0 / 0.35)); }
+  .pcover-phone:nth-child(2) { margin-top: 9%; }
+  .pcover-phone :global(img) { width: 100%; height: auto; }
 </style>

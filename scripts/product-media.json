@@ -2,20 +2,41 @@
   "$comment": [
     "Kuratierte Bilder und Eckdaten je Produkt-Repo (Schlüssel = Repo-Name ohne Owner, Kleinschreibung).",
     "Quelle aller Texte: README und Oberfläche des jeweiligen Repos (englische READMEs sinngemäß übersetzt).",
-    "Repos ohne Eintrag: logo.svg wird übernommen, Bildschirmfotos werden automatisch aus",
-    "docs/assets/screenshots/*-light.png (+ *-dark.png) erkannt, Banner nur mit 'banner': true (oft englischer Text)."
+    "Bildschirmfotos werden unter dem Namen gesucht: docs/assets/screenshots/, docs/assets/ (<name>-light.png + <name>-dark.png)",
+    "und docs/images/<name>.png (Android-Apps, nur hell). Repos ohne Eintrag: Logo und Bildschirmfotos werden automatisch erkannt.",
+    "kind (optional) ersetzt die Art unter dem Namen; Banner nur mit banner: true (oft englischer Text)."
   ],
   "repos": {
     "lupe": {
       "tagline": "QR- und Barcodes lesen",
       "banner": false,
-      "highlights": ["Win+Umschalt+Q", "QR · Data Matrix · EAN", "Tippt in jede Anwendung", "Link-Regeln"],
+      "highlights": [
+        "Win+Umschalt+Q",
+        "QR · Data Matrix · EAN",
+        "Tippt in jede Anwendung",
+        "Link-Regeln"
+      ],
       "facts": [
-        ["Plattform", "Windows 10 und 11, x64"],
-        ["Oberfläche", "Deutsch"],
-        ["Daten", "bleiben auf dem PC, nichts wird ins Internet gesendet"],
-        ["Formate", "22 Code-Formate, darunter QR Code, Data Matrix, Code 128 und EAN"],
-        ["Lieferform", "MSI für alle Benutzer oder eine einzelne Lupe.exe ohne Installation"]
+        [
+          "Plattform",
+          "Windows 10 und 11, x64"
+        ],
+        [
+          "Oberfläche",
+          "Deutsch"
+        ],
+        [
+          "Daten",
+          "bleiben auf dem PC, nichts wird ins Internet gesendet"
+        ],
+        [
+          "Formate",
+          "22 Code-Formate, darunter QR Code, Data Matrix, Code 128 und EAN"
+        ],
+        [
+          "Lieferform",
+          "MSI für alle Benutzer oder eine einzelne Lupe.exe ohne Installation"
+        ]
       ],
       "galleryNote": "Abbildungen mit Beispieldaten aus dem Demo-Modus.",
       "screenshots": [
@@ -60,13 +81,33 @@
     "zutritt": {
       "tagline": "Wer darf wohin?",
       "banner": false,
-      "highlights": ["SMB + NTFS", "Gruppen → Personen", "14 Prüfregeln", "Excel & PDF"],
+      "highlights": [
+        "SMB + NTFS",
+        "Gruppen → Personen",
+        "14 Prüfregeln",
+        "Excel & PDF"
+      ],
       "facts": [
-        ["Plattform", "Windows 10 und 11, x64"],
-        ["Oberfläche", "Deutsch, auch die Berichte"],
-        ["Zugriff", "nur lesend – Zutritt ändert keine Berechtigungen, Dateien oder Konten"],
-        ["Betrieb", "kein Server, kein Agent, kein Dienst; ein Programm für Desktop und geplante Aufgaben"],
-        ["Lieferform", "MSI für alle Benutzer oder eine einzelne Zutritt.exe ohne Installation"]
+        [
+          "Plattform",
+          "Windows 10 und 11, x64"
+        ],
+        [
+          "Oberfläche",
+          "Deutsch, auch die Berichte"
+        ],
+        [
+          "Zugriff",
+          "nur lesend – Zutritt ändert keine Berechtigungen, Dateien oder Konten"
+        ],
+        [
+          "Betrieb",
+          "kein Server, kein Agent, kein Dienst; ein Programm für Desktop und geplante Aufgaben"
+        ],
+        [
+          "Lieferform",
+          "MSI für alle Benutzer oder eine einzelne Zutritt.exe ohne Installation"
+        ]
       ],
       "galleryNote": "Abbildungen mit Beispieldaten aus dem Demo-Modus.",
       "screenshots": [
@@ -117,13 +158,33 @@
         "alt": "Animation: Eine HPLC-Messkurve läuft unter der durchsichtigen Sperre weiter. Ein Klick öffnet den Entsperrdialog, „Weiter mit Microsoft“ entsperrt den Arbeitsplatz.",
         "caption": "Die Messung läuft unter der Sperre weiter › Klick öffnet den Entsperrdialog › „Weiter mit Microsoft“ › entsperrt"
       },
-      "highlights": ["Microsoft Entra ID", "E-Signaturen", "Audit-Hash-Kette", "GPO / Intune"],
+      "highlights": [
+        "Microsoft Entra ID",
+        "E-Signaturen",
+        "Audit-Hash-Kette",
+        "GPO / Intune"
+      ],
       "facts": [
-        ["Plattform", "Windows 10 und 11"],
-        ["Anmeldung", "Microsoft Entra ID, Windows-Kennwort, Windows Hello"],
-        ["Verwaltung", "Gruppenrichtlinie oder Intune per ADMX/ADML"],
-        ["Einsatz", "Labore, Produktion, Leitstände, Pharma"],
-        ["Lieferform", "MSI für alle Benutzer oder eine einzelne Vitrine.exe ohne Installation"]
+        [
+          "Plattform",
+          "Windows 10 und 11"
+        ],
+        [
+          "Anmeldung",
+          "Microsoft Entra ID, Windows-Kennwort, Windows Hello"
+        ],
+        [
+          "Verwaltung",
+          "Gruppenrichtlinie oder Intune per ADMX/ADML"
+        ],
+        [
+          "Einsatz",
+          "Labore, Produktion, Leitstände, Pharma"
+        ],
+        [
+          "Lieferform",
+          "MSI für alle Benutzer oder eine einzelne Vitrine.exe ohne Installation"
+        ]
       ],
       "galleryNote": "Die Abbildungen stammen aus einer interaktiven Design-Vorschau der Anwendung; Namen und Werte sind Beispiele.",
       "screenshots": [
@@ -162,6 +223,498 @@
           "title": "Infobereich im Windows-11-Stil",
           "caption": "Flyout mit Status und Sperr-Knöpfen. Fluent-Design in Hell, Dunkel oder hohem Kontrast, mit Windows- oder Firmen-Akzentfarbe.",
           "alt": "Infobereich-Flyout mit der Statuskarte „Bereit“ und den Einträgen „Jetzt durchsichtig sperren“, „Verdeckt sperren“ und „Protokoll“."
+        }
+      ]
+    },
+    "hausmeister": {
+      "tagline": "BACnet-Geräte finden, Datenpunkte prüfen, Werte setzen.",
+      "banner": false,
+      "highlights": [
+        "BACnet/IP",
+        "16 Prioritäten im Blick",
+        "Trendlogs und Alarme",
+        "Punkteliste als CSV"
+      ],
+      "facts": [
+        [
+          "Plattform",
+          "Windows 10 und 11, Linux (x64 und ARM64)"
+        ],
+        [
+          "Oberfläche",
+          "Deutsch, im Browser, nur auf diesem Rechner erreichbar"
+        ],
+        [
+          "Protokoll",
+          "BACnet/IP, herstellerunabhängig"
+        ],
+        [
+          "Betrieb",
+          "Nur-Lesen-Modus für Abnahmen und Begehungen"
+        ],
+        [
+          "Lieferform",
+          "eine Datei, keine Installation"
+        ]
+      ],
+      "galleryNote": "Abbildungen mit erfundenen Geräten und Werten aus dem Demo-Modus.",
+      "screenshots": [
+        {
+          "name": "uebersicht",
+          "title": "Alle Datenpunkte eines Controllers",
+          "caption": "Mit Wert, Einheit und Zustand. Beim Ausgang ist sofort zu sehen, welche Priorität ihn steuert.",
+          "alt": "Hausmeister im Browser: links vier Geräte (Lüftung, Heizung, Raumregler, Energiezähler). Rechts die Datenpunkte der Lüftungsanlage mit Objekt, Name, Beschreibung, Wert mit Einheit und Zustand, etwa die Zulufttemperatur in °C, den Zuluftventilator „Ein“ und die Betriebsart „Automatik“. Daneben das Heizregisterventil mit seinen 16 Prioritäten: Priorität 8 ist mit 62,5 % belegt und bestimmt den Wert."
+        },
+        {
+          "name": "trendlog",
+          "title": "Trendlogs aus dem Controller",
+          "caption": "Per ReadRange gelesen, als Diagramm und CSV. Einheit und Zeitbereich kommen aus dem Gerät.",
+          "alt": "Trendlog der Außenlufttemperatur über 24 Stunden als Linie mit Tagesgang, das Fadenkreuz zeigt Wert in °C und Uhrzeit eines Eintrags. Darüber die Auswahl der letzten 500 Einträge, Als CSV und Schließen."
+        },
+        {
+          "name": "setzen",
+          "title": "Werte setzen, mit Bedacht",
+          "caption": "Present_Value mit Priorität schreiben oder eine Priorität freigeben. Hausmeister warnt, wenn eine höhere Priorität Vorrang hat.",
+          "alt": "Dialog „Wert setzen: AO 1 · LTA01_HZ_VENTIL“ für das Gerät LTA-01 Lüftung Halle 2, aktuell 35 %. Hinweis: Priorität 8 ist belegt und hat Vorrang. Neuer Wert 45, Priorität 10, Kästchen „Diese Priorität freigeben“, Warnung „Wirkt sofort auf die Anlage“ und die Schaltfläche „Mit Priorität 10 setzen“."
+        },
+        {
+          "name": "alarme",
+          "title": "Objekte im Alarm",
+          "caption": "Alle Geräte auf Objekte im Alarm abfragen, mit Zustand, Wert und Zeitpunkt.",
+          "alt": "Tabelle „Objekte im Alarm“: das Gerät HZG-UG Heizung Untergeschoss meldet für AI 3 HZG_DRUCK den Zustand „Grenzwert unten“ mit 1,32 bar, nicht quittiert. Daneben die Schaltflächen „Alle Geräte abfragen“ und „Als CSV“."
+        }
+      ]
+    },
+    "fuehler": {
+      "tagline": "SNMP verstehen statt OIDs raten.",
+      "banner": false,
+      "highlights": [
+        "SNMP v1 · v2c · v3",
+        "MIB-Baum mit Suche",
+        "Traps live",
+        "Netzsuche"
+      ],
+      "facts": [
+        [
+          "Plattform",
+          "Windows 10 und 11, Windows Server, Linux (x64 und ARM64)"
+        ],
+        [
+          "Oberfläche",
+          "Deutsch, im Browser, nur auf diesem Rechner erreichbar"
+        ],
+        [
+          "Geräte",
+          "USVs, Switche, Drucker, Klimageräte und SPS-Gateways"
+        ],
+        [
+          "MIBs",
+          "Standard-MIBs eingebaut, Hersteller-MIBs wählbar"
+        ],
+        [
+          "Lieferform",
+          "eine Datei, keine Installation"
+        ]
+      ],
+      "galleryNote": "Abbildungen mit erfundenen Geräten und MIBs aus dem Demo-Modus.",
+      "screenshots": [
+        {
+          "name": "uebersicht",
+          "title": "Hersteller-MIB statt nackter Zahlen",
+          "caption": "Eine USV mit geladener Hersteller-MIB: Namen, Einheiten, Aufzählungen und Kommastellen.",
+          "alt": "Fühler im Browser: links vier Geräte (USV, Switch, Drucker, SPS-Gateway). In der Mitte der MIB-Baum, aufgeklappt bis zur Batterietemperatur einer USV aus einer Hersteller-MIB. Rechts die Beschreibung des Eintrags mit Typ, Einheit °C und Darstellung d-1, darunter ein Walk mit Werten wie „normal (2)“, Ladezustand in Prozent, Temperatur mit Dezimalkomma in °C und der Stromquelle der USV."
+        },
+        {
+          "name": "traps",
+          "title": "Traps live empfangen",
+          "caption": "v1, v2c und v3, jeder Trap mit Namen und Beschreibung aus der MIB.",
+          "alt": "Trap-Ansicht: Fühler lauscht auf Port 1162. Oben der SNMPv1-Trap „MUSTER-USV-MIB::usvPowerRestored“ mit der Beschreibung „Das Netz ist zurück, die USV lädt die Batterie wieder.“, usvOutputSource utility (1), Agentenadresse und Enterprise. Darunter linkUp und linkDown eines Switch-Ports mit ifIndex, ifAdminStatus und ifOperStatus, dann „usvOnBattery“ mit usvOutputSource battery (2) und Ladezustand 100 %."
+        },
+        {
+          "name": "diagramme",
+          "title": "Diagramme",
+          "caption": "Ein Klick verfolgt einen Wert. Zähler werden zur Rate pro Sekunde, Bytes zu Bit/s.",
+          "alt": "Vier kleine Diagramme: eingehender und ausgehender Verkehr des Uplink-Ports in Mbit/s, eingehender Verkehr eines zweiten Ports und Eingangsfehler pro Sekunde an Port 6. Über dem ersten Diagramm ein Fadenkreuz mit Wert und Uhrzeit des Messpunkts."
+        }
+      ]
+    },
+    "frist": {
+      "tagline": "Findet TLS-Zertifikate im Netz und warnt, bevor sie ablaufen.",
+      "banner": false,
+      "highlights": [
+        "HTTPS, STARTTLS, RDP, OPC UA",
+        "Vergleich mit dem letzten Lauf",
+        "HTML- und CSV-Bericht",
+        "Exitcodes für Icinga"
+      ],
+      "facts": [
+        [
+          "Plattform",
+          "Windows 10 und 11, Windows Server 2016 und neuer, Linux (x64 und ARM64)"
+        ],
+        [
+          "Bewertung",
+          "Kritisch, Warnung, Hinweis oder OK – jeweils mit Begründung"
+        ],
+        [
+          "Bericht",
+          "eine HTML-Datei, offline lesbar, hell und dunkel; CSV für Excel"
+        ],
+        [
+          "Betrieb",
+          "Befehlszeile für Aufgabenplanung und Monitoring"
+        ],
+        [
+          "Lieferform",
+          "eine Datei, keine Installation"
+        ]
+      ],
+      "galleryNote": "Abbildungen mit erfundenen Beispieldaten.",
+      "screenshots": [
+        {
+          "name": "bericht",
+          "title": "Der HTML-Bericht",
+          "caption": "Eine Datei, offline lesbar, hell und dunkel – mit Abläufen pro Monat und den Änderungen seit dem letzten Lauf.",
+          "alt": "HTML-Bericht von Frist: oben die Kacheln Kritisch 3, Warnung 3, Hinweis 5, OK 6, Ohne Zertifikat 1. Darunter ein Säulendiagramm der Abläufe pro Monat und die Änderungen seit dem letzten Lauf (weg, neu, erneuert). Unten die Tabelle, ganz oben eine OPC-UA-Steuerung mit abgelaufenem Zertifikat."
+        },
+        {
+          "name": "detail",
+          "title": "Zertifikat, Kette, Befunde",
+          "caption": "Klick auf eine Zeile: Zertifikat, Kette, Befunde, Verbindung. Bei OPC UA auch die angebotenen Sicherheitsrichtlinien.",
+          "alt": "Aufgeklappte Zeile einer OPC-UA-Steuerung: Zertifikat mit Antragsteller, alternativen Namen, Gültigkeit „seit 3 Tagen abgelaufen“, Schlüssel und Fingerabdruck. Daneben die Befunde und die angebotenen OPC-UA-Sicherheitsrichtlinien, darunter None und das veraltete Basic256."
+        }
+      ]
+    },
+    "rundgang": {
+      "tagline": "Alle Server-BMCs auf einen Blick.",
+      "banner": false,
+      "highlights": [
+        "Redfish",
+        "Dell · HPE · Lenovo · Supermicro",
+        "Sensoren und Firmware",
+        "Ortungs-LED"
+      ],
+      "facts": [
+        [
+          "Plattform",
+          "Windows 10 und 11, Windows Server, Linux (x64 und ARM64)"
+        ],
+        [
+          "Oberfläche",
+          "Deutsch, im Browser, nur auf diesem Rechner erreichbar"
+        ],
+        [
+          "Schnittstelle",
+          "Redfish – Dell iDRAC, HPE iLO, Lenovo XClarity, Supermicro und jedes andere BMC mit Redfish"
+        ],
+        [
+          "Inventur",
+          "Liste als CSV, dazu Befehlszeile"
+        ],
+        [
+          "Lieferform",
+          "eine Datei, keine Installation"
+        ]
+      ],
+      "galleryNote": "Abbildungen mit erfundenen Daten aus Demo-BMCs.",
+      "screenshots": [
+        {
+          "name": "uebersicht",
+          "title": "Vier Server, vier Hersteller, eine Liste",
+          "caption": "Zustand, Seriennummer, Strom und Firmware aller Server; darunter die Sensoren mit Grenzwerten.",
+          "alt": "Rundgang im Browser: oben vier Server von Dell, HPE, Supermicro und Lenovo mit Zustand, Seriennummer, Strom, BIOS und BMC-Firmware. Der Dell-Server ist kritisch. Darunter seine Sensoren: CPU- und Ansaugtemperaturen mit Grenzwerten, Lüfter 1B mit 0 U/min als kritisch markiert."
+        },
+        {
+          "name": "ereignisse",
+          "title": "Ereignisse",
+          "caption": "Systemereignisse aller Protokolle des BMC, neueste zuerst, mit Suche und Filter.",
+          "alt": "Reiter Ereignisse des Servers esx-07.werk.local (Dell PowerEdge R760): drei Einträge mit Zeit, Stufe und Meldung – kritisch „Lüfter 1B ausgefallen.“, OK „Server eingeschaltet.“ und Warnung „Netzteil 2 kurz ohne Eingangsspannung.“, darüber Suche und Filter nach Stufe und Protokoll."
+        },
+        {
+          "name": "einaus",
+          "title": "Ein, Aus, Neustart – mit Bestätigung",
+          "caption": "Was den Server ausschaltet oder neu startet, will den Namen des Servers als Bestätigung.",
+          "alt": "Ein/Aus-Seite mit Knöpfen für Einschalten, Herunterfahren, Neu starten, Sofort aus, Neustart erzwingen und Aus und wieder ein. Darüber der Dialog „Neu starten?“, in dem zur Bestätigung der Servername esx-07.werk.local eingetippt ist."
+        }
+      ]
+    },
+    "merker": {
+      "tagline": "Siemens-Steuerungen ansehen – ohne TIA Portal.",
+      "banner": false,
+      "highlights": [
+        "S7-300 bis S7-1500",
+        "Diagnosepuffer",
+        "Datenbausteine mit Namen",
+        "Beobachten und Schreiben"
+      ],
+      "facts": [
+        [
+          "Plattform",
+          "Windows 10 und 11, Linux (x64 und ARM64)"
+        ],
+        [
+          "Oberfläche",
+          "Deutsch, im Browser, nur auf diesem Rechner erreichbar"
+        ],
+        [
+          "Steuerungen",
+          "S7-300, S7-400, S7-1200 und S7-1500 über das S7-Protokoll (PUT/GET)"
+        ],
+        [
+          "Betrieb",
+          "Nur-Lesen-Modus für Begehungen und Störungssuche"
+        ],
+        [
+          "Lieferform",
+          "eine Datei, keine Installation"
+        ]
+      ],
+      "galleryNote": "Abbildungen mit erfundenen Steuerungen und Werten aus dem Demo-Modus.",
+      "screenshots": [
+        {
+          "name": "datenbaustein",
+          "title": "Datenbausteine mit Namen",
+          "caption": "Ein Datenbaustein mit Namen, Typen und Kommentaren aus der Quelle von TIA Portal.",
+          "alt": "Merker im Browser: links drei Steuerungen (Abfüllung Halle 2 mit CPU 1516-3 PN/DP, Kesselhaus mit CPU 315-2 PN/DP, Verpackung Linie 3 mit CPU 1214C), alle in RUN. Rechts Datenbaustein DB1 „Tank“ mit Adresse, Name, Typ, aktuellem Wert und Kommentar aus der Quelle, etwa Füllstand als REAL, Pumpe_Ein als BOOL, Laufzeit_Pumpe als TIME und Produkt als STRING. Jede Zeile hat „Beobachten“ und „Schreiben …“."
+        },
+        {
+          "name": "diagnose",
+          "title": "Der Diagnosepuffer",
+          "caption": "Wie ihn die CPU liefert, mit deutschem Text. „Kommend“ und „gehend“ zeigen, wann eine Störung anfing und wann sie wieder weg war.",
+          "alt": "Diagnosepuffer der CPU 315-2 PN/DP im Kesselhaus mit 31 Einträgen, neuester zuerst: Betriebszustandsübergang von ANLAUF nach RUN, Ausfall einer Station der dezentralen Peripherie kommend und gehend, Baugruppe gestört, Bereichslängenfehler beim Lesen, Zykluszeitüberschreitung. Jeweils mit Zeit der CPU, Ereignis-ID und Details zu OB und Prioritätsklasse."
+        },
+        {
+          "name": "uebersicht",
+          "title": "Zustand der CPU",
+          "caption": "Typ, Bestellnummer, Firmware, Anlagen- und Ortskennzeichen, Betriebszustand, Schutzstufe und Uhrzeit der CPU.",
+          "alt": "Übersicht der Steuerung Abfüllung Halle 2 mit CPU 1516-3 PN/DP in RUN: Bestellnummer, Firmware V2.9.4, Baugruppenname, Anlagen- und Ortskennzeichen, Seriennummer, Betriebszustand RUN, Schutzstufe 1, Betriebsartenschalter RUN-P und die Uhrzeit der CPU, die mit diesem Rechner übereinstimmt."
+        },
+        {
+          "name": "beobachten",
+          "title": "Beobachten",
+          "caption": "Beobachtungslisten mit Adressen in TIA-Schreibweise, laufend gelesen, mit Verlauf als Diagramm.",
+          "alt": "Beobachtungsliste „Tank und Antriebe“ der Steuerung Abfüllung Halle 2, alle 0,5 s gelesen: Füllstand, Temperatur, Pumpe ein, Sollwert, Drehzahl und Strom eines Antriebs, ein Zykluszähler und ein Eingangsbyte mit Adresse, Typ und Wert. Darunter der Verlauf von Füllstand und Antriebsstrom als kleine Diagramme."
+        },
+        {
+          "name": "schreiben",
+          "title": "Schreiben, mit Bedacht",
+          "caption": "Einzelne Variablen schreiben – mit klarer Warnung, dass der Wert sofort in die laufende Steuerung geht.",
+          "alt": "Dialog „Schreiben: Sollwert Füllstand · DB1.DBD16:REAL“ für die Steuerung Abfüllung Halle 2, aktuell 80, neuer Wert 85. Darunter der Hinweis „Schreibt sofort in die laufende Steuerung“ und die Schaltflächen Abbrechen und Schreiben."
+        }
+      ]
+    },
+    "lotse": {
+      "tagline": "EtherNet/IP-Geräte finden, Rockwell-Steuerungen ansehen, Tags lesen.",
+      "banner": false,
+      "highlights": [
+        "ControlLogix · CompactLogix",
+        "Baugruppenträger",
+        "Tags ohne Projekt",
+        "Schreiben mit Bestätigung"
+      ],
+      "facts": [
+        [
+          "Plattform",
+          "Windows 10 und 11, Linux (x64 und ARM64)"
+        ],
+        [
+          "Oberfläche",
+          "Deutsch, im Browser, nur auf diesem Rechner erreichbar"
+        ],
+        [
+          "Geräte",
+          "ControlLogix, CompactLogix und alle Geräte mit EtherNet/IP: Umrichter, E/A-Koppler, Sensoren, Roboter"
+        ],
+        [
+          "Betrieb",
+          "Nur-Lesen-Modus für Begehungen und Störungssuche"
+        ],
+        [
+          "Lieferform",
+          "eine Datei, keine Installation"
+        ]
+      ],
+      "galleryNote": "Abbildungen mit erfundenen Geräten und Werten aus dem Demo-Modus.",
+      "screenshots": [
+        {
+          "name": "tags",
+          "title": "Tags ohne Projekt",
+          "caption": "Die Tags einer CompactLogix mit aufgeklapptem UDT-Array – Controller- und Programm-Tags samt Datentyp.",
+          "alt": "Lotse im Browser: links vier Geräte (CompactLogix 1769-L33ER und ControlLogix 1756-L83E in RUN, ein PowerFlex 525 mit leichtem Fehler, ein WAGO-Koppler ohne I/O-Verbindung). Rechts die Tags der CompactLogix: Liste mit Controller- und Programm-Tags samt Datentyp, daneben das Array Tanks vom Typ Tank[3] aufgeklappt mit Füllstand, Temperatur, Sollwert, Pumpe, Ventil, Störung, Zähler und Bezeichnung. Jeder Wert hat „Schreiben …“ und „Beobachten“."
+        },
+        {
+          "name": "suche",
+          "title": "Die Suche liefert das Inventar",
+          "caption": "Hersteller, Typ, Version, Seriennummer und Zustand jedes Geräts, als CSV.",
+          "alt": "Suchergebnis über vier Adressen: CompactLogix 1769-L33ER/A in RUN mit Schlüssel auf REM, Ethernet-Karte 1756-EN2T/D, Frequenzumrichter PowerFlex 525 mit „leichter Fehler“ in Rot, WAGO 750-363 ohne I/O-Verbindung. Jeweils mit Hersteller, Typ, Version, Seriennummer, der IP-Adresse, die das Gerät selbst nennt, und „Verbinden“."
+        },
+        {
+          "name": "uebersicht",
+          "title": "Kennung und Netzwerk",
+          "caption": "Zustand im Klartext, bei Rockwell-Steuerungen RUN oder PROGRAM und der Schlüsselschalter, dazu die Netzwerkeinstellungen.",
+          "alt": "Übersicht der ControlLogix 1756-L83E/B in RUN mit Schlüssel auf REM: Produkt, Hersteller, Gerätetyp, Version und Seriennummer der Steuerung und der Ethernet-Schnittstelle 1756-EN2T/D, darunter das Netzwerk mit IP-Adresse, Maske, Gateway, DNS und Domäne."
+        },
+        {
+          "name": "baugruppentraeger",
+          "title": "Baugruppenträger",
+          "caption": "Ein ControlLogix-Chassis Steckplatz für Steckplatz: Steuerung, Ethernet- und E/A-Karten mit Version, Seriennummer und Fehlern.",
+          "alt": "Reiter Baugruppenträger der ControlLogix: Steckplätze 0 bis 15 mit Produkt, Typ, Hersteller, Version, Seriennummer und Zustand – Steuerung in Platz 0, Kommunikationsadapter in Platz 2, digitale Ein- und Ausgänge in Platz 3 und 4, eine davon mit „leichter Fehler“ in Rot, die übrigen Plätze leer."
+        },
+        {
+          "name": "beobachten",
+          "title": "Beobachten",
+          "caption": "Beobachtungslisten mit Tag-Namen, laufend gelesen, mit Verlauf als Diagramm.",
+          "alt": "Beobachtungsliste „Abfüllung“ der CompactLogix, alle 0,5 s gelesen: Füllstand, Temperatur, Pumpe, Sollwert, Produktions- und Verpackungszähler, ein Rezept als Zeichenkette und ein Freigabe-Bit mit Tag, Typ und Wert. Darunter der Verlauf von Füllstand und Temperatur als kleine Diagramme."
+        },
+        {
+          "name": "schreiben",
+          "title": "Schreiben mit Bestätigung",
+          "caption": "Ein Wert geht erst nach Bestätigung in die laufende Steuerung – mit klarer Warnung.",
+          "alt": "Dialog „Schreiben: Sollwert Füllstand · Tank1.Sollwert“ für die CompactLogix, aktuell 75, neuer Wert 80. Darunter der Hinweis „Schreibt sofort in die laufende Steuerung“ und die Schaltflächen Abbrechen und Schreiben."
+        }
+      ]
+    },
+    "enterprisebrowser": {
+      "kind": "Kiosk-Browser",
+      "tagline": "Web-Apps auf robusten Android-Geräten.",
+      "banner": false,
+      "highlights": [
+        "Zebra DataWedge",
+        "Honeywell",
+        "Kioskmodus",
+        "MDM: SOTI, Intune, StageNow"
+      ],
+      "facts": [
+        [
+          "Plattform",
+          "Android 8.0 und neuer, Zebra und Honeywell"
+        ],
+        [
+          "Scannen",
+          "Zebra DataWedge, Honeywell oder jede Scanner-App per Intent"
+        ],
+        [
+          "Verwaltung",
+          "Managed Configuration per MDM (SOTI, Intune, Workspace ONE), Konfigurationsdatei, StageNow, QR-Code"
+        ],
+        [
+          "Sicherheit",
+          "strenge TLS-Prüfung, Client-Zertifikate, Kennwörter nur als Hash"
+        ],
+        [
+          "Lieferform",
+          "APK zur Verteilung per MDM"
+        ]
+      ],
+      "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert; Namen und Adressen sind Beispiele.",
+      "screenshots": [
+        {
+          "name": "screen-launcher",
+          "title": "Profile",
+          "caption": "Ein Tipp öffnet die Web-App. Mehrere Web-Apps auf einem Gerät, jede mit eigener Start-Adresse und eigenen Regeln.",
+          "alt": "Startbildschirm von EnterpriseBrowser auf einem Zebra TC58 mit den Profilen Goods receipt, Picking, Shipping & labels und Demo & scanner test, jeweils mit Adresse und Kennzeichen wie Autostart, Allowlist, Kiosk oder Scanner off."
+        },
+        {
+          "name": "screen-browser",
+          "title": "Scannen",
+          "caption": "Der Barcode landet im Feld, auf Wunsch gefolgt von Tab oder Enter – und als JavaScript-Ereignis für die Web-App.",
+          "alt": "Demo-Seite „Scanner & Bridge Demo“: im Feld Item der gescannte EAN 4006381333931, darunter das Feld Location, die Schaltflächen Scan, Beep, Vibration und Device und die Liste der letzten Scans mit EAN13 und CODE128."
+        },
+        {
+          "name": "screen-menu",
+          "title": "Menü",
+          "caption": "Alles in Daumenreichweite.",
+          "alt": "Aufgeklapptes Menü über der Demo-Seite mit Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings und Exit."
+        },
+        {
+          "name": "screen-launcher-branded",
+          "title": "Eigenes Design",
+          "caption": "Titel, Untertitel, Logo und Markenfarbe kommen aus der Konfiguration oder werden direkt in der App eingestellt.",
+          "alt": "Startbildschirm im eigenen Design: grüner Kopf mit dem Kürzel NL, dem Titel North Logistics Center und Shift A · Hall 3, darunter die Profile."
+        },
+        {
+          "name": "screen-profile-editor",
+          "title": "Profil mit eigener Farbe",
+          "caption": "Jedes Profil kann eine eigene Farbe haben, die auch die Werkzeugleiste in der Web-App einfärbt.",
+          "alt": "Dialog Edit profile mit Name Goods receipt, Start-URL, erlaubten Hosts, Profilfarbe und den Schaltern Open on app start, Hide toolbar und Full screen."
+        },
+        {
+          "name": "screen-settings",
+          "title": "Einstellungen",
+          "caption": "Mit Kennwort geschützt: Profile, Design und Konfiguration.",
+          "alt": "Einstellungen mit der Profilliste, Add profile und dem Bereich Design mit Titel, Markenfarbe und Logo."
+        }
+      ]
+    },
+    "industrialkeyboard": {
+      "kind": "Android-Tastatur",
+      "tagline": "Schnelle, zuverlässige Dateneingabe auf robusten Android-Geräten.",
+      "banner": false,
+      "highlights": [
+        "F1–F24",
+        "Scan-Taste eingebaut",
+        "Große Tasten für Handschuhe",
+        "Konfiguration per MDM"
+      ],
+      "facts": [
+        [
+          "Plattform",
+          "Android 8.0 und neuer, Zebra und Honeywell"
+        ],
+        [
+          "Tasten",
+          "F1–F24, Esc, Ins, Del, Pfeiltasten, eigene Tasten und Makros"
+        ],
+        [
+          "Layouts",
+          "QWERTY, QWERTZ, AZERTY, Nordisch und Spanisch"
+        ],
+        [
+          "Verwaltung",
+          "Managed Configuration per MDM (SOTI, Intune, Workspace ONE), Konfigurationsdatei, StageNow"
+        ],
+        [
+          "Datenschutz",
+          "keine Internet-Berechtigung, kein Wörterbuch, nichts Getipptes wird gespeichert"
+        ]
+      ],
+      "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert.",
+      "screenshots": [
+        {
+          "name": "screen-alpha",
+          "title": "Buchstaben",
+          "caption": "Tastenvorschau über dem Finger, Reiter für Zahlen, Zeichen, Funktionstasten und Scan.",
+          "alt": "Testformular mit den Feldern Item number, Quantity, Weight (kg) und Phone, darunter die Tastatur mit QWERTZ-Buchstaben, der Reiterleiste ABC, 123, #+=, Fn und Scan und der Vorschau der gedrückten Taste g."
+        },
+        {
+          "name": "screen-numeric",
+          "title": "Zahlenblock",
+          "caption": "Öffnet sich in Zahlenfeldern von selbst.",
+          "alt": "Feld Quantity aktiv, die Tastatur zeigt im dunklen Design den Zahlenblock mit Ziffern, Komma, Punkt, Tab und Enter."
+        },
+        {
+          "name": "screen-scan",
+          "title": "Scan-Reiter",
+          "caption": "Tippen zum Scannen, halten für Dauerscan.",
+          "alt": "Scan-Reiter mit großer blauer Auslösefläche „Scanning …“ und dem Hinweis auf Dauerscan mit Zebra DataWedge."
+        },
+        {
+          "name": "screen-function",
+          "title": "Funktionstasten",
+          "caption": "F1–F24, Esc, Ins, Del und Pfeiltasten – etwa für Terminal-Emulatoren.",
+          "alt": "Fn-Reiter im kontrastreichen Design mit F1 bis F12, Esc, Home, End, PgUp, PgDn, Ins, Del und den Pfeiltasten."
+        },
+        {
+          "name": "screen-custom",
+          "title": "Eigene Layouts",
+          "caption": "Eigene Tasten als zusätzlicher Reiter, festgelegt in der Konfiguration – ohne App-Update.",
+          "alt": "Eigener Reiter Pick mit den Tasten OK, Skip, Short, Damaged, Scan und Numbers."
+        },
+        {
+          "name": "screen-settings",
+          "title": "Einstellungen",
+          "caption": "Mit Live-Vorschau, durch Kennwort geschützt.",
+          "alt": "Keyboard settings mit Vorschau der Tastatur, Design System, Light, Dark oder High contrast, Akzentfarbe und Tastenhöhe 100 %."
         }
       ]
     }
