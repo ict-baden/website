@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro';
 import { SITE_URL } from '../config';
 import { products, stand } from '../lib/products';
 
-const STATIC = ['/', '/leistungen/', '/produkte/', '/downloads/', '/werkzeuge/pulswertigkeit/', '/ueber-uns/', '/kontakt/', '/impressum/', '/datenschutz/'];
+const STATIC = ['/', '/leistungen/', '/produkte/', '/downloads/', '/werkzeuge/pulswertigkeit/', '/ueber-uns/', '/kontakt/', '/impressum/', '/datenschutz/', '/datenschutz/enterprisebrowser/', '/datenschutz/industrialkeyboard/'];
 
 export const GET: APIRoute = () => {
   const urls = [...STATIC, ...products.map((p) => `/produkte/${p.slug}/`)];
