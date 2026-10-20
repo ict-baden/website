@@ -159,7 +159,7 @@ export const UI = {
     otherLangLabel: 'Diese Seite auf Englisch',
     status: { verfuegbar: 'Verfügbar', bereit: 'Veröffentlichung folgt', vorabversion: 'Vorabversion', 'in-entwicklung': 'In Entwicklung', geplant: 'Geplant' },
     statusHelp: {
-      verfuegbar: 'fertig entwickelt, zum Download verfügbar',
+      verfuegbar: 'fertig entwickelt und erhältlich',
       bereit: 'fertig entwickelt, Download folgt mit der Veröffentlichung',
       vorabversion: 'funktionsfähige Version vor dem Release 1.0',
       'in-entwicklung': 'wird zurzeit gebaut',
@@ -206,7 +206,7 @@ export const UI = {
     otherLangLabel: 'This page in German',
     status: { verfuegbar: 'Available', bereit: 'Release pending', vorabversion: 'Pre-release', 'in-entwicklung': 'In development', geplant: 'Planned' },
     statusHelp: {
-      verfuegbar: 'fully developed, available for download',
+      verfuegbar: 'fully developed and available',
       bereit: 'fully developed, download follows with the public release',
       vorabversion: 'working version before release 1.0',
       'in-entwicklung': 'currently being built',

@@ -1,7 +1,6 @@
 // Zugriff auf die erzeugten Produktdaten (src/data/products.json, siehe scripts/sync-products.mjs).
 import data from '../data/products.json';
 import type { IconName } from './icons';
-import { pageFor } from './produktseiten';
 
 export type Block = { type: 'p'; text: string } | { type: 'ul'; items: string[] };
 export interface ImageSet { src: string; srcset: string; width: number; height: number }
@@ -17,9 +16,9 @@ export interface Media {
   galleryNoteEn?: string | null;
 }
 /**
- * Status auf der Website. 'bereit' gibt es nicht in projekte.json: Ein fertiges Produkt (verfuegbar), dessen Download
- * noch nicht öffentlich ist (download.public in src/data/produktseiten/<id>.ts), heißt „Veröffentlichung folgt“ –
- * „Verfügbar“ steht nur da, wo man das Produkt auch bekommt.
+ * Status auf der Website. Fertige Produkte heißen „Verfügbar“ (Vorgabe Till 2026-10-20), auch wenn der Download
+ * noch nicht öffentlich ist – die Produktseite bietet dann „Anfrage“ statt „Download“. 'bereit' bleibt als Schlüssel
+ * für die Daten erhalten, wird aber nicht mehr vergeben.
  */
 export type StatusKey = 'verfuegbar' | 'bereit' | 'vorabversion' | 'in-entwicklung' | 'geplant';
 export interface Product {
@@ -69,7 +68,7 @@ export const STATUS_LABEL: Record<StatusKey, string> = {
 };
 /** Erklärung der Status-Bezeichnungen (Legende, keine Produktaussage). */
 export const STATUS_HELP: Record<StatusKey, string> = {
-  verfuegbar: 'fertig entwickelt, zum Download verfügbar',
+  verfuegbar: 'fertig entwickelt und erhältlich',
   bereit: 'fertig entwickelt, Download folgt mit der Veröffentlichung',
   vorabversion: 'funktionsfähige Version vor dem Release 1.0',
   'in-entwicklung': 'wird zurzeit gebaut',
@@ -85,9 +84,7 @@ export const STATUS_PHRASE: Record<StatusKey, string> = {
 };
 
 /** Produkte mit dem Status, den die Website zeigt (siehe StatusKey). */
-export const products: Product[] = (data.products as Product[]).map((p) =>
-  p.statusKey === 'verfuegbar' && !pageFor(p).download.public ? { ...p, statusKey: 'bereit', statusLabel: STATUS_LABEL.bereit } : p,
-);
+export const products: Product[] = data.products as Product[];
 
 export const lineById = (id: string): Linie => {
   const l = linien.find((x) => x.id === id);
