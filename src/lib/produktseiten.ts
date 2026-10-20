@@ -1,6 +1,7 @@
 // Kuratierte Inhalte der Produktseiten (deutsch und englisch): Titel, Beschreibung, Abschnitte, FAQ, Suchbegriffe.
 // Die Inhalte stehen in src/data/produktseiten/<id>.ts. Jede Aussage ist aus der README bzw. der Doku des
 // Produkt-Repos belegt (siehe Kommentar in der jeweiligen Datei) – nichts hinzudichten.
+import { execFileSync } from 'node:child_process';
 import type { Product } from './products';
 
 export type Lang = 'de' | 'en';
@@ -11,7 +12,13 @@ export type Block =
   | { type: 'items'; items: Item[] }
   | { type: 'list'; items: string[] }
   | { type: 'table'; caption: string; head: string[]; rows: string[][] };
-export interface Section { id: string; title: string; blocks: Block[] }
+export interface Section {
+  id: string;
+  title: string;
+  blocks: Block[];
+  /** Geplant bzw. in Arbeit, noch nicht im Produkt: kein Haken auf der Seite, nicht im featureList des JSON-LD */
+  planned?: boolean;
+}
 export interface Faq { q: string; a: string }
 
 export interface PageCopy {
@@ -29,12 +36,18 @@ export interface PageCopy {
   requirements: [string, string][];
   limits: string[];
   faq: Faq[];
-  /** Weitere Bezeichnungen und Suchbegriffe – sichtbar als „Auch bekannt als“, auch alternateName im JSON-LD */
+  /**
+   * Weitere Bezeichnungen und Suchbegriffe – sichtbar als „Auch bekannt als“, im JSON-LD als keywords (nicht als
+   * alternateName: das sind keine Namen des Produkts). Nur Gattungsbegriffe, keine fremden Marken als Namensbestandteil
+   * („Zebra-Tastatur“, „DataWedge browser“) – Kompatibilität gehört in den Fließtext („für Zebra-Geräte“).
+   */
   aka: string[];
   /** Eckdaten für die englische Seite (die deutsche nimmt die Fakten aus products.json) */
   facts?: [string, string][];
-  /** Hinweis auf Marken Dritter, die zur Beschreibung der Kompatibilität genannt werden */
+  /** Hinweis auf Marken Dritter, die zur Beschreibung der Kompatibilität genannt werden (alle Marken der Seite) */
   trademarks?: string;
+  /** „Eigenständiges Produkt, nicht verbunden mit …“ – steht direkt unter dem ersten Absatz und in llms.txt */
+  independence?: string;
   /** Betriebssysteme und Voraussetzungen in dieser Sprache (JSON-LD); fehlt es, gilt die Angabe der Produktseite */
   operatingSystem?: string;
   softwareRequirements?: string;
@@ -66,8 +79,38 @@ export interface ProductPage {
   en: PageCopy;
 }
 
-/** Ist das Produkt schon veröffentlicht (Release vorhanden)? In Entwicklung und geplant: nein. */
-export const isReleased = (p: Product) => p.statusKey === 'verfuegbar' || p.statusKey === 'vorabversion';
+/** Gibt es eine Release-Version (fertig oder Vorabversion)? In Entwicklung und geplant: nein. Ob man sie schon
+ *  herunterladen kann, sagt download.public. */
+export const isReleased = (p: Product) => p.statusKey === 'verfuegbar' || p.statusKey === 'bereit' || p.statusKey === 'vorabversion';
+
+/** Status in der Sprache der Seite, bei Vorabversionen mit Version (die deutsche Bezeichnung steht in products). */
+export const statusLabelFor = (p: Product, lang: Lang) =>
+  lang === 'de' ? p.statusLabel : `${UI.en.status[p.statusKey]}${p.statusKey === 'vorabversion' && p.version ? ` ${p.version}` : ''}`;
+
+/**
+ * Datum der letzten Änderung am Inhalt der Produktseite (Sitemap lastmod, JSON-LD dateModified): letzter Commit, der
+ * src/data/produktseiten/<id>.ts, die Bilder oder das OG-Bild des Produkts geändert hat. Der „Stand“ auf der Seite
+ * bleibt der letzte Commit im Produkt-Repo (products.json "updated"). Ohne Git-Verlauf (flacher Klon im CI) gilt
+ * dieser auch hier.
+ */
+const pageDates = new Map<string, string | null>();
+let gitHistory: boolean | null = null;
+export function pageModified(p: Product): string | null {
+  if (pageDates.has(p.id)) return pageDates.get(p.id)!;
+  let date: string | null = null;
+  try {
+    gitHistory ??= execFileSync('git', ['rev-parse', '--is-shallow-repository'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim() === 'false';
+    if (gitHistory) {
+      const files = [`src/data/produktseiten/${p.id}.ts`, `public/media/produkte/${p.slug}`, `public/og/produkte/${p.slug}.jpg`, `public/og/en/produkte/${p.slug}.jpg`];
+      date = execFileSync('git', ['log', '-1', '--format=%cs', '--', ...files], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim() || null;
+    }
+  } catch {
+    gitHistory = false;
+  }
+  const result = date ?? p.updated;
+  pageDates.set(p.id, result);
+  return result;
+}
 
 /** Platzhalter in den Texten: {lizenz} (mit „Open Source“ nur bei öffentlichem Quellcode), {download}. */
 export function fill(text: string, page: ProductPage, p: Product, lang: Lang): string {
@@ -114,9 +157,10 @@ export const UI = {
     products: 'Produkte',
     otherLang: 'English',
     otherLangLabel: 'Diese Seite auf Englisch',
-    status: { verfuegbar: 'Verfügbar', vorabversion: 'Vorabversion', 'in-entwicklung': 'In Entwicklung', geplant: 'Geplant' },
+    status: { verfuegbar: 'Verfügbar', bereit: 'Veröffentlichung folgt', vorabversion: 'Vorabversion', 'in-entwicklung': 'In Entwicklung', geplant: 'Geplant' },
     statusHelp: {
-      verfuegbar: 'fertig entwickelt',
+      verfuegbar: 'fertig entwickelt, zum Download verfügbar',
+      bereit: 'fertig entwickelt, Download folgt mit der Veröffentlichung',
       vorabversion: 'funktionsfähige Version vor dem Release 1.0',
       'in-entwicklung': 'wird zurzeit gebaut',
       geplant: 'Konzept, Entwicklung noch nicht begonnen',
@@ -160,9 +204,10 @@ export const UI = {
     products: 'Products',
     otherLang: 'Deutsch',
     otherLangLabel: 'This page in German',
-    status: { verfuegbar: 'Available', vorabversion: 'Pre-release', 'in-entwicklung': 'In development', geplant: 'Planned' },
+    status: { verfuegbar: 'Available', bereit: 'Release pending', vorabversion: 'Pre-release', 'in-entwicklung': 'In development', geplant: 'Planned' },
     statusHelp: {
-      verfuegbar: 'fully developed',
+      verfuegbar: 'fully developed, available for download',
+      bereit: 'fully developed, download follows with the public release',
       vorabversion: 'working version before release 1.0',
       'in-entwicklung': 'currently being built',
       geplant: 'concept, development not started',
@@ -206,6 +251,6 @@ export const UI = {
 /** Englische Namen der Produktlinien (die deutschen stehen in products.json). */
 export const LINE_EN: Record<string, { name: string; text: string }> = {
   ot: { name: 'OT security & compliance', text: 'Lock screens, check Windows hardening, document access rights – for plants, labs and control rooms' },
-  android: { name: 'Android & Zebra', text: 'Browser and keyboard for rugged Android devices in warehouses and logistics' },
+  android: { name: 'Mobile data capture (Android)', text: 'Browser and keyboard for rugged Android devices in warehouses and logistics' },
   codes: { name: 'Barcodes & labels', text: 'Read QR codes and barcodes on the PC, design labels for Zebra printers' },
 };

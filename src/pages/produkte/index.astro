@@ -12,7 +12,7 @@ const total = statusCounts(products);
 // Nur Status, die vorkommen (keine leeren Filter und Legenden-Einträge)
 const statuses = STATUS_ORDER.filter((k) => total[k] > 0);
 const title = 'Software-Produkte für Industrie, Labor und IT';
-const description = 'Software von ICT Baden: transparente Bildschirmsperre, QR- und Barcode-Leser, Kiosk-Browser und Tastatur für Zebra, Windows-Härtung und Berechtigungsbericht.';
+const description = 'Software von ICT Baden: transparente Bildschirmsperre, QR- und Barcode-Leser, Kiosk-Browser und Tastatur für MDE-Geräte, Windows-Härtung, Berechtigungsbericht.';
 const jsonLd = [
   organization(),
   website(),
@@ -223,7 +223,8 @@ const jsonLd = [
   }
   @media (max-width: 760px) { .pgrid--compact { grid-template-columns: minmax(0, 1fr); } }
   @media (max-width: 640px) {
-    .pgrid { grid-template-columns: minmax(0, 1fr); }
+    /* auch die Zeilen mit zwei Produkten (data-n='2' oben) – sonst bleiben auf dem Telefon zwei schmale Spalten */
+    .pgrid, .pgrid--feat[data-n='2'] { grid-template-columns: minmax(0, 1fr); }
     .pline-head { grid-template-columns: auto 1fr; }
     .pline-n { grid-column: 2; }
     .filters { position: static; }

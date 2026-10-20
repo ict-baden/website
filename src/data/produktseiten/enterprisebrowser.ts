@@ -1,12 +1,15 @@
-// EnterpriseBrowser – Kiosk-Browser für robuste Android-Geräte von Zebra und Honeywell.
+// EnterpriseBrowser – Kiosk-Browser für robuste Android-Geräte (MDE-Geräte), zum Beispiel von Zebra und Honeywell.
 // Quellen (ict-baden/EnterpriseBrowser): README.md (Features, Quick start, Vorlagen inkl. SAP ITS mobile, Web-Entwickler,
 // MIT), docs/configuration.md (allowList inkl. Subdomains, Kiosk, DataWedge-Profil, Tasten nach dem Scan),
 // docs/web-integration.md (Web-Apps ohne Änderung, input/change, React/Vue, Meta-Tags, JavaScript-API),
 // docs/deployment.md (Managed Configuration config_json, Datei, /enterprise/usr, StageNow, QR-Code),
 // docs/data-and-privacy.md, docs/play-store.md (kostenlos, keine Werbung, keine In-App-Käufe), CHANGELOG.md
 // (0.5.0, Test auf Zebra HC20, Formular-POSTs außerhalb der Allowlist gestoppt, Release-Signatur).
-// Nicht behaupten: Kompatibilität mit Zebra EB/RhoElements, Offline-Modus, Honeywell-Gerätetest, SAP-Zertifizierung.
-// Name: rechtlich prüfen lassen (Verwechslungsgefahr mit „Enterprise Browser“ von Zebra und Honeywell).
+// Nicht behaupten: Kompatibilität mit Zebra EB/RhoElements, Offline-Modus, Honeywell-Gerätetest, SAP-Zertifizierung,
+// dass die Allowlist auch Unterressourcen (Skripte, Bilder, iframes, XHR) blockiert – sie gilt für Navigationen im
+// Hauptfenster und Formular-POSTs (docs/configuration.md „Applies to main-frame navigations“, BrowserActivity.kt).
+// Name: rechtlich prüfen lassen (Verwechslungsgefahr mit „Enterprise Browser“ von Zebra und Honeywell). Bis dahin
+// stehen Zebra und Honeywell nicht in Titel, H1, Kategorie und Produktlinie, nur als Kompatibilität im Text.
 import type { ProductPage } from '../../lib/produktseiten';
 
 const page: ProductPage = {
@@ -23,9 +26,10 @@ const page: ProductPage = {
   related: ['industrialkeyboard', 'qr-scanner'],
   privacyApp: 'enterprisebrowser',
   de: {
-    title: 'EnterpriseBrowser – Kiosk-Browser für Zebra & Honeywell',
-    description: 'Kiosk-Browser für robuste Android-Geräte von Zebra und Honeywell: Scans per DataWedge direkt ins Webformular, URL-Allowlist, Kioskmodus und Konfiguration per MDM.',
-    lead: 'EnterpriseBrowser ist ein Kiosk-Browser für robuste Android-Geräte (MDE-Geräte) von Zebra und Honeywell: Er öffnet Ihre Web-Apps, schreibt Barcode-Scans direkt in das aktive Eingabefeld und lässt sich per MDM zentral konfigurieren. Für Android 8.0 oder neuer, {lizenz}.',
+    title: 'EnterpriseBrowser – Kiosk-Browser für Android-MDE-Geräte',
+    description: 'Kiosk-Browser für robuste Android-Geräte, etwa von Zebra und Honeywell: Scans per DataWedge direkt ins Webformular, URL-Allowlist, Kioskmodus, MDM-Konfiguration.',
+    lead: 'EnterpriseBrowser ist ein Kiosk-Browser für robuste Android-Geräte (MDE-Geräte), zum Beispiel von Zebra und Honeywell: Er öffnet Ihre Web-Apps, schreibt Barcode-Scans direkt in das aktive Eingabefeld und lässt sich per MDM zentral konfigurieren. Für Android 8.0 oder neuer, {lizenz}.',
+    independence: 'EnterpriseBrowser ist ein eigenständiges Produkt von ICT Baden und nicht mit Zebra Technologies oder Honeywell verbunden.',
     sections: [
       {
         id: 'wofuer',
@@ -50,7 +54,7 @@ const page: ProductPage = {
             items: [
               { title: 'Profile', text: 'Start-Adresse, erlaubte Hosts, User-Agent, Viewport und Farben je Profil – mehrere Web-Apps auf einem Gerät, auf Wunsch mit Autostart.' },
               { title: 'Kioskmodus', text: 'Werkzeugleiste und Systemleisten ausblenden, Beenden ausblenden oder mit Kennwort schützen, Lock-Task-Modus als dediziertes Gerät (Device Owner).' },
-              { title: 'URL-Allowlist', text: 'Mit einer Allowlist lädt der Browser nur erlaubte Hosts samt Subdomains; alles andere wird blockiert, bevor es lädt – auch Formular-POSTs an fremde Hosts.' },
+              { title: 'URL-Allowlist', text: 'Mit einer Allowlist öffnet der Browser nur Seiten erlaubter Hosts samt Subdomains; Navigationen und Formular-POSTs zu anderen Hosts werden gestoppt, bevor sie laden.' },
               { title: 'Für Web-Entwickler', text: 'Die Meta-Tags `scanner` und `ScannerNavigate` steuern das Scannen je Seite; eine JavaScript-API für Scanner, Ton und Vibration gibt es nur für erlaubte Hosts.' },
               { title: 'Tastatur und Tasten', text: 'Bildschirmtastatur nur bei Bedarf, Hardwaretasten umbelegen, Hotkeys und Makros wie `{F1}` oder `{TAB}`.' },
               { title: 'Eigenes CSS und JavaScript', text: 'Eigenes CSS, JavaScript oder HTML in fremde Web-Apps einfügen – passend zur Adresse, ohne Flackern.' },
@@ -92,17 +96,18 @@ const page: ProductPage = {
       { q: 'Sendet der Browser Daten an ICT Baden?', a: 'Nein. Keine Telemetrie, keine Absturzberichte, keine Update-Prüfung, kein Konto. Der Browser verbindet sich nur mit den Web-Apps, die Sie konfigurieren.' },
       { q: 'Was kostet EnterpriseBrowser?', a: 'Nichts: EnterpriseBrowser ist {lizenz}, ohne Werbung und ohne In-App-Käufe. Support mit garantierten Reaktionszeiten gibt es per Supportvertrag.{download}' },
     ],
-    aka: ['Kiosk Browser für Android', 'Kioskbrowser für MDE-Geräte', 'MDE-Browser', 'Scanner-Browser', 'Industriebrowser', 'Browser für Handscanner'],
-    trademarks: 'EnterpriseBrowser ist ein eigenständiges Produkt von ICT Baden und nicht mit Zebra Technologies oder Honeywell verbunden. Zebra, DataWedge und StageNow sind Marken von Zebra Technologies, Honeywell ist eine Marke von Honeywell International; SOTI MobiControl, Microsoft Intune, Workspace ONE, SAP und Android sind Marken ihrer jeweiligen Inhaber. Sie werden nur genannt, um die Kompatibilität zu beschreiben.',
+    aka: ['Kiosk-Browser für Android', 'Kioskbrowser für MDE-Geräte', 'MDE-Browser', 'Scanner-Browser', 'Industriebrowser', 'Browser für Handscanner'],
+    trademarks: 'EnterpriseBrowser ist ein eigenständiges Produkt von ICT Baden und nicht mit Zebra Technologies oder Honeywell verbunden. Zebra, DataWedge und StageNow sind Marken von Zebra Technologies, Honeywell ist eine Marke von Honeywell International; QR Code ist eine eingetragene Marke der DENSO WAVE INCORPORATED; SOTI MobiControl, Microsoft Intune, Workspace ONE, SAP und Android sind Marken ihrer jeweiligen Inhaber. Sie werden nur genannt, um die Kompatibilität zu beschreiben.',
   },
   en: {
     operatingSystem: 'Android 8.0 or later',
     softwareRequirements: 'Android 8.0 (API 26) or later',
-    title: 'EnterpriseBrowser – kiosk browser for Zebra & Honeywell',
-    description: 'Kiosk browser for rugged Android devices from Zebra and Honeywell: DataWedge scans go straight into web forms, URL allow list, kiosk mode and MDM configuration.',
-    kind: 'Kiosk browser for Zebra and Honeywell',
+    title: 'EnterpriseBrowser – kiosk browser for rugged Android devices',
+    description: 'Kiosk browser for rugged Android devices, e.g. from Zebra and Honeywell: DataWedge scans go straight into web forms, URL allow list, kiosk mode, MDM configuration.',
+    kind: 'Kiosk browser for rugged Android devices',
     tagline: 'Web apps on rugged Android devices.',
-    lead: 'EnterpriseBrowser is a kiosk browser for rugged Android devices from Zebra and Honeywell: it opens your web apps, types barcode scans straight into the focused input field and is configured centrally through your MDM. For Android 8.0 or later, {lizenz}.',
+    lead: 'EnterpriseBrowser is a kiosk browser for rugged Android devices, for example from Zebra and Honeywell: it opens your web apps, types barcode scans straight into the focused input field and is configured centrally through your MDM. For Android 8.0 or later, {lizenz}.',
+    independence: 'EnterpriseBrowser is an independent product of ICT Baden and is not affiliated with Zebra Technologies or Honeywell.',
     sections: [
       {
         id: 'why',
@@ -127,7 +132,7 @@ const page: ProductPage = {
             items: [
               { title: 'Profiles', text: 'Start URL, allowed hosts, user agent, viewport and colours per profile – several web apps on one device, optionally opened at app start.' },
               { title: 'Kiosk mode', text: 'Hide toolbar and system bars, hide exit or protect it with a password, lock task as a dedicated device (device owner).' },
-              { title: 'URL allow list', text: 'With an allow list, the browser loads only allowed hosts and their subdomains; everything else is blocked before it loads – including form posts to other hosts.' },
+              { title: 'URL allow list', text: 'With an allow list, the browser only navigates to allowed hosts and their subdomains; navigations and form posts to other hosts are stopped before they load.' },
               { title: 'For web developers', text: 'The `scanner` and `ScannerNavigate` meta tags control scanning per page; a JavaScript API for scanner, beep and vibration is available on allowed hosts only.' },
               { title: 'Keyboard and keys', text: 'On-screen keyboard only on demand, hardware key remapping, hotkeys and macros such as `{F1}` or `{TAB}`.' },
               { title: 'Custom CSS and JavaScript', text: 'Add your own CSS, JavaScript or HTML to third-party web apps – matched by URL, without flicker.' },
@@ -169,7 +174,7 @@ const page: ProductPage = {
       { q: 'Does the browser send data to ICT Baden?', a: 'No. No telemetry, no crash reports, no update check, no account. The browser connects only to the web apps you configure.' },
       { q: 'What does EnterpriseBrowser cost?', a: 'Nothing: EnterpriseBrowser is {lizenz}, with no ads and no in-app purchases. Support with guaranteed response times is available with a support contract.{download}' },
     ],
-    aka: ['kiosk browser for Android', 'kiosk mode browser for rugged devices', 'DataWedge browser', 'scanner browser', 'industrial browser', 'browser for barcode scanners'],
+    aka: ['kiosk browser for Android', 'kiosk mode browser for rugged devices', 'browser for handheld computers', 'scanner browser', 'industrial browser', 'browser for barcode scanners'],
     facts: [
       ['Platform', 'Android 8.0 or later, rugged devices from Zebra and Honeywell'],
       ['Scanning', 'Zebra DataWedge, Honeywell or any scanner app via intent'],
@@ -177,7 +182,7 @@ const page: ProductPage = {
       ['Security', 'strict TLS checks, client certificates, passwords only as hashes'],
       ['User interface', 'English, German, Spanish, French, Chinese'],
     ],
-    trademarks: 'EnterpriseBrowser is an independent product of ICT Baden and is not affiliated with Zebra Technologies or Honeywell. Zebra, DataWedge and StageNow are trademarks of Zebra Technologies, Honeywell is a trademark of Honeywell International; SOTI MobiControl, Microsoft Intune, Workspace ONE, SAP and Android are trademarks of their respective owners. They are named only to describe compatibility.',
+    trademarks: 'EnterpriseBrowser is an independent product of ICT Baden and is not affiliated with Zebra Technologies or Honeywell. Zebra, DataWedge and StageNow are trademarks of Zebra Technologies, Honeywell is a trademark of Honeywell International; QR Code is a registered trademark of DENSO WAVE INCORPORATED; SOTI MobiControl, Microsoft Intune, Workspace ONE, SAP and Android are trademarks of their respective owners. They are named only to describe compatibility.',
   },
 };
 

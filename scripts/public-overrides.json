@@ -29,7 +29,7 @@
     },
     {
       "id": "android",
-      "name": "Android & Zebra",
+      "name": "Mobile Datenerfassung (Android)",
       "text": "Browser und Tastatur für robuste Android-Geräte in Lager und Logistik"
     },
     {
@@ -159,8 +159,9 @@
       "reason": "README von Lupe: Windows, Linux und macOS, Oberfläche Englisch und Deutsch, Vorabversion 0.1.0 (projekte.json: 'fertig', Text 'für Windows' veraltet). Ausgangslage der Notiz enthält eine nicht belegbare Alleinstellungsbehauptung."
     },
     "enterprisebrowser": {
-      "text": "Kiosk-Browser für robuste Android-Geräte von Zebra und Honeywell: Barcode-Scan per DataWedge direkt ins Webformular, Profile, Kioskmodus und Konfiguration per MDM (SOTI, Intune, StageNow).",
-      "reason": "Kurztext an die README angepasst (Android 8.0+, Scan per DataWedge oder Intent, Managed Configuration)."
+      "status": "fast-fertig",
+      "text": "Kiosk-Browser für robuste Android-Geräte, zum Beispiel von Zebra und Honeywell: Barcode-Scan per DataWedge direkt ins Webformular, Profile, Kioskmodus und Konfiguration per MDM (SOTI, Intune, StageNow).",
+      "reason": "Kurztext an die README angepasst (Android 8.0+, Scan per DataWedge oder Intent, Managed Configuration). Status: Version 0.5.0 (app/build.gradle.kts, CHANGELOG), Releases debug-signiert (docs/deployment.md), also Vorabversion nach Richtlinie 04 – projekte.json sagt 'fertig'. Marken nur als Kompatibilität ('zum Beispiel von'), Name rechtlich prüfen lassen."
     },
     "industrialkeyboard": {
       "text": "Bildschirmtastatur für robuste Android-Geräte von Zebra und Honeywell: große Tasten für Handschuhe, Scan-Taste, F1–F24 für Terminal-Emulation, zentral per MDM konfigurierbar.",

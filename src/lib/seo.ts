@@ -5,18 +5,21 @@ import { existsSync } from 'node:fs';
 import { COMPANY, SITE_URL } from '../config';
 import { productIconUrl } from './product-icons';
 import type { Product } from './products';
-import { fill, isReleased, plain, productUrlFor, type Lang, type ProductPage } from './produktseiten';
+import { fill, isReleased, pageModified, plain, productUrlFor, type Lang, type ProductPage } from './produktseiten';
 
 export const ORG_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const MIT_LICENSE = 'https://opensource.org/license/mit';
 
 const abs = (path: string) => (path.startsWith('http') ? path : `${SITE_URL}${path}`);
+/** Telefonnummer wie auf jeder Seite sichtbar (Fußzeile, Kontaktband, Kontaktseite) – NAP überall gleich */
+const PHONE = COMPANY.mobileHref.replace('tel:', '');
 
-/** Unternehmen: Organisation und Dienstleister vor Ort (ProfessionalService ist ein LocalBusiness). */
+/** Unternehmen (Organization; ProfessionalService ist bei schema.org veraltet). Die Steuernummer steht nur im
+ *  Impressum, nicht in den strukturierten Daten (vatID genügt). */
 export function organization() {
   return {
-    '@type': ['Organization', 'ProfessionalService'],
+    '@type': 'Organization',
     '@id': ORG_ID,
     name: COMPANY.name,
     legalName: COMPANY.name,
@@ -27,7 +30,7 @@ export function organization() {
     logo: { '@type': 'ImageObject', url: abs('/brand/icon-512.png'), width: 512, height: 512 },
     image: abs('/og/ict-baden.png'),
     email: COMPANY.email,
-    telephone: COMPANY.phoneHref.replace('tel:', ''),
+    telephone: PHONE,
     address: {
       '@type': 'PostalAddress',
       streetAddress: COMPANY.street,
@@ -37,10 +40,9 @@ export function organization() {
       addressCountry: 'DE',
     },
     vatID: COMPANY.vatId.replace(/\s+/g, ''),
-    taxID: COMPANY.taxNo,
     identifier: { '@type': 'PropertyValue', propertyID: 'Handelsregister', value: `${COMPANY.hrb}, ${COMPANY.court}` },
     contactPoint: [
-      { '@type': 'ContactPoint', contactType: 'customer support', email: COMPANY.email, telephone: COMPANY.phoneHref.replace('tel:', ''), availableLanguage: ['de'] },
+      { '@type': 'ContactPoint', contactType: 'customer support', email: COMPANY.email, telephone: PHONE, availableLanguage: ['de'] },
     ],
     employee: {
       '@type': 'Person',
@@ -79,13 +81,23 @@ export function faqPage(url: string, faq: { q: string; a: string }[], lang: Lang
   };
 }
 
+/** Eine @id je Produkt für beide Sprachfassungen (deutsche Adresse), damit Suchmaschinen ein Produkt sehen, nicht zwei. */
+export const softwareId = (p: Product) => `${abs(productUrlFor(p, 'de'))}#software`;
+
+/** Open-Graph-Bild eines Produkts in der Sprache der Seite (scripts/make-brand-assets.mjs), sonst undefined. */
+export function productOgImage(p: Product, lang: Lang): string | undefined {
+  const path = lang === 'en' ? `/og/en/produkte/${p.slug}.jpg` : `/og/produkte/${p.slug}.jpg`;
+  if (existsSync(`public${path}`)) return path;
+  return existsSync(`public/og/produkte/${p.slug}.jpg`) ? `/og/produkte/${p.slug}.jpg` : undefined;
+}
+
 /** SoftwareApplication für eine Produktseite. */
 export function softwareApplication(p: Product, page: ProductPage, lang: Lang, kind: string) {
   const copy = page[lang];
   const url = abs(productUrlFor(p, lang));
   const released = isReleased(p);
   const icon = productIconUrl(p);
-  const og = existsSync(`public/og/produkte/${p.slug}.jpg`) ? `/og/produkte/${p.slug}.jpg` : icon ?? '/og/ict-baden.png';
+  const og = productOgImage(p, lang) ?? icon ?? '/og/ict-baden.png';
   const shots = p.media.screenshots.map((s) => ({
     '@type': 'ImageObject',
     url: abs(s.light.src),
@@ -93,12 +105,15 @@ export function softwareApplication(p: Product, page: ProductPage, lang: Lang, k
     height: s.light.height,
     caption: lang === 'en' && s.en ? s.en.alt : s.alt,
   }));
-  const features = copy.sections.flatMap((s) => s.blocks.flatMap((b) => (b.type === 'items' ? b.items.map((i) => i.title) : [])));
+  // Nur Funktionen, die es gibt: Abschnitte mit planned (in Arbeit) zählen nicht
+  const features = copy.sections.filter((s) => !s.planned).flatMap((s) => s.blocks.flatMap((b) => (b.type === 'items' ? b.items.map((i) => i.title) : [])));
+  const modified = pageModified(p);
   const node: Record<string, unknown> = {
     '@type': 'SoftwareApplication',
-    '@id': `${url}#software`,
+    '@id': softwareId(p),
     name: p.name,
-    alternateName: [...new Set([kind, ...copy.aka])],
+    // Suchbegriffe als keywords, nicht als alternateName (das sind keine Namen des Produkts)
+    keywords: copy.aka.join(', '),
     description: plain(fill(copy.description, page, p, lang)),
     abstract: plain(fill(copy.lead, page, p, lang)),
     url,
@@ -115,11 +130,14 @@ export function softwareApplication(p: Product, page: ProductPage, lang: Lang, k
   const requirements = copy.softwareRequirements ?? page.softwareRequirements;
   if (requirements) node.softwareRequirements = requirements;
   if (released && p.version) node.softwareVersion = p.version;
-  if (p.updated) node.dateModified = p.updated;
+  if (modified) node.dateModified = modified;
   if (icon) node.thumbnailUrl = abs(icon);
   if (shots.length) node.screenshot = shots;
   if (features.length) node.featureList = features;
-  if (released) node.offers = { '@type': 'Offer', price: '0', priceCurrency: 'EUR', url };
+  // Angebot nur, wenn man das Produkt auch bekommt (öffentlicher Download) – vorher wäre es eine falsche Verfügbarkeit
+  if (released && page.download.public && page.download.url) {
+    node.offers = { '@type': 'Offer', price: '0', priceCurrency: 'EUR', url, availability: 'https://schema.org/InStock' };
+  }
   if (page.download.public) {
     if (page.download.url) node.downloadUrl = page.download.url;
     node.sameAs = [page.download.source, page.download.play].filter(Boolean);

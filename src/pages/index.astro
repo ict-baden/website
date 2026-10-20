@@ -8,7 +8,7 @@ import ProductIcon from '../components/product/ProductIcon.astro';
 import ContactBand from '../components/ContactBand.astro';
 import ProductCover from '../components/product/ProductCover.astro';
 import { lineGlyph } from '../lib/art';
-import { featured, linien, products, productsOfLine, productUrl, statusCounts, lineAnchor, colorClasses, STATUS_LABEL, STATUS_ORDER, plural } from '../lib/products';
+import { featured, linien, products, productsOfLine, productUrl, statusCounts, statusSummary, lineAnchor, colorClasses, STATUS_LABEL, STATUS_ORDER, plural } from '../lib/products';
 import { organization, productList, webPage, website } from '../lib/seo';
 import { SERVICES, TOPICS } from '../data/portfolio';
 
@@ -20,8 +20,6 @@ const shot = (p: typeof heroBack, name: string) => p?.media.screenshots.find((s)
 const sBack = shot(heroBack, 'folders');
 const sMid = shot(heroMid, 'settings-look') ?? shot(heroMid, 'lock');
 const sFront = shot(heroFront, 'result');
-
-const total = statusCounts(products);
 
 const title = 'ICT Baden – Softwareentwicklung und Software-Produkte aus Karlsruhe';
 const description = 'ICT Baden GmbH, Karlsruhe-Durlach: Softwareentwicklung im Auftrag und eigene Software für Industrie, Labor und IT – von der Bildschirmsperre bis zum Kiosk-Browser.';
@@ -127,7 +125,7 @@ const jsonLd = [organization(), website(), webPage('/', title, description, 'de'
         <h2 id="produkte-titel">Software-Produkte für Industrie, Labor und&nbsp;IT</h2>
         <p class="lead">
           {plural(products.length, 'Produkt', 'Produkte')} in {linien.length} Produktlinien, alle kostenlos unter der MIT-Lizenz:
-          {total.verfuegbar} verfügbar, {total.vorabversion} als Vorabversion{total['in-entwicklung'] > 0 && `, ${total['in-entwicklung']} in Entwicklung`}.
+          {statusSummary(products)}.
           Support gibt es auf Wunsch per Supportvertrag.
         </p>
       </div>
@@ -493,6 +491,7 @@ const jsonLd = [organization(), website(), webPage('/', title, description, 'de'
   /* Text auf dunkler Fläche (Kontrast unabhängig von den Produktfarben), das Farbpaar des Produkts
      trägt den Bildbereich und einen leichten Schein hinter dem Symbol */
   .feat {
+    overflow-wrap: anywhere;
     position: relative;
     display: grid;
     grid-template-rows: auto 1fr;
@@ -581,7 +580,7 @@ const jsonLd = [organization(), website(), webPage('/', title, description, 'de'
   .line-count { display: grid; gap: 0.5rem; }
   .dist { display: flex; gap: 3px; height: 6px; }
   .dist-seg { flex: 1 1 0; border-radius: 3px; background: var(--st-plan-dot); }
-  .dist-seg--verfuegbar { background: var(--st-ok-dot); }
+  .dist-seg--verfuegbar, .dist-seg--bereit { background: var(--st-ok-dot); }
   .dist-seg--vorabversion { background: var(--st-beta-dot); }
   .dist-seg--in-entwicklung { background: var(--st-dev-dot); }
   .dist-seg.g1 { flex-grow: 1; }

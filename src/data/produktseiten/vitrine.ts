@@ -1,6 +1,8 @@
 // Vitrine – transparente Bildschirmsperre für Windows.
 // Quellen (ict-baden/vitrine): README.md (Funktionen, „And also“, Quick start, „Limits, honestly“, Fußzeile: MIT,
-// keine Daten an ICT-Baden), docs/installation.md (Voraussetzungen: Windows 10 1809 / 11, x64), docs/usage.md
+// keine Daten an ICT-Baden), policy/Vitrine.admx (Revision 2.1: 52 Richtlinien – README und docs/installation.md
+// nennen noch 46, CHANGELOG [Unveröffentlicht] ergänzt die sechs neuen),
+// docs/installation.md (Voraussetzungen: Windows 10 1809 / 11, x64), docs/usage.md
 // (durchsichtig 8 % abgedunkelt, verdeckt, verdeckte Bereiche, nur ausgewählte Programme, Hinweistext, während der
 // Sperre, Bildschirm bleibt an), docs/gxp.md („What Vitrine is not“), docs/data-and-privacy.md, CHANGELOG.md (Dienst).
 // Nicht behaupten: Remotedesktop oder mehrere Monitore getestet, „manipulationssicher“, Konformität mit Part 11.
@@ -26,7 +28,7 @@ const page: ProductPage = {
   },
   de: {
     title: 'Transparente Bildschirmsperre für Windows – Vitrine',
-    description: 'Vitrine sperrt Tastatur und Maus, alle Programme bleiben sichtbar und laufen weiter – für Labor, Produktion und Leitstand. Entsperren per Entra ID, Hello oder Kennwort.',
+    description: 'Transparente Bildschirmsperre für Windows: Vitrine sperrt Tastatur und Maus, Programme bleiben sichtbar und laufen weiter – für Labor, Produktion, Leitstand.',
     lead: 'Vitrine ist eine transparente Bildschirmsperre für Windows 10 und 11: Tastatur und Maus sind gesperrt, alle Programme bleiben sichtbar und laufen weiter. Entsperrt wird mit Microsoft Entra ID, dem Windows-Kennwort oder Windows Hello – für Labore, Produktionslinien und Leitstände, {lizenz}.',
     sections: [
       {
@@ -50,7 +52,7 @@ const page: ProductPage = {
               { title: 'Viele Wege zu sperren', text: 'Strg+Alt+L, Infobereich, nach Leerlaufzeit, nach Zeitplan, beim Start, als Bildschirmschoner, mit `Vitrine.exe --lock` oder über die lokale Schnittstelle.' },
               { title: 'Elektronische Signaturen', text: 'Fachanwendungen, etwa ein LIMS, fordern über eine lokale Schnittstelle eine Signatur an. Person, Zeitpunkt, Grund und Bedeutung landen im Protokoll.' },
               { title: 'Manipulationserkennendes Protokoll', text: 'Jede Sperre, Entsperrung, jeder Fehlversuch und jede Signatur mit UTC-Zeit, Person und Verfahren. Die SHA-256-Hash-Kette macht Änderungen sichtbar; Kopie auf einer Netzwerkfreigabe und Windows-Ereignisprotokoll sind unabhängige Gegenstücke.' },
-              { title: 'Zentral verwalten', text: 'ADMX/ADML-Vorlagen (Englisch und Deutsch) mit 46 Richtlinien für Gruppenrichtlinie und Intune; per Richtlinie gesetzte Werte sind in den Einstellungen gesperrt. Stille Installation mit `msiexec /i Vitrine-x64.msi /qn`.' },
+              { title: 'Zentral verwalten', text: 'ADMX/ADML-Vorlagen (Englisch und Deutsch) mit 52 Richtlinien für Gruppenrichtlinie und Intune; per Richtlinie gesetzte Werte sind in den Einstellungen gesperrt. Stille Installation mit `msiexec /i Vitrine-x64.msi /qn`.' },
               { title: 'Dienst und Wächter', text: 'Der Dienst „ICT-Baden Vitrine“ startet Vitrine bei jeder Anmeldung. Endet oder hängt Vitrine während der Sperre, trennt er die Sitzung und startet Vitrine gesperrt neu; ohne Dienst sperrt ein Wächterprozess Windows.' },
               { title: 'Fehlversuche begrenzen', text: 'Wachsende Wartezeit ab dem dritten Versuch; auf Wunsch wird nach zu vielen Versuchen Windows gesperrt, abgemeldet oder heruntergefahren.' },
               { title: 'Fünf Sprachen', text: 'Englisch, Deutsch, Spanisch, Französisch und Chinesisch (vereinfacht); jede Person wählt ihre Sprache, oder eine Richtlinie legt sie fest.' },
@@ -97,7 +99,7 @@ const page: ProductPage = {
       { q: 'Kann ich mit Microsoft Entra ID (früher Azure AD) entsperren?', a: 'Ja, über den Windows-Kontobroker mit allen Verfahren, die Ihr Mandant erlaubt – auch MFA, Authenticator, Passkeys und Conditional Access. Dafür registrieren Sie eine App in Entra ID. Ohne diese Einrichtung bietet Vitrine das Windows-Kennwort und, wo eingerichtet, Windows Hello an.' },
       { q: 'Wer darf entsperren?', a: 'Das legen Sie fest: die angemeldete Person, Administratoren, Gruppen und Entra-App-Rollen, einzelne Konten oder jedes gültige Konto – kombinierbar und auf Domänen einschränkbar.' },
       { q: 'Lässt sich Strg+Alt+Entf blockieren?', a: 'Nein, das kann keine Anwendung. Vitrine blendet während der Sperre Task-Manager, Abmelden und Kennwort ändern aus; Sperren und Benutzer wechseln bleiben verfügbar.' },
-      { q: 'Lässt sich Vitrine per Gruppenrichtlinie oder Intune verteilen?', a: 'Ja. Die MSI installiert still mit `msiexec /i Vitrine-x64.msi /qn`, die ADMX/ADML-Vorlagen bringen 46 Richtlinien für Gruppenrichtlinie und Intune – etwa Mandant, Anwendungs-ID, wer entsperren darf und die Aktion nach Fehlversuchen.' },
+      { q: 'Lässt sich Vitrine per Gruppenrichtlinie oder Intune verteilen?', a: 'Ja. Die MSI installiert still mit `msiexec /i Vitrine-x64.msi /qn`, die ADMX/ADML-Vorlagen bringen 52 Richtlinien für Gruppenrichtlinie und Intune – etwa Mandant, Anwendungs-ID, wer entsperren darf und die Aktion nach Fehlversuchen.' },
       { q: 'Erfüllt Vitrine 21 CFR Part 11 oder EU GMP Annex 11?', a: 'Vitrine liefert Bausteine dafür – Zugriffskontrolle, Audit-Trail, Signatur mit Bedeutung, automatisches Sperren –, ist aber kein validiertes Produkt. ICT Baden macht keine Konformitätszusage; Validierung und Risikobewertung liegen beim Betreiber.' },
       { q: 'Ist Vitrine kostenlos? Sendet es Daten?', a: 'Vitrine ist {lizenz}. Die Software sendet keine Daten an ICT Baden: keine Telemetrie, keine Absturzberichte, keine Update-Prüfung. Anmeldungen mit Entra ID laufen zwischen Windows und Microsoft.{download}' },
     ],
@@ -108,7 +110,7 @@ const page: ProductPage = {
     operatingSystem: 'Windows 10 (version 1809 or later), Windows 11',
     softwareRequirements: 'Windows 10 version 1809 (build 17763) or later, 64-bit',
     title: 'Vitrine – transparent screen lock for Windows',
-    description: 'Vitrine locks keyboard and mouse while every program stays visible and keeps running – for labs, production and control rooms. Unlock via Entra ID, Hello or password.',
+    description: 'Transparent screen lock for Windows: Vitrine blocks keyboard and mouse while programs stay visible and keep running – for labs, production and control rooms.',
     kind: 'Transparent screen lock for Windows',
     tagline: 'Look, don’t touch.',
     lead: 'Vitrine is a transparent screen lock for Windows 10 and 11: keyboard and mouse are blocked while every program stays visible and keeps running. Unlock with Microsoft Entra ID, the Windows password or Windows Hello – for laboratories, production lines and control rooms, {lizenz}.',
@@ -134,7 +136,7 @@ const page: ProductPage = {
               { title: 'Lock in many ways', text: 'Ctrl+Alt+L, notification area, idle time, schedule, at startup, as a screen saver, `Vitrine.exe --lock` or the local interface.' },
               { title: 'Electronic signatures', text: 'Line-of-business applications such as a LIMS request a signature over a local interface. Person, time, reason and meaning go into the audit log.' },
               { title: 'Tamper-evident audit log', text: 'Every lock, unlock, failed attempt and signature with UTC time, person and method. The SHA-256 hash chain makes changes visible; a copy on a network share and the Windows event log add independent records.' },
-              { title: 'Managed centrally', text: 'ADMX/ADML templates (English and German) with 46 policies for Group Policy and Intune; values set by policy are locked in the settings. Silent install with `msiexec /i Vitrine-x64.msi /qn`.' },
+              { title: 'Managed centrally', text: 'ADMX/ADML templates (English and German) with 52 policies for Group Policy and Intune; values set by policy are locked in the settings. Silent install with `msiexec /i Vitrine-x64.msi /qn`.' },
               { title: 'Service and watchdog', text: 'The service “ICT-Baden Vitrine” starts Vitrine at every sign-in. If Vitrine ends or hangs while locked, it disconnects the session and starts Vitrine locked again; without the service, a watchdog locks Windows.' },
               { title: 'Limit failed attempts', text: 'Growing waiting time from the third attempt; optionally lock Windows, sign out or shut down after too many attempts.' },
               { title: 'Five languages', text: 'English, German, Spanish, French and Chinese (simplified); each user picks their own, or a policy sets it.' },
@@ -181,7 +183,7 @@ const page: ProductPage = {
       { q: 'Can I unlock with Microsoft Entra ID (formerly Azure AD)?', a: 'Yes, through the Windows account broker with every method your tenant allows – including MFA, Authenticator, passkeys and Conditional Access. You register an app in Entra ID for this. Without that setup, Vitrine offers the Windows password and, where set up, Windows Hello.' },
       { q: 'Who may unlock?', a: 'You decide: the signed-in person, administrators, groups and Entra app roles, single accounts or any valid account – combinable and restrictable to domains.' },
       { q: 'Can Ctrl+Alt+Del be blocked?', a: 'No application can do that. While locked, Vitrine hides Task Manager, Sign out and Change a password; Lock and Switch user remain available.' },
-      { q: 'Can Vitrine be deployed with Group Policy or Intune?', a: 'Yes. The MSI installs silently with `msiexec /i Vitrine-x64.msi /qn`, and the ADMX/ADML templates bring 46 policies for Group Policy and Intune – tenant, application ID, who may unlock, the action after failed attempts and more.' },
+      { q: 'Can Vitrine be deployed with Group Policy or Intune?', a: 'Yes. The MSI installs silently with `msiexec /i Vitrine-x64.msi /qn`, and the ADMX/ADML templates bring 52 policies for Group Policy and Intune – tenant, application ID, who may unlock, the action after failed attempts and more.' },
       { q: 'Is Vitrine compliant with 21 CFR Part 11 or EU GMP Annex 11?', a: 'Vitrine provides building blocks – access control, audit trail, signatures with a meaning, automatic locking – but it is not a validated product. ICT Baden makes no compliance claim; validation and risk assessment are up to the operator.' },
       { q: 'Is Vitrine free? Does it send data?', a: 'Vitrine is {lizenz}. It sends no data to ICT Baden: no telemetry, no crash reports, no update check. Entra ID sign-ins run between Windows and Microsoft.{download}' },
     ],
@@ -189,7 +191,7 @@ const page: ProductPage = {
     facts: [
       ['Platform', 'Windows 10 (version 1809 or later) and Windows 11, 64-bit'],
       ['Sign-in', 'Microsoft Entra ID, Windows password, Windows Hello'],
-      ['Management', 'Group Policy or Intune via ADMX/ADML with 46 policies'],
+      ['Management', 'Group Policy or Intune via ADMX/ADML with 52 policies'],
       ['User interface', 'English, German, Spanish, French, Chinese'],
       ['Delivery', 'MSI for all users or a single Vitrine.exe without installation'],
     ],

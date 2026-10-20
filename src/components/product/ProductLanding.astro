@@ -10,11 +10,10 @@ import ContactBand from '../ContactBand.astro';
 import ProductIcon from './ProductIcon.astro';
 import { coverArt } from '../../lib/art';
 import { colorClasses, isPortrait, lineById, nameHtml, nameSize, products, type Product, type Shot } from '../../lib/products';
-import { fill, inline, isReleased, LINE_EN, pageFor, plain, productUrlFor, seoTitle, UI, type Lang } from '../../lib/produktseiten';
-import { breadcrumbs, faqPage, organization, softwareApplication, webPage, website } from '../../lib/seo';
+import { fill, inline, isReleased, LINE_EN, pageFor, plain, productUrlFor, seoTitle, statusLabelFor, UI, type Lang } from '../../lib/produktseiten';
+import { breadcrumbs, faqPage, organization, productOgImage, softwareApplication, webPage, website } from '../../lib/seo';
 import { appPrivacyPages } from '../../lib/app-privacy';
 import { mailto } from '../../config';
-import { existsSync } from 'node:fs';
 
 interface Props { product: Product; lang: Lang }
 const { product: p, lang } = Astro.props;
@@ -31,9 +30,7 @@ const tagline = lang === 'de' ? p.tagline : copy.tagline ?? null;
 const url = productUrlFor(p, lang);
 const otherUrl = productUrlFor(p, other);
 const released = isReleased(p);
-const statusLabel = lang === 'de'
-  ? p.statusLabel
-  : `${t.status[p.statusKey]}${p.statusKey === 'vorabversion' && p.version ? ` ${p.version}` : ''}`;
+const statusLabel = statusLabelFor(p, lang);
 const facts: [string, string][] = lang === 'de' ? p.facts.map((x) => [x.label, x.value]) : copy.facts ?? [];
 
 const m = p.media;
@@ -52,7 +49,7 @@ const privacy = page.privacyApp && (await appPrivacyPages()).includes(page.priva
 const alternatives = page.alternatives?.approved ? page.alternatives[lang] : null;
 
 const subject = t.enquirySubject(p.name);
-const og = existsSync(`public/og/produkte/${p.slug}.jpg`) ? `/og/produkte/${p.slug}.jpg` : undefined;
+const og = productOgImage(p, lang);
 const description = plain(f(copy.description));
 const h1Text = kind ? `${p.name} – ${kind}` : p.name;
 const crumbs = lang === 'de'
@@ -105,6 +102,7 @@ const updated = p.updated ? t.date(p.updated) : null;
         </div>
         {tagline && <p class="dtag">{tagline}</p>}
         <p class="dlead" set:html={inline(f(copy.lead))} />
+        {copy.independence && <p class="dindep">{copy.independence}</p>}
         <div class="dmeta">
           <StatusBadge product={p} label={statusLabel} />
           <a class="tag" href={lang === 'de' ? `/produkte/#linie-${line.id}` : '/en/#products'}>{lineName}</a>
@@ -177,22 +175,22 @@ const updated = p.updated ? t.date(p.updated) : null;
             b.type === 'p' ? <p class="blk-p" set:html={inline(f(b.text))} />
             : b.type === 'list' ? <ul class="blk-ul">{b.items.map((x) => <li set:html={inline(f(x))} />)}</ul>
             : b.type === 'items' ? (
-              <ul class="feat-list" role="list">
+              <ul class:list={['feat-list', s.planned && 'feat-list--planned']} role="list">
                 {b.items.map((x) => (
                   <li>
-                    <Icon name="check" class="feat-check" />
+                    <Icon name={s.planned ? 'clock' : 'check'} class="feat-check" />
                     <div><h3>{x.title}</h3><p set:html={inline(f(x.text))} /></div>
                   </li>
                 ))}
               </ul>
             ) : (
-              <div class="table-wrap">
+              <section class="table-wrap" tabindex="0" aria-label={b.caption}>
                 <table class="dtable">
                   <caption class="visually-hidden">{b.caption}</caption>
                   <thead><tr>{b.head.map((h) => <th scope="col">{h}</th>)}</tr></thead>
                   <tbody>{b.rows.map((r) => <tr>{r.map((c, j) => (j === 0 ? <th scope="row">{c}</th> : <td>{c}</td>))}</tr>)}</tbody>
                 </table>
-              </div>
+              </section>
             )
           )}
         </section>
@@ -354,6 +352,7 @@ const updated = p.updated ? t.date(p.updated) : null;
   }
   .hl-chip::before { content: ""; width: 0.45em; height: 0.45em; border-radius: 2px; background: linear-gradient(135deg, var(--l1), var(--l2)); }
   .dcta { margin-top: var(--s-6); }
+  .dindep { margin-top: var(--s-3); max-width: 60ch; color: var(--ink-3); font-size: var(--fs-sm); }
   .dnote-dl { display: flex; gap: 0.5em; align-items: flex-start; margin-top: var(--s-3); max-width: 56ch; color: var(--ink-3); font-size: var(--fs-sm); }
   .dnote-dl :global(.icon) { flex: none; width: 1.1em; height: 1.1em; margin-top: 0.2em; }
 
@@ -380,9 +379,10 @@ const updated = p.updated ? t.date(p.updated) : null;
   .dvis--art :global(.art) { width: 100%; height: 100%; }
 
   .dbody { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
-  .dmain { display: grid; gap: var(--s-8); min-width: 0; }
+  /* minmax(0, 1fr): sonst wächst die Spalte auf die Mindestbreite breiter Tabellen und alles läuft rechts hinaus */
+  .dmain { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); min-width: 0; }
   .dsec { scroll-margin-top: 96px; }
-  .dsec h2 { display: flex; align-items: baseline; gap: 0.6em; margin-bottom: var(--s-4); font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); }
+  .dsec h2 { display: flex; align-items: baseline; gap: 0.6em; margin-bottom: var(--s-4); font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); overflow-wrap: anywhere; hyphens: auto; }
   .dsec-n { font-size: var(--fs-sm); font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: 0; }
   .blk-p { color: var(--ink-2); max-width: 68ch; }
   .blk-p + .blk-p, .blk-p + .blk-ul, .blk-ul + .blk-p, .table-wrap + .blk-p { margin-top: var(--s-4); }
@@ -400,6 +400,7 @@ const updated = p.updated ? t.date(p.updated) : null;
   }
   .feat-list h3 { font-family: var(--font-sans); font-size: 1rem; font-weight: 680; font-stretch: 100%; letter-spacing: 0; color: var(--ink); }
   .feat-list p { margin-top: 0.3rem; color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.55; }
+  .feat-list--planned :global(.feat-check) { background: var(--st-dev-bg); color: var(--st-dev-ink); }
   .feat-list :global(.feat-check) {
     flex: none;
     width: 1.35rem;
@@ -412,6 +413,7 @@ const updated = p.updated ? t.date(p.updated) : null;
     stroke-width: 2.5;
   }
   .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-md); }
+  .table-wrap:focus-visible { outline: 2px solid var(--focus, var(--accent)); outline-offset: 2px; }
   .dtable { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
   .dtable th, .dtable td { padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
   .dtable thead th { background: var(--bg-elev-2); color: var(--ink-3); font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.04em; text-transform: uppercase; }

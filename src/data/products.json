@@ -8,7 +8,7 @@
     },
     {
       "id": "android",
-      "name": "Android & Zebra",
+      "name": "Mobile Datenerfassung (Android)",
       "text": "Browser und Tastatur für robuste Android-Geräte in Lager und Logistik"
     },
     {
@@ -54,7 +54,7 @@
         },
         {
           "label": "Verwaltung",
-          "value": "Gruppenrichtlinie oder Intune per ADMX/ADML mit 46 Richtlinien"
+          "value": "Gruppenrichtlinie oder Intune per ADMX/ADML mit 52 Richtlinien"
         },
         {
           "label": "Oberfläche",
@@ -620,179 +620,6 @@
       }
     },
     {
-      "id": "enterprisebrowser",
-      "slug": "enterprisebrowser",
-      "nr": 2,
-      "name": "EnterpriseBrowser",
-      "kind": "Kiosk-Browser für Zebra und Honeywell",
-      "tagline": "Web-Apps auf robusten Android-Geräten.",
-      "linie": "android",
-      "status": "fertig",
-      "statusKey": "verfuegbar",
-      "statusLabel": "Verfügbar",
-      "version": "0.5.0",
-      "updated": "2026-10-19",
-      "text": "Kiosk-Browser für robuste Android-Geräte von Zebra und Honeywell: Barcode-Scan per DataWedge direkt ins Webformular, Profile, Kioskmodus und Konfiguration per MDM (SOTI, Intune, StageNow).",
-      "sections": {
-        "problem": null,
-        "ersetzt": null,
-        "umfang": null
-      },
-      "highlights": [
-        "Zebra DataWedge",
-        "Honeywell",
-        "Kioskmodus",
-        "MDM: SOTI, Intune, StageNow"
-      ],
-      "facts": [
-        {
-          "label": "Plattform",
-          "value": "Android 8.0 und neuer, robuste Geräte von Zebra und Honeywell"
-        },
-        {
-          "label": "Scannen",
-          "value": "Zebra DataWedge, Honeywell oder jede Scanner-App per Intent"
-        },
-        {
-          "label": "Verwaltung",
-          "value": "Managed Configuration per MDM (SOTI, Intune, Workspace ONE), Konfigurationsdatei, StageNow, QR-Code"
-        },
-        {
-          "label": "Sicherheit",
-          "value": "strenge TLS-Prüfung, Client-Zertifikate, Kennwörter nur als Hash"
-        },
-        {
-          "label": "Lieferform",
-          "value": "APK zur Verteilung per MDM"
-        },
-        {
-          "label": "Oberfläche",
-          "value": "Englisch, Deutsch, Spanisch, Französisch, Chinesisch"
-        }
-      ],
-      "media": {
-        "logo": "/media/produkte/enterprisebrowser/logo.webp",
-        "colors": [
-          "#0d47a1",
-          "#0d47a1"
-        ],
-        "banner": null,
-        "demo": null,
-        "screenshots": [
-          {
-            "name": "screen-launcher",
-            "title": "Profile",
-            "caption": "Ein Tipp öffnet die Web-App. Mehrere Web-Apps auf einem Gerät, jede mit eigener Start-Adresse und eigenen Regeln.",
-            "alt": "EnterpriseBrowser, Kiosk-Browser für Zebra und Honeywell: Startbildschirm mit den Profilen Goods receipt, Picking, Shipping & labels und Scanner-Test.",
-            "en": {
-              "title": "Profiles",
-              "caption": "One tap opens the web app. Several web apps on one device, each with its own start address and rules.",
-              "alt": "EnterpriseBrowser kiosk browser for Zebra and Honeywell: start screen with the profiles Goods receipt, Picking, Shipping & labels and the scanner test."
-            },
-            "light": {
-              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-kiosk-browser-profile-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-kiosk-browser-profile-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-browser",
-            "title": "Scannen",
-            "caption": "Der Barcode landet im Feld, auf Wunsch gefolgt von Tab oder Enter – und als JavaScript-Ereignis für die Web-App.",
-            "alt": "Barcode-Scan im EnterpriseBrowser: die gescannte EAN 4006381333931 steht im Feld Item der Demo-Seite, darunter die letzten Scans.",
-            "en": {
-              "title": "Scanning",
-              "caption": "The barcode goes into the field, optionally followed by Tab or Enter – and as a JavaScript event for the web app.",
-              "alt": "Barcode scan in EnterpriseBrowser: the scanned EAN 4006381333931 in the Item field of the demo page, below it the latest scans."
-            },
-            "light": {
-              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-barcode-scan-webformular-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-barcode-scan-webformular-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-menu",
-            "title": "Menü",
-            "caption": "Alles in Daumenreichweite.",
-            "alt": "Menü des EnterpriseBrowser über der Demo-Seite mit Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings und Exit.",
-            "en": {
-              "title": "Menu",
-              "caption": "Everything within thumb reach.",
-              "alt": "EnterpriseBrowser menu over the demo page with Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings and Exit."
-            },
-            "light": {
-              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-menue-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-menue-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-launcher-branded",
-            "title": "Eigenes Design",
-            "caption": "Titel, Untertitel, Logo und Markenfarbe kommen aus der Konfiguration oder werden direkt in der App eingestellt.",
-            "alt": "EnterpriseBrowser im eigenen Design: grüner Kopf mit Kürzel NL, Titel North Logistics Center und Shift A · Hall 3, darunter die Profile.",
-            "en": {
-              "title": "Custom design",
-              "caption": "Title, subtitle, logo and brand color come from the configuration – or are set right in the app.",
-              "alt": "EnterpriseBrowser with custom branding: green header with the initials NL, the title North Logistics Center and Shift A · Hall 3, below it the profiles."
-            },
-            "light": {
-              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-eigenes-design-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-eigenes-design-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-profile-editor",
-            "title": "Profil mit eigener Farbe",
-            "caption": "Jedes Profil kann eine eigene Farbe haben, die auch die Werkzeugleiste in der Web-App einfärbt.",
-            "alt": "Profil bearbeiten im EnterpriseBrowser: Name, Start-URL, erlaubte Hosts, Profilfarbe und Schalter für Autostart, Werkzeugleiste und Vollbild.",
-            "en": {
-              "title": "Profile with its own color",
-              "caption": "Every profile can have its own color, which also tints the toolbar inside the web app.",
-              "alt": "EnterpriseBrowser profile editor: name, start URL, allowed hosts, profile color and switches for open on app start, hide toolbar and full screen."
-            },
-            "light": {
-              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-profil-allowlist-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-profil-allowlist-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-settings",
-            "title": "Einstellungen",
-            "caption": "Mit Kennwort geschützt: Profile, Design und Konfiguration.",
-            "alt": "Einstellungen des EnterpriseBrowser mit Profilliste, Add profile und dem Bereich Design mit Titel, Markenfarbe und Logo.",
-            "en": {
-              "title": "Settings",
-              "caption": "Password protected: profiles, design and configuration.",
-              "alt": "EnterpriseBrowser settings with the profile list, Add profile and the Design section with title, brand color and logo."
-            },
-            "light": {
-              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-einstellungen-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-einstellungen-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          }
-        ],
-        "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert; Namen und Adressen sind Beispiele.",
-        "galleryNoteEn": "The screenshots are rendered straight from the app's UI code; names and addresses are examples."
-      }
-    },
-    {
       "id": "industrialkeyboard",
       "slug": "industrial-keyboard",
       "nr": 3,
@@ -963,6 +790,179 @@
         ],
         "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert.",
         "galleryNoteEn": "The screenshots are rendered from the real keyboard code."
+      }
+    },
+    {
+      "id": "enterprisebrowser",
+      "slug": "enterprisebrowser",
+      "nr": 2,
+      "name": "EnterpriseBrowser",
+      "kind": "Kiosk-Browser für Android-MDE-Geräte",
+      "tagline": "Web-Apps auf robusten Android-Geräten.",
+      "linie": "android",
+      "status": "fast-fertig",
+      "statusKey": "vorabversion",
+      "statusLabel": "Vorabversion 0.5.0",
+      "version": "0.5.0",
+      "updated": "2026-10-19",
+      "text": "Kiosk-Browser für robuste Android-Geräte, zum Beispiel von Zebra und Honeywell: Barcode-Scan per DataWedge direkt ins Webformular, Profile, Kioskmodus und Konfiguration per MDM (SOTI, Intune, StageNow).",
+      "sections": {
+        "problem": null,
+        "ersetzt": null,
+        "umfang": null
+      },
+      "highlights": [
+        "Scan direkt ins Webformular",
+        "Kioskmodus",
+        "URL-Allowlist",
+        "MDM: SOTI, Intune, StageNow"
+      ],
+      "facts": [
+        {
+          "label": "Plattform",
+          "value": "Android 8.0 und neuer, robuste Geräte von Zebra und Honeywell"
+        },
+        {
+          "label": "Scannen",
+          "value": "Zebra DataWedge, Honeywell oder jede Scanner-App per Intent"
+        },
+        {
+          "label": "Verwaltung",
+          "value": "Managed Configuration per MDM (SOTI, Intune, Workspace ONE), Konfigurationsdatei, StageNow, QR-Code"
+        },
+        {
+          "label": "Sicherheit",
+          "value": "strenge TLS-Prüfung, Client-Zertifikate, Kennwörter nur als Hash"
+        },
+        {
+          "label": "Lieferform",
+          "value": "APK zur Verteilung per MDM"
+        },
+        {
+          "label": "Oberfläche",
+          "value": "Englisch, Deutsch, Spanisch, Französisch, Chinesisch"
+        }
+      ],
+      "media": {
+        "logo": "/media/produkte/enterprisebrowser/logo.webp",
+        "colors": [
+          "#0d47a1",
+          "#0d47a1"
+        ],
+        "banner": null,
+        "demo": null,
+        "screenshots": [
+          {
+            "name": "screen-launcher",
+            "title": "Profile",
+            "caption": "Ein Tipp öffnet die Web-App. Mehrere Web-Apps auf einem Gerät, jede mit eigener Start-Adresse und eigenen Regeln.",
+            "alt": "EnterpriseBrowser, Kiosk-Browser für Android-MDE-Geräte: Startbildschirm mit den Profilen Goods receipt, Picking, Shipping & labels und Scanner-Test.",
+            "en": {
+              "title": "Profiles",
+              "caption": "One tap opens the web app. Several web apps on one device, each with its own start address and rules.",
+              "alt": "EnterpriseBrowser kiosk browser for rugged Android devices: start screen with the profiles Goods receipt, Picking, Shipping & labels and the scanner test."
+            },
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-kiosk-browser-profile-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-kiosk-browser-profile-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-browser",
+            "title": "Scannen",
+            "caption": "Der Barcode landet im Feld, auf Wunsch gefolgt von Tab oder Enter – und als JavaScript-Ereignis für die Web-App.",
+            "alt": "Barcode-Scan im EnterpriseBrowser: die gescannte EAN 4006381333931 steht im Feld Item der Demo-Seite, darunter die letzten Scans.",
+            "en": {
+              "title": "Scanning",
+              "caption": "The barcode goes into the field, optionally followed by Tab or Enter – and as a JavaScript event for the web app.",
+              "alt": "Barcode scan in EnterpriseBrowser: the scanned EAN 4006381333931 in the Item field of the demo page, below it the latest scans."
+            },
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-barcode-scan-webformular-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-barcode-scan-webformular-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-menu",
+            "title": "Menü",
+            "caption": "Alles in Daumenreichweite.",
+            "alt": "Menü des EnterpriseBrowser über der Demo-Seite mit Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings und Exit.",
+            "en": {
+              "title": "Menu",
+              "caption": "Everything within thumb reach.",
+              "alt": "EnterpriseBrowser menu over the demo page with Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings and Exit."
+            },
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-menue-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-menue-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-launcher-branded",
+            "title": "Eigenes Design",
+            "caption": "Titel, Untertitel, Logo und Markenfarbe kommen aus der Konfiguration oder werden direkt in der App eingestellt.",
+            "alt": "EnterpriseBrowser im eigenen Design: grüner Kopf mit Kürzel NL, Titel North Logistics Center und Shift A · Hall 3, darunter die Profile.",
+            "en": {
+              "title": "Custom design",
+              "caption": "Title, subtitle, logo and brand color come from the configuration – or are set right in the app.",
+              "alt": "EnterpriseBrowser with custom branding: green header with the initials NL, the title North Logistics Center and Shift A · Hall 3, below it the profiles."
+            },
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-eigenes-design-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-eigenes-design-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-profile-editor",
+            "title": "Profil mit eigener Farbe",
+            "caption": "Jedes Profil kann eine eigene Farbe haben, die auch die Werkzeugleiste in der Web-App einfärbt.",
+            "alt": "Profil bearbeiten im EnterpriseBrowser: Name, Start-URL, erlaubte Hosts, Profilfarbe und Schalter für Autostart, Werkzeugleiste und Vollbild.",
+            "en": {
+              "title": "Profile with its own color",
+              "caption": "Every profile can have its own color, which also tints the toolbar inside the web app.",
+              "alt": "EnterpriseBrowser profile editor: name, start URL, allowed hosts, profile color and switches for open on app start, hide toolbar and full screen."
+            },
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-profil-allowlist-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-profil-allowlist-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-settings",
+            "title": "Einstellungen",
+            "caption": "Mit Kennwort geschützt: Profile, Design und Konfiguration.",
+            "alt": "Einstellungen des EnterpriseBrowser mit Profilliste, Add profile und dem Bereich Design mit Titel, Markenfarbe und Logo.",
+            "en": {
+              "title": "Settings",
+              "caption": "Password protected: profiles, design and configuration.",
+              "alt": "EnterpriseBrowser settings with the profile list, Add profile and the Design section with title, brand color and logo."
+            },
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-einstellungen-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-einstellungen-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          }
+        ],
+        "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert; Namen und Adressen sind Beispiele.",
+        "galleryNoteEn": "The screenshots are rendered straight from the app's UI code; names and addresses are examples."
       }
     },
     {

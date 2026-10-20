@@ -127,7 +127,7 @@ const page: ProductPage = {
       { q: 'Ist Zutritt kostenlos?', a: 'Ja, Zutritt ist {lizenz}.{download}' },
     ],
     aka: ['NTFS-Berechtigungsbericht', 'Berechtigungsanalyse für Fileserver', 'Freigabeberechtigungen auslesen', 'Ordnerberechtigungen exportieren', 'Access Review für Dateifreigaben', 'Berechtigungsprüfung'],
-    trademarks: 'Windows und Active Directory sind Marken der Microsoft-Unternehmensgruppe. Sie werden nur genannt, um die Kompatibilität zu beschreiben.',
+    trademarks: 'Windows, Active Directory und Excel sind Marken der Microsoft-Unternehmensgruppe. Sie werden nur genannt, um die Kompatibilität zu beschreiben.',
   },
   en: {
     operatingSystem: 'Windows 10 (version 1809 or later), Windows 11',
@@ -214,7 +214,7 @@ const page: ProductPage = {
       ['Operation', 'no server, no agent, no service; one program for the desktop and scheduled tasks'],
       ['Delivery', 'MSI for all users or a single Zutritt.exe without installation'],
     ],
-    trademarks: 'Windows and Active Directory are trademarks of the Microsoft group of companies. They are named only to describe compatibility.',
+    trademarks: 'Windows, Active Directory and Excel are trademarks of the Microsoft group of companies. They are named only to describe compatibility.',
   },
 };
 

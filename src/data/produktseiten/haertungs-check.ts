@@ -88,11 +88,11 @@ const page: ProductPage = {
       { q: 'Läuft der Härtungs-Check auch unter Windows 7 oder Server 2008 R2?', a: 'Der Sammler ist für Windows 7 SP1 bis 11 und Server 2008 R2 bis 2025 gebaut und braucht .NET Framework 3.5.1 oder 4.x. Auf echten Rechnern mit Windows 7 und 2008 R2 ist er noch nicht getestet.' },
       { q: 'Was tun, wenn die Anlagensoftware eine unsichere Einstellung braucht?', a: 'Den Befund als begründete Ausnahme festhalten: Begründung, akzeptierter Wert, freigebende Rolle und ein Nachweis aus dem Änderungs- oder QMS-Verfahren. Die Ausnahme ist an ihren Inhalt gebunden, läuft ab und hat einen Verlauf.' },
       { q: 'Reicht der Bericht als Nachweis für NIS2, ISO 27001 oder IEC 62443?', a: 'Riegel unterstützt Nachweise für das Konfigurationsmanagement, etwa nach ISO/IEC 27001:2022 A.8.9, NIS2 und IEC 62443. Es macht keine Compliance-Aussage; ob der Nachweis genügt, entscheidet Ihr Prüfverfahren.' },
-      { q: 'Enthält Riegel CIS-Benchmarks oder BSI SiSyPHuS?', a: 'Nein. Das Regelwerk hat eigene Texte, die Sollwerte sind durch ACSC, Microsoft-Dokumentation oder DISA STIGs belegt. Eigene Vorgaben, etwa aus GPO-Sicherungen, lassen sich importieren.' },
+      { q: 'Enthält Riegel Inhalte von CIS oder aus BSI SiSyPHuS?', a: 'Nein. Das Regelwerk hat eigene Texte, die Sollwerte sind durch ACSC, Microsoft-Dokumentation oder DISA STIGs belegt. Eigene Vorgaben, etwa aus GPO-Sicherungen, lassen sich importieren.' },
       { q: 'Ist Riegel kostenlos? Sendet es Daten?', a: 'Riegel ist {lizenz}. Es hat keinen Netzwerkcode, keine Telemetrie und keine Update-Prüfung und sendet keine Daten an ICT Baden.{download}' },
     ],
     aka: ['Windows-Härtungscheck', 'Systemhärtung prüfen', 'Security-Baseline-Prüfung', 'Härtungsnachweis', 'Konfigurationsprüfung für Anlagen-PCs', 'Windows Hardening Audit'],
-    trademarks: 'Windows ist eine Marke der Microsoft-Unternehmensgruppe. Genannte Normen und Rahmenwerke werden nur beschrieben; Riegel ist von deren Herausgebern weder geprüft noch zertifiziert.',
+    trademarks: 'Windows, PowerShell, Defender und Excel sind Marken der Microsoft-Unternehmensgruppe, Linux ist eine eingetragene Marke von Linus Torvalds. CIS (Center for Internet Security) und das BSI werden nur genannt, um zu sagen, dass Riegel keine Inhalte von ihnen enthält. Genannte Normen und Rahmenwerke werden nur beschrieben; Riegel ist von deren Herausgebern weder geprüft noch zertifiziert.',
   },
   en: {
     operatingSystem: 'Windows 7 SP1 to 11 and Windows Server 2008 R2 to 2025 (collector); Windows 10 1809 or later and Windows Server 2019 or later (evaluation); Linux (command line)',
@@ -168,7 +168,7 @@ const page: ProductPage = {
       { q: 'Can I audit Windows 7 or Server 2008 R2?', a: 'The collector is built for Windows 7 SP1 to 11 and Server 2008 R2 to 2025 and needs .NET Framework 3.5.1 or 4.x. It has not been tested on real Windows 7 and 2008 R2 machines yet.' },
       { q: 'What if the plant software needs an insecure setting?', a: 'Record the finding as a justified exception: justification, accepted value, approving role and a record from the change or QMS process. The exception is bound to its content, expires and keeps a history.' },
       { q: 'Is the report enough evidence for NIS2, ISO 27001 or IEC 62443?', a: 'Riegel supports evidence for configuration management, e.g. ISO/IEC 27001:2022 A.8.9, NIS2 and IEC 62443. It makes no compliance claim; whether the evidence is sufficient is up to your audit.' },
-      { q: 'Does Riegel contain CIS benchmarks or BSI SiSyPHuS?', a: 'No. The catalogue has its own texts; expected values are backed by ACSC, Microsoft documentation or DISA STIGs. Your own baselines, e.g. from GPO backups, can be imported.' },
+      { q: 'Does Riegel contain content from CIS or BSI SiSyPHuS?', a: 'No. The catalogue has its own texts; expected values are backed by ACSC, Microsoft documentation or DISA STIGs. Your own baselines, e.g. from GPO backups, can be imported.' },
       { q: 'Is Riegel free? Does it send data?', a: 'Riegel is {lizenz}. It has no network code, no telemetry and no update check, and sends no data to ICT Baden.{download}' },
     ],
     aka: ['Windows hardening checker', 'security baseline audit', 'system hardening audit', 'hardening evidence report', 'OT Windows hardening assessment', 'configuration compliance check'],
@@ -179,7 +179,7 @@ const page: ProductPage = {
       ['User interface', 'German, English, Spanish, French, Chinese – reports too'],
       ['Delivery', 'portable collector (ZIP), MSI or Riegel.exe for analysis PCs'],
     ],
-    trademarks: 'Windows is a trademark of the Microsoft group of companies. Standards and frameworks are only described; Riegel is neither audited nor certified by their publishers.',
+    trademarks: 'Windows, PowerShell, Defender and Excel are trademarks of the Microsoft group of companies, Linux is a registered trademark of Linus Torvalds. CIS (Center for Internet Security) and the BSI are named only to say that Riegel contains no content from them. Standards and frameworks are only described; Riegel is neither audited nor certified by their publishers.',
   },
 };
 

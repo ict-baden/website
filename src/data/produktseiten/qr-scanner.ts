@@ -1,6 +1,7 @@
 // Lupe – QR-Code- und Barcode-Leser für Windows, Linux und macOS.
-// Quellen (ict-baden/lupe): README.md (Funktionen, „And also“, Quick start, Downloads, 22 Formate, nicht unterstützte
-// Formate, „Limits, honestly“, MIT), docs/installation.md (Windows 10 1809 / 11, Bildformate, Sprache), docs/usage.md
+// Quellen (ict-baden/lupe): README.md (Funktionen, „And also“, Quick start, Downloads – .deb nur für x64, 22 Formate,
+// nicht unterstützte Formate, „Limits, honestly“, MIT), docs/installation.md (Windows 10 1809 / 11, Bildformate unter
+// Windows, Sprache), docs/platform-linux.md und docs/architecture-platforms.md (Bildformate unter Linux und macOS), docs/usage.md
 // (PDF, E-Mail, Webseite, Videocall; Kamera wie ein Handscanner), docs/data-and-privacy.md (kein Netzwerkcode, keine
 // Bilder gespeichert), CHANGELOG.md. Nicht behaupten: „tippt in jede Anwendung“ (nicht in Admin-Fenster),
 // echte Webcam oder echter Mac getestet, Alleinstellung („es gibt keinen guten …“).
@@ -48,7 +49,7 @@ const page: ProductPage = {
         id: 'dateien',
         title: 'Codes aus Bild, Screenshot oder Zwischenablage',
         blocks: [
-          { type: 'p', text: 'Bild öffnen, auf die Seite „Datei“ ziehen oder mit Strg+V einfügen: Lupe findet jeden Code im Bild und nummeriert ihn in Lesereihenfolge. Gelesen werden PNG, JPEG, BMP, GIF, TIFF, ICO und JPEG XR, unter Windows mit der passenden Store-Erweiterung auch WebP, HEIC, AVIF und JPEG XL.' },
+          { type: 'p', text: 'Bild öffnen, auf die Seite „Datei“ ziehen oder mit Strg+V einfügen: Lupe findet jeden Code im Bild und nummeriert ihn in Lesereihenfolge. Welche Bildformate gehen, hängt vom System ab: unter Windows PNG, JPEG, BMP, GIF, TIFF, ICO und JPEG XR, mit der passenden Erweiterung aus dem Microsoft Store auch WebP, HEIC, AVIF und JPEG XL; unter Linux PNG, JPEG, BMP, GIF, WebP und ICO; auf dem Mac PNG, JPEG, GIF, BMP, TIFF, HEIC, WebP und ICO.' },
         ],
       },
       {
@@ -79,7 +80,7 @@ const page: ProductPage = {
     ],
     requirements: [
       ['Windows', 'Windows 10 ab Version 1809 oder Windows 11, x64 – MSI, einzelne Lupe.exe oder ZIP'],
-      ['Linux', 'x64 und arm64, X11 und Wayland – .deb für Debian und Ubuntu oder tar.gz'],
+      ['Linux', 'x64 und arm64, X11 und Wayland – .deb (x64) für Debian und Ubuntu, tar.gz für x64 und arm64'],
       ['macOS', 'ab macOS 12, Apple Silicon und Intel – Lupe.app'],
       ['.NET', 'in allen Paketen enthalten, außer im Framework-ZIP'],
       ['Kamera', 'optional; unter Windows jede Webcam, die Windows den Apps anbietet'],
@@ -103,7 +104,7 @@ const page: ProductPage = {
       { q: 'Ist Lupe kostenlos?', a: 'Ja, Lupe ist {lizenz}.{download}' },
     ],
     aka: ['QR-Code-Leser', 'QR-Scanner für den PC', 'Barcode-Scanner-Software', 'Barcodeleser', 'Data-Matrix-Leser', 'Webcam als Tastaturweiche'],
-    trademarks: 'QR Code ist eine eingetragene Marke der DENSO WAVE INCORPORATED. Windows ist eine Marke der Microsoft-Unternehmensgruppe, macOS eine Marke von Apple Inc.',
+    trademarks: 'QR Code ist eine eingetragene Marke der DENSO WAVE INCORPORATED. Windows, Excel und Microsoft Store sind Marken der Microsoft-Unternehmensgruppe, macOS und Mac sind Marken von Apple Inc.; Linux ist eine eingetragene Marke von Linus Torvalds, Ubuntu eine Marke von Canonical Ltd., Debian eine eingetragene Marke von Software in the Public Interest, Inc.; GS1 ist eine eingetragene Marke von GS1 AISBL. Sie werden nur genannt, um die Kompatibilität zu beschreiben.',
   },
   en: {
     operatingSystem: 'Windows 10 (version 1809 or later), Windows 11, Linux (x64, arm64), macOS 12 or later',
@@ -139,7 +140,7 @@ const page: ProductPage = {
         id: 'files',
         title: 'Codes from images, screenshots or the clipboard',
         blocks: [
-          { type: 'p', text: 'Open an image, drag it onto the Datei page or press Ctrl+V: Lupe finds every code in the picture and numbers it in reading order. PNG, JPEG, BMP, GIF, TIFF, ICO and JPEG XR work out of the box; on Windows, WebP, HEIC, AVIF and JPEG XL work with the matching image extension from the Microsoft Store.' },
+          { type: 'p', text: 'Open an image, drag it onto the Datei page or press Ctrl+V: Lupe finds every code in the picture and numbers it in reading order. Which image formats work depends on the system: on Windows PNG, JPEG, BMP, GIF, TIFF, ICO and JPEG XR, plus WebP, HEIC, AVIF and JPEG XL with the matching image extension from the Microsoft Store; on Linux PNG, JPEG, BMP, GIF, WebP and ICO; on the Mac PNG, JPEG, GIF, BMP, TIFF, HEIC, WebP and ICO.' },
         ],
       },
       {
@@ -170,7 +171,7 @@ const page: ProductPage = {
     ],
     requirements: [
       ['Windows', 'Windows 10 version 1809 or later, or Windows 11, x64 – MSI, single Lupe.exe or ZIP'],
-      ['Linux', 'x64 and arm64, X11 and Wayland – .deb for Debian and Ubuntu, or tar.gz'],
+      ['Linux', 'x64 and arm64, X11 and Wayland – .deb (x64) for Debian and Ubuntu, tar.gz for x64 and arm64'],
       ['macOS', 'macOS 12 or later, Apple Silicon and Intel – Lupe.app'],
       ['.NET', 'included in every package except the framework ZIP'],
       ['Camera', 'optional; on Windows any webcam that Windows offers to apps'],
@@ -199,9 +200,9 @@ const page: ProductPage = {
       ['User interface', 'English and German, follows the system language'],
       ['Data', 'stays on the computer, nothing is sent to the internet'],
       ['Formats', '22 formats, including QR Code, Data Matrix, Code 128, EAN-13 and PDF417'],
-      ['Delivery', 'MSI or single Lupe.exe (Windows), .deb and tar.gz (Linux), Lupe.app (macOS)'],
+      ['Delivery', 'MSI or single Lupe.exe (Windows), .deb (x64) and tar.gz (Linux), Lupe.app (macOS)'],
     ],
-    trademarks: 'QR Code is a registered trademark of DENSO WAVE INCORPORATED. Windows is a trademark of the Microsoft group of companies, macOS a trademark of Apple Inc.',
+    trademarks: 'QR Code is a registered trademark of DENSO WAVE INCORPORATED. Windows, Excel and Microsoft Store are trademarks of the Microsoft group of companies, macOS and Mac are trademarks of Apple Inc.; Linux is a registered trademark of Linus Torvalds, Ubuntu a trademark of Canonical Ltd., Debian a registered trademark of Software in the Public Interest, Inc.; GS1 is a registered trademark of GS1 AISBL. They are named only to describe compatibility.',
   },
 };
 

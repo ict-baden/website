@@ -2,16 +2,18 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
-import { COMPANY, STAGING } from '../config';
+import { CDN, COMPANY, STAGING } from '../config';
 ---
 <Base title="Datenschutzerklärung" description="Datenschutzerklärung der ICT Baden GmbH: statische Website ohne Tracking und ohne eingebundene Fremdinhalte.">
   <PageHero eyebrow="Rechtliches" title="Datenschutz­erklärung" crumbs={[{ label: 'Datenschutz' }]} narrow />
 
   <div class="container container--narrow">
-    <p class="callout legal-note" role="note">
-      <Icon name="alert" />
-      <span><strong>Hinweis:</strong> Diese Fassung wurde für die neue Website überarbeitet. Vor dem Livegang auf ict-baden.de rechtlich prüfen.</span>
-    </p>
+    {STAGING && (
+      <p class="callout legal-note" role="note">
+        <Icon name="alert" />
+        <span><strong>Hinweis:</strong> Diese Fassung wurde für die neue Website überarbeitet. Vor dem Livegang auf ict-baden.de rechtlich prüfen.</span>
+      </p>
+    )}
 
     <div class="prose privacy">
       <h2>Datenschutz</h2>
@@ -40,7 +42,7 @@ import { COMPANY, STAGING } from '../config';
         <li><strong>Statische Seiten.</strong> Die Website besteht aus fertigen HTML-Seiten. Es gibt keine Formulare, keine Benutzerkonten und keine Kommentarfunktion.</li>
         <li><strong>Keine Cookies.</strong> Die Website selbst setzt keine Cookies.</li>
         <li><strong>Kein Tracking.</strong> Es werden keine Analyse-, Statistik- oder Werbedienste eingesetzt und keine Inhalte Dritter eingebettet (keine Social-Media-Plugins, Karten oder Videos).</li>
-        <li><strong>Keine externen Schriften, Skripte oder CDNs.</strong> Schriften, Bilder, Stylesheets und Skripte werden vom eigenen Server ausgeliefert. {STAGING
+        <li><strong>Keine externen Schriften, Skripte oder CDNs.</strong> Schriften, Bilder, Stylesheets und Skripte werden vom eigenen Server ausgeliefert. {CDN
           ? 'Abgesehen von der Auslieferung über Cloudflare (siehe unten) werden beim Aufruf einer Seite keine Daten an andere Anbieter übertragen.'
           : 'Beim Aufruf einer Seite werden keine Daten an andere Anbieter übertragen.'}</li>
         <li><strong>Hell oder dunkel.</strong> Wählen Sie über den Schalter in der Kopfzeile das helle oder dunkle Design, speichert Ihr Browser diese Auswahl lokal (localStorage, Eintrag „theme“). Die Angabe wird nicht an uns übertragen und lässt sich über die Browsereinstellungen löschen.</li>
@@ -65,11 +67,11 @@ import { COMPANY, STAGING } from '../config';
         nachträglich zu prüfen, wenn uns konkrete Anhaltspunkte für eine rechtswidrige Nutzung bekannt werden.
       </p>
 
-      {STAGING && (
+      {CDN && (
         <>
           <h2>Auslieferung über Cloudflare</h2>
           <p>
-            Diese Vorschau der neuen Website wird über das Netzwerk von Cloudflare (Cloudflare, Inc., USA) ausgeliefert
+            {STAGING ? 'Diese Vorschau der neuen Website' : 'Diese Website'} wird über das Netzwerk von Cloudflare (Cloudflare, Inc., USA) ausgeliefert
             (Proxy und Tunnel). Dabei verarbeitet Cloudflare die für die Übertragung notwendigen Verbindungsdaten, insbesondere
             Ihre IP-Adresse, und kann zum Schutz vor Angriffen eigene, technisch notwendige Cookies setzen. Unser Server erhält die
             Anfragen über den Tunnel; in seinen Log-Files steht als IP-Adresse die der Tunnel-Verbindung.

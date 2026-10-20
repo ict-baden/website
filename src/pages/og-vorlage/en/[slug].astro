@@ -1,0 +1,13 @@
+---
+// Englische Open-Graph-Karten (/og/en/produkte/<slug>.jpg). Nur für scripts/make-brand-assets.mjs (OG_TEMPLATES=1).
+import OgCard from '../../../components/OgCard.astro';
+import { products, type Product } from '../../../lib/products';
+
+export function getStaticPaths() {
+  if (process.env.OG_TEMPLATES !== '1') return [];
+  return products.map((p) => ({ params: { slug: p.slug }, props: { product: p } }));
+}
+interface Props { product: Product }
+const { product } = Astro.props;
+---
+<OgCard product={product} lang="en" />

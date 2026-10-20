@@ -247,7 +247,7 @@
         ],
         [
           "Verwaltung",
-          "Gruppenrichtlinie oder Intune per ADMX/ADML mit 46 Richtlinien"
+          "Gruppenrichtlinie oder Intune per ADMX/ADML mit 52 Richtlinien"
         ],
         [
           "Oberfläche",
@@ -700,13 +700,13 @@
       ]
     },
     "enterprisebrowser": {
-      "kind": "Kiosk-Browser für Zebra und Honeywell",
+      "kind": "Kiosk-Browser für Android-MDE-Geräte",
       "tagline": "Web-Apps auf robusten Android-Geräten.",
       "banner": false,
       "highlights": [
-        "Zebra DataWedge",
-        "Honeywell",
+        "Scan direkt ins Webformular",
         "Kioskmodus",
+        "URL-Allowlist",
         "MDM: SOTI, Intune, StageNow"
       ],
       "facts": [
@@ -741,12 +741,12 @@
           "name": "screen-launcher",
           "title": "Profile",
           "caption": "Ein Tipp öffnet die Web-App. Mehrere Web-Apps auf einem Gerät, jede mit eigener Start-Adresse und eigenen Regeln.",
-          "alt": "EnterpriseBrowser, Kiosk-Browser für Zebra und Honeywell: Startbildschirm mit den Profilen Goods receipt, Picking, Shipping & labels und Scanner-Test.",
+          "alt": "EnterpriseBrowser, Kiosk-Browser für Android-MDE-Geräte: Startbildschirm mit den Profilen Goods receipt, Picking, Shipping & labels und Scanner-Test.",
           "file": "enterprisebrowser-kiosk-browser-profile",
           "en": {
             "title": "Profiles",
             "caption": "One tap opens the web app. Several web apps on one device, each with its own start address and rules.",
-            "alt": "EnterpriseBrowser kiosk browser for Zebra and Honeywell: start screen with the profiles Goods receipt, Picking, Shipping & labels and the scanner test."
+            "alt": "EnterpriseBrowser kiosk browser for rugged Android devices: start screen with the profiles Goods receipt, Picking, Shipping & labels and the scanner test."
           }
         },
         {

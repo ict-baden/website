@@ -43,7 +43,8 @@ h1, h2, h3, h4 {
   line-height: var(--lh-tight);
   letter-spacing: -0.022em;
   text-wrap: balance;
-  overflow-wrap: break-word;
+  /* lange Produktnamen (z. B. „EnterpriseBrowser“) dürfen auf schmalen Bildschirmen umbrechen */
+  overflow-wrap: anywhere;
   color: var(--ink);
 }
 h1 { font-size: var(--fs-3xl); }
@@ -172,6 +173,8 @@ small { font-size: var(--fs-sm); }
 }
 :root[data-theme='dark'] .theme-light { display: none !important; }
 :root[data-theme='dark'] .theme-dark { display: block !important; }
+/* <picture> der Bilder oben auf der Seite (ThemeImage eager): das <img> darin wird wie ein direktes Kind gestaltet */
+.theme-pic { display: contents; }
 
 /* Bewegung: dezentes Einblenden beim Scrollen (nur mit scroll-getriebenen Animationen) */
 @media (prefers-reduced-motion: no-preference) {
@@ -185,9 +188,11 @@ small { font-size: var(--fs-sm); }
   @view-transition { navigation: auto; }
   ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 260ms; }
 }
+/* Nur Bewegung, keine Transparenz: Text, der beim Laden schon im Bild ist, bleibt voll lesbar (die Kontrastprüfung von
+   Lighthouse/PageSpeed misst sonst halb eingeblendeten Text) */
 @keyframes reveal {
-  from { opacity: 0; transform: translateY(28px) scale(0.985); }
-  to { opacity: 1; transform: none; }
+  from { transform: translateY(24px); }
+  to { transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

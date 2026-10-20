@@ -5,14 +5,13 @@ import ProductCard from '../../components/product/ProductCard.astro';
 import ContactBand from '../../components/ContactBand.astro';
 import { lineGlyph } from '../../lib/art';
 import { linien, products, productsOfLine } from '../../lib/products';
-import { LINE_EN, pageFor, productUrlFor, UI } from '../../lib/produktseiten';
+import { LINE_EN, pageFor, productUrlFor, statusLabelFor, UI } from '../../lib/produktseiten';
 import { breadcrumbs, organization, productList, webPage, website } from '../../lib/seo';
 import { COMPANY } from '../../config';
 
 const title = 'Software for industry, labs and IT – ICT Baden';
-const description = 'Products by ICT Baden, Karlsruhe: transparent screen lock, QR and barcode reader, kiosk browser and keyboard for Zebra, Windows hardening and permission reports.';
+const description = 'Products by ICT Baden, Karlsruhe: transparent screen lock, QR and barcode reader, kiosk browser and keyboard for rugged handhelds, Windows hardening, permission reports.';
 const t = UI.en;
-const statusEn = (p: (typeof products)[number]) => `${t.status[p.statusKey]}${p.statusKey === 'vorabversion' && p.version ? ` ${p.version}` : ''}`;
 const jsonLd = [
   organization(),
   website(),
@@ -27,6 +26,7 @@ const jsonLd = [
   description={description}
   lang="en"
   alternates={[{ lang: 'de', href: '/produkte/' }, { lang: 'en', href: '/en/' }]}
+  ogImageAlt="ICT Baden – Getting Things Done. Software development in Karlsruhe-Durlach, Germany"
   jsonLd={jsonLd}
 >
   <section class="page-hero">
@@ -69,7 +69,7 @@ const jsonLd = [
                 href={productUrlFor(p, 'en')}
                 kind={pageFor(p).en.kind ?? p.kind}
                 text={pageFor(p).en.description}
-                statusLabel={statusEn(p)}
+                statusLabel={statusLabelFor(p, 'en')}
               />
             </li>
           ))}

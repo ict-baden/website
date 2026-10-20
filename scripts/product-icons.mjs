@@ -20,7 +20,7 @@ const fromRepo = (shapes, box, size = 16.5, stroke = 2.3) => {
 };
 
 export const ICON_SPECS = {
-  // ---------------------------------------------------------------- Android & Zebra
+  // ---------------------------------------------------------------- Mobile Datenerfassung (Android)
   labeldesigner: {
     colors: ['#f995eb', '#9059c0'],
     motif: 'Etikett mit Loch',

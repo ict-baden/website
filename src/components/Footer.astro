@@ -2,11 +2,18 @@
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import { COMPANY, NAV, STAGING } from '../config';
-import { products, productUrl } from '../lib/products';
+import { products } from '../lib/products';
+import { pageFor, productUrlFor } from '../lib/produktseiten';
 
 interface Props { lang?: 'de' | 'en' }
 const { lang = 'de' } = Astro.props;
 const year = new Date().getFullYear();
+// Produktspalte in der Sprache der Seite: englische Seiten verlinken die englischen Produktseiten
+const productLinks = products.map((p) => ({
+  name: p.name,
+  href: productUrlFor(p, lang),
+  kind: lang === 'en' ? pageFor(p).en.kind ?? p.kind : p.kind,
+}));
 ---
 <footer class="site-footer" lang={lang === 'de' ? undefined : 'de'}>
   <div class="container">
@@ -30,13 +37,14 @@ const year = new Date().getFullYear();
         <ul>
           <li><a href="/">Start</a></li>
           {NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+          <li><a href="/en/" hreflang="en" lang="en">English</a></li>
         </ul>
       </nav>
 
-      <nav class="footer-col footer-col--products" aria-label="Produkte">
-        <p class="footer-label">Produkte</p>
+      <nav class="footer-col footer-col--products" aria-label={lang === 'en' ? 'Products' : 'Produkte'} lang={lang === 'en' ? 'en' : undefined}>
+        <p class="footer-label">{lang === 'en' ? 'Products' : 'Produkte'}</p>
         <ul>
-          {products.map((p) => <li><a href={productUrl(p)}><span class="fp-name">{p.name}</span>{p.kind && <span class="fp-kind">{p.kind}</span>}</a></li>)}
+          {productLinks.map((x) => <li><a href={x.href}><span class="fp-name">{x.name}</span>{x.kind && <span class="fp-kind">{x.kind}</span>}</a></li>)}
         </ul>
       </nav>
 

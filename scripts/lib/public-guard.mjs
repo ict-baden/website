@@ -80,6 +80,12 @@ export const COMPETITOR_PATTERNS = [
   /CodeTwo|barcodrod|bcWebCam|BarcodeCam|ShareX/i,
   /Enterprise Keyboard|Hacker'?s Keyboard|Fully Kiosk|SureFox|SOTI Surf|Ivanti Velocity|StayLinked|Zebra Enterprise Browser|Honeywell Enterprise Browser/i,
   /WinCC-Alternative|PCS[- ]?7-Alternative|Ziath|DataPaq|UaExpert|iReasoning|YABE|OPSWAT/i,
+  // Produktname in Großschreibung ("Kiosk Browser Lockdown" u. a.); die Gattung schreibt sich "Kiosk-Browser" bzw. "kiosk browser"
+  /\bKiosk Browser\b/,
+  // Fremde Marke als Namensbestandteil unseres Produkts ("Zebra keyboard app", "DataWedge browser", "ZPL-Designer").
+  // Kompatibilität wird nominativ beschrieben: "Tastatur für Zebra-Geräte", "label designer for Zebra printers (ZPL)".
+  /\b(?:Zebra|DataWedge|Honeywell)[ -](?:keyboard|label (?:software|designer|editor)|browser|Tastatur(?:-App)?|Browser|Etikettensoftware|Etiketten-Software|Label-Software)\b/i,
+  /\bZPL[ -](?:Designer|Editor|label designer|label editor)\b/i,
 ];
 
 /** Erwähnungen fremder Produkte in nicht freigegebenen Produkten (approved = Menge der Produkt-ids mit "ersetzt": true). */

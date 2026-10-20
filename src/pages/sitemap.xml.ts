@@ -1,17 +1,18 @@
 // Sitemap aller Seiten (statisch erzeugt) mit Sprachfassungen (hreflang) und lastmod.
-// Produktseiten: lastmod = letzter Commit im Produkt-Repo (products.json "updated"). App-Datenschutzseiten
+// Produktseiten: lastmod = letzte Änderung am Inhalt der Seite (pageModified: Seitentext, Bilder, OG-Bild; ohne
+// Git-Verlauf der letzte Commit im Produkt-Repo). App-Datenschutzseiten
 // (/datenschutz/<app>/, PR #1) kommen von selbst dazu, sobald es sie gibt (src/lib/app-privacy.ts).
 import type { APIRoute } from 'astro';
 import { SITE_URL } from '../config';
 import { products } from '../lib/products';
-import { productUrlFor } from '../lib/produktseiten';
+import { pageModified, productUrlFor } from '../lib/produktseiten';
 import { appPrivacyPages } from '../lib/app-privacy';
 
 const STATIC = ['/', '/leistungen/', '/downloads/', '/werkzeuge/pulswertigkeit/', '/ueber-uns/', '/kontakt/', '/impressum/', '/datenschutz/'];
 
 type Entry = { loc: string; lastmod?: string | null; alternates?: { lang: string; href: string }[] };
 
-const latest = products.map((p) => p.updated).filter(Boolean).sort().at(-1) ?? null;
+const latest = products.map((p) => pageModified(p)).filter(Boolean).sort().at(-1) ?? null;
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
@@ -28,8 +29,8 @@ export const GET: APIRoute = async () => {
     ...products.flatMap((p) => {
       const alts = pair(productUrlFor(p, 'de'), productUrlFor(p, 'en'));
       return [
-        { loc: productUrlFor(p, 'de'), lastmod: p.updated, alternates: alts },
-        { loc: productUrlFor(p, 'en'), lastmod: p.updated, alternates: alts },
+        { loc: productUrlFor(p, 'de'), lastmod: pageModified(p), alternates: alts },
+        { loc: productUrlFor(p, 'en'), lastmod: pageModified(p), alternates: alts },
       ];
     }),
     ...(await appPrivacyPages()).map((app) => ({ loc: `/datenschutz/${app}/` })),

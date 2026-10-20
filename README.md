@@ -259,8 +259,8 @@ Every product has an app icon in the style of `marke/app-icon-vorlage.svg` from 
 | Vitrine | OT-Sicherheit & Compliance | `#5b8cff` | `#8b5cf6` | own | own icon from the repo |
 | Riegel | OT-Sicherheit & Compliance | `#f3821d` | `#ac281b` | own | own icon from the repo |
 | Zutritt | OT-Sicherheit & Compliance | `#22c3a6` | `#3b6cf6` | own | own icon from the repo |
-| EnterpriseBrowser | Android & Zebra | `#0d47a1` | `#0d47a1` | own | own icon from the repo |
-| Industrial Keyboard | Android & Zebra | `#2b5996` | `#08759b` | own | own icon from the repo |
+| Industrial Keyboard | Mobile Datenerfassung (Android) | `#2b5996` | `#08759b` | own | own icon from the repo |
+| EnterpriseBrowser | Mobile Datenerfassung (Android) | `#0d47a1` | `#0d47a1` | own | own icon from the repo |
 | Lupe | Barcodes & Etiketten | `#f7a531` | `#e8505b` | own | own icon from the repo |
 | Plakette | Barcodes & Etiketten | `#f995eb` | `#9059c0` | label tag | generated |
 <!-- product-icons:end -->

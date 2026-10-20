@@ -5,7 +5,9 @@
 // (Barcodes Stufe A, Zähler ohne Wiederholung). Status: in Entwicklung, keine Veröffentlichung – deshalb keine
 // Version, kein Download, kein Angebot im JSON-LD.
 // Nicht behaupten: Funktionsgleichheit mit einem Fremdprodukt (Ziel der Spezifikation, rechtlich prüfen), fertige
-// Funktionen über die README hinaus, Tests mit echter Druckerhardware.
+// Funktionen über die README hinaus, Tests mit echter Druckerhardware. Der Abschnitt „Woran gearbeitet wird“ ist
+// planned: kein Haken, nicht im featureList des JSON-LD. ZPL ist eine Marke von ZIH Corp. (Zebra): nur beschreibend
+// („druckt ZPL“, „Drucker mit ZPL“), nicht als Namensbestandteil („ZPL-Designer“).
 import type { ProductPage } from '../../lib/produktseiten';
 
 const page: ProductPage = {
@@ -25,6 +27,7 @@ const page: ProductPage = {
     title: 'Plakette – Etiketten-Designer für Zebra-Drucker (ZPL)',
     description: 'Etiketten-Designer für Zebra- und kompatible Drucker: druckt ZPL direkt – ohne Druckertreiber, Lizenzserver oder Adminrechte. Windows und Linux, in Entwicklung.',
     lead: 'Plakette ist ein Etiketten-Designer für Zebra- und kompatible Etikettendrucker: Er druckt ZPL direkt auf den Drucker – ohne Druckertreiber, ohne Lizenzserver und ohne Administratorrechte – und läuft unter Windows und Linux. Plakette ist in Entwicklung und wird {lizenz} erscheinen; eine Veröffentlichung gibt es noch nicht.',
+    independence: 'Plakette ist ein eigenständiges Produkt von ICT Baden und nicht mit Zebra Technologies verbunden.',
     sections: [
       {
         id: 'wofuer',
@@ -50,6 +53,7 @@ const page: ProductPage = {
       {
         id: 'in-arbeit',
         title: 'Woran gearbeitet wird',
+        planned: true,
         blocks: [
           {
             type: 'items',
@@ -90,15 +94,16 @@ const page: ProductPage = {
       { q: 'Bleiben meine Etikettendaten auf dem Rechner?', a: 'Ja. Die Oberfläche ist eine lokale Weboberfläche auf dem eigenen Rechner, kein Cloud-Dienst; die Daten bleiben lokal.' },
       { q: 'Wann erscheint Plakette?', a: 'Plakette ist in Entwicklung; einen Termin gibt es noch nicht. Schreiben Sie uns, wenn Sie bei der Veröffentlichung informiert werden möchten.' },
     ],
-    aka: ['Etikettendesigner', 'Etikettensoftware für Zebra-Drucker', 'ZPL-Designer', 'ZPL-Editor', 'Label-Designer', 'Barcode-Etiketten-Software'],
-    trademarks: 'Plakette ist ein eigenständiges Produkt von ICT Baden und nicht mit Zebra Technologies verbunden. Zebra ist eine Marke von Zebra Technologies, Windows eine Marke der Microsoft-Unternehmensgruppe; sie werden nur genannt, um die Kompatibilität zu beschreiben.',
+    aka: ['Etikettendesigner', 'Etikettensoftware', 'Etikettendruck-Software', 'Label-Designer', 'Barcode-Etiketten-Software'],
+    trademarks: 'Plakette ist ein eigenständiges Produkt von ICT Baden und nicht mit Zebra Technologies verbunden. Zebra ist eine Marke von Zebra Technologies, ZPL und ZPL II sind Marken der ZIH Corp. (Zebra Technologies); Windows, Excel und Office sind Marken der Microsoft-Unternehmensgruppe; Linux ist eine eingetragene Marke von Linus Torvalds; GS1 ist eine eingetragene Marke von GS1 AISBL; QR Code ist eine eingetragene Marke der DENSO WAVE INCORPORATED. Sie werden nur genannt, um die Kompatibilität zu beschreiben.',
   },
   en: {
-    title: 'Plakette – ZPL label designer for Zebra printers',
+    title: 'Plakette – label designer for Zebra printers (ZPL)',
     description: 'Label designer for Zebra and compatible printers: prints ZPL directly – no printer driver, licence server or admin rights. Windows and Linux, in development.',
-    kind: 'ZPL label designer for Zebra printers',
+    kind: 'Label designer for Zebra printers (ZPL)',
     tagline: 'Design labels, print ZPL.',
     lead: 'Plakette is a label designer for Zebra and compatible label printers: it prints ZPL directly to the printer – no printer driver, no licence server, no admin rights – and runs on Windows and Linux. Plakette is in development and will be released {lizenz}; there is no release yet.',
+    independence: 'Plakette is an independent product of ICT Baden and is not affiliated with Zebra Technologies.',
     sections: [
       {
         id: 'why',
@@ -124,6 +129,7 @@ const page: ProductPage = {
       {
         id: 'in-progress',
         title: 'What is being built',
+        planned: true,
         blocks: [
           {
             type: 'items',
@@ -164,14 +170,14 @@ const page: ProductPage = {
       { q: 'Does my label data stay on my computer?', a: 'Yes. The user interface is a local web UI on your own computer, not a cloud service; the data stays local.' },
       { q: 'When will Plakette be released?', a: 'Plakette is in development; there is no date yet. Write to us if you would like to be informed about the release.' },
     ],
-    aka: ['ZPL label designer', 'Zebra label software', 'ZPL editor', 'label design software', 'barcode label software', 'label printing software'],
+    aka: ['label designer', 'label design software', 'barcode label software', 'label printing software', 'label editor'],
     facts: [
       ['Platform', 'Windows 10 and 11, Linux (x64, arm64)'],
       ['Printers', 'Zebra and compatible label printers (ZPL)'],
       ['User interface', 'German and English; Spanish, French and Chinese machine pre-translated'],
       ['Data', 'stays on the computer'],
     ],
-    trademarks: 'Plakette is an independent product of ICT Baden and is not affiliated with Zebra Technologies. Zebra is a trademark of Zebra Technologies, Windows a trademark of the Microsoft group of companies; they are named only to describe compatibility.',
+    trademarks: 'Plakette is an independent product of ICT Baden and is not affiliated with Zebra Technologies. Zebra is a trademark of Zebra Technologies, ZPL and ZPL II are trademarks of ZIH Corp. (Zebra Technologies); Windows, Excel and Office are trademarks of the Microsoft group of companies; Linux is a registered trademark of Linus Torvalds; GS1 is a registered trademark of GS1 AISBL; QR Code is a registered trademark of DENSO WAVE INCORPORATED. They are named only to describe compatibility.',
   },
 };
 

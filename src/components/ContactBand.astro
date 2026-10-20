@@ -82,7 +82,7 @@ const {
   .cband-addr { display: flex; align-items: flex-start; gap: 0.5em; margin-top: var(--s-2); color: var(--ink-2); font-size: var(--fs-sm); }
   .cband-addr :global(.icon) { width: 1.05rem; height: 1.05rem; margin-top: 0.2em; color: #111111; }
   @media (max-width: 860px) {
-    .cband-inner { grid-template-columns: 1fr; }
+    .cband-inner { grid-template-columns: minmax(0, 1fr); overflow-wrap: anywhere; }
   }
   @media (max-width: 420px) {
     .cband-btn { font-size: var(--fs-sm); padding-inline: 1rem; }
