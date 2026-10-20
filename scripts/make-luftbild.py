@@ -32,7 +32,6 @@ BAHNHOF = (49.0026082, 8.4625733)        # Haltestelle Karlsruhe-Durlach Bahnhof
 AUER = (49.0004421, 8.4634778)           # Haltestelle Auer Straße/Dr. Willmar Schwabe
 # Herkunft der Autowege: die Route wird wirklich von dort berechnet und am Bildrand abgeschnitten
 FRANKFURT = (50.11, 8.68)                # A5 nach Süden, Ausfahrt Karlsruhe-Durlach
-BASEL = (47.56, 7.59)                    # A5 nach Norden
 STUTTGART = (48.78, 9.18)                # A8 bis Dreieck Karlsruhe, dann A5 nach Norden
 CROSS = (49.0019457, 8.4670985)          # Pforzheimer Straße × Pfinzstraße
 PFINZ_END = (49.0017813, 8.4690696)      # Pfinzstraße auf Höhe ICT
@@ -107,7 +106,6 @@ def car_route(origin):
 
 
 car_f, steps_f = car_route(FRANKFURT)
-car_b, steps_b = car_route(BASEL)
 car_s, steps_s = car_route(STUTTGART)
 zug, _, _ = route('foot', [BAHNHOF, ICT])
 tram, _, _ = route('foot', [AUER, ICT])
@@ -142,8 +140,8 @@ data = {
     'ict': [round(v, 1) for v in xy(*ICT)],
     'bahnhof': [round(v, 1) for v in xy(*BAHNHOF)],
     'auer': [round(v, 1) for v in xy(*AUER)],
-    # A5: beide Richtungen (aus Frankfurt nach Süden, aus Basel nach Norden), A8: über das Dreieck Karlsruhe nach Norden
-    'a5': [d(car_f), d(car_b)], 'a8': [d(car_s)], 'zug': d(zug), 'tram': d(tram),
+    # A5: aus Richtung Frankfurt (Ausfahrt über die Schleife), A8: über das Dreieck Karlsruhe nach Norden (südliche Abfahrt)
+    'a5': [d(car_f)], 'a8': [d(car_s)], 'zug': d(zug), 'tram': d(tram),
     # Schritte A5 (Ausfahrt, B10, Allee weiter, Pforzheimer, Pfinzstraße, Hofeinfahrt, links, Parkplatz) nach dem Weg aus Frankfurt;
     # A8 (A8 bis Dreieck, A5 Richtung Frankfurt, Ausfahrt, weiter wie A5)
     'satA5': [f_off, f_allee, f_fork, f_pforz, f_pfinz, 1, 1, 1],
