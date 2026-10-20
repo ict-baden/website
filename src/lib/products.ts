@@ -34,8 +34,10 @@ export interface Product {
 }
 export interface Linie { id: string; name: string; text: string }
 
-export const linien: Linie[] = data.linien;
-export const products: Product[] = data.products as Product[];
+// Geplante Produkte (nur Konzept) zeigt die Webseite nicht – weder in Listen noch als eigene Seite; Produktlinien
+// ohne gezeigtes Produkt fallen ebenfalls weg (Entscheidung 2026-10-20)
+export const products: Product[] = (data.products as Product[]).filter((p) => p.statusKey !== 'geplant');
+export const linien: Linie[] = data.linien.filter((l) => products.some((p) => p.linie === l.id));
 export const stand: string | null = data.stand;
 
 /** Symbol und Kurzbeschreibung je Produktlinie (Symbol für erzeugte Motive). */
@@ -49,7 +51,7 @@ export const LINE_ICON: Record<string, IconName> = {
   neu: 'sparkle',
 };
 
-export const STATUS_ORDER: StatusKey[] = ['verfuegbar', 'vorabversion', 'in-entwicklung', 'geplant'];
+export const STATUS_ORDER: StatusKey[] = ['verfuegbar', 'vorabversion', 'in-entwicklung'];
 export const STATUS_LABEL: Record<StatusKey, string> = {
   verfuegbar: 'Verfügbar',
   vorabversion: 'Vorabversion',

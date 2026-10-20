@@ -93,7 +93,7 @@ if (!process.argv.includes('--no-og')) {
     stdio: 'inherit',
     env: { ...process.env, OG_TEMPLATES: '1', ASTRO_TELEMETRY_DISABLED: '1' },
   });
-  const products = JSON.parse(readFileSync(join(ROOT, 'src/data/products.json'), 'utf8')).products;
+  const products = JSON.parse(readFileSync(join(ROOT, 'src/data/products.json'), 'utf8')).products.filter((p) => p.statusKey !== 'geplant'); // geplante werden nicht gezeigt
   const only = process.argv.includes('--only') ? process.argv[process.argv.indexOf('--only') + 1].split(',') : null;
   const { server, url } = await serve(outDir);
   const browser = await launch();

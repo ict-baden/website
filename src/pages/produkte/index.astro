@@ -13,13 +13,13 @@ const total = statusCounts(products);
 ---
 <Base
   title="Produkte"
-  description={`${products.length} Software-Produkte von ICT Baden in ${linien.length} Produktlinien: Android & Zebra, Labor, OT-Sicherheit, Explorer für Industrieprotokolle, Service-Laptop und Self-hosted Server-Apps.`}
+  description={`${products.length} Software-Produkte von ICT Baden in ${linien.length} Produktlinien: ${linien.map((l) => l.name).join(', ')}.`}
   scripts={['products.js']}
 >
   <PageHero
     eyebrow="Eigene Produkte"
     title="Software-Produkte für Industrie, Labor und IT"
-    lead={`${plural(products.length, 'Produkt', 'Produkte')} in ${linien.length} Produktlinien – von der fertigen Anwendung bis zur geplanten Lösung. Zu jedem Produkt beraten wir Sie gern persönlich.`}
+    lead={`${plural(products.length, 'Produkt', 'Produkte')} in ${linien.length} Produktlinien – fertige Anwendungen, Vorabversionen und Produkte in Entwicklung. Zu jedem Produkt beraten wir Sie gern persönlich.`}
     crumbs={[{ label: 'Produkte' }]}
   >
     <ul class="legend" aria-label="Status der Produkte">
