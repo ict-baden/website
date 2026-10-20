@@ -1,5 +1,5 @@
 {
-  "stand": "2026-10-17",
+  "stand": "2026-10-20",
   "linien": [
     {
       "id": "android",
@@ -39,172 +39,6 @@
   ],
   "products": [
     {
-      "id": "industrialkeyboard",
-      "slug": "industrial-keyboard",
-      "nr": 3,
-      "name": "Industrial Keyboard",
-      "kind": "Android-Tastatur",
-      "tagline": "Schnelle, zuverlässige Dateneingabe auf robusten Android-Geräten.",
-      "linie": "android",
-      "status": "fertig",
-      "statusKey": "verfuegbar",
-      "statusLabel": "Verfügbar",
-      "version": null,
-      "text": "Android-Tastatur mit F1–F24 und Sondertasten für alle Apps, auch RDP, Terminal-Emulatoren und SAP.",
-      "sections": {
-        "problem": null,
-        "ersetzt": null,
-        "umfang": null
-      },
-      "highlights": [
-        "F1–F24",
-        "Scan-Taste eingebaut",
-        "Große Tasten für Handschuhe",
-        "Konfiguration per MDM"
-      ],
-      "facts": [
-        {
-          "label": "Plattform",
-          "value": "Android 8.0 und neuer, Zebra und Honeywell"
-        },
-        {
-          "label": "Tasten",
-          "value": "F1–F24, Esc, Ins, Del, Pfeiltasten, eigene Tasten und Makros"
-        },
-        {
-          "label": "Layouts",
-          "value": "QWERTY, QWERTZ, AZERTY, Nordisch und Spanisch"
-        },
-        {
-          "label": "Verwaltung",
-          "value": "Managed Configuration per MDM (SOTI, Intune, Workspace ONE), Konfigurationsdatei, StageNow"
-        },
-        {
-          "label": "Datenschutz",
-          "value": "keine Internet-Berechtigung, kein Wörterbuch, nichts Getipptes wird gespeichert"
-        }
-      ],
-      "media": {
-        "logo": "/media/produkte/industrial-keyboard/logo.webp",
-        "colors": [
-          "#2b5996",
-          "#08759b"
-        ],
-        "banner": null,
-        "demo": null,
-        "screenshots": [
-          {
-            "name": "screen-alpha",
-            "title": "Buchstaben",
-            "caption": "Tastenvorschau über dem Finger, Reiter für Zahlen, Zeichen, Funktionstasten und Scan.",
-            "alt": "Testformular mit den Feldern Item number, Quantity, Weight (kg) und Phone, darunter die Tastatur mit QWERTZ-Buchstaben, der Reiterleiste ABC, 123, #+=, Fn und Scan und der Vorschau der gedrückten Taste g.",
-            "light": {
-              "src": "/media/produkte/industrial-keyboard/screen-alpha-light-520.webp",
-              "srcset": "/media/produkte/industrial-keyboard/screen-alpha-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-numeric",
-            "title": "Zahlenblock",
-            "caption": "Öffnet sich in Zahlenfeldern von selbst.",
-            "alt": "Feld Quantity aktiv, die Tastatur zeigt im dunklen Design den Zahlenblock mit Ziffern, Komma, Punkt, Tab und Enter.",
-            "light": {
-              "src": "/media/produkte/industrial-keyboard/screen-numeric-light-520.webp",
-              "srcset": "/media/produkte/industrial-keyboard/screen-numeric-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-scan",
-            "title": "Scan-Reiter",
-            "caption": "Tippen zum Scannen, halten für Dauerscan.",
-            "alt": "Scan-Reiter mit großer blauer Auslösefläche „Scanning …“ und dem Hinweis auf Dauerscan mit Zebra DataWedge.",
-            "light": {
-              "src": "/media/produkte/industrial-keyboard/screen-scan-light-520.webp",
-              "srcset": "/media/produkte/industrial-keyboard/screen-scan-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-function",
-            "title": "Funktionstasten",
-            "caption": "F1–F24, Esc, Ins, Del und Pfeiltasten – etwa für Terminal-Emulatoren.",
-            "alt": "Fn-Reiter im kontrastreichen Design mit F1 bis F12, Esc, Home, End, PgUp, PgDn, Ins, Del und den Pfeiltasten.",
-            "light": {
-              "src": "/media/produkte/industrial-keyboard/screen-function-light-520.webp",
-              "srcset": "/media/produkte/industrial-keyboard/screen-function-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-custom",
-            "title": "Eigene Layouts",
-            "caption": "Eigene Tasten als zusätzlicher Reiter, festgelegt in der Konfiguration – ohne App-Update.",
-            "alt": "Eigener Reiter Pick mit den Tasten OK, Skip, Short, Damaged, Scan und Numbers.",
-            "light": {
-              "src": "/media/produkte/industrial-keyboard/screen-custom-light-520.webp",
-              "srcset": "/media/produkte/industrial-keyboard/screen-custom-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-settings",
-            "title": "Einstellungen",
-            "caption": "Mit Live-Vorschau, durch Kennwort geschützt.",
-            "alt": "Keyboard settings mit Vorschau der Tastatur, Design System, Light, Dark oder High contrast, Akzentfarbe und Tastenhöhe 100 %.",
-            "light": {
-              "src": "/media/produkte/industrial-keyboard/screen-settings-light-520.webp",
-              "srcset": "/media/produkte/industrial-keyboard/screen-settings-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          }
-        ],
-        "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert."
-      }
-    },
-    {
-      "id": "labeldesigner",
-      "slug": "labeldesigner",
-      "nr": 4,
-      "name": "Labeldesigner",
-      "kind": null,
-      "tagline": null,
-      "linie": "android",
-      "status": "fertig",
-      "statusKey": "verfuegbar",
-      "statusLabel": "Verfügbar",
-      "version": null,
-      "text": "Etiketten für Zebra-Drucker im Browser gestalten und als ZPL ausgeben.",
-      "sections": {
-        "problem": null,
-        "ersetzt": null,
-        "umfang": null
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
       "id": "enterprisebrowser",
       "slug": "enterprisebrowser",
       "nr": 2,
@@ -212,10 +46,10 @@
       "kind": "Kiosk-Browser",
       "tagline": "Web-Apps auf robusten Android-Geräten.",
       "linie": "android",
-      "status": "fast-fertig",
-      "statusKey": "vorabversion",
-      "statusLabel": "Vorabversion 0.3.1",
-      "version": "0.3.1",
+      "status": "fertig",
+      "statusKey": "verfuegbar",
+      "statusLabel": "Verfügbar",
+      "version": "0.5.0",
       "text": "Kiosk-Browser für Zebra und Honeywell mit DataWedge-Scan, Profilen, CSS/JS-Injection und Konfiguration per MDM (SOTI, Intune, StageNow).",
       "sections": {
         "problem": null,
@@ -339,6 +173,143 @@
           }
         ],
         "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert; Namen und Adressen sind Beispiele."
+      }
+    },
+    {
+      "id": "industrialkeyboard",
+      "slug": "industrial-keyboard",
+      "nr": 3,
+      "name": "Industrial Keyboard",
+      "kind": "Android-Tastatur",
+      "tagline": "Schnelle, zuverlässige Dateneingabe auf robusten Android-Geräten.",
+      "linie": "android",
+      "status": "fertig",
+      "statusKey": "verfuegbar",
+      "statusLabel": "Verfügbar",
+      "version": "2.0.0",
+      "text": "Android-Tastatur mit F1–F24 und Sondertasten für alle Apps, auch RDP, Terminal-Emulatoren und SAP.",
+      "sections": {
+        "problem": null,
+        "ersetzt": null,
+        "umfang": null
+      },
+      "highlights": [
+        "F1–F24",
+        "Scan-Taste eingebaut",
+        "Große Tasten für Handschuhe",
+        "Konfiguration per MDM"
+      ],
+      "facts": [
+        {
+          "label": "Plattform",
+          "value": "Android 8.0 und neuer, Zebra und Honeywell"
+        },
+        {
+          "label": "Tasten",
+          "value": "F1–F24, Esc, Ins, Del, Pfeiltasten, eigene Tasten und Makros"
+        },
+        {
+          "label": "Layouts",
+          "value": "QWERTY, QWERTZ, AZERTY, Nordisch und Spanisch"
+        },
+        {
+          "label": "Verwaltung",
+          "value": "Managed Configuration per MDM (SOTI, Intune, Workspace ONE), Konfigurationsdatei, StageNow"
+        },
+        {
+          "label": "Datenschutz",
+          "value": "keine Internet-Berechtigung, kein Wörterbuch, nichts Getipptes wird gespeichert"
+        }
+      ],
+      "media": {
+        "logo": "/media/produkte/industrial-keyboard/logo.webp",
+        "colors": [
+          "#2b5996",
+          "#08759b"
+        ],
+        "banner": null,
+        "demo": null,
+        "screenshots": [
+          {
+            "name": "screen-alpha",
+            "title": "Buchstaben",
+            "caption": "Tastenvorschau über dem Finger, Reiter für Zahlen, Zeichen, Funktionstasten und Scan.",
+            "alt": "Testformular mit den Feldern Item number, Quantity, Weight (kg) und Phone, darunter die Tastatur mit QWERTZ-Buchstaben, der Reiterleiste ABC, 123, #+=, Fn und Scan und der Vorschau der gedrückten Taste g.",
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/screen-alpha-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/screen-alpha-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-numeric",
+            "title": "Zahlenblock",
+            "caption": "Öffnet sich in Zahlenfeldern von selbst.",
+            "alt": "Feld Quantity aktiv, die Tastatur zeigt im dunklen Design den Zahlenblock mit Ziffern, Komma, Punkt, Tab und Enter.",
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/screen-numeric-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/screen-numeric-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-scan",
+            "title": "Scan-Reiter",
+            "caption": "Tippen zum Scannen, halten für Dauerscan.",
+            "alt": "Scan-Reiter mit großer blauer Auslösefläche „Scanning …“ und dem Hinweis auf Dauerscan mit Zebra DataWedge.",
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/screen-scan-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/screen-scan-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-function",
+            "title": "Funktionstasten",
+            "caption": "F1–F24, Esc, Ins, Del und Pfeiltasten – etwa für Terminal-Emulatoren.",
+            "alt": "Fn-Reiter im kontrastreichen Design mit F1 bis F12, Esc, Home, End, PgUp, PgDn, Ins, Del und den Pfeiltasten.",
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/screen-function-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/screen-function-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-custom",
+            "title": "Eigene Layouts",
+            "caption": "Eigene Tasten als zusätzlicher Reiter, festgelegt in der Konfiguration – ohne App-Update.",
+            "alt": "Eigener Reiter Pick mit den Tasten OK, Skip, Short, Damaged, Scan und Numbers.",
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/screen-custom-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/screen-custom-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-settings",
+            "title": "Einstellungen",
+            "caption": "Mit Live-Vorschau, durch Kennwort geschützt.",
+            "alt": "Keyboard settings mit Vorschau der Tastatur, Design System, Light, Dark oder High contrast, Akzentfarbe und Tastenhöhe 100 %.",
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/screen-settings-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/screen-settings-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          }
+        ],
+        "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert."
       }
     },
     {
@@ -474,13 +445,13 @@
               "src": "/media/produkte/lupe/result-light-630.webp",
               "srcset": "/media/produkte/lupe/result-light-630.webp 630w",
               "width": 630,
-              "height": 291
+              "height": 292
             },
             "dark": {
               "src": "/media/produkte/lupe/result-dark-630.webp",
               "srcset": "/media/produkte/lupe/result-dark-630.webp 630w",
               "width": 630,
-              "height": 291
+              "height": 292
             }
           },
           {
@@ -521,6 +492,46 @@
           }
         ],
         "galleryNote": "Abbildungen mit Beispieldaten aus dem Demo-Modus."
+      }
+    },
+    {
+      "id": "labeldesigner",
+      "slug": "plakette",
+      "nr": 4,
+      "name": "Plakette",
+      "kind": "Label-Designer",
+      "tagline": "Etiketten für Zebra-Drucker gestalten",
+      "linie": "labor",
+      "status": "angefangen",
+      "statusKey": "in-entwicklung",
+      "statusLabel": "In Entwicklung",
+      "version": "0.1.0",
+      "text": "Etiketten für Zebra-Drucker gestalten und drucken, als Desktop-App für Windows und Linux: Text, Strichcodes, Grafiken, Datenbanken, Zähler und Druckprotokoll.",
+      "sections": {
+        "problem": null,
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Desktop-App für Windows x64 und Linux x64/arm64, Befehlszeile mit festen Exitcodes.",
+              "Ausgabe ZPL, Vorschau = Druck (gleiche Geometrie), Import von ZPL."
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": "/media/produkte/plakette/logo.svg",
+        "colors": [
+          "#f995eb",
+          "#9059c0"
+        ],
+        "banner": null,
+        "demo": null,
+        "screenshots": [],
+        "galleryNote": null
       }
     },
     {
@@ -581,9 +592,25 @@
       "version": null,
       "text": "Transparente Bildschirmsperre: Programme bleiben sichtbar, Tastatur und Maus sind gesperrt. Mit Entra ID, elektronischer Signatur und manipulationserkennendem Protokoll.",
       "sections": {
-        "problem": null,
+        "problem": [
+          {
+            "type": "p",
+            "text": "Auf Leitstand-, Mess- und Labor-PCs müssen Programme sichtbar weiterlaufen (Messung, Prozessbild), aber niemand soll in einer fremden Sitzung eingreifen. Die Windows-Sperre verdeckt alles; vorhandene „transparente Bildschirmsperren“ sind proprietär und pro Gerät lizenziert."
+          }
+        ],
         "ersetzt": null,
-        "umfang": null
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Durchsichtige oder verdeckte Sperre, Tastenkürzel, Leerlauf, Zeitplan, Bildschirmschoner-Modus",
+              "Entsperren mit Microsoft Entra ID (WAM), Windows-Kennwort, Windows Hello, gemeinsamem Entsperr-Kennwort oder Plugin; Regeln, wer entsperren darf",
+              "Elektronische Signatur für Fachanwendungen über eine lokale Named Pipe",
+              "Manipulationserkennendes Protokoll (Hash-Kette), Netzkopie, Ereignisprotokoll",
+              "Gruppenrichtlinien/Intune (ADMX), MSI"
+            ]
+          }
+        ]
       },
       "highlights": [
         "Microsoft Entra ID",
@@ -620,14 +647,7 @@
           "#8b5cf6"
         ],
         "banner": null,
-        "demo": {
-          "src": "/media/produkte/vitrine/demo.webp",
-          "still": "/media/produkte/vitrine/demo-still.webp",
-          "width": 900,
-          "height": 474,
-          "alt": "Animation: Eine HPLC-Messkurve läuft unter der durchsichtigen Sperre weiter. Ein Klick öffnet den Entsperrdialog, „Weiter mit Microsoft“ entsperrt den Arbeitsplatz.",
-          "caption": "Die Messung läuft unter der Sperre weiter › Klick öffnet den Entsperrdialog › „Weiter mit Microsoft“ › entsperrt"
-        },
+        "demo": null,
         "screenshots": [
           {
             "name": "lock",
@@ -638,13 +658,13 @@
               "src": "/media/produkte/vitrine/lock-light-1600.webp",
               "srcset": "/media/produkte/vitrine/lock-light-800.webp 800w, /media/produkte/vitrine/lock-light-1600.webp 1600w",
               "width": 1600,
-              "height": 842
+              "height": 1103
             },
             "dark": {
               "src": "/media/produkte/vitrine/lock-dark-1600.webp",
               "srcset": "/media/produkte/vitrine/lock-dark-800.webp 800w, /media/produkte/vitrine/lock-dark-1600.webp 1600w",
               "width": 1600,
-              "height": 842
+              "height": 1103
             }
           },
           {
@@ -653,16 +673,16 @@
             "caption": "Über den Windows-Kontobroker: MFA, Authenticator, Passkeys/FIDO2, Windows Hello for Business, Conditional Access.",
             "alt": "Entsperrdialog mit den Verfahren Microsoft, Kennwort und Hello und der Schaltfläche „Weiter mit Microsoft“.",
             "light": {
-              "src": "/media/produkte/vitrine/unlock-light-1600.webp",
-              "srcset": "/media/produkte/vitrine/unlock-light-800.webp 800w, /media/produkte/vitrine/unlock-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 842
+              "src": "/media/produkte/vitrine/unlock-light-936.webp",
+              "srcset": "/media/produkte/vitrine/unlock-light-800.webp 800w, /media/produkte/vitrine/unlock-light-936.webp 936w",
+              "width": 936,
+              "height": 1052
             },
             "dark": {
-              "src": "/media/produkte/vitrine/unlock-dark-1600.webp",
-              "srcset": "/media/produkte/vitrine/unlock-dark-800.webp 800w, /media/produkte/vitrine/unlock-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 842
+              "src": "/media/produkte/vitrine/unlock-dark-936.webp",
+              "srcset": "/media/produkte/vitrine/unlock-dark-800.webp 800w, /media/produkte/vitrine/unlock-dark-936.webp 936w",
+              "width": 936,
+              "height": 1052
             }
           },
           {
@@ -671,16 +691,16 @@
             "caption": "Fachanwendungen fordern über eine lokale Schnittstelle eine Signatur an. Person, Zeitpunkt, Grund und Bedeutung landen im Protokoll.",
             "alt": "Signaturdialog: „Sie signieren elektronisch – Freigabe Sequenz QC-2026-1012, Bedeutung: Geprüft und freigegeben, angefordert von ChromLab 7“.",
             "light": {
-              "src": "/media/produkte/vitrine/sign-light-1600.webp",
-              "srcset": "/media/produkte/vitrine/sign-light-800.webp 800w, /media/produkte/vitrine/sign-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 842
+              "src": "/media/produkte/vitrine/sign-light-936.webp",
+              "srcset": "/media/produkte/vitrine/sign-light-800.webp 800w, /media/produkte/vitrine/sign-light-936.webp 936w",
+              "width": 936,
+              "height": 1238
             },
             "dark": {
-              "src": "/media/produkte/vitrine/sign-dark-1600.webp",
-              "srcset": "/media/produkte/vitrine/sign-dark-800.webp 800w, /media/produkte/vitrine/sign-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 842
+              "src": "/media/produkte/vitrine/sign-dark-936.webp",
+              "srcset": "/media/produkte/vitrine/sign-dark-800.webp 800w, /media/produkte/vitrine/sign-dark-936.webp 936w",
+              "width": 936,
+              "height": 1238
             }
           },
           {
@@ -692,13 +712,13 @@
               "src": "/media/produkte/vitrine/blank-light-1600.webp",
               "srcset": "/media/produkte/vitrine/blank-light-800.webp 800w, /media/produkte/vitrine/blank-light-1600.webp 1600w",
               "width": 1600,
-              "height": 842
+              "height": 1103
             },
             "dark": {
               "src": "/media/produkte/vitrine/blank-dark-1600.webp",
               "srcset": "/media/produkte/vitrine/blank-dark-800.webp 800w, /media/produkte/vitrine/blank-dark-1600.webp 1600w",
               "width": 1600,
-              "height": 842
+              "height": 1103
             }
           },
           {
@@ -710,13 +730,13 @@
               "src": "/media/produkte/vitrine/settings-audit-light-1600.webp",
               "srcset": "/media/produkte/vitrine/settings-audit-light-800.webp 800w, /media/produkte/vitrine/settings-audit-light-1600.webp 1600w",
               "width": 1600,
-              "height": 842
+              "height": 1091
             },
             "dark": {
               "src": "/media/produkte/vitrine/settings-audit-dark-1600.webp",
               "srcset": "/media/produkte/vitrine/settings-audit-dark-800.webp 800w, /media/produkte/vitrine/settings-audit-dark-1600.webp 1600w",
               "width": 1600,
-              "height": 842
+              "height": 1091
             }
           },
           {
@@ -725,20 +745,179 @@
             "caption": "Flyout mit Status und Sperr-Knöpfen. Fluent-Design in Hell, Dunkel oder hohem Kontrast, mit Windows- oder Firmen-Akzentfarbe.",
             "alt": "Infobereich-Flyout mit der Statuskarte „Bereit“ und den Einträgen „Jetzt durchsichtig sperren“, „Verdeckt sperren“ und „Protokoll“.",
             "light": {
-              "src": "/media/produkte/vitrine/tray-light-1600.webp",
-              "srcset": "/media/produkte/vitrine/tray-light-800.webp 800w, /media/produkte/vitrine/tray-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 842
+              "src": "/media/produkte/vitrine/tray-light-720.webp",
+              "srcset": "/media/produkte/vitrine/tray-light-720.webp 720w",
+              "width": 720,
+              "height": 726
             },
             "dark": {
-              "src": "/media/produkte/vitrine/tray-dark-1600.webp",
-              "srcset": "/media/produkte/vitrine/tray-dark-800.webp 800w, /media/produkte/vitrine/tray-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 842
+              "src": "/media/produkte/vitrine/tray-dark-720.webp",
+              "srcset": "/media/produkte/vitrine/tray-dark-720.webp 720w",
+              "width": 720,
+              "height": 726
             }
           }
         ],
         "galleryNote": "Die Abbildungen stammen aus einer interaktiven Design-Vorschau der Anwendung; Namen und Werte sind Beispiele."
+      }
+    },
+    {
+      "id": "haertungs-check",
+      "slug": "riegel",
+      "nr": 22,
+      "name": "Riegel",
+      "kind": "Härtungs-Check",
+      "tagline": null,
+      "linie": "ot",
+      "status": "fast-fertig",
+      "statusKey": "vorabversion",
+      "statusLabel": "Vorabversion 0.1.0",
+      "version": "0.1.0",
+      "text": "Prüft Windows-Rechner in Anlagen, Laboren und Leitständen lesend und offline gegen ein eigenes Härtungs-Regelwerk, hält begründete Ausnahmen, Zuschnitt und Maßnahmen pro Anlage fest und erzeugt Nachweise zum Abzeichnen (PDF, Excel, JSON) mit Vergleich zum letzten und zum freigegebenen Stand.",
+      "sections": {
+        "problem": [
+          {
+            "type": "p",
+            "text": "Windows-Rechner in Anlagen, Laboren und Leitständen sollen gehärtet sein (IEC 62443, NIS2, Audits), lassen sich aber oft nicht voll härten, weil die Anlagensoftware bestimmte Einstellungen braucht. Heute wird entweder gar nicht geprüft oder mit Werkzeugen, die jede Abweichung als Fehler zeigen. Am Ende fehlt ein Bericht, der zeigt: Was ist gehärtet, was ist bewusst offen und warum."
+          }
+        ],
+        "ersetzt": null,
+        "umfang": [
+          {
+            "type": "ul",
+            "items": [
+              "Desktop-Tool für Windows, läuft lokal auf dem Rechner oder wertet einen mitgebrachten Export aus (für Rechner ohne Netz); Befehlszeile auch für Linux",
+              "Eigenes Regelwerk mit Belegen aus öffentlichen Härtungsempfehlungen; eigene Vorgaben und GPO-Sicherungen lassen sich importieren",
+              "Ergebnis pro Regel: erfüllt, nicht erfüllt, bewusst offen",
+              "Ausnahmen mit Begründung, Name und Datum, als Datei pro Anlage gespeichert und beim nächsten Lauf wiederverwendet",
+              "Vergleich mit dem letzten Lauf: Was hat sich verschlechtert?",
+              "Bericht als PDF/Excel zum Abzeichnen",
+              "Optional: fehlende Einstellungen als GPO- oder Skript-Vorschlag ausgeben, nicht automatisch anwenden"
+            ]
+          }
+        ]
+      },
+      "highlights": [],
+      "facts": [],
+      "media": {
+        "logo": "/media/produkte/riegel/logo.svg",
+        "colors": [
+          "#f3821d",
+          "#ac281b"
+        ],
+        "banner": null,
+        "demo": null,
+        "screenshots": [
+          {
+            "name": "approval-dialog",
+            "title": "Approval dialog",
+            "caption": null,
+            "alt": "Bildschirmfoto von Riegel: Approval dialog",
+            "light": {
+              "src": "/media/produkte/riegel/approval-dialog-light-1080.webp",
+              "srcset": "/media/produkte/riegel/approval-dialog-light-800.webp 800w, /media/produkte/riegel/approval-dialog-light-1080.webp 1080w",
+              "width": 1080,
+              "height": 753
+            },
+            "dark": {
+              "src": "/media/produkte/riegel/approval-dialog-dark-1080.webp",
+              "srcset": "/media/produkte/riegel/approval-dialog-dark-800.webp 800w, /media/produkte/riegel/approval-dialog-dark-1080.webp 1080w",
+              "width": 1080,
+              "height": 753
+            }
+          },
+          {
+            "name": "catalogue",
+            "title": "Catalogue",
+            "caption": null,
+            "alt": "Bildschirmfoto von Riegel: Catalogue",
+            "light": {
+              "src": "/media/produkte/riegel/catalogue-light-1600.webp",
+              "srcset": "/media/produkte/riegel/catalogue-light-800.webp 800w, /media/produkte/riegel/catalogue-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            },
+            "dark": {
+              "src": "/media/produkte/riegel/catalogue-dark-1600.webp",
+              "srcset": "/media/produkte/riegel/catalogue-dark-800.webp 800w, /media/produkte/riegel/catalogue-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            }
+          },
+          {
+            "name": "comparison",
+            "title": "Comparison",
+            "caption": null,
+            "alt": "Bildschirmfoto von Riegel: Comparison",
+            "light": {
+              "src": "/media/produkte/riegel/comparison-light-1600.webp",
+              "srcset": "/media/produkte/riegel/comparison-light-800.webp 800w, /media/produkte/riegel/comparison-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            },
+            "dark": {
+              "src": "/media/produkte/riegel/comparison-dark-1600.webp",
+              "srcset": "/media/produkte/riegel/comparison-dark-800.webp 800w, /media/produkte/riegel/comparison-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            }
+          },
+          {
+            "name": "exception-dialog",
+            "title": "Exception dialog",
+            "caption": null,
+            "alt": "Bildschirmfoto von Riegel: Exception dialog",
+            "light": {
+              "src": "/media/produkte/riegel/exception-dialog-light-1080.webp",
+              "srcset": "/media/produkte/riegel/exception-dialog-light-800.webp 800w, /media/produkte/riegel/exception-dialog-light-1080.webp 1080w",
+              "width": 1080,
+              "height": 1192
+            },
+            "dark": {
+              "src": "/media/produkte/riegel/exception-dialog-dark-1080.webp",
+              "srcset": "/media/produkte/riegel/exception-dialog-dark-800.webp 800w, /media/produkte/riegel/exception-dialog-dark-1080.webp 1080w",
+              "width": 1080,
+              "height": 1192
+            }
+          },
+          {
+            "name": "exceptions",
+            "title": "Exceptions",
+            "caption": null,
+            "alt": "Bildschirmfoto von Riegel: Exceptions",
+            "light": {
+              "src": "/media/produkte/riegel/exceptions-light-1600.webp",
+              "srcset": "/media/produkte/riegel/exceptions-light-800.webp 800w, /media/produkte/riegel/exceptions-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            },
+            "dark": {
+              "src": "/media/produkte/riegel/exceptions-dark-1600.webp",
+              "srcset": "/media/produkte/riegel/exceptions-dark-800.webp 800w, /media/produkte/riegel/exceptions-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            }
+          },
+          {
+            "name": "machines",
+            "title": "Machines",
+            "caption": null,
+            "alt": "Bildschirmfoto von Riegel: Machines",
+            "light": {
+              "src": "/media/produkte/riegel/machines-light-1600.webp",
+              "srcset": "/media/produkte/riegel/machines-light-800.webp 800w, /media/produkte/riegel/machines-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            },
+            "dark": {
+              "src": "/media/produkte/riegel/machines-dark-1600.webp",
+              "srcset": "/media/produkte/riegel/machines-dark-800.webp 800w, /media/produkte/riegel/machines-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            }
+          }
+        ],
+        "galleryNote": null
       }
     },
     {
@@ -1050,53 +1229,6 @@
               "Erkennen: verwaiste Konten, Sammelkonten, Ausgeschiedene, Rollenabweichungen gegen Soll-Matrix, lange nicht angemeldet",
               "Vergleich mit dem letzten Review, als Datei gespeichert",
               "Review-Sheet als PDF/Excel zum Abzeichnen, optional elektronisch signiert (aus Vitrine)"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "haertungs-check",
-      "slug": "haertungs-check",
-      "nr": 22,
-      "name": "Härtungs-Check",
-      "kind": null,
-      "tagline": null,
-      "linie": "ot",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Prüft Windows-Rechner in der OT gegen BSI- oder CIS-Empfehlungen und erzeugt einen Bericht mit Abweichungen. Bewusste Ausnahmen lassen sich begründen, etwa weil die Anlagensoftware eine Einstellung braucht.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Windows-Rechner in Anlagen, Laboren und Leitständen sollen gehärtet sein (IEC 62443, NIS2, Audits), lassen sich aber oft nicht voll härten, weil die Anlagensoftware bestimmte Einstellungen braucht. Heute wird entweder gar nicht geprüft oder mit Werkzeugen, die jede Abweichung als Fehler zeigen. Am Ende fehlt ein Bericht, der zeigt: Was ist gehärtet, was ist bewusst offen und warum."
-          }
-        ],
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Desktop-Tool für Windows, läuft lokal auf dem Rechner oder wertet einen mitgebrachten Export aus (für Rechner ohne Netz)",
-              "Regelwerke: BSI-Empfehlungen (SiSyPHuS Windows), Microsoft Security Baselines, optional CIS",
-              "Ergebnis pro Regel: erfüllt, nicht erfüllt, bewusst offen",
-              "Ausnahmen mit Begründung, Name und Datum, als Datei pro Anlage gespeichert und beim nächsten Lauf wiederverwendet",
-              "Vergleich mit dem letzten Lauf: Was hat sich verschlechtert?",
-              "Bericht als PDF/Excel zum Abzeichnen",
-              "Optional: fehlende Einstellungen als GPO- oder Skript-Vorschlag ausgeben, nicht automatisch anwenden"
             ]
           }
         ]

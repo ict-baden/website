@@ -1,15 +1,15 @@
 /* Erzeugt von scripts/make-product-icons.mjs und scripts/sync-products.mjs – nicht von Hand ändern */
-.pc--industrial-keyboard.pc--industrial-keyboard { --l1: #2b5996; --l2: #08759b; }
-.pc--labeldesigner.pc--labeldesigner { --l1: #f995eb; --l2: #9059c0; }
 .pc--enterprisebrowser.pc--enterprisebrowser { --l1: #0d47a1; --l2: #0d47a1; }
+.pc--industrial-keyboard.pc--industrial-keyboard { --l1: #2b5996; --l2: #08759b; }
 .pc--lupe.pc--lupe { --l1: #f7a531; --l2: #e8505b; }
+.pc--plakette.pc--plakette { --l1: #f995eb; --l2: #9059c0; }
 .pc--vial-scanner.pc--vial-scanner { --l1: #4daaff; --l2: #4651be; }
 .pc--vitrine.pc--vitrine { --l1: #5b8cff; --l2: #8b5cf6; }
+.pc--riegel.pc--riegel { --l1: #f3821d; --l2: #ac281b; }
 .pc--zutritt.pc--zutritt { --l1: #22c3a6; --l2: #3b6cf6; }
 .pc--usb-pruefstation.pc--usb-pruefstation { --l1: #cf5d85; --l2: #7b226d; }
 .pc--securedesktop.pc--securedesktop { --l1: #579e3c; --l2: #025c3f; }
 .pc--user-review.pc--user-review { --l1: #90e2e1; --l2: #389560; }
-.pc--haertungs-check.pc--haertungs-check { --l1: #f3821d; --l2: #ac281b; }
 .pc--wincc-audit-trail-viewer.pc--wincc-audit-trail-viewer { --l1: #829cb3; --l2: #3c4e66; }
 .pc--gpo-doku-und-vergleich.pc--gpo-doku-und-vergleich { --l1: #d1a9ff; --l2: #6868d2; }
 .pc--modbus-explorer.pc--modbus-explorer { --l1: #09d8d7; --l2: #0685a0; }

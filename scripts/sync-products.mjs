@@ -337,7 +337,12 @@ for (const p of source.projekte) {
   if (seenSlugs.has(slug)) throw new Error(`Doppelter Slug "${slug}" (${p.id})`);
   seenSlugs.add(slug);
 
-  const status = STATUS[p.status];
+  // Öffentlicher Status: wie in projekte.json, außer eine Redaktionsregel setzt ihn mit Begründung zurück
+  // („fertig“ heißt dort oft „v0.1 steht“; „Verfügbar“ auf der Webseite heißt: getestet und für Kunden freigegeben)
+  const statusName = rule.status ?? p.status;
+  if (!STATUS[statusName]) throw new Error(`${p.id}: unbekannter Status "${statusName}" in public-overrides.json`);
+  if (rule.status && !rule.reason) throw new Error(`${p.id}: Status-Regel ohne Begründung`);
+  const status = STATUS[statusName];
   const version = p.version ? String(p.version) : null;
 
   // Notiz: nur Problem, Was es ersetzt (wenn freigegeben) und Umfang v1
@@ -382,9 +387,9 @@ for (const p of source.projekte) {
     kind,
     tagline: cfg.tagline ?? null,
     linie: p.linie,
-    status: p.status,
+    status: statusName,
     statusKey: status.key,
-    statusLabel: p.status === 'fast-fertig' && version ? `${status.label} ${version}` : status.label,
+    statusLabel: statusName === 'fast-fertig' && version ? `${status.label} ${version}` : status.label,
     version,
     text,
     sections,

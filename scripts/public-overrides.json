@@ -107,7 +107,8 @@
           "Alternative zu Tools wie tenfold."
         ]
       ],
-      "reason": "Werturteil über ein benanntes Fremdprodukt im Kurztext."
+      "reason": "Werturteil über ein benanntes Fremdprodukt im Kurztext. Status 2026-10-20: v0.1.0 nur als „latest“, noch nicht in einer echten Domäne getestet, Befunde der Prüfung in Arbeit – daher Vorabversion.",
+      "status": "fast-fertig"
     },
     "vitrine": {
       "textReplace": [
@@ -117,6 +118,34 @@
         ]
       ],
       "reason": "README von Vitrine: Das Protokoll ist manipulationserkennend, nicht manipulationssicher."
+    },
+    "qr-scanner": {
+      "status": "fast-fertig",
+      "reason": "Status 2026-10-20: v0.1.0 nur als Release „latest“, noch nicht mit echter Webcam getestet, Befunde der Prüfung vom 2026-10-20 in Arbeit – daher Vorabversion."
+    },
+    "haertungs-check": {
+      "status": "fast-fertig",
+      "reason": "Status 2026-10-20: Tag v0.1.0, aber noch nicht an echten OT-Rechnern getestet, nicht signiert, Befunde der Prüfung in Arbeit – daher Vorabversion. Umfang nach README Riegel v0.1.0 berichtigt: eigenes Regelwerk statt BSI/CIS-Inhalten (Lizenz), Befehlszeile auch für Linux.",
+      "replace": [
+        [
+          "Regelwerke: BSI-Empfehlungen (SiSyPHuS Windows), Microsoft Security Baselines, optional CIS",
+          "Eigenes Regelwerk mit Belegen aus öffentlichen Härtungsempfehlungen; eigene Vorgaben und GPO-Sicherungen lassen sich importieren"
+        ],
+        [
+          "Desktop-Tool für Windows, läuft lokal auf dem Rechner oder wertet einen mitgebrachten Export aus (für Rechner ohne Netz)",
+          "Desktop-Tool für Windows, läuft lokal auf dem Rechner oder wertet einen mitgebrachten Export aus (für Rechner ohne Netz); Befehlszeile auch für Linux"
+        ]
+      ]
+    },
+    "labeldesigner": {
+      "dropSentences": [
+        "Ziel ist der volle Umfang von ZebraDesigner 3 inklusive Professional."
+      ],
+      "reason": "Ziel-Aussage zum Funktionsumfang eines Fremdprodukts nicht öffentlich versprechen, solange Plakette in Entwicklung ist (2026-10-20). Ausgangslage nennt Fremdprodukte mit Wertung, Umfang-Punkt beschreibt interne Stufen – beides nicht öffentlich.",
+      "problem": false,
+      "dropItems": [
+        "Alle Funktionen von ZebraDesigner 3 inkl. Professional, in drei Stufen: A (0.1.0, Pilot), B und C (Rest), 1.0 nach Hardware-Abnahme und Signatur."
+      ]
     }
   }
 }

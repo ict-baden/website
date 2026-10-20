@@ -184,17 +184,17 @@ Every product has an app icon in the style of `marke/app-icon-vorlage.svg` from 
 <!-- product-icons:start -->
 | Product | Line | Top | Bottom | Symbol | Source |
 |---|---|---|---|---|---|
-| Industrial Keyboard | Android & Zebra | `#2b5996` | `#08759b` | own | own icon from the repo |
-| Labeldesigner | Android & Zebra | `#f995eb` | `#9059c0` | label tag | generated |
 | EnterpriseBrowser | Android & Zebra | `#0d47a1` | `#0d47a1` | own | own icon from the repo |
+| Industrial Keyboard | Android & Zebra | `#2b5996` | `#08759b` | own | own icon from the repo |
 | Lupe | Labor | `#f7a531` | `#e8505b` | own | own icon from the repo |
+| Plakette | Labor | `#f995eb` | `#9059c0` | label tag | generated |
 | Vial-Scanner | Labor | `#4daaff` | `#4651be` | sample tube | generated |
 | Vitrine | OT-Sicherheit & Compliance | `#5b8cff` | `#8b5cf6` | own | own icon from the repo |
+| Riegel | OT-Sicherheit & Compliance | `#f3821d` | `#ac281b` | shield with check mark | generated |
 | Zutritt | OT-Sicherheit & Compliance | `#22c3a6` | `#3b6cf6` | own | own icon from the repo |
 | USB-Prüfstation | OT-Sicherheit & Compliance | `#cf5d85` | `#7b226d` | USB plug with check mark | generated |
 | SecureDesktop | OT-Sicherheit & Compliance | `#579e3c` | `#025c3f` | app window with check mark | generated |
 | User Review | OT-Sicherheit & Compliance | `#90e2e1` | `#389560` | person with check mark | generated |
-| Härtungs-Check | OT-Sicherheit & Compliance | `#f3821d` | `#ac281b` | shield with check mark | generated |
 | WinCC Audit-Trail-Viewer | OT-Sicherheit & Compliance | `#829cb3` | `#3c4e66` | timeline with entries | generated |
 | GPO-Doku und -Vergleich | OT-Sicherheit & Compliance | `#d1a9ff` | `#6868d2` | two documents compared | generated |
 | Modbus-Explorer | Explorer | `#09d8d7` | `#0685a0` | bus with three devices | generated |

@@ -717,6 +717,12 @@
           "alt": "Keyboard settings mit Vorschau der Tastatur, Design System, Light, Dark oder High contrast, Akzentfarbe und Tastenhöhe 100 %."
         }
       ]
+    },
+    "plakette": {
+      "tagline": "Etiketten für Zebra-Drucker gestalten",
+      "banner": false,
+      "screenshots": [],
+      "_reason": "Oberfläche wird überarbeitet (2026-10-20): bis dahin keine Bildschirmfotos, nur das Logo."
     }
   }
 }
