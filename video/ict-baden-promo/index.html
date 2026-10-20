@@ -1,0 +1,321 @@
+<!doctype html>
+<!-- Erzeugt von scripts/video/build-promo.py – nicht von Hand ändern -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>ICT Baden – product promo</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Archivo"; src: url("assets/fonts/archivo.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; }
+      @font-face { font-family: "Inter"; src: url("assets/fonts/inter.woff2") format("woff2"); font-weight: 100 900; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #faf9f5; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Inter", sans-serif; color: #111111; background: #faf9f5; }
+      .clip { position: absolute; inset: 0; }
+
+      /* Intro und Outro: Markenfläche gelb mit rotem Schrägbalken wie im Logo */
+      .brand { background: #ffd200; overflow: hidden; }
+      .brand-bar { position: absolute; top: -10%; right: 170px; width: 230px; height: 120%; }
+      .brand-bar i { display: block; width: 100%; height: 100%; background: #e2001a; transform: skewX(26.565deg); }
+      #intro-logo, #outro-logo { position: absolute; left: 160px; top: 250px; width: 560px; }
+      #intro-text { position: absolute; left: 160px; top: 600px; width: 1300px; }
+      .intro-line { font-family: "Archivo"; font-weight: 800; font-stretch: 112%; font-size: 76px; line-height: 1.05; letter-spacing: -0.02em; }
+      .intro-line + .intro-line { margin-top: 10px; }
+      #intro-six { position: absolute; left: 160px; top: 430px; width: 1300px; }
+      #intro-icons { position: absolute; left: 160px; right: 400px; top: 600px; display: flex; gap: 34px; list-style: none; }
+      #intro-icons li { display: flex; flex-direction: column; align-items: center; gap: 16px; width: 170px; }
+      #intro-icons img { width: 128px; height: 128px; border-radius: 30px; box-shadow: 0 18px 40px -16px rgb(0 0 0 / 0.45); }
+      #intro-icons span { font-family: "Archivo"; font-weight: 750; font-size: 24px; text-align: center; line-height: 1.15; }
+      #outro-logo { top: 210px; width: 520px; }
+      #outro-h { position: absolute; left: 160px; top: 560px; font-family: "Archivo"; font-weight: 850; font-stretch: 115%; font-size: 150px; line-height: 0.92; letter-spacing: -0.035em; width: 1300px; }
+      #outro-dot { display: inline-block; width: 0.2em; height: 0.2em; background: #e2001a; margin-left: 0.05em; }
+      #outro-meta { position: absolute; left: 164px; top: 900px; font-size: 34px; font-weight: 600; letter-spacing: 0.01em; }
+
+      /* Produktszenen */
+      .paper { position: absolute; inset: 0; background:
+          linear-gradient(rgb(17 17 17 / 0.035) 1px, transparent 1px) 0 0 / 80px 80px,
+          linear-gradient(90deg, rgb(17 17 17 / 0.035) 1px, transparent 1px) 0 0 / 80px 80px, #faf9f5; }
+      .bloom { position: absolute; right: -380px; top: -420px; width: 1500px; height: 1500px; border-radius: 50%;
+          background: radial-gradient(circle, color-mix(in srgb, var(--c1) 34%, transparent), color-mix(in srgb, var(--c2) 12%, transparent) 45%, transparent 70%); }
+      .mirror .bloom { right: auto; left: -380px; }
+      .copy { position: absolute; z-index: 2; left: 120px; top: 150px; width: 720px; }
+      .mirror .copy { left: auto; right: 120px; }
+      .eyebrow { font-size: 24px; font-weight: 600; letter-spacing: 0.16em; color: #5d5b54; margin-bottom: 34px; }
+      .eyebrow b { color: #111111; }
+      .head { display: flex; align-items: center; gap: 30px; }
+      .plogo { width: 112px; height: 112px; flex: none; border-radius: 26px; box-shadow: 0 16px 34px -14px rgb(0 0 0 / 0.4); }
+      .head h2 { font-family: "Archivo"; font-weight: 850; font-stretch: 112%; font-size: 112px; line-height: 0.95; letter-spacing: -0.03em; }
+      #s-enterprisebrowser .head h2 { font-size: 60px; letter-spacing: -0.035em; }
+      #s-enterprisebrowser .stage { right: 60px; }
+      #s-industrial-keyboard .head h2 { font-size: 84px; }
+      .kind { margin-top: 30px; font-size: 36px; line-height: 1.3; color: #3a3935; font-weight: 500; }
+      .tag { margin-top: 28px; font-family: "Archivo"; font-weight: 750; font-size: 44px; line-height: 1.2; letter-spacing: -0.01em; }
+      .tag .tl { display: inline-block; background: linear-gradient(transparent 60%, rgb(255 210 0 / 0.75) 60%); }
+      .tag--big { font-size: 64px; }
+      .chips { margin-top: 40px; list-style: none; display: grid; gap: 16px; justify-items: start; }
+      .chip { display: inline-flex; align-items: center; gap: 16px; padding: 14px 26px 14px 20px; border-radius: 999px; background: #ffffff;
+          border: 1px solid #e3e0d6; font-size: 29px; font-weight: 600; box-shadow: 0 10px 24px -16px rgb(0 0 0 / 0.35); }
+      .chip .dot { width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(135deg, var(--c1), var(--c2)); flex: none; }
+      .chip .num { font-family: "Archivo"; font-weight: 850; font-stretch: 110%; min-width: 2.2ch; }
+      .stage { position: absolute; top: 0; bottom: 0; right: 80px; width: 930px; display: flex; align-items: center; justify-content: center; perspective: 1600px; }
+      .mirror .stage { right: auto; left: 80px; }
+      .window { position: relative; width: 930px; border-radius: 22px; overflow: hidden; background: #ffffff;
+          box-shadow: 0 50px 100px -40px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(0 0 0 / 0.08); }
+      .wbar { height: 42px; background: #f1efe9; display: flex; align-items: center; gap: 10px; padding-left: 18px; border-bottom: 1px solid #e3e0d6; }
+      .wbar i { width: 13px; height: 13px; border-radius: 50%; background: #d6d2c6; }
+      .screen { position: relative; height: 595px; overflow: hidden; background: #f6f5f1; }
+      .shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+      .float { position: absolute; right: -10px; bottom: 150px; border-radius: 18px; box-shadow: 0 40px 70px -30px rgb(0 0 0 / 0.6), 0 0 0 1px rgb(0 0 0 / 0.08); }
+      .mirror .float { right: auto; left: -10px; }
+      .phones { display: flex; gap: 34px; align-items: center; }
+      .phone { width: 272px; padding: 12px; border-radius: 44px; background: #1b1b1d; box-shadow: 0 50px 90px -40px rgb(0 0 0 / 0.65); }
+      .phone img { display: block; width: 100%; border-radius: 32px; }
+      .progress { position: absolute; left: 120px; right: 120px; bottom: 54px; display: flex; align-items: center; justify-content: space-between;
+          font-size: 20px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #5d5b54; }
+      .bars { display: flex; gap: 10px; }
+      .bars i { width: 54px; height: 6px; border-radius: 3px; background: #dcd8cc; }
+      .bars i.on { background: #111111; }
+
+      /* Übergang: gelbe Fläche mit rotem Streifen fährt durchs Bild */
+      .wipe { overflow: hidden; pointer-events: none; }
+      .wipe-move { position: absolute; top: 0; left: 0; width: 2600px; height: 1080px; }
+      .wipe-skew { position: absolute; inset: -200px 0; background: #ffd200; transform: skewX(-26.565deg); }
+      .wipe-skew i { position: absolute; top: 0; bottom: 0; right: 380px; width: 150px; background: #e2001a; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="76.5" data-width="1920" data-height="1080">
+      <audio id="voiceover" src="assets/voiceover.mp3" data-start="0" data-duration="74.56" data-track-index="5" data-volume="1"></audio>
+
+      <section id="s-intro" class="clip brand" data-start="0" data-duration="8.6" data-track-index="0">
+        <div class="brand-bar" id="intro-bar"><i></i></div>
+        <img id="intro-logo" src="assets/logos/ict-baden.svg" alt="ICT Baden" />
+        <div id="intro-text">
+          <p class="intro-line" id="intro-l1">Software from Karlsruhe, Germany –</p>
+          <p class="intro-line" id="intro-l2">for industry, labs and IT.</p>
+        </div>
+        <p class="intro-line" id="intro-six">Six tools that get things done.</p>
+        <ul id="intro-icons"><li id="intro-ic0"><img src="assets/logos/lupe.svg" alt="" /><span>Lupe</span></li><li id="intro-ic1"><img src="assets/logos/vitrine.svg" alt="" /><span>Vitrine</span></li><li id="intro-ic2"><img src="assets/logos/zutritt.svg" alt="" /><span>Zutritt</span></li><li id="intro-ic3"><img src="assets/logos/riegel.svg" alt="" /><span>Riegel</span></li><li id="intro-ic4"><img src="assets/logos/enterprisebrowser.webp" alt="" /><span>EnterpriseBrowser</span></li><li id="intro-ic5"><img src="assets/logos/industrial-keyboard.webp" alt="" /><span>Industrial Keyboard</span></li></ul>
+      </section>
+
+      <section id="s-lupe" class="clip scene" data-start="8.6" data-duration="13.5" data-track-index="0"
+        style="--c1:#f7a531;--c2:#e8505b">
+        <div class="paper"></div>
+        <div class="bloom" id="lupe-bloom"></div>
+        <div class="copy" id="lupe-copy">
+          <p class="eyebrow" id="lupe-eyebrow"><b>01</b> / 06</p>
+          <div class="head" id="lupe-head"><img class="plogo" src="assets/logos/lupe.svg" alt="" /><h2>Lupe</h2></div>
+          <p class="kind" id="lupe-kind">QR code and barcode reader for the PC</p>
+          <p class="tag"><span id="lupe-tag1" class="tl">Every code, from anywhere.</span></p>
+          <ul class="chips"><li class="chip" id="lupe-chip0"><span class="dot"></span>Hotkey Win+Shift+Q – any code on screen</li><li class="chip" id="lupe-chip1"><span class="dot"></span>Webcam as a hand scanner</li><li class="chip" id="lupe-chip2"><span class="dot"></span>Copied, typed or opened</li><li class="chip" id="lupe-chip3"><span class="dot"></span>100 % offline</li></ul>
+        </div>
+        <div class="stage desktop" id="lupe-stage"><div class="window" id="lupe-window"><div class="wbar"><i></i><i></i><i></i></div><div class="screen"><img class="shot" id="lupe-shot0" src="assets/shots/lupe-qr-code-vom-bildschirm-scannen-light-1600.webp" alt="" /><img class="shot" id="lupe-shot1" src="assets/shots/lupe-barcode-per-webcam-scannen-light-1600.webp" alt="" /></div></div><img class="float" id="lupe-float" src="assets/shots/lupe-ergebnis-eingetippt-light-630.webp" alt="" style="width:420px" /></div>
+        <div class="progress"><span>ICT Baden</span><div class="bars"><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
+      </section>
+      <section id="s-vitrine" class="clip scene mirror" data-start="22.1" data-duration="10.1" data-track-index="0"
+        style="--c1:#5b8cff;--c2:#8b5cf6">
+        <div class="paper"></div>
+        <div class="bloom" id="vitrine-bloom"></div>
+        <div class="copy" id="vitrine-copy">
+          <p class="eyebrow" id="vitrine-eyebrow"><b>02</b> / 06</p>
+          <div class="head" id="vitrine-head"><img class="plogo" src="assets/logos/vitrine.svg" alt="" /><h2>Vitrine</h2></div>
+          <p class="kind" id="vitrine-kind">Transparent screen lock for Windows</p>
+          <p class="tag tag--big"><span id="vitrine-tag1" class="tl">Look, don’t touch.</span></p>
+          <ul class="chips"><li class="chip" id="vitrine-chip0"><span class="dot"></span>Keyboard and mouse locked</li><li class="chip" id="vitrine-chip1"><span class="dot"></span>Programs stay visible and keep running</li><li class="chip" id="vitrine-chip2"><span class="dot"></span>Unlock with Microsoft Entra ID</li></ul>
+        </div>
+        <div class="stage desktop" id="vitrine-stage"><div class="window" id="vitrine-window"><div class="wbar"><i></i><i></i><i></i></div><div class="screen"><img class="shot" id="vitrine-shot0" src="assets/shots/demo-still.webp" alt="" /><img class="shot" id="vitrine-shot1" src="assets/shots/vitrine-transparente-bildschirmsperre-light-1600.webp" alt="" /></div></div><img class="float" id="vitrine-float" src="assets/shots/vitrine-entsperren-microsoft-entra-id-light-936.webp" alt="" style="width:340px" /></div>
+        <div class="progress"><span>ICT Baden</span><div class="bars"><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
+      </section>
+      <section id="s-zutritt" class="clip scene" data-start="32.2" data-duration="10.0" data-track-index="0"
+        style="--c1:#22c3a6;--c2:#3b6cf6">
+        <div class="paper"></div>
+        <div class="bloom" id="zutritt-bloom"></div>
+        <div class="copy" id="zutritt-copy">
+          <p class="eyebrow" id="zutritt-eyebrow"><b>03</b> / 06</p>
+          <div class="head" id="zutritt-head"><img class="plogo" src="assets/logos/zutritt.svg" alt="" /><h2>Zutritt</h2></div>
+          <p class="kind" id="zutritt-kind">Share and NTFS permissions report</p>
+          <p class="tag tag--big"><span id="zutritt-tag1" class="tl">Who can access what?</span></p>
+          <ul class="chips"><li class="chip" id="zutritt-chip0"><span class="dot"></span>SMB shares + NTFS permissions</li><li class="chip" id="zutritt-chip1"><span class="dot"></span>AD groups resolved down to people</li><li class="chip" id="zutritt-chip2"><span class="dot"></span>Excel and PDF report to sign</li></ul>
+        </div>
+        <div class="stage desktop" id="zutritt-stage"><div class="window" id="zutritt-window"><div class="wbar"><i></i><i></i><i></i></div><div class="screen"><img class="shot" id="zutritt-shot0" src="assets/shots/zutritt-freigaben-scannen-light-1600.webp" alt="" /><img class="shot" id="zutritt-shot1" src="assets/shots/zutritt-ntfs-berechtigungen-ordner-light-1600.webp" alt="" /><img class="shot" id="zutritt-shot2" src="assets/shots/zutritt-zugriffsrechte-person-light-1600.webp" alt="" /><img class="shot" id="zutritt-shot3" src="assets/shots/zutritt-bericht-excel-pdf-light-1600.webp" alt="" /></div></div></div>
+        <div class="progress"><span>ICT Baden</span><div class="bars"><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></div></div>
+      </section>
+      <section id="s-riegel" class="clip scene mirror" data-start="42.2" data-duration="11.9" data-track-index="0"
+        style="--c1:#f3821d;--c2:#ac281b">
+        <div class="paper"></div>
+        <div class="bloom" id="riegel-bloom"></div>
+        <div class="copy" id="riegel-copy">
+          <p class="eyebrow" id="riegel-eyebrow"><b>04</b> / 06</p>
+          <div class="head" id="riegel-head"><img class="plogo" src="assets/logos/riegel.svg" alt="" /><h2>Riegel</h2></div>
+          <p class="kind" id="riegel-kind">Windows hardening check for plants, labs and control rooms</p>
+          <p class="tag"><span id="riegel-tag1" class="tl">Hardened where it can be.</span> <span id="riegel-tag2" class="tl">Documented where it can’t.</span></p>
+          <ul class="chips"><li class="chip" id="riegel-chip0"><span class="dot"></span><span class="num" id="riegel-num">0</span>&nbsp;hardening rules</li><li class="chip" id="riegel-chip1"><span class="dot"></span>Read-only and offline</li></ul>
+        </div>
+        <div class="stage desktop" id="riegel-stage"><div class="window" id="riegel-window"><div class="wbar"><i></i><i></i><i></i></div><div class="screen"><img class="shot" id="riegel-shot0" src="assets/shots/riegel-windows-haertung-pruefen-light-1600.webp" alt="" /><img class="shot" id="riegel-shot1" src="assets/shots/riegel-begruendete-ausnahmen-light-1600.webp" alt="" /><img class="shot" id="riegel-shot2" src="assets/shots/riegel-haertungsbericht-abzeichnen-light-1600.webp" alt="" /></div></div></div>
+        <div class="progress"><span>ICT Baden</span><div class="bars"><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i></div></div>
+      </section>
+      <section id="s-enterprisebrowser" class="clip scene" data-start="54.1" data-duration="8.6" data-track-index="0"
+        style="--c1:#3b82f6;--c2:#0d47a1">
+        <div class="paper"></div>
+        <div class="bloom" id="enterprisebrowser-bloom"></div>
+        <div class="copy" id="enterprisebrowser-copy">
+          <p class="eyebrow" id="enterprisebrowser-eyebrow"><b>05</b> / 06</p>
+          <div class="head" id="enterprisebrowser-head"><img class="plogo" src="assets/logos/enterprisebrowser.webp" alt="" /><h2>EnterpriseBrowser</h2></div>
+          <p class="kind" id="enterprisebrowser-kind">Kiosk browser for rugged Android devices</p>
+          <p class="tag"><span id="enterprisebrowser-tag1" class="tl">Web apps on rugged Android devices.</span></p>
+          <ul class="chips"><li class="chip" id="enterprisebrowser-chip0"><span class="dot"></span>Zebra and Honeywell devices</li><li class="chip" id="enterprisebrowser-chip1"><span class="dot"></span>Kiosk mode and URL allow list</li><li class="chip" id="enterprisebrowser-chip2"><span class="dot"></span>Barcode scans straight into web forms</li></ul>
+        </div>
+        <div class="stage phones" id="enterprisebrowser-stage"><div class="phones"><div class="phone" id="enterprisebrowser-phone0"><img src="assets/shots/enterprisebrowser-kiosk-browser-profile-light-520.webp" alt="" /></div><div class="phone" id="enterprisebrowser-phone1"><img src="assets/shots/enterprisebrowser-profil-allowlist-light-520.webp" alt="" /></div><div class="phone" id="enterprisebrowser-phone2"><img src="assets/shots/enterprisebrowser-barcode-scan-webformular-light-520.webp" alt="" /></div></div></div>
+        <div class="progress"><span>ICT Baden</span><div class="bars"><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i></div></div>
+      </section>
+      <section id="s-industrial-keyboard" class="clip scene mirror" data-start="62.7" data-duration="8.7" data-track-index="0"
+        style="--c1:#1d6fd8;--c2:#0a7099">
+        <div class="paper"></div>
+        <div class="bloom" id="industrial-keyboard-bloom"></div>
+        <div class="copy" id="industrial-keyboard-copy">
+          <p class="eyebrow" id="industrial-keyboard-eyebrow"><b>06</b> / 06</p>
+          <div class="head" id="industrial-keyboard-head"><img class="plogo" src="assets/logos/industrial-keyboard.webp" alt="" /><h2>Industrial Keyboard</h2></div>
+          <p class="kind" id="industrial-keyboard-kind">On-screen keyboard for rugged Android devices</p>
+          <p class="tag"><span id="industrial-keyboard-tag1" class="tl">Fast, reliable data entry.</span></p>
+          <ul class="chips"><li class="chip" id="industrial-keyboard-chip0"><span class="dot"></span>Big keys for gloves</li><li class="chip" id="industrial-keyboard-chip1"><span class="dot"></span>Scan button</li><li class="chip" id="industrial-keyboard-chip2"><span class="dot"></span>F1 to F24</li><li class="chip" id="industrial-keyboard-chip3"><span class="dot"></span>Configured centrally by MDM</li></ul>
+        </div>
+        <div class="stage phones" id="industrial-keyboard-stage"><div class="phones"><div class="phone" id="industrial-keyboard-phone0"><img src="assets/shots/industrial-keyboard-android-tastatur-light-520.webp" alt="" /></div><div class="phone" id="industrial-keyboard-phone1"><img src="assets/shots/industrial-keyboard-scan-taste-light-520.webp" alt="" /></div><div class="phone" id="industrial-keyboard-phone2"><img src="assets/shots/industrial-keyboard-funktionstasten-f1-f24-light-520.webp" alt="" /></div></div></div>
+        <div class="progress"><span>ICT Baden</span><div class="bars"><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i></div></div>
+      </section>
+
+      <section id="s-outro" class="clip brand" data-start="71.4" data-duration="5.1" data-track-index="0">
+        <div class="brand-bar" id="outro-bar"><i></i></div>
+        <img id="outro-logo" src="assets/logos/ict-baden.svg" alt="ICT Baden" />
+        <h1 id="outro-h">Getting Things Done<span id="outro-dot"></span></h1>
+        <p id="outro-meta">Six tools · free under the MIT licence · ict-baden.de</p>
+      </section>
+
+      <div id="wipe0" class="clip wipe" data-start="8.15" data-duration="0.9" data-track-index="2"><div class="wipe-move" id="wipe0-move"><div class="wipe-skew"><i></i></div></div></div>
+      <div id="wipe1" class="clip wipe" data-start="21.65" data-duration="0.9" data-track-index="2"><div class="wipe-move" id="wipe1-move"><div class="wipe-skew"><i></i></div></div></div>
+      <div id="wipe2" class="clip wipe" data-start="31.75" data-duration="0.9" data-track-index="2"><div class="wipe-move" id="wipe2-move"><div class="wipe-skew"><i></i></div></div></div>
+      <div id="wipe3" class="clip wipe" data-start="41.75" data-duration="0.9" data-track-index="2"><div class="wipe-move" id="wipe3-move"><div class="wipe-skew"><i></i></div></div></div>
+      <div id="wipe4" class="clip wipe" data-start="53.65" data-duration="0.9" data-track-index="2"><div class="wipe-move" id="wipe4-move"><div class="wipe-skew"><i></i></div></div></div>
+      <div id="wipe5" class="clip wipe" data-start="62.25" data-duration="0.9" data-track-index="2"><div class="wipe-move" id="wipe5-move"><div class="wipe-skew"><i></i></div></div></div>
+      <div id="wipe6" class="clip wipe" data-start="70.95" data-duration="0.9" data-track-index="2"><div class="wipe-move" id="wipe6-move"><div class="wipe-skew"><i></i></div></div></div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#intro-bar", { x: 900 }, { x: 0, duration: 0.9, ease: "power4.out" }, 0);
+      tl.fromTo("#intro-logo", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.6)" }, 0.1);
+      tl.fromTo("#intro-l1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 1.6);
+      tl.fromTo("#intro-l2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 3.7);
+      tl.to("#intro-text", { opacity: 0, y: -40, duration: 0.5, ease: "power2.in" }, 5.75);
+      tl.to("#intro-logo", { scale: 0.62, y: -150, duration: 0.8, ease: "power3.inOut" }, 5.8);
+      tl.fromTo("#intro-six", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 6.15);
+      tl.fromTo("#intro-ic0", { opacity: 0, y: 60, scale: 0.7 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 6.45);
+      tl.fromTo("#intro-ic1", { opacity: 0, y: 60, scale: 0.7 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 6.62);
+      tl.fromTo("#intro-ic2", { opacity: 0, y: 60, scale: 0.7 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 6.79);
+      tl.fromTo("#intro-ic3", { opacity: 0, y: 60, scale: 0.7 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 6.96);
+      tl.fromTo("#intro-ic4", { opacity: 0, y: 60, scale: 0.7 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 7.13);
+      tl.fromTo("#intro-ic5", { opacity: 0, y: 60, scale: 0.7 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 7.30);
+      tl.fromTo("#lupe-bloom", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1.08, duration: 13.50, ease: "none" }, 8.6);
+      tl.fromTo("#lupe-eyebrow", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 8.85);
+      tl.fromTo("#lupe-head", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 8.90);
+      tl.fromTo("#lupe-kind", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 9.20);
+      tl.fromTo("#lupe-tag1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 10.2);
+      tl.fromTo("#lupe-chip0", { opacity: 0, x: -30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 12.4);
+      tl.fromTo("#lupe-chip1", { opacity: 0, x: -30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 15.5);
+      tl.fromTo("#lupe-chip2", { opacity: 0, x: -30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 17.7);
+      tl.fromTo("#lupe-chip3", { opacity: 0, x: -30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 20.4);
+      tl.fromTo("#lupe-window", { opacity: 0, y: 70, rotateX: 8 }, { opacity: 1, y: 0, rotateX: 0, duration: 0.9, ease: "power3.out" }, 8.75);
+      tl.fromTo("#lupe-shot0", { scale: 1.0 }, { scale: 1.06, duration: 7.10, ease: "none" }, 9.0);
+      tl.fromTo("#lupe-shot1", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 15.5);
+      tl.fromTo("#lupe-shot1", { scale: 1.0 }, { scale: 1.06, duration: 7.20, ease: "none" }, 15.5);
+      tl.fromTo("#lupe-float", { opacity: 0, y: 50, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "back.out(1.5)" }, 17.7);
+      tl.fromTo("#vitrine-bloom", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1.08, duration: 10.10, ease: "none" }, 22.1);
+      tl.fromTo("#vitrine-eyebrow", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 22.35);
+      tl.fromTo("#vitrine-head", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 22.40);
+      tl.fromTo("#vitrine-kind", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 22.70);
+      tl.fromTo("#vitrine-tag1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 30.5);
+      tl.fromTo("#vitrine-tag1", { scale: 0.92 }, { scale: 1, duration: 0.9, ease: "back.out(2)" }, 30.5);
+      tl.fromTo("#vitrine-chip0", { opacity: 0, x: 30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 25.5);
+      tl.fromTo("#vitrine-chip1", { opacity: 0, x: 30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 27.2);
+      tl.fromTo("#vitrine-chip2", { opacity: 0, x: 30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 28.6);
+      tl.fromTo("#vitrine-window", { opacity: 0, y: 70, rotateX: 8 }, { opacity: 1, y: 0, rotateX: 0, duration: 0.9, ease: "power3.out" }, 22.25);
+      tl.fromTo("#vitrine-shot0", { scale: 1.0 }, { scale: 1.06, duration: 5.40, ease: "none" }, 22.4);
+      tl.fromTo("#vitrine-shot1", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 27.2);
+      tl.fromTo("#vitrine-shot1", { scale: 1.0 }, { scale: 1.06, duration: 5.60, ease: "none" }, 27.2);
+      tl.fromTo("#vitrine-float", { opacity: 0, y: 50, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "back.out(1.5)" }, 28.6);
+      tl.fromTo("#zutritt-bloom", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1.08, duration: 10.00, ease: "none" }, 32.2);
+      tl.fromTo("#zutritt-eyebrow", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 32.45);
+      tl.fromTo("#zutritt-head", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 32.50);
+      tl.fromTo("#zutritt-kind", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 32.80);
+      tl.fromTo("#zutritt-tag1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 34.6);
+      tl.fromTo("#zutritt-tag1", { scale: 0.92 }, { scale: 1, duration: 0.9, ease: "back.out(2)" }, 34.6);
+      tl.fromTo("#zutritt-chip0", { opacity: 0, x: -30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 36.1);
+      tl.fromTo("#zutritt-chip1", { opacity: 0, x: -30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 38.5);
+      tl.fromTo("#zutritt-chip2", { opacity: 0, x: -30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 40.3);
+      tl.fromTo("#zutritt-window", { opacity: 0, y: 70, rotateX: 8 }, { opacity: 1, y: 0, rotateX: 0, duration: 0.9, ease: "power3.out" }, 32.35);
+      tl.fromTo("#zutritt-shot0", { scale: 1.0 }, { scale: 1.06, duration: 4.20, ease: "none" }, 32.5);
+      tl.fromTo("#zutritt-shot1", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 36.1);
+      tl.fromTo("#zutritt-shot1", { scale: 1.0 }, { scale: 1.06, duration: 3.00, ease: "none" }, 36.1);
+      tl.fromTo("#zutritt-shot2", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 38.5);
+      tl.fromTo("#zutritt-shot2", { scale: 1.0 }, { scale: 1.06, duration: 2.40, ease: "none" }, 38.5);
+      tl.fromTo("#zutritt-shot3", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 40.3);
+      tl.fromTo("#zutritt-shot3", { scale: 1.0 }, { scale: 1.06, duration: 2.50, ease: "none" }, 40.3);
+      tl.fromTo("#riegel-bloom", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1.08, duration: 11.90, ease: "none" }, 42.2);
+      tl.fromTo("#riegel-eyebrow", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 42.45);
+      tl.fromTo("#riegel-head", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 42.50);
+      tl.fromTo("#riegel-kind", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 42.80);
+      tl.fromTo("#riegel-tag1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 51.1);
+      tl.fromTo("#riegel-tag2", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 52.6);
+      tl.fromTo("#riegel-chip0", { opacity: 0, x: 30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 46.4);
+      (function () { const n = document.getElementById("riegel-num"); const o = { v: 0 }; tl.to(o, { v: 153, duration: 1.4, ease: "power2.out", onUpdate: () => { n.textContent = Math.round(o.v); } }, 46.4); })();
+      tl.fromTo("#riegel-chip1", { opacity: 0, x: 30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 49.2);
+      tl.fromTo("#riegel-window", { opacity: 0, y: 70, rotateX: 8 }, { opacity: 1, y: 0, rotateX: 0, duration: 0.9, ease: "power3.out" }, 42.35);
+      tl.fromTo("#riegel-shot0", { scale: 1.0 }, { scale: 1.06, duration: 9.20, ease: "none" }, 42.5);
+      tl.fromTo("#riegel-shot1", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 51.1);
+      tl.fromTo("#riegel-shot1", { scale: 1.0 }, { scale: 1.06, duration: 2.10, ease: "none" }, 51.1);
+      tl.fromTo("#riegel-shot2", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 52.6);
+      tl.fromTo("#riegel-shot2", { scale: 1.0 }, { scale: 1.06, duration: 2.10, ease: "none" }, 52.6);
+      tl.fromTo("#enterprisebrowser-bloom", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1.08, duration: 8.60, ease: "none" }, 54.1);
+      tl.fromTo("#enterprisebrowser-eyebrow", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 54.35);
+      tl.fromTo("#enterprisebrowser-head", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 54.40);
+      tl.fromTo("#enterprisebrowser-kind", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 54.70);
+      tl.fromTo("#enterprisebrowser-tag1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 55.2);
+      tl.fromTo("#enterprisebrowser-chip0", { opacity: 0, x: -30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 57.0);
+      tl.fromTo("#enterprisebrowser-chip1", { opacity: 0, x: -30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 58.4);
+      tl.fromTo("#enterprisebrowser-chip2", { opacity: 0, x: -30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 60.0);
+      tl.fromTo("#enterprisebrowser-phone0", { opacity: 0, y: 160 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" }, 54.5);
+      tl.fromTo("#enterprisebrowser-phone1", { opacity: 0, y: 160 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" }, 55.3);
+      tl.fromTo("#enterprisebrowser-phone2", { opacity: 0, y: 160 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" }, 56.1);
+      tl.to("#enterprisebrowser-phone2", { scale: 1.12, y: -18, duration: 0.7, ease: "power2.out" }, 60.0);
+      tl.to("#enterprisebrowser-phone0", { opacity: 0.55, scale: 0.94, duration: 0.7, ease: "power2.out" }, 60.0);
+      tl.to("#enterprisebrowser-phone1", { opacity: 0.55, scale: 0.94, duration: 0.7, ease: "power2.out" }, 60.0);
+      tl.fromTo("#industrial-keyboard-bloom", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1.08, duration: 8.70, ease: "none" }, 62.7);
+      tl.fromTo("#industrial-keyboard-eyebrow", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 62.95);
+      tl.fromTo("#industrial-keyboard-head", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 63.00);
+      tl.fromTo("#industrial-keyboard-kind", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 63.30);
+      tl.fromTo("#industrial-keyboard-tag1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 63.8);
+      tl.fromTo("#industrial-keyboard-chip0", { opacity: 0, x: 30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 65.2);
+      tl.fromTo("#industrial-keyboard-chip1", { opacity: 0, x: 30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 66.3);
+      tl.fromTo("#industrial-keyboard-chip2", { opacity: 0, x: 30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 67.3);
+      tl.fromTo("#industrial-keyboard-chip3", { opacity: 0, x: 30, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 69.1);
+      tl.fromTo("#industrial-keyboard-phone0", { opacity: 0, y: 160 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" }, 63.0);
+      tl.fromTo("#industrial-keyboard-phone1", { opacity: 0, y: 160 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" }, 63.8);
+      tl.fromTo("#industrial-keyboard-phone2", { opacity: 0, y: 160 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" }, 64.6);
+      tl.to("#industrial-keyboard-phone2", { scale: 1.12, y: -18, duration: 0.7, ease: "power2.out" }, 67.2);
+      tl.to("#industrial-keyboard-phone0", { opacity: 0.55, scale: 0.94, duration: 0.7, ease: "power2.out" }, 67.2);
+      tl.to("#industrial-keyboard-phone1", { opacity: 0.55, scale: 0.94, duration: 0.7, ease: "power2.out" }, 67.2);
+      tl.fromTo("#wipe0-move", { x: -2900 }, { x: 2300, duration: 0.9, ease: "power2.inOut" }, 8.15);
+      tl.fromTo("#wipe1-move", { x: -2900 }, { x: 2300, duration: 0.9, ease: "power2.inOut" }, 21.65);
+      tl.fromTo("#wipe2-move", { x: -2900 }, { x: 2300, duration: 0.9, ease: "power2.inOut" }, 31.75);
+      tl.fromTo("#wipe3-move", { x: -2900 }, { x: 2300, duration: 0.9, ease: "power2.inOut" }, 41.75);
+      tl.fromTo("#wipe4-move", { x: -2900 }, { x: 2300, duration: 0.9, ease: "power2.inOut" }, 53.65);
+      tl.fromTo("#wipe5-move", { x: -2900 }, { x: 2300, duration: 0.9, ease: "power2.inOut" }, 62.25);
+      tl.fromTo("#wipe6-move", { x: -2900 }, { x: 2300, duration: 0.9, ease: "power2.inOut" }, 70.95);
+      tl.fromTo("#outro-bar", { x: 900 }, { x: 0, duration: 0.9, ease: "power4.out" }, 71.4);
+      tl.fromTo("#outro-logo", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.6)" }, 71.60);
+      tl.fromTo("#outro-h", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 73.2);
+      tl.fromTo("#outro-dot", { scale: 0 }, { scale: 1, duration: 0.5, ease: "back.out(3)" }, 73.9);
+      tl.fromTo("#outro-meta", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 74.4);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
