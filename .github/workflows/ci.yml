@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  packages: write
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -50,9 +51,28 @@ jobs:
         # Nutzt das auf dem Runner installierte Google Chrome
         run: npm run check:a11y
 
-      - name: Build-Artefakt
+      # Autodeploy: nur auf main. Die geprüfte Seite wird als nginx-Image veröffentlicht; Watchtower auf docker01
+      # holt es innerhalb von 5 Minuten und startet ictbaden-web neu. Welcher Commit läuft: /version.txt
+      - name: Image bauen und veröffentlichen (ghcr.io)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          IMAGE: ghcr.io/ict-baden/website
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          REV="$(git rev-parse --short HEAD)"
+          docker build -f deploy/Dockerfile --build-arg REV="$REV" --build-arg SITE_STAGING="$SITE_STAGING"             -t "$IMAGE:latest" -t "$IMAGE:$REV" .
+          docker run --rm -d --name probe -p 8080:80 "$IMAGE:$REV"
+          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8080/health >/dev/null && break; sleep 1; done
+          test "$(curl -fsS http://127.0.0.1:8080/version.txt)" = "$REV"
+          curl -fsS -o /dev/null http://127.0.0.1:8080/
+          docker rm -f probe
+          docker push "$IMAGE:$REV"
+          docker push "$IMAGE:latest"
+
+      - name: Build-Artefakt (nur bei Fehlern)
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist
-          retention-days: 7
+          retention-days: 1

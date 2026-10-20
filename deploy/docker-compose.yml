@@ -1,24 +1,18 @@
 # ICT Baden – Website auf docker01 (Vorschau ictbaden.netgetvpn.de über den Cloudflare-Tunnel)
-# Liegt nach dem Deploy in $DEPLOY_DIR neben public_html/ und conf/ (siehe deploy/deploy.sh).
+# Liegt in /srv/docker/ictbaden.netgetvpn.de. Autodeploy: die CI veröffentlicht bei jedem Push auf main
+# ghcr.io/ict-baden/website:latest, Watchtower holt neue Versionen innerhalb von 5 Minuten.
+# Zurück auf einen älteren Stand: IMAGE_TAG=<commit> deploy/deploy.sh (Watchtower bleibt dann auf diesem Tag).
 services:
   web:
-    image: nginx:1.27-alpine
+    image: ghcr.io/ict-baden/website:${IMAGE_TAG:-latest}
     container_name: ictbaden-web
     restart: unless-stopped
     ports:
       - "192.168.4.6:8017:80"
-    volumes:
-      # public_html/current ist ein Symlink auf das aktuelle Release (atomarer Wechsel beim Deploy)
-      - ./public_html:/usr/share/nginx/html:ro
-      - ./conf/default.conf:/etc/nginx/conf.d/default.conf:ro
     security_opt:
       - no-new-privileges:true
-    healthcheck:
-      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/health"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
     labels:
+      com.centurylinklabs.watchtower.enable: "true"
       cf.tunnel.hostname: "ictbaden.netgetvpn.de"
       cf.tunnel.service: "http://192.168.4.6:8017"
       cf.tunnel.access: "none"

@@ -1,0 +1,4 @@
+# Nur die gebaute Seite und die nginx-Konfiguration gehen ins Image (deploy/Dockerfile)
+*
+!dist/
+!deploy/nginx.conf
