@@ -5,6 +5,8 @@ import ProductCard from '../../components/product/ProductCard.astro';
 import ContactBand from '../../components/ContactBand.astro';
 import Icon from '../../components/Icon.astro';
 import { lineGlyph } from '../../lib/art';
+import { OWN_PRODUCTS } from '../../data/portfolio';
+import { mailto } from '../../config';
 import { linien, products, productsOfLine, statusCounts, STATUS_ORDER, STATUS_LABEL, STATUS_HELP, plural } from '../../lib/products';
 
 const total = statusCounts(products);
@@ -30,6 +32,28 @@ const total = statusCounts(products);
       ))}
     </ul>
   </PageHero>
+
+  <section class="container own" id="eigenentwicklungen" aria-labelledby="own-titel">
+    <header class="own-head">
+      <p class="eyebrow">Bewährt im Einsatz</p>
+      <h2 id="own-titel">Eigenentwicklungen: Überwachung &amp; Alarmierung</h2>
+      <p>Nicht zum Download – wir richten sie für Ihre Anlage ein und passen sie an.</p>
+    </header>
+    <ul class="own-grid" role="list">
+      {OWN_PRODUCTS.map((p) => (
+        <li class="own-card reveal">
+          <span class="own-icon"><Icon name={p.icon} /></span>
+          <div class="own-body">
+            <p class="own-kind">{p.kind}</p>
+            <h3>{p.name}</h3>
+            <p class="own-text">{p.text}</p>
+            <span class="badge badge--verfuegbar">Im Einsatz · auf Anfrage</span>
+          </div>
+          <a class="link-arrow own-link" href={mailto(`Anfrage zu ${p.name}`)}>Anfragen <Icon name="arrow-right" /></a>
+        </li>
+      ))}
+    </ul>
+  </section>
 
   <div class="container catalog">
     <div class="filters" data-filters hidden>
@@ -112,6 +136,25 @@ const total = statusCounts(products);
 
   /* Eine Spalte, die nie breiter als der Container wird: sonst bläst die angedockte Filterleiste (Chips ohne
      Umbruch) die Spalte auf, alle Karten ordnen sich neu an und die Seite springt beim Scrollen */
+  .own { margin-bottom: var(--s-8); }
+  .own-head { margin-bottom: var(--s-5); }
+  .own-head h2 { font-size: var(--fs-xl); }
+  .own-head p:not(.eyebrow) { color: var(--ink-2); font-size: var(--fs-sm); }
+  .own-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); padding: 0; margin: 0; list-style: none; }
+  .own-card {
+    display: grid; grid-template-columns: auto 1fr; grid-template-rows: 1fr auto; gap: var(--s-2) var(--s-5);
+    padding: var(--s-6); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg-elev); box-shadow: var(--shadow-md);
+  }
+  .own-icon {
+    grid-row: 1 / span 2; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 16px;
+    background: var(--brand-yellow); color: var(--brand-black);
+  }
+  .own-icon :global(.icon) { width: 30px; height: 30px; }
+  .own-kind { color: var(--ink-3); font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; }
+  .own-body h3 { font-size: var(--fs-lg); margin: 0.1rem 0 0.3rem; }
+  .own-text { color: var(--ink-2); margin-bottom: var(--s-3); }
+  .own-link { grid-column: 2; justify-self: start; }
+  @media (max-width: 760px) { .own-grid { grid-template-columns: minmax(0, 1fr); } }
   .catalog { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); }
   .filters {
     position: sticky;

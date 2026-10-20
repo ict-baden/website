@@ -8,7 +8,7 @@ import ProductIcon from '../components/product/ProductIcon.astro';
 import ContactBand from '../components/ContactBand.astro';
 import { lineGlyph } from '../lib/art';
 import { featured, linien, products, productsOfLine, productUrl, statusCounts, lineAnchor, colorClasses, STATUS_LABEL, STATUS_ORDER, plural } from '../lib/products';
-import { SERVICES, TOPICS } from '../data/portfolio';
+import { OWN_PRODUCTS, SERVICES, TOPICS } from '../data/portfolio';
 import { COMPANY, SITE_URL, mailto } from '../config';
 
 const bySlug = (s: string) => products.find((p) => p.slug === s);
@@ -196,6 +196,21 @@ const jsonLd = {
           </ul>
         </div>
       )}
+
+      <div class="ready reveal">
+        <h3 class="ready-title">Bewährte Eigenentwicklungen: Überwachung &amp; Alarmierung</h3>
+        <ul class="ready-list">
+          {OWN_PRODUCTS.map((p) => (
+            <li>
+              <a href="/produkte/#eigenentwicklungen" class="ready-item">
+                <span class="own-mini" aria-hidden="true"><Icon name={p.icon} /></span>
+                <span class="ready-name"><span class="ready-pname">{p.name}</span><span class="ready-kind">{p.text.replace(/\.$/, '')}</span></span>
+                <span class="badge badge--verfuegbar">Auf Anfrage</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <div class="lines-head reveal">
         <h3>Die Produktlinien</h3>
@@ -705,4 +720,6 @@ const jsonLd = {
   .about-facts strong { color: var(--ink); }
   .about-facts span { color: var(--ink-2); font-size: var(--fs-sm); }
   @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } }
+  .own-mini { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 10px; background: var(--brand-yellow); color: var(--brand-black); }
+  .own-mini :global(.icon) { width: 18px; height: 18px; }
 </style>

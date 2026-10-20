@@ -98,6 +98,16 @@ export const TOPICS: Topic[] = [
   },
 ];
 
+/**
+ * Bewährte Eigenentwicklungen aus dem bisherigen Portfolio (Überwachung & Alarmierung). Nicht zum Download – Einsatz
+ * und Anpassung nur auf Anfrage. Texte nur aus ict-baden.de/portfolio.html, nichts dazuerfunden.
+ */
+export interface OwnProduct { id: string; name: string; kind: string; text: string; icon: IconName }
+export const OWN_PRODUCTS: OwnProduct[] = [
+  { id: 'informant', name: 'Informant', kind: 'Alarmierung', text: 'Alarmierung im industriellen Umfeld.', icon: 'bell' },
+  { id: 'callcenter', name: 'CallCenter', kind: 'Telefonie', text: 'Industrieller Anrufbeantworter und Telefonzentrale.', icon: 'phone' },
+];
+
 /** Leistungen aus der bisherigen Startseite */
 export const SERVICES = {
   claim: 'Getting Things Done',
