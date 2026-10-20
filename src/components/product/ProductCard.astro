@@ -12,25 +12,34 @@ interface Props {
   showLine?: boolean;
   /** kompakte Karte (für geplante Produkte in der Übersicht) */
   compact?: boolean;
+  /** Abweichungen für die englische Übersicht */
+  href?: string;
+  kind?: string | null;
+  text?: string;
+  statusLabel?: string;
 }
-const { product, uid = '', headingLevel = 'h3', showLine = false, compact = false } = Astro.props;
+const { product, uid = '', headingLevel = 'h3', showLine = false, compact = false, href, kind, text, statusLabel } = Astro.props;
 const H = headingLevel;
 const line = lineById(product.linie);
+const k = kind === undefined ? product.kind : kind;
 ---
 <article class:list={['pcard', compact && 'pcard--compact']}>
   <ProductCover product={product} uid={uid} />
   <div class="pcard-body">
     <div class="pcard-top">
       <ProductIcon product={product} uid={`${uid}-i`} class="pcard-icon" />
-      <StatusBadge product={product} />
+      <StatusBadge product={product} label={statusLabel} />
     </div>
     <H class="pcard-title">
-      <a href={productUrl(product)} set:html={nameHtml(product.name)} />
+      {/* Linktext mit Art des Produkts: beschreibender Ankertext statt nur des Markennamens */}
+      <a href={href ?? productUrl(product)}>
+        <span set:html={nameHtml(product.name)} />
+        {k && <span class="visually-hidden"> – </span>}
+        {k && <span class="pcard-kind">{k}</span>}
+      </a>
     </H>
-    {(product.kind || showLine) && (
-      <p class="pcard-kind">{product.kind ?? line.name}{showLine && product.kind && <span class="sep"> · {line.name}</span>}</p>
-    )}
-    <p class="pcard-text">{product.text}</p>
+    {showLine && <p class="pcard-line">{line.name}</p>}
+    <p class="pcard-text">{text ?? product.text}</p>
     <span class="pcard-more" aria-hidden="true">Details <Icon name="arrow-right" /></span>
   </div>
 </article>
@@ -73,8 +82,9 @@ const line = lineById(product.linie);
   .pcard-title a { color: var(--ink); text-decoration: none; }
   .pcard-title a::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
   .pcard-title a:focus-visible { outline: none; }
-  .pcard-kind { margin-top: -0.2rem; color: var(--ink-3); font-size: var(--fs-sm); font-weight: 520; }
-  .pcard-kind .sep { color: var(--ink-3); }
+  .pcard-title a { display: grid; }
+  .pcard-kind { margin-top: 0.15rem; color: var(--ink-3); font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 520; font-stretch: 100%; letter-spacing: 0; line-height: 1.35; }
+  .pcard-line { color: var(--ink-3); font-size: var(--fs-xs); }
   .pcard-text {
     display: -webkit-box;
     -webkit-box-orient: vertical;

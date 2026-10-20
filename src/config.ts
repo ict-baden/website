@@ -6,6 +6,18 @@ export const SITE_URL = (process.env.SITE_URL || 'https://ictbaden.netgetvpn.de'
 /** Vorschau-Modus: noindex, robots.txt sperrt alles, Hinweisleiste. Standard: an. */
 export const STAGING = (process.env.SITE_STAGING ?? '1') !== '0';
 
+/** Bestätigungscodes für die Google Search Console und Bing Webmaster Tools (nur Meta-Tag auf der Startseite;
+ *  alternativ per DNS-TXT-Eintrag bestätigen, dann leer lassen). Siehe README, Abschnitt "Going live". */
+export const VERIFY = {
+  google: (process.env.GOOGLE_SITE_VERIFICATION ?? '').trim(),
+  bing: (process.env.BING_SITE_VERIFICATION ?? '').trim(),
+};
+
+/** IndexNow-Schlüssel (8–128 Zeichen a-z, A-Z, 0-9, -): erzeugt /<schlüssel>.txt; deploy/deploy.sh meldet geänderte
+ *  Adressen beim Livegang an IndexNow (Bing, Yandex u. a.). Leer = kein IndexNow. */
+export const INDEXNOW_KEY = (process.env.INDEXNOW_KEY ?? '').trim();
+if (INDEXNOW_KEY && !/^[A-Za-z0-9-]{8,128}$/.test(INDEXNOW_KEY)) throw new Error('INDEXNOW_KEY: 8–128 Zeichen aus a-z, A-Z, 0-9 und -');
+
 export const COMPANY = {
   name: 'ICT Baden GmbH',
   claim: 'Getting Things Done',

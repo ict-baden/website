@@ -1,585 +1,37 @@
 {
-  "stand": "2026-10-17",
+  "stand": "2026-10-19",
   "linien": [
-    {
-      "id": "android",
-      "name": "Android & Zebra",
-      "text": "Mobile Geräte in Lager und Logistik"
-    },
-    {
-      "id": "labor",
-      "name": "Labor",
-      "text": "Proben, Barcodes, Rückverfolgbarkeit"
-    },
     {
       "id": "ot",
       "name": "OT-Sicherheit & Compliance",
-      "text": "Anlagen-PCs, Leitstände, NIS2, IEC 62443, GMP"
+      "text": "Bildschirme sperren, Windows-Härtung prüfen, Zugriffsrechte nachweisen – für Anlagen, Labore und Leitstände"
     },
     {
-      "id": "explorer",
-      "name": "Explorer",
-      "text": "Protokolle prüfen bei Inbetriebnahme, Gebäudetechnik und im Rechenzentrum"
+      "id": "android",
+      "name": "Android & Zebra",
+      "text": "Browser und Tastatur für robuste Android-Geräte in Lager und Logistik"
     },
     {
-      "id": "service",
-      "name": "Service-Laptop",
-      "text": "Werkzeuge für Techniker vor Ort an der Anlage"
-    },
-    {
-      "id": "server",
-      "name": "Self-hosted Server-Apps",
-      "text": "Zentrale Dienste, die Kunden im eigenen Werk betreiben, weil Produktion oder Sicherheit davon abhängen"
-    },
-    {
-      "id": "neu",
-      "name": "Neue Ideen",
-      "text": "Noch keiner Linie zugeordnet"
+      "id": "codes",
+      "name": "Barcodes & Etiketten",
+      "text": "QR-Codes und Barcodes am PC lesen, Etiketten für Zebra-Drucker gestalten"
     }
   ],
   "products": [
-    {
-      "id": "industrialkeyboard",
-      "slug": "industrial-keyboard",
-      "nr": 3,
-      "name": "Industrial Keyboard",
-      "kind": "Android-Tastatur",
-      "tagline": "Schnelle, zuverlässige Dateneingabe auf robusten Android-Geräten.",
-      "linie": "android",
-      "status": "fertig",
-      "statusKey": "verfuegbar",
-      "statusLabel": "Verfügbar",
-      "version": null,
-      "text": "Android-Tastatur mit F1–F24 und Sondertasten für alle Apps, auch RDP, Terminal-Emulatoren und SAP.",
-      "sections": {
-        "problem": null,
-        "ersetzt": null,
-        "umfang": null
-      },
-      "highlights": [
-        "F1–F24",
-        "Scan-Taste eingebaut",
-        "Große Tasten für Handschuhe",
-        "Konfiguration per MDM"
-      ],
-      "facts": [
-        {
-          "label": "Plattform",
-          "value": "Android 8.0 und neuer, Zebra und Honeywell"
-        },
-        {
-          "label": "Tasten",
-          "value": "F1–F24, Esc, Ins, Del, Pfeiltasten, eigene Tasten und Makros"
-        },
-        {
-          "label": "Layouts",
-          "value": "QWERTY, QWERTZ, AZERTY, Nordisch und Spanisch"
-        },
-        {
-          "label": "Verwaltung",
-          "value": "Managed Configuration per MDM (SOTI, Intune, Workspace ONE), Konfigurationsdatei, StageNow"
-        },
-        {
-          "label": "Datenschutz",
-          "value": "keine Internet-Berechtigung, kein Wörterbuch, nichts Getipptes wird gespeichert"
-        }
-      ],
-      "media": {
-        "logo": "/media/produkte/industrial-keyboard/logo.webp",
-        "colors": [
-          "#2b5996",
-          "#08759b"
-        ],
-        "banner": null,
-        "demo": null,
-        "screenshots": [
-          {
-            "name": "screen-alpha",
-            "title": "Buchstaben",
-            "caption": "Tastenvorschau über dem Finger, Reiter für Zahlen, Zeichen, Funktionstasten und Scan.",
-            "alt": "Testformular mit den Feldern Item number, Quantity, Weight (kg) und Phone, darunter die Tastatur mit QWERTZ-Buchstaben, der Reiterleiste ABC, 123, #+=, Fn und Scan und der Vorschau der gedrückten Taste g.",
-            "light": {
-              "src": "/media/produkte/industrial-keyboard/screen-alpha-light-520.webp",
-              "srcset": "/media/produkte/industrial-keyboard/screen-alpha-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-numeric",
-            "title": "Zahlenblock",
-            "caption": "Öffnet sich in Zahlenfeldern von selbst.",
-            "alt": "Feld Quantity aktiv, die Tastatur zeigt im dunklen Design den Zahlenblock mit Ziffern, Komma, Punkt, Tab und Enter.",
-            "light": {
-              "src": "/media/produkte/industrial-keyboard/screen-numeric-light-520.webp",
-              "srcset": "/media/produkte/industrial-keyboard/screen-numeric-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-scan",
-            "title": "Scan-Reiter",
-            "caption": "Tippen zum Scannen, halten für Dauerscan.",
-            "alt": "Scan-Reiter mit großer blauer Auslösefläche „Scanning …“ und dem Hinweis auf Dauerscan mit Zebra DataWedge.",
-            "light": {
-              "src": "/media/produkte/industrial-keyboard/screen-scan-light-520.webp",
-              "srcset": "/media/produkte/industrial-keyboard/screen-scan-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-function",
-            "title": "Funktionstasten",
-            "caption": "F1–F24, Esc, Ins, Del und Pfeiltasten – etwa für Terminal-Emulatoren.",
-            "alt": "Fn-Reiter im kontrastreichen Design mit F1 bis F12, Esc, Home, End, PgUp, PgDn, Ins, Del und den Pfeiltasten.",
-            "light": {
-              "src": "/media/produkte/industrial-keyboard/screen-function-light-520.webp",
-              "srcset": "/media/produkte/industrial-keyboard/screen-function-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-custom",
-            "title": "Eigene Layouts",
-            "caption": "Eigene Tasten als zusätzlicher Reiter, festgelegt in der Konfiguration – ohne App-Update.",
-            "alt": "Eigener Reiter Pick mit den Tasten OK, Skip, Short, Damaged, Scan und Numbers.",
-            "light": {
-              "src": "/media/produkte/industrial-keyboard/screen-custom-light-520.webp",
-              "srcset": "/media/produkte/industrial-keyboard/screen-custom-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-settings",
-            "title": "Einstellungen",
-            "caption": "Mit Live-Vorschau, durch Kennwort geschützt.",
-            "alt": "Keyboard settings mit Vorschau der Tastatur, Design System, Light, Dark oder High contrast, Akzentfarbe und Tastenhöhe 100 %.",
-            "light": {
-              "src": "/media/produkte/industrial-keyboard/screen-settings-light-520.webp",
-              "srcset": "/media/produkte/industrial-keyboard/screen-settings-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          }
-        ],
-        "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert."
-      }
-    },
-    {
-      "id": "labeldesigner",
-      "slug": "labeldesigner",
-      "nr": 4,
-      "name": "Labeldesigner",
-      "kind": null,
-      "tagline": null,
-      "linie": "android",
-      "status": "fertig",
-      "statusKey": "verfuegbar",
-      "statusLabel": "Verfügbar",
-      "version": null,
-      "text": "Etiketten für Zebra-Drucker im Browser gestalten und als ZPL ausgeben.",
-      "sections": {
-        "problem": null,
-        "ersetzt": null,
-        "umfang": null
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "enterprisebrowser",
-      "slug": "enterprisebrowser",
-      "nr": 2,
-      "name": "EnterpriseBrowser",
-      "kind": "Kiosk-Browser",
-      "tagline": "Web-Apps auf robusten Android-Geräten.",
-      "linie": "android",
-      "status": "fast-fertig",
-      "statusKey": "vorabversion",
-      "statusLabel": "Vorabversion 0.3.1",
-      "version": "0.3.1",
-      "text": "Kiosk-Browser für Zebra und Honeywell mit DataWedge-Scan, Profilen, CSS/JS-Injection und Konfiguration per MDM (SOTI, Intune, StageNow).",
-      "sections": {
-        "problem": null,
-        "ersetzt": null,
-        "umfang": null
-      },
-      "highlights": [
-        "Zebra DataWedge",
-        "Honeywell",
-        "Kioskmodus",
-        "MDM: SOTI, Intune, StageNow"
-      ],
-      "facts": [
-        {
-          "label": "Plattform",
-          "value": "Android 8.0 und neuer, Zebra und Honeywell"
-        },
-        {
-          "label": "Scannen",
-          "value": "Zebra DataWedge, Honeywell oder jede Scanner-App per Intent"
-        },
-        {
-          "label": "Verwaltung",
-          "value": "Managed Configuration per MDM (SOTI, Intune, Workspace ONE), Konfigurationsdatei, StageNow, QR-Code"
-        },
-        {
-          "label": "Sicherheit",
-          "value": "strenge TLS-Prüfung, Client-Zertifikate, Kennwörter nur als Hash"
-        },
-        {
-          "label": "Lieferform",
-          "value": "APK zur Verteilung per MDM"
-        }
-      ],
-      "media": {
-        "logo": "/media/produkte/enterprisebrowser/logo.webp",
-        "colors": [
-          "#0d47a1",
-          "#0d47a1"
-        ],
-        "banner": null,
-        "demo": null,
-        "screenshots": [
-          {
-            "name": "screen-launcher",
-            "title": "Profile",
-            "caption": "Ein Tipp öffnet die Web-App. Mehrere Web-Apps auf einem Gerät, jede mit eigener Start-Adresse und eigenen Regeln.",
-            "alt": "Startbildschirm von EnterpriseBrowser auf einem Zebra TC58 mit den Profilen Goods receipt, Picking, Shipping & labels und Demo & scanner test, jeweils mit Adresse und Kennzeichen wie Autostart, Allowlist, Kiosk oder Scanner off.",
-            "light": {
-              "src": "/media/produkte/enterprisebrowser/screen-launcher-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/screen-launcher-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-browser",
-            "title": "Scannen",
-            "caption": "Der Barcode landet im Feld, auf Wunsch gefolgt von Tab oder Enter – und als JavaScript-Ereignis für die Web-App.",
-            "alt": "Demo-Seite „Scanner & Bridge Demo“: im Feld Item der gescannte EAN 4006381333931, darunter das Feld Location, die Schaltflächen Scan, Beep, Vibration und Device und die Liste der letzten Scans mit EAN13 und CODE128.",
-            "light": {
-              "src": "/media/produkte/enterprisebrowser/screen-browser-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/screen-browser-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-menu",
-            "title": "Menü",
-            "caption": "Alles in Daumenreichweite.",
-            "alt": "Aufgeklapptes Menü über der Demo-Seite mit Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings und Exit.",
-            "light": {
-              "src": "/media/produkte/enterprisebrowser/screen-menu-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/screen-menu-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-launcher-branded",
-            "title": "Eigenes Design",
-            "caption": "Titel, Untertitel, Logo und Markenfarbe kommen aus der Konfiguration oder werden direkt in der App eingestellt.",
-            "alt": "Startbildschirm im eigenen Design: grüner Kopf mit dem Kürzel NL, dem Titel North Logistics Center und Shift A · Hall 3, darunter die Profile.",
-            "light": {
-              "src": "/media/produkte/enterprisebrowser/screen-launcher-branded-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/screen-launcher-branded-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-profile-editor",
-            "title": "Profil mit eigener Farbe",
-            "caption": "Jedes Profil kann eine eigene Farbe haben, die auch die Werkzeugleiste in der Web-App einfärbt.",
-            "alt": "Dialog Edit profile mit Name Goods receipt, Start-URL, erlaubten Hosts, Profilfarbe und den Schaltern Open on app start, Hide toolbar und Full screen.",
-            "light": {
-              "src": "/media/produkte/enterprisebrowser/screen-profile-editor-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/screen-profile-editor-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          },
-          {
-            "name": "screen-settings",
-            "title": "Einstellungen",
-            "caption": "Mit Kennwort geschützt: Profile, Design und Konfiguration.",
-            "alt": "Einstellungen mit der Profilliste, Add profile und dem Bereich Design mit Titel, Markenfarbe und Logo.",
-            "light": {
-              "src": "/media/produkte/enterprisebrowser/screen-settings-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/screen-settings-light-520.webp 520w",
-              "width": 520,
-              "height": 1045
-            },
-            "dark": null
-          }
-        ],
-        "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert; Namen und Adressen sind Beispiele."
-      }
-    },
-    {
-      "id": "qr-scanner",
-      "slug": "lupe",
-      "nr": 6,
-      "name": "Lupe",
-      "kind": "QR-Scanner",
-      "tagline": "QR- und Barcodes lesen",
-      "linie": "labor",
-      "status": "fast-fertig",
-      "statusKey": "vorabversion",
-      "statusLabel": "Vorabversion 0.1.0",
-      "version": "0.1.0",
-      "text": "Einfacher QR- und Barcode-Leser für Windows per Webcam oder Bildschirm. Ergebnis in die Zwischenablage oder als Tastatureingabe.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Es gibt keinen guten, einfachen QR- und Barcode-Leser für Windows."
-          }
-        ],
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Scan per Webcam",
-              "Scan eines Bildschirmausschnitts",
-              "Ergebnis in die Zwischenablage oder als Tastatureingabe",
-              "Verlauf der letzten Scans"
-            ]
-          }
-        ]
-      },
-      "highlights": [
-        "Win+Umschalt+Q",
-        "QR · Data Matrix · EAN",
-        "Tippt in jede Anwendung",
-        "Link-Regeln"
-      ],
-      "facts": [
-        {
-          "label": "Plattform",
-          "value": "Windows 10 und 11, x64"
-        },
-        {
-          "label": "Oberfläche",
-          "value": "Deutsch"
-        },
-        {
-          "label": "Daten",
-          "value": "bleiben auf dem PC, nichts wird ins Internet gesendet"
-        },
-        {
-          "label": "Formate",
-          "value": "22 Code-Formate, darunter QR Code, Data Matrix, Code 128 und EAN"
-        },
-        {
-          "label": "Lieferform",
-          "value": "MSI für alle Benutzer oder eine einzelne Lupe.exe ohne Installation"
-        }
-      ],
-      "media": {
-        "logo": "/media/produkte/lupe/logo.svg",
-        "colors": [
-          "#f7a531",
-          "#e8505b"
-        ],
-        "banner": null,
-        "demo": null,
-        "screenshots": [
-          {
-            "name": "file",
-            "title": "Dateien und Zwischenablage",
-            "caption": "Bild öffnen, auf die Seite „Datei“ ziehen oder mit Strg+V einfügen. Jeder Code im Bild wird gefunden und nummeriert.",
-            "alt": "Seite Datei: ein Lieferschein mit vier Codes, markiert als 1 QR-Code, 2 Code 128, 3 EAN-13 und 4 Data Matrix, darunter die Liste „4 Codes gefunden“ mit Kopieren und Link öffnen je Zeile.",
-            "light": {
-              "src": "/media/produkte/lupe/file-light-1600.webp",
-              "srcset": "/media/produkte/lupe/file-light-800.webp 800w, /media/produkte/lupe/file-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1076
-            },
-            "dark": {
-              "src": "/media/produkte/lupe/file-dark-1600.webp",
-              "srcset": "/media/produkte/lupe/file-dark-800.webp 800w, /media/produkte/lupe/file-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1076
-            }
-          },
-          {
-            "name": "selection",
-            "title": "Jeder Bildschirmausschnitt",
-            "caption": "In jedem Programm Win+Umschalt+Q drücken und ein Rechteck um den Code ziehen – über alle Monitore, auch bei geschlossenem Lupe-Fenster.",
-            "alt": "Auswahl über einem abgedunkelten Standbild des Desktops: eine PDF-Rechnung mit QR-Code, ein blaues Rechteck um den Code und der Hinweis „Rechteck um den Code aufziehen · Klick: ganzer Bildschirm · Esc: abbrechen“.",
-            "light": {
-              "src": "/media/produkte/lupe/selection-light-1600.webp",
-              "srcset": "/media/produkte/lupe/selection-light-800.webp 800w, /media/produkte/lupe/selection-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 900
-            },
-            "dark": {
-              "src": "/media/produkte/lupe/selection-dark-1600.webp",
-              "srcset": "/media/produkte/lupe/selection-dark-800.webp 800w, /media/produkte/lupe/selection-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 900
-            }
-          },
-          {
-            "name": "camera",
-            "title": "Webcam",
-            "caption": "Code vor die Kamera halten: Lupe markiert ihn und piept. Derselbe Code wird erst wieder gemeldet, wenn er 3 Sekunden nicht zu sehen war.",
-            "alt": "Seite Kamera: Livebild der Demo-Kamera mit einem QR-Code auf einem Etikett, markiert als „QR-Code“, Zielecken in der Mitte, darunter „Zuletzt erkannt“ mit dem Link und den Schaltflächen Kopieren und Link öffnen.",
-            "light": {
-              "src": "/media/produkte/lupe/camera-light-1600.webp",
-              "srcset": "/media/produkte/lupe/camera-light-800.webp 800w, /media/produkte/lupe/camera-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1076
-            },
-            "dark": {
-              "src": "/media/produkte/lupe/camera-dark-1600.webp",
-              "srcset": "/media/produkte/lupe/camera-dark-800.webp 800w, /media/produkte/lupe/camera-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1076
-            }
-          },
-          {
-            "name": "result",
-            "title": "Eingetippt in die Anwendung, aus der Sie kamen",
-            "caption": "Mit „Eintippen“ landet der Inhalt als Tastatureingabe in dem Fenster, das vor dem Scan aktiv war – auf Wunsch gefolgt von Enter oder Tab.",
-            "alt": "Ergebnis-Benachrichtigung „QR-Code erkannt“ mit einem Beispiel-Link, dem Status „Kopiert · Eingetippt“ und den Schaltflächen Kopieren, Link öffnen und In Lupe zeigen.",
-            "light": {
-              "src": "/media/produkte/lupe/result-light-630.webp",
-              "srcset": "/media/produkte/lupe/result-light-630.webp 630w",
-              "width": 630,
-              "height": 291
-            },
-            "dark": {
-              "src": "/media/produkte/lupe/result-dark-630.webp",
-              "srcset": "/media/produkte/lupe/result-dark-630.webp 630w",
-              "width": 630,
-              "height": 291
-            }
-          },
-          {
-            "name": "settings",
-            "title": "Einstellungen",
-            "caption": "Je Quelle festlegen, ob ein Treffer kopiert, eingetippt oder als Link geöffnet wird – dazu Taste und Tempo beim Eintippen und das Tastenkürzel für den Bildschirm-Scan. Link-Regeln machen aus einem Code einen Link, z. B. aus einer EAN die Artikelseite im ERP; geöffnet werden nur http- und https-Links.",
-            "alt": "Seite Einstellungen: Aktionen je Quelle (Kopieren, Eintippen, Link öffnen), die Taste nach dem Eintippen, das Tempo beim Eintippen, das Tastenkürzel Win+Umschalt+Q als bereit markiert und darunter der Anfang des Bereichs Link-Regeln mit Erklärung.",
-            "light": {
-              "src": "/media/produkte/lupe/settings-light-1600.webp",
-              "srcset": "/media/produkte/lupe/settings-light-800.webp 800w, /media/produkte/lupe/settings-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1076
-            },
-            "dark": {
-              "src": "/media/produkte/lupe/settings-dark-1600.webp",
-              "srcset": "/media/produkte/lupe/settings-dark-800.webp 800w, /media/produkte/lupe/settings-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1076
-            }
-          },
-          {
-            "name": "history",
-            "title": "Verlauf",
-            "caption": "Alles, was Lupe gelesen hat – durchsuchbar und als CSV für Excel exportierbar. Gespeichert pro Benutzer oder abgeschaltet, dann wird die Datei gelöscht.",
-            "alt": "Seite Verlauf: zwölf Einträge mit Uhrzeit, Quelle (Kamera, Bildschirm, Datei, Zwischenablage), Format und Inhalt, ein Suchfeld und die Schaltflächen „Als CSV exportieren …“ und „Alles löschen“.",
-            "light": {
-              "src": "/media/produkte/lupe/history-light-1600.webp",
-              "srcset": "/media/produkte/lupe/history-light-800.webp 800w, /media/produkte/lupe/history-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1076
-            },
-            "dark": {
-              "src": "/media/produkte/lupe/history-dark-1600.webp",
-              "srcset": "/media/produkte/lupe/history-dark-800.webp 800w, /media/produkte/lupe/history-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1076
-            }
-          }
-        ],
-        "galleryNote": "Abbildungen mit Beispieldaten aus dem Demo-Modus."
-      }
-    },
-    {
-      "id": "vial-scanner",
-      "slug": "vial-scanner",
-      "nr": 5,
-      "name": "Vial-Scanner",
-      "kind": null,
-      "tagline": null,
-      "linie": "labor",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Racks mit 2D-codierten Röhrchen scannen, jede Position zuordnen und als CSV oder an ein LIMS exportieren. Alternative zu Ziath DataPaq.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Labore lagern Proben in Racks mit 2D-codierten Röhrchen (Vials). Ein Rack-Scanner liest alle Codes auf einmal. Die Software dazu kommt bisher vom Hersteller."
-          }
-        ],
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Bild vom Scanner holen",
-              "DataMatrix-Codes pro Rack-Position erkennen, fehlende und unlesbare markieren",
-              "Export als CSV, Schnittstelle für LIMS",
-              "Audit-Log, Basis aus Vitrine"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
     {
       "id": "vitrine",
       "slug": "vitrine",
       "nr": 1,
       "name": "Vitrine",
-      "kind": null,
+      "kind": "Transparente Bildschirmsperre für Windows",
       "tagline": "Ansehen, nicht anfassen.",
       "linie": "ot",
       "status": "fast-fertig",
       "statusKey": "vorabversion",
-      "statusLabel": "Vorabversion",
-      "version": null,
-      "text": "Transparente Bildschirmsperre: Programme bleiben sichtbar, Tastatur und Maus sind gesperrt. Mit Entra ID, elektronischer Signatur und manipulationserkennendem Protokoll.",
+      "statusLabel": "Vorabversion 0.1.0",
+      "version": "0.1.0",
+      "updated": "2026-10-19",
+      "text": "Transparente Bildschirmsperre für Windows: Tastatur und Maus sind gesperrt, Programme bleiben sichtbar und laufen weiter. Mit Microsoft Entra ID, elektronischer Signatur und manipulationserkennendem Protokoll.",
       "sections": {
         "problem": null,
         "ersetzt": null,
@@ -594,7 +46,7 @@
       "facts": [
         {
           "label": "Plattform",
-          "value": "Windows 10 und 11"
+          "value": "Windows 10 (ab Version 1809) und Windows 11, 64 Bit"
         },
         {
           "label": "Anmeldung",
@@ -602,7 +54,11 @@
         },
         {
           "label": "Verwaltung",
-          "value": "Gruppenrichtlinie oder Intune per ADMX/ADML"
+          "value": "Gruppenrichtlinie oder Intune per ADMX/ADML mit 46 Richtlinien"
+        },
+        {
+          "label": "Oberfläche",
+          "value": "Englisch, Deutsch, Spanisch, Französisch, Chinesisch"
         },
         {
           "label": "Einsatz",
@@ -620,125 +76,348 @@
           "#8b5cf6"
         ],
         "banner": null,
-        "demo": {
-          "src": "/media/produkte/vitrine/demo.webp",
-          "still": "/media/produkte/vitrine/demo-still.webp",
-          "width": 900,
-          "height": 474,
-          "alt": "Animation: Eine HPLC-Messkurve läuft unter der durchsichtigen Sperre weiter. Ein Klick öffnet den Entsperrdialog, „Weiter mit Microsoft“ entsperrt den Arbeitsplatz.",
-          "caption": "Die Messung läuft unter der Sperre weiter › Klick öffnet den Entsperrdialog › „Weiter mit Microsoft“ › entsperrt"
-        },
+        "demo": null,
         "screenshots": [
           {
-            "name": "lock",
-            "title": "Durchsichtig sperren",
-            "caption": "Programme bleiben sichtbar und laufen weiter. Ein Overlay pro Monitor, DPI-genau, mit eigenem Hinweistext.",
-            "alt": "Durchsichtig gesperrt: Die Laborsoftware bleibt sichtbar, unten die Hinweisleiste „Messung läuft – bitte nicht berühren“.",
+            "name": "settings-look",
+            "title": "Durchsichtig oder verdeckt",
+            "caption": "Was ist während der Sperre zu sehen? Durchsichtig – die Programme bleiben sichtbar, ideal für Messungen und Prozesse – oder verdeckt für vertrauliche Daten. Dazu Abdunkelung, Hinweistext und Uhr.",
+            "alt": "Vitrine, transparente Bildschirmsperre: Einstellungen › Darstellung mit der Wahl zwischen durchsichtiger und verdeckter Sperre, Abdunkelung 8 % und Hinweistext.",
+            "en": {
+              "title": "Transparent or covered",
+              "caption": "What is visible while locked? Transparent – programs stay visible, ideal for watching measurements and processes – or covered for confidential data. Plus dimming, notice text and clock.",
+              "alt": "Vitrine transparent screen lock: Settings › Appearance with the choice between transparent and covered lock, dimming 8 % and notice text."
+            },
             "light": {
-              "src": "/media/produkte/vitrine/lock-light-1600.webp",
-              "srcset": "/media/produkte/vitrine/lock-light-800.webp 800w, /media/produkte/vitrine/lock-light-1600.webp 1600w",
+              "src": "/media/produkte/vitrine/vitrine-transparente-bildschirmsperre-light-1600.webp",
+              "srcset": "/media/produkte/vitrine/vitrine-transparente-bildschirmsperre-light-800.webp 800w, /media/produkte/vitrine/vitrine-transparente-bildschirmsperre-light-1600.webp 1600w",
               "width": 1600,
-              "height": 842
+              "height": 1091
             },
             "dark": {
-              "src": "/media/produkte/vitrine/lock-dark-1600.webp",
-              "srcset": "/media/produkte/vitrine/lock-dark-800.webp 800w, /media/produkte/vitrine/lock-dark-1600.webp 1600w",
+              "src": "/media/produkte/vitrine/vitrine-transparente-bildschirmsperre-dark-1600.webp",
+              "srcset": "/media/produkte/vitrine/vitrine-transparente-bildschirmsperre-dark-800.webp 800w, /media/produkte/vitrine/vitrine-transparente-bildschirmsperre-dark-1600.webp 1600w",
               "width": 1600,
-              "height": 842
+              "height": 1091
             }
           },
           {
-            "name": "unlock",
-            "title": "Anmelden mit Microsoft Entra ID",
-            "caption": "Über den Windows-Kontobroker: MFA, Authenticator, Passkeys/FIDO2, Windows Hello for Business, Conditional Access.",
-            "alt": "Entsperrdialog mit den Verfahren Microsoft, Kennwort und Hello und der Schaltfläche „Weiter mit Microsoft“.",
+            "name": "lock",
+            "title": "Durchsichtig sperren",
+            "caption": "Programme bleiben sichtbar und laufen weiter. Ein Overlay pro Monitor, DPI-genau, mit optionalem Hinweistext.",
+            "alt": "Vitrine durchsichtig gesperrt: Der Desktop bleibt sichtbar, unten die Hinweisleiste „Locked · Lab operator“ mit Uhrzeit.",
+            "en": {
+              "title": "Lock transparently",
+              "caption": "Programs stay visible and keep running. One overlay per monitor, placed per monitor DPI, with an optional notice text.",
+              "alt": "Vitrine locked transparently: the desktop stays visible, at the bottom the notice bar “Locked · Lab operator” with the time."
+            },
             "light": {
-              "src": "/media/produkte/vitrine/unlock-light-1600.webp",
-              "srcset": "/media/produkte/vitrine/unlock-light-800.webp 800w, /media/produkte/vitrine/unlock-light-1600.webp 1600w",
+              "src": "/media/produkte/vitrine/vitrine-durchsichtig-gesperrt-light-1600.webp",
+              "srcset": "/media/produkte/vitrine/vitrine-durchsichtig-gesperrt-light-800.webp 800w, /media/produkte/vitrine/vitrine-durchsichtig-gesperrt-light-1600.webp 1600w",
               "width": 1600,
-              "height": 842
+              "height": 1103
             },
             "dark": {
-              "src": "/media/produkte/vitrine/unlock-dark-1600.webp",
-              "srcset": "/media/produkte/vitrine/unlock-dark-800.webp 800w, /media/produkte/vitrine/unlock-dark-1600.webp 1600w",
+              "src": "/media/produkte/vitrine/vitrine-durchsichtig-gesperrt-dark-1600.webp",
+              "srcset": "/media/produkte/vitrine/vitrine-durchsichtig-gesperrt-dark-800.webp 800w, /media/produkte/vitrine/vitrine-durchsichtig-gesperrt-dark-1600.webp 1600w",
               "width": 1600,
-              "height": 842
+              "height": 1103
+            }
+          },
+          {
+            "name": "unlock-entra",
+            "title": "Entsperren mit Microsoft Entra ID",
+            "caption": "Über den Windows-Kontobroker: Passkeys und FIDO2-Schlüssel, Authenticator, MFA, Windows Hello for Business und Conditional Access. Dazu Windows-Kennwort und Windows Hello.",
+            "alt": "Entsperrdialog von Vitrine mit den Verfahren Microsoft, Kennwort und Hello und der Schaltfläche „Continue with Microsoft“.",
+            "en": {
+              "title": "Unlock with Microsoft Entra ID",
+              "caption": "Through the Windows account broker: passkeys and FIDO2 keys, Authenticator, MFA, Windows Hello for Business and Conditional Access. Also Windows password and Windows Hello.",
+              "alt": "Vitrine unlock dialog with the methods Microsoft, Password and Hello and the button “Continue with Microsoft”."
+            },
+            "light": {
+              "src": "/media/produkte/vitrine/vitrine-entsperren-microsoft-entra-id-light-936.webp",
+              "srcset": "/media/produkte/vitrine/vitrine-entsperren-microsoft-entra-id-light-800.webp 800w, /media/produkte/vitrine/vitrine-entsperren-microsoft-entra-id-light-936.webp 936w",
+              "width": 936,
+              "height": 968
+            },
+            "dark": {
+              "src": "/media/produkte/vitrine/vitrine-entsperren-microsoft-entra-id-dark-936.webp",
+              "srcset": "/media/produkte/vitrine/vitrine-entsperren-microsoft-entra-id-dark-800.webp 800w, /media/produkte/vitrine/vitrine-entsperren-microsoft-entra-id-dark-936.webp 936w",
+              "width": 936,
+              "height": 968
             }
           },
           {
             "name": "sign",
             "title": "Elektronische Signaturen",
             "caption": "Fachanwendungen fordern über eine lokale Schnittstelle eine Signatur an. Person, Zeitpunkt, Grund und Bedeutung landen im Protokoll.",
-            "alt": "Signaturdialog: „Sie signieren elektronisch – Freigabe Sequenz QC-2026-1012, Bedeutung: Geprüft und freigegeben, angefordert von ChromLab 7“.",
+            "alt": "Signaturdialog von Vitrine: „You are signing electronically – Release batch 4711“, Bedeutung „Reviewed and approved“, angefordert vom LIMS.",
+            "en": {
+              "title": "Electronic signatures",
+              "caption": "Line-of-business applications request a signature over a local interface. Person, time, reason and meaning go into the audit log.",
+              "alt": "Vitrine signature dialog: “You are signing electronically”, the reason “Release batch 4711”, “Meaning: Reviewed and approved”, requested by LIMS."
+            },
             "light": {
-              "src": "/media/produkte/vitrine/sign-light-1600.webp",
-              "srcset": "/media/produkte/vitrine/sign-light-800.webp 800w, /media/produkte/vitrine/sign-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 842
+              "src": "/media/produkte/vitrine/vitrine-elektronische-signatur-light-936.webp",
+              "srcset": "/media/produkte/vitrine/vitrine-elektronische-signatur-light-800.webp 800w, /media/produkte/vitrine/vitrine-elektronische-signatur-light-936.webp 936w",
+              "width": 936,
+              "height": 1238
             },
             "dark": {
-              "src": "/media/produkte/vitrine/sign-dark-1600.webp",
-              "srcset": "/media/produkte/vitrine/sign-dark-800.webp 800w, /media/produkte/vitrine/sign-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 842
+              "src": "/media/produkte/vitrine/vitrine-elektronische-signatur-dark-936.webp",
+              "srcset": "/media/produkte/vitrine/vitrine-elektronische-signatur-dark-800.webp 800w, /media/produkte/vitrine/vitrine-elektronische-signatur-dark-936.webp 936w",
+              "width": 936,
+              "height": 1238
             }
           },
           {
             "name": "blank",
             "title": "Verdeckt sperren",
-            "caption": "Für vertrauliche Inhalte: große Uhr statt Durchsicht. Die Programme laufen trotzdem weiter.",
-            "alt": "Verdeckt gesperrt: dunkler Bildschirm mit großer Uhr 10:42 und Datum.",
+            "caption": "Für vertrauliche Inhalte: große Uhr statt Desktop. Die Programme laufen trotzdem weiter.",
+            "alt": "Vitrine verdeckt gesperrt: Der Bildschirm ist abgedeckt und zeigt eine große Uhr mit Datum.",
+            "en": {
+              "title": "Lock with the screen covered",
+              "caption": "For confidential content: a large clock instead of the desktop. Programs still keep running.",
+              "alt": "Vitrine covered lock: the screen is covered and shows a large clock with the date."
+            },
             "light": {
-              "src": "/media/produkte/vitrine/blank-light-1600.webp",
-              "srcset": "/media/produkte/vitrine/blank-light-800.webp 800w, /media/produkte/vitrine/blank-light-1600.webp 1600w",
+              "src": "/media/produkte/vitrine/vitrine-verdeckt-sperren-light-1600.webp",
+              "srcset": "/media/produkte/vitrine/vitrine-verdeckt-sperren-light-800.webp 800w, /media/produkte/vitrine/vitrine-verdeckt-sperren-light-1600.webp 1600w",
               "width": 1600,
-              "height": 842
+              "height": 1103
             },
             "dark": {
-              "src": "/media/produkte/vitrine/blank-dark-1600.webp",
-              "srcset": "/media/produkte/vitrine/blank-dark-800.webp 800w, /media/produkte/vitrine/blank-dark-1600.webp 1600w",
+              "src": "/media/produkte/vitrine/vitrine-verdeckt-sperren-dark-1600.webp",
+              "srcset": "/media/produkte/vitrine/vitrine-verdeckt-sperren-dark-800.webp 800w, /media/produkte/vitrine/vitrine-verdeckt-sperren-dark-1600.webp 1600w",
               "width": 1600,
-              "height": 842
+              "height": 1103
             }
           },
           {
             "name": "settings-audit",
             "title": "Protokoll mit Hash-Kette",
-            "caption": "Jede Aktion mit Zeit, Person und Verfahren. Die SHA-256-Kette macht Änderungen sichtbar, dazu Netzwerkkopie und Ereignisprotokoll.",
-            "alt": "Einstellungen › Protokoll: Hash-Kette, Kopie auf dem Netzlaufwerk und die letzten Einträge mit „Kette vollständig“.",
+            "caption": "Jede Sperre, Entsperrung, jeder Fehlversuch und jede Signatur mit Zeit (UTC), Person und Verfahren. Die SHA-256-Kette macht Änderungen sichtbar; Netzwerkkopie und Windows-Ereignisprotokoll sind unabhängige Gegenstücke.",
+            "alt": "Vitrine-Einstellungen, Seite Audit log: Ordner, Kopie auf einem Netzlaufwerk, Windows-Ereignisprotokoll und die letzten Einträge mit „Verify chain“.",
+            "en": {
+              "title": "Tamper-evident audit log",
+              "caption": "Every lock, unlock, failed attempt and signature with time (UTC), person and method. The SHA-256 chain makes changes visible; a copy on a network share and the Windows event log add independent records.",
+              "alt": "Vitrine settings, Audit log page: folder, copy on a network share, Windows event log and the latest entries with “Verify chain”."
+            },
             "light": {
-              "src": "/media/produkte/vitrine/settings-audit-light-1600.webp",
-              "srcset": "/media/produkte/vitrine/settings-audit-light-800.webp 800w, /media/produkte/vitrine/settings-audit-light-1600.webp 1600w",
+              "src": "/media/produkte/vitrine/vitrine-audit-protokoll-hash-kette-light-1600.webp",
+              "srcset": "/media/produkte/vitrine/vitrine-audit-protokoll-hash-kette-light-800.webp 800w, /media/produkte/vitrine/vitrine-audit-protokoll-hash-kette-light-1600.webp 1600w",
               "width": 1600,
-              "height": 842
+              "height": 1091
             },
             "dark": {
-              "src": "/media/produkte/vitrine/settings-audit-dark-1600.webp",
-              "srcset": "/media/produkte/vitrine/settings-audit-dark-800.webp 800w, /media/produkte/vitrine/settings-audit-dark-1600.webp 1600w",
+              "src": "/media/produkte/vitrine/vitrine-audit-protokoll-hash-kette-dark-1600.webp",
+              "srcset": "/media/produkte/vitrine/vitrine-audit-protokoll-hash-kette-dark-800.webp 800w, /media/produkte/vitrine/vitrine-audit-protokoll-hash-kette-dark-1600.webp 1600w",
               "width": 1600,
-              "height": 842
+              "height": 1091
             }
           },
           {
             "name": "tray",
-            "title": "Infobereich im Windows-11-Stil",
-            "caption": "Flyout mit Status und Sperr-Knöpfen. Fluent-Design in Hell, Dunkel oder hohem Kontrast, mit Windows- oder Firmen-Akzentfarbe.",
-            "alt": "Infobereich-Flyout mit der Statuskarte „Bereit“ und den Einträgen „Jetzt durchsichtig sperren“, „Verdeckt sperren“ und „Protokoll“.",
+            "title": "Infobereich",
+            "caption": "Flyout mit Status und Sperr-Knöpfen. Hell, dunkel und hoher Kontrast, mit Windows- oder Firmen-Akzentfarbe.",
+            "alt": "Vitrine im Infobereich: Statuskarte „Ready“, Schaltfläche „Lock now, transparent“ und Kacheln für verdecktes Sperren, Protokoll und Info.",
+            "en": {
+              "title": "Notification area",
+              "caption": "A flyout with status and lock buttons. Light, dark and high contrast, Windows or company accent colour.",
+              "alt": "Vitrine notification area flyout: status card “Ready”, the button “Lock now, transparent” and tiles for covered lock, audit log and About."
+            },
             "light": {
-              "src": "/media/produkte/vitrine/tray-light-1600.webp",
-              "srcset": "/media/produkte/vitrine/tray-light-800.webp 800w, /media/produkte/vitrine/tray-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 842
+              "src": "/media/produkte/vitrine/vitrine-infobereich-light-720.webp",
+              "srcset": "/media/produkte/vitrine/vitrine-infobereich-light-720.webp 720w",
+              "width": 720,
+              "height": 726
             },
             "dark": {
-              "src": "/media/produkte/vitrine/tray-dark-1600.webp",
-              "srcset": "/media/produkte/vitrine/tray-dark-800.webp 800w, /media/produkte/vitrine/tray-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 842
+              "src": "/media/produkte/vitrine/vitrine-infobereich-dark-720.webp",
+              "srcset": "/media/produkte/vitrine/vitrine-infobereich-dark-720.webp 720w",
+              "width": 720,
+              "height": 726
             }
           }
         ],
-        "galleryNote": "Die Abbildungen stammen aus einer interaktiven Design-Vorschau der Anwendung; Namen und Werte sind Beispiele."
+        "galleryNote": "Die Abbildungen zeichnet die echte Anwendung mit Beispieldaten (englische Oberfläche); Namen und Werte sind Beispiele.",
+        "galleryNoteEn": "The screenshots are drawn by the real application with sample data; names and values are examples."
+      }
+    },
+    {
+      "id": "haertungs-check",
+      "slug": "riegel",
+      "nr": 22,
+      "name": "Riegel",
+      "kind": "Härtungs-Check für Windows in OT und Labor",
+      "tagline": "Gehärtet, wo es geht. Begründet offen, wo nicht.",
+      "linie": "ot",
+      "status": "fast-fertig",
+      "statusKey": "vorabversion",
+      "statusLabel": "Vorabversion 0.1.0",
+      "version": "0.1.0",
+      "updated": "2026-10-19",
+      "text": "Prüft Windows-Rechner in Anlagen, Laboren und Leitständen lesend und offline gegen 153 Härtungsregeln, hält begründete Ausnahmen mit Freigabe fest und erzeugt einen Bericht zum Abzeichnen.",
+      "sections": {
+        "problem": null,
+        "ersetzt": null,
+        "umfang": null
+      },
+      "highlights": [
+        "153 Regeln",
+        "nur lesend, offline",
+        "begründete Ausnahmen",
+        "Bericht zum Abzeichnen"
+      ],
+      "facts": [
+        {
+          "label": "Geprüfte Rechner",
+          "value": "Windows 7 SP1 bis 11, Windows Server 2008 R2 bis 2025 (portabler Sammler)"
+        },
+        {
+          "label": "Auswertung",
+          "value": "Windows 10 (ab 1809) und Server 2019 oder neuer; Befehlszeile auch für Linux (x64, arm64)"
+        },
+        {
+          "label": "Zugriff",
+          "value": "nur lesend, offline, keine Installation auf dem geprüften Rechner"
+        },
+        {
+          "label": "Oberfläche",
+          "value": "Deutsch, Englisch, Spanisch, Französisch, Chinesisch – auch die Berichte"
+        },
+        {
+          "label": "Lieferform",
+          "value": "portabler Sammler (ZIP), MSI oder Riegel.exe für Auswerte-PCs"
+        }
+      ],
+      "media": {
+        "logo": "/media/produkte/riegel/logo.svg",
+        "colors": [
+          "#f3821d",
+          "#ac281b"
+        ],
+        "banner": null,
+        "demo": null,
+        "screenshots": [
+          {
+            "name": "results",
+            "title": "153 Regeln, ehrliche Ergebnisse",
+            "caption": "Netzwerk, Anmeldedaten, Defender und ASR, Anwendungssteuerung, Verschlüsselung, Firewall, Protokollierung, RDP, Wechselmedien, TLS. Erfüllt heißt: positiv belegt – was nicht lesbar war, ist „nicht prüfbar“, nie stillschweigend erfüllt.",
+            "alt": "Riegel, Härtungs-Check für Windows: Ergebnisse aller Regeln eines Anlagenrechners mit Status, daneben Soll- und Ist-Wert, Quelle und Hinweis für Anlagen.",
+            "en": {
+              "title": "153 rules, honest results",
+              "caption": "Network, credentials, Defender and ASR, application control, encryption, firewall, audit, RDP, removable media, TLS. A pass needs positive evidence; what could not be read is not checkable, never a silent pass.",
+              "alt": "Riegel Windows hardening check: results of every rule on one plant PC with status, and a detail pane with expected and actual value, source and a note for plants."
+            },
+            "light": {
+              "src": "/media/produkte/riegel/riegel-windows-haertung-pruefen-light-1600.webp",
+              "srcset": "/media/produkte/riegel/riegel-windows-haertung-pruefen-light-800.webp 800w, /media/produkte/riegel/riegel-windows-haertung-pruefen-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            },
+            "dark": {
+              "src": "/media/produkte/riegel/riegel-windows-haertung-pruefen-dark-1600.webp",
+              "srcset": "/media/produkte/riegel/riegel-windows-haertung-pruefen-dark-800.webp 800w, /media/produkte/riegel/riegel-windows-haertung-pruefen-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            }
+          },
+          {
+            "name": "exceptions",
+            "title": "Bewusst offen, mit Freigabe",
+            "caption": "Ausnahmen mit Begründung, akzeptiertem Wert, freigebender Rolle und Änderungs- oder QMS-Nachweis – an ihren Inhalt gebunden, mit Ablaufdatum und Verlauf.",
+            "alt": "Ausnahmenregister in Riegel: bewusst offene Befunde mit Kategorie, Geltungsbereich, Freigabestatus, Prüftermin und Freigabenachweis.",
+            "en": {
+              "title": "Deliberately open, approved",
+              "caption": "Exceptions with a justification, the accepted value, an approving role and a change or QMS record – bound to their content, with expiry and history.",
+              "alt": "Riegel exceptions register: deliberately open findings with category, scope, approval state, review date and approval record."
+            },
+            "light": {
+              "src": "/media/produkte/riegel/riegel-begruendete-ausnahmen-light-1600.webp",
+              "srcset": "/media/produkte/riegel/riegel-begruendete-ausnahmen-light-800.webp 800w, /media/produkte/riegel/riegel-begruendete-ausnahmen-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            },
+            "dark": {
+              "src": "/media/produkte/riegel/riegel-begruendete-ausnahmen-dark-1600.webp",
+              "srcset": "/media/produkte/riegel/riegel-begruendete-ausnahmen-dark-800.webp 800w, /media/produkte/riegel/riegel-begruendete-ausnahmen-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            }
+          },
+          {
+            "name": "comparison",
+            "title": "Was hat sich seit der Freigabe geändert?",
+            "caption": "Vergleich mit dem letzten Lauf und mit dem freigegebenen Stand nach Inbetriebnahme oder Herstellerbesuch: Verschlechterungen zuerst, dann Abweichungen der Rohwerte.",
+            "alt": "Vergleich in Riegel: Statusänderungen und Abweichungen der Rohwerte gegenüber dem letzten Lauf oder dem freigegebenen Stand.",
+            "en": {
+              "title": "What changed since approval?",
+              "caption": "Comparison with the previous run and with the approved state after commissioning or a vendor visit: worse first, then raw-value drift.",
+              "alt": "Riegel comparison page: status changes and raw-value drift against the previous run or the approved state."
+            },
+            "light": {
+              "src": "/media/produkte/riegel/riegel-vergleich-freigegebener-stand-light-1600.webp",
+              "srcset": "/media/produkte/riegel/riegel-vergleich-freigegebener-stand-light-800.webp 800w, /media/produkte/riegel/riegel-vergleich-freigegebener-stand-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            },
+            "dark": {
+              "src": "/media/produkte/riegel/riegel-vergleich-freigegebener-stand-dark-1600.webp",
+              "srcset": "/media/produkte/riegel/riegel-vergleich-freigegebener-stand-dark-800.webp 800w, /media/produkte/riegel/riegel-vergleich-freigegebener-stand-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            }
+          },
+          {
+            "name": "machines",
+            "title": "Ein Anlagenordner statt eines Servers",
+            "caption": "Rechner, Gruppen und Rollen, Erhebungen, Läufe und Register als lesbare JSON-Dateien in einem Ordner – auf einem Stick, einer Freigabe oder unter der Änderungskontrolle des Kunden.",
+            "alt": "Rechner einer Anlage in Riegel mit Gruppe, Rolle, letzter Erhebung, offenen Befunden, Härtungsgrad und Prüfabdeckung.",
+            "en": {
+              "title": "A plant folder, not a server",
+              "caption": "Machines, groups and roles, snapshots, runs and registers as readable JSON files in one folder – on a stick, a share or under the customer's change control.",
+              "alt": "Riegel machines page: the machines of the plant with group and role, last collection, open findings, hardening score and checked share."
+            },
+            "light": {
+              "src": "/media/produkte/riegel/riegel-anlagenrechner-uebersicht-light-1600.webp",
+              "srcset": "/media/produkte/riegel/riegel-anlagenrechner-uebersicht-light-800.webp 800w, /media/produkte/riegel/riegel-anlagenrechner-uebersicht-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            },
+            "dark": {
+              "src": "/media/produkte/riegel/riegel-anlagenrechner-uebersicht-dark-1600.webp",
+              "srcset": "/media/produkte/riegel/riegel-anlagenrechner-uebersicht-dark-800.webp 800w, /media/produkte/riegel/riegel-anlagenrechner-uebersicht-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            }
+          },
+          {
+            "name": "reports",
+            "title": "Dokumente zum Abzeichnen",
+            "caption": "Anlagenbericht mit Abzeichnung, Management-Übersicht, Soll-Konfiguration, Freigabeblatt, Erhebungsprotokoll, Excel, CSV und ein Nachweispaket, das Prüfer mit „verify“ nachrechnen.",
+            "alt": "Berichte in Riegel: Anlagenbericht zum Abzeichnen mit Rollen für Erstellung, Prüfung und Freigabe, Formate PDF und Excel und das Nachweispaket.",
+            "en": {
+              "title": "Documents to sign",
+              "caption": "Plant report with sign-off, one-page summary, target configuration, approval sheet, collection record, Excel, CSV and an evidence ZIP that auditors re-check with verify.",
+              "alt": "Riegel reports page: plant report to sign with roles for prepared, reviewed and approved, PDF and Excel formats and the evidence pack."
+            },
+            "light": {
+              "src": "/media/produkte/riegel/riegel-haertungsbericht-abzeichnen-light-1600.webp",
+              "srcset": "/media/produkte/riegel/riegel-haertungsbericht-abzeichnen-light-800.webp 800w, /media/produkte/riegel/riegel-haertungsbericht-abzeichnen-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            },
+            "dark": {
+              "src": "/media/produkte/riegel/riegel-haertungsbericht-abzeichnen-dark-1600.webp",
+              "srcset": "/media/produkte/riegel/riegel-haertungsbericht-abzeichnen-dark-800.webp 800w, /media/produkte/riegel/riegel-haertungsbericht-abzeichnen-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1000
+            }
+          }
+        ],
+        "galleryNote": "Abbildungen aus dem Demo-Modus mit der erfundenen Beispielanlage „Musterwerk – Linie 3“ (englische Oberfläche).",
+        "galleryNoteEn": "Screenshots from the demo mode with the fictitious plant “Musterwerk – Linie 3”."
       }
     },
     {
@@ -746,35 +425,19 @@
       "slug": "zutritt",
       "nr": 35,
       "name": "Zutritt",
-      "kind": "Freigaben-Berechtigungsbericht",
+      "kind": "Berechtigungsbericht für Dateifreigaben (NTFS und SMB)",
       "tagline": "Wer darf wohin?",
       "linie": "ot",
       "status": "fast-fertig",
       "statusKey": "vorabversion",
       "statusLabel": "Vorabversion 0.1.0",
       "version": "0.1.0",
-      "text": "Zeigt für Dateifreigaben, wer worauf zugreifen darf und über welche Gruppe. Findet verwaiste SIDs, Jeder-Rechte und tief versteckte Ausnahmen und erzeugt einen Bericht. Alternative zu Tools wie tenfold.",
+      "updated": "2026-10-18",
+      "text": "Zeigt, wer auf Dateifreigaben worauf zugreifen darf – und über welche Gruppe. Liest Freigabe- und NTFS-Rechte, löst Gruppen bis zur Person auf, meldet riskante Rechte und schreibt einen Excel- oder PDF-Bericht zum Abzeichnen.",
       "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Auf Dateiservern und NAS wachsen Berechtigungen über Jahre: direkte Benutzerrechte, verschachtelte Gruppen, unterbrochene Vererbung, „Jeder“-Rechte, verwaiste SIDs von gelöschten Konten. Bei Audits (GMP, ISO 27001, NIS2) muss man zeigen, wer worauf zugreifen darf. Heute geht das nur mit teuren Tools oder gar nicht."
-          }
-        ],
+        "problem": null,
         "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Desktop-Tool für Windows, liest Freigaben und NTFS-Rechte rekursiv (lokal oder per UNC-Pfad)",
-              "Gruppen im AD bis zur Person auflösen",
-              "Erkennt: Jeder/Authentifizierte Benutzer, direkte Benutzerrechte, unterbrochene Vererbung tief im Baum, verwaiste SIDs, Vollzugriff für Nicht-Admins",
-              "Sicht pro Ordner („wer darf hier rein“) und pro Person („wo darf Max überall hin“)",
-              "Vergleich mit dem letzten Lauf",
-              "Bericht als PDF/Excel zum Abzeichnen, passend zum User Review"
-            ]
-          }
-        ]
+        "umfang": null
       },
       "highlights": [
         "SMB + NTFS",
@@ -785,11 +448,11 @@
       "facts": [
         {
           "label": "Plattform",
-          "value": "Windows 10 und 11, x64"
+          "value": "Windows 10 (ab 1809) und 11, 64 Bit"
         },
         {
           "label": "Oberfläche",
-          "value": "Deutsch, auch die Berichte"
+          "value": "Deutsch, auch Befehlszeile und Berichte"
         },
         {
           "label": "Zugriff",
@@ -817,16 +480,21 @@
             "name": "folders",
             "title": "Wer darf hier rein?",
             "caption": "Pro Ordner jede Person mit dem effektiven Recht über Freigabe und NTFS – und die Gruppenkette, über die der Zugriff kommt.",
-            "alt": "Seite Ordner: Ordnerbaum mit Markierungen und der Reiter „Wer darf hier rein“, der jede Person mit dem effektiven Recht über die Freigabe, dem NTFS-Recht und den Gruppen auflistet, über die der Zugriff kommt.",
+            "alt": "Zutritt, Berechtigungsbericht: Ordnerbaum und der Reiter „Wer darf hier rein“ mit jeder Person, ihrem effektiven Recht und der Gruppenkette.",
+            "en": {
+              "title": "Who can get in here?",
+              "caption": "Per folder, every person with the effective right over the share and over NTFS – and the group chain it comes through.",
+              "alt": "Zutritt permissions report: folder tree and the tab “Wer darf hier rein” listing each person with the effective right and the group chain."
+            },
             "light": {
-              "src": "/media/produkte/zutritt/folders-light-1600.webp",
-              "srcset": "/media/produkte/zutritt/folders-light-800.webp 800w, /media/produkte/zutritt/folders-light-1600.webp 1600w",
+              "src": "/media/produkte/zutritt/zutritt-ntfs-berechtigungen-ordner-light-1600.webp",
+              "srcset": "/media/produkte/zutritt/zutritt-ntfs-berechtigungen-ordner-light-800.webp 800w, /media/produkte/zutritt/zutritt-ntfs-berechtigungen-ordner-light-1600.webp 1600w",
               "width": 1600,
               "height": 1067
             },
             "dark": {
-              "src": "/media/produkte/zutritt/folders-dark-1600.webp",
-              "srcset": "/media/produkte/zutritt/folders-dark-800.webp 800w, /media/produkte/zutritt/folders-dark-1600.webp 1600w",
+              "src": "/media/produkte/zutritt/zutritt-ntfs-berechtigungen-ordner-dark-1600.webp",
+              "srcset": "/media/produkte/zutritt/zutritt-ntfs-berechtigungen-ordner-dark-800.webp 800w, /media/produkte/zutritt/zutritt-ntfs-berechtigungen-ordner-dark-1600.webp 1600w",
               "width": 1600,
               "height": 1067
             }
@@ -835,16 +503,21 @@
             "name": "overview",
             "title": "Freigaben, Server und Ordner prüfen",
             "caption": "Eine Freigabe, ein ganzer Server, lokale Ordner oder alle Freigaben dieses PCs. Verknüpfungspunkte werden erfasst, aber nicht verfolgt.",
-            "alt": "Seite Übersicht: Ergebniskacheln für 18.734 geprüfte Ordner, 41 mit eigenen Berechtigungen, 20 Personen, 2 nicht lesbar und Befunde nach Schweregrad; darunter das Formular für einen neuen Scan.",
+            "alt": "Übersicht in Zutritt: 18.734 geprüfte Ordner, 41 mit eigenen Rechten, 20 Personen, Befunde nach Schweregrad und das Formular für einen neuen Scan.",
+            "en": {
+              "title": "Scan shares, servers and folders",
+              "caption": "A share, a whole server, local folders or all shares of this PC. Junctions are recorded but not followed.",
+              "alt": "Zutritt overview: 18,734 folders checked, 41 with their own permissions, 20 people, findings by severity and the form for a new scan."
+            },
             "light": {
-              "src": "/media/produkte/zutritt/overview-light-1600.webp",
-              "srcset": "/media/produkte/zutritt/overview-light-800.webp 800w, /media/produkte/zutritt/overview-light-1600.webp 1600w",
+              "src": "/media/produkte/zutritt/zutritt-freigaben-scannen-light-1600.webp",
+              "srcset": "/media/produkte/zutritt/zutritt-freigaben-scannen-light-800.webp 800w, /media/produkte/zutritt/zutritt-freigaben-scannen-light-1600.webp 1600w",
               "width": 1600,
               "height": 1067
             },
             "dark": {
-              "src": "/media/produkte/zutritt/overview-dark-1600.webp",
-              "srcset": "/media/produkte/zutritt/overview-dark-800.webp 800w, /media/produkte/zutritt/overview-dark-1600.webp 1600w",
+              "src": "/media/produkte/zutritt/zutritt-freigaben-scannen-dark-1600.webp",
+              "srcset": "/media/produkte/zutritt/zutritt-freigaben-scannen-dark-800.webp 800w, /media/produkte/zutritt/zutritt-freigaben-scannen-dark-1600.webp 1600w",
               "width": 1600,
               "height": 1067
             }
@@ -853,16 +526,21 @@
             "name": "findings",
             "title": "14 Regeln mit klarer Empfehlung",
             "caption": "„Jeder“ darf schreiben, verwaiste SIDs, Rechte an Einzelpersonen, versteckte Vererbungsbrüche, verschobene Ordner – jeweils mit Erklärung, warum es wichtig ist.",
-            "alt": "Seite Befunde: Befunde nach Schweregrad gruppiert, mit dem Detailbereich für die Regel ZT01 mit Erklärung und Empfehlung.",
+            "alt": "Befunde in Zutritt nach Schweregrad, daneben die Regel ZT01 „Breite Gruppe darf schreiben“ mit Erklärung und Empfehlung.",
+            "en": {
+              "title": "14 rules with a clear recommendation",
+              "caption": "Everyone can write, orphaned SIDs, rights given to individuals, hidden inheritance breaks, moved folders – each with “why it matters”.",
+              "alt": "Zutritt findings grouped by severity, with the detail pane for rule ZT01 showing explanation and recommendation."
+            },
             "light": {
-              "src": "/media/produkte/zutritt/findings-light-1600.webp",
-              "srcset": "/media/produkte/zutritt/findings-light-800.webp 800w, /media/produkte/zutritt/findings-light-1600.webp 1600w",
+              "src": "/media/produkte/zutritt/zutritt-befunde-pruefregeln-light-1600.webp",
+              "srcset": "/media/produkte/zutritt/zutritt-befunde-pruefregeln-light-800.webp 800w, /media/produkte/zutritt/zutritt-befunde-pruefregeln-light-1600.webp 1600w",
               "width": 1600,
               "height": 1067
             },
             "dark": {
-              "src": "/media/produkte/zutritt/findings-dark-1600.webp",
-              "srcset": "/media/produkte/zutritt/findings-dark-800.webp 800w, /media/produkte/zutritt/findings-dark-1600.webp 1600w",
+              "src": "/media/produkte/zutritt/zutritt-befunde-pruefregeln-dark-1600.webp",
+              "srcset": "/media/produkte/zutritt/zutritt-befunde-pruefregeln-dark-800.webp 800w, /media/produkte/zutritt/zutritt-befunde-pruefregeln-dark-1600.webp 1600w",
               "width": 1600,
               "height": 1067
             }
@@ -871,16 +549,21 @@
             "name": "people",
             "title": "Wohin darf diese Person?",
             "caption": "Jeder Ordner, den eine Person erreicht, mit dem effektiven Recht und den Gruppen dahinter – auch verschachtelte Gruppen und deaktivierte Konten.",
-            "alt": "Seite Personen: eine Beispielperson mit ihren Gruppenmitgliedschaften und allen 26 Ordnern, auf die sie zugreifen kann, jeweils mit Recht und Gruppenkette.",
+            "alt": "Personen-Ansicht in Zutritt: das Rollenkonto QC-Leitung mit Gruppenmitgliedschaften und allen 26 erreichbaren Ordnern samt Recht und Gruppenkette.",
+            "en": {
+              "title": "Where can this person go?",
+              "caption": "Every folder a person can reach, the effective right and the groups behind it – including nested groups and disabled accounts.",
+              "alt": "Zutritt people page: the role account QC-Leitung with its group memberships and all 26 folders it can access, with right and group chain."
+            },
             "light": {
-              "src": "/media/produkte/zutritt/people-light-1600.webp",
-              "srcset": "/media/produkte/zutritt/people-light-800.webp 800w, /media/produkte/zutritt/people-light-1600.webp 1600w",
+              "src": "/media/produkte/zutritt/zutritt-zugriffsrechte-person-light-1600.webp",
+              "srcset": "/media/produkte/zutritt/zutritt-zugriffsrechte-person-light-800.webp 800w, /media/produkte/zutritt/zutritt-zugriffsrechte-person-light-1600.webp 1600w",
               "width": 1600,
               "height": 1067
             },
             "dark": {
-              "src": "/media/produkte/zutritt/people-dark-1600.webp",
-              "srcset": "/media/produkte/zutritt/people-dark-800.webp 800w, /media/produkte/zutritt/people-dark-1600.webp 1600w",
+              "src": "/media/produkte/zutritt/zutritt-zugriffsrechte-person-dark-1600.webp",
+              "srcset": "/media/produkte/zutritt/zutritt-zugriffsrechte-person-dark-800.webp 800w, /media/produkte/zutritt/zutritt-zugriffsrechte-person-dark-1600.webp 1600w",
               "width": 1600,
               "height": 1067
             }
@@ -889,16 +572,21 @@
             "name": "comparison",
             "title": "Was hat sich seit dem letzten Lauf geändert?",
             "caption": "Neue und erledigte Befunde, geänderte ACL-Einträge und Gruppenmitgliedschaften – und wer jetzt mehr oder weniger Zugriff hat.",
-            "alt": "Seite Vergleich: verglichen mit dem Lauf sieben Tage zuvor – 4 neue Befunde, 3 erledigt, 79 Zugriffsänderungen, 6 ACL-Änderungen und 1 geänderte Mitgliedschaft.",
+            "alt": "Vergleich in Zutritt mit dem Lauf sieben Tage zuvor: 4 neue Befunde, 3 erledigt, 79 Zugriffsänderungen, 6 ACL-Änderungen, 1 geänderte Mitgliedschaft.",
+            "en": {
+              "title": "What changed since the last run?",
+              "caption": "New and resolved findings, changed ACL entries and group memberships, and who can now access more or less.",
+              "alt": "Zutritt comparison with the run of seven days earlier: 4 new findings, 3 resolved, 79 access changes, 6 ACL changes, 1 membership change."
+            },
             "light": {
-              "src": "/media/produkte/zutritt/comparison-light-1600.webp",
-              "srcset": "/media/produkte/zutritt/comparison-light-800.webp 800w, /media/produkte/zutritt/comparison-light-1600.webp 1600w",
+              "src": "/media/produkte/zutritt/zutritt-vergleich-letzter-lauf-light-1600.webp",
+              "srcset": "/media/produkte/zutritt/zutritt-vergleich-letzter-lauf-light-800.webp 800w, /media/produkte/zutritt/zutritt-vergleich-letzter-lauf-light-1600.webp 1600w",
               "width": 1600,
               "height": 1067
             },
             "dark": {
-              "src": "/media/produkte/zutritt/comparison-dark-1600.webp",
-              "srcset": "/media/produkte/zutritt/comparison-dark-800.webp 800w, /media/produkte/zutritt/comparison-dark-1600.webp 1600w",
+              "src": "/media/produkte/zutritt/zutritt-vergleich-letzter-lauf-dark-1600.webp",
+              "srcset": "/media/produkte/zutritt/zutritt-vergleich-letzter-lauf-dark-800.webp 800w, /media/produkte/zutritt/zutritt-vergleich-letzter-lauf-dark-1600.webp 1600w",
               "width": 1600,
               "height": 1067
             }
@@ -907,1996 +595,626 @@
             "name": "report",
             "title": "Excel zum Arbeiten, PDF zum Abzeichnen",
             "caption": "Filterbare Excel-Arbeitsmappe mit jedem Eintrag; PDF mit Deckblatt, Zusammenfassung, Befunden und einem Abzeichnungsblock für die Rechteprüfung.",
-            "alt": "Seite Bericht: Excel- oder PDF-Bericht speichern, den Vergleich einbeziehen und eine Vorschau des Abzeichnungsblocks.",
+            "alt": "Bericht in Zutritt: Excel- oder PDF-Bericht speichern, den Vergleich einbeziehen, mit Vorschau des Abzeichnungsblocks.",
+            "en": {
+              "title": "Excel to work with, PDF to sign",
+              "caption": "Filterable Excel workbook with every entry; PDF with cover, summary, findings and a sign-off block for the access review.",
+              "alt": "Zutritt report page: save the Excel or PDF report, include the comparison, and a preview of the sign-off block."
+            },
             "light": {
-              "src": "/media/produkte/zutritt/report-light-1600.webp",
-              "srcset": "/media/produkte/zutritt/report-light-800.webp 800w, /media/produkte/zutritt/report-light-1600.webp 1600w",
+              "src": "/media/produkte/zutritt/zutritt-bericht-excel-pdf-light-1600.webp",
+              "srcset": "/media/produkte/zutritt/zutritt-bericht-excel-pdf-light-800.webp 800w, /media/produkte/zutritt/zutritt-bericht-excel-pdf-light-1600.webp 1600w",
               "width": 1600,
               "height": 1067
             },
             "dark": {
-              "src": "/media/produkte/zutritt/report-dark-1600.webp",
-              "srcset": "/media/produkte/zutritt/report-dark-800.webp 800w, /media/produkte/zutritt/report-dark-1600.webp 1600w",
+              "src": "/media/produkte/zutritt/zutritt-bericht-excel-pdf-dark-1600.webp",
+              "srcset": "/media/produkte/zutritt/zutritt-bericht-excel-pdf-dark-800.webp 800w, /media/produkte/zutritt/zutritt-bericht-excel-pdf-dark-1600.webp 1600w",
               "width": 1600,
               "height": 1067
             }
           }
         ],
-        "galleryNote": "Abbildungen mit Beispieldaten aus dem Demo-Modus."
+        "galleryNote": "Abbildungen mit Beispieldaten aus dem Demo-Modus.",
+        "galleryNoteEn": "Screenshots with sample data from the demo mode (German user interface)."
       }
     },
     {
-      "id": "usb-pruefstation",
-      "slug": "usb-pruefstation",
-      "nr": 7,
-      "name": "USB-Prüfstation",
-      "kind": null,
-      "tagline": null,
-      "linie": "ot",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Datenschleuse vor der Halle: USB-Sticks auf Schadsoftware und echte Dateitypen prüfen, saubere Dateien umkopieren, alles protokollieren. Alternative zu OPSWAT MetaDefender Kiosk.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Im Werk werden USB-Sticks an Anlagen-PCs gesteckt. Darüber kommt Schadsoftware in das OT-Netz. Meist steht nur ein \"Virenscan-PC in der Ecke\"."
-          }
-        ],
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Eigener Rechner vor der Halle, Kiosk-Oberfläche",
-              "Prüfung mit Defender und ClamAV",
-              "Echte Dateitypen statt Endung prüfen, Makros erkennen, Größenlimits",
-              "Saubere Dateien auf freigegebenen Stick kopieren",
-              "Protokoll mit Hash-Kette, Basis aus Vitrine"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "securedesktop",
-      "slug": "securedesktop",
-      "nr": 8,
-      "name": "SecureDesktop",
-      "kind": null,
-      "tagline": null,
-      "linie": "ot",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Auf Anlagen-PCs dürfen nur freigegebene Programme laufen. Lernmodus, Scharf schalten, Wartungsfreigabe. Baut auf Windows WDAC auf.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Anlagen-PCs bekommen kaum Updates und haben veraltete Virensignaturen. Trotzdem werden dort Programme von USB-Sticks oder von Servicetechnikern gestartet."
-          }
-        ],
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Lernmodus: merkt sich, welche Programme der PC wirklich nutzt",
-              "Liste der erlaubten Programme mit Freigabe",
-              "Scharf schalten",
-              "Wartungsmodus mit Passwort oder Entra-Anmeldung, lernt neue Programme",
-              "Protokoll aller Blockierungen"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "user-review",
-      "slug": "user-review",
-      "nr": 9,
-      "name": "User Review",
-      "kind": null,
-      "tagline": null,
-      "linie": "ot",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Benutzer aus WinCC, DeltaV, Empower, Historian und AD abgleichen. Findet verwaiste Konten, Sammelkonten, Ausgeschiedene und Rollenabweichungen und erzeugt das Review-Sheet zum Abzeichnen.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Periodische Überprüfung der Benutzerkonten ist Pflicht (EU-GMP Annex 11, 21 CFR Part 11, zunehmend NIS2/IEC 62443). Wird heute fast überall manuell mit Excel und Ausdrucken gemacht."
-          }
-        ],
-        "ersetzt": [
-          {
-            "type": "p",
-            "text": "Excel und Handarbeit."
-          }
-        ],
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Import: AD (CSV oder LDAP), WinCC, DeltaV, Empower, Historian (PI/AVEVA)",
-              "Konten Personen aus dem AD zuordnen, auch per Regel",
-              "Erkennen: verwaiste Konten, Sammelkonten, Ausgeschiedene, Rollenabweichungen gegen Soll-Matrix, lange nicht angemeldet",
-              "Vergleich mit dem letzten Review, als Datei gespeichert",
-              "Review-Sheet als PDF/Excel zum Abzeichnen, optional elektronisch signiert (aus Vitrine)"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "haertungs-check",
-      "slug": "haertungs-check",
-      "nr": 22,
-      "name": "Härtungs-Check",
-      "kind": null,
-      "tagline": null,
-      "linie": "ot",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Prüft Windows-Rechner in der OT gegen BSI- oder CIS-Empfehlungen und erzeugt einen Bericht mit Abweichungen. Bewusste Ausnahmen lassen sich begründen, etwa weil die Anlagensoftware eine Einstellung braucht.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Windows-Rechner in Anlagen, Laboren und Leitständen sollen gehärtet sein (IEC 62443, NIS2, Audits), lassen sich aber oft nicht voll härten, weil die Anlagensoftware bestimmte Einstellungen braucht. Heute wird entweder gar nicht geprüft oder mit Werkzeugen, die jede Abweichung als Fehler zeigen. Am Ende fehlt ein Bericht, der zeigt: Was ist gehärtet, was ist bewusst offen und warum."
-          }
-        ],
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Desktop-Tool für Windows, läuft lokal auf dem Rechner oder wertet einen mitgebrachten Export aus (für Rechner ohne Netz)",
-              "Regelwerke: BSI-Empfehlungen (SiSyPHuS Windows), Microsoft Security Baselines, optional CIS",
-              "Ergebnis pro Regel: erfüllt, nicht erfüllt, bewusst offen",
-              "Ausnahmen mit Begründung, Name und Datum, als Datei pro Anlage gespeichert und beim nächsten Lauf wiederverwendet",
-              "Vergleich mit dem letzten Lauf: Was hat sich verschlechtert?",
-              "Bericht als PDF/Excel zum Abzeichnen",
-              "Optional: fehlende Einstellungen als GPO- oder Skript-Vorschlag ausgeben, nicht automatisch anwenden"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "wincc-audit-trail-viewer",
-      "slug": "wincc-audit-trail-viewer",
-      "nr": 28,
-      "name": "WinCC Audit-Trail-Viewer",
-      "kind": null,
-      "tagline": null,
-      "linie": "ot",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Audit-Trail von WinCC und anderen Leitsystemen modern anzeigen, filtern und als Bericht ausgeben.",
-      "sections": {
-        "problem": null,
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Audit-Trail einlesen",
-              "Filter nach Benutzer, Zeitraum, Objekt",
-              "Bericht für GMP-Prüfungen",
-              "Signatur aus Vitrine"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "gpo-doku",
-      "slug": "gpo-doku-und-vergleich",
-      "nr": 36,
-      "name": "GPO-Doku und -Vergleich",
-      "kind": null,
-      "tagline": null,
-      "linie": "ot",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Dokumentiert alle Gruppenrichtlinien lesbar, vergleicht zwei Stände und findet Konflikte und ungenutzte GPOs. Ergänzt den Härtungs-Check: der prüft den Rechner, das hier die Richtlinien dahinter.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "In großen Domänen gibt es Hunderte Gruppenrichtlinien. Niemand weiß genau, welche Einstellung woher kommt, welche GPOs sich widersprechen und welche gar nicht mehr wirken. Für Audits und Härtung fehlt eine lesbare Dokumentation und ein sauberer Vergleich zwischen zwei Ständen."
-          }
-        ],
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Desktop-Tool für Windows, liest alle GPOs einer Domäne oder einen Backup-Ordner (für Offline-Analyse)",
-              "Lesbare Dokumentation pro GPO und pro Einstellung, durchsuchbar, Export als PDF/Excel",
-              "Vergleich zweier Stände (vorher/nachher, Test/Produktion)",
-              "Findet Konflikte (gleiche Einstellung, verschiedene Werte), leere oder nicht verknüpfte GPOs, deaktivierte Verknüpfungen",
-              "Wirkt auf welche OU? Auflösung von Verknüpfung, Vererbung, Filterung"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "modbus-explorer",
-      "slug": "modbus-explorer",
-      "nr": 11,
-      "name": "Modbus-Explorer",
-      "kind": null,
-      "tagline": null,
-      "linie": "explorer",
+      "id": "enterprisebrowser",
+      "slug": "enterprisebrowser",
+      "nr": 2,
+      "name": "EnterpriseBrowser",
+      "kind": "Kiosk-Browser für Zebra und Honeywell",
+      "tagline": "Web-Apps auf robusten Android-Geräten.",
+      "linie": "android",
       "status": "fertig",
       "statusKey": "verfuegbar",
       "statusLabel": "Verfügbar",
-      "version": null,
-      "text": "Modbus-Geräte abfragen, Register lesen und schreiben.",
+      "version": "0.5.0",
+      "updated": "2026-10-19",
+      "text": "Kiosk-Browser für robuste Android-Geräte von Zebra und Honeywell: Barcode-Scan per DataWedge direkt ins Webformular, Profile, Kioskmodus und Konfiguration per MDM (SOTI, Intune, StageNow).",
       "sections": {
         "problem": null,
         "ersetzt": null,
         "umfang": null
       },
-      "highlights": [],
-      "facts": [],
+      "highlights": [
+        "Zebra DataWedge",
+        "Honeywell",
+        "Kioskmodus",
+        "MDM: SOTI, Intune, StageNow"
+      ],
+      "facts": [
+        {
+          "label": "Plattform",
+          "value": "Android 8.0 und neuer, robuste Geräte von Zebra und Honeywell"
+        },
+        {
+          "label": "Scannen",
+          "value": "Zebra DataWedge, Honeywell oder jede Scanner-App per Intent"
+        },
+        {
+          "label": "Verwaltung",
+          "value": "Managed Configuration per MDM (SOTI, Intune, Workspace ONE), Konfigurationsdatei, StageNow, QR-Code"
+        },
+        {
+          "label": "Sicherheit",
+          "value": "strenge TLS-Prüfung, Client-Zertifikate, Kennwörter nur als Hash"
+        },
+        {
+          "label": "Lieferform",
+          "value": "APK zur Verteilung per MDM"
+        },
+        {
+          "label": "Oberfläche",
+          "value": "Englisch, Deutsch, Spanisch, Französisch, Chinesisch"
+        }
+      ],
       "media": {
-        "logo": null,
-        "colors": null,
+        "logo": "/media/produkte/enterprisebrowser/logo.webp",
+        "colors": [
+          "#0d47a1",
+          "#0d47a1"
+        ],
         "banner": null,
         "demo": null,
-        "screenshots": [],
-        "galleryNote": null
+        "screenshots": [
+          {
+            "name": "screen-launcher",
+            "title": "Profile",
+            "caption": "Ein Tipp öffnet die Web-App. Mehrere Web-Apps auf einem Gerät, jede mit eigener Start-Adresse und eigenen Regeln.",
+            "alt": "EnterpriseBrowser, Kiosk-Browser für Zebra und Honeywell: Startbildschirm mit den Profilen Goods receipt, Picking, Shipping & labels und Scanner-Test.",
+            "en": {
+              "title": "Profiles",
+              "caption": "One tap opens the web app. Several web apps on one device, each with its own start address and rules.",
+              "alt": "EnterpriseBrowser kiosk browser for Zebra and Honeywell: start screen with the profiles Goods receipt, Picking, Shipping & labels and the scanner test."
+            },
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-kiosk-browser-profile-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-kiosk-browser-profile-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-browser",
+            "title": "Scannen",
+            "caption": "Der Barcode landet im Feld, auf Wunsch gefolgt von Tab oder Enter – und als JavaScript-Ereignis für die Web-App.",
+            "alt": "Barcode-Scan im EnterpriseBrowser: die gescannte EAN 4006381333931 steht im Feld Item der Demo-Seite, darunter die letzten Scans.",
+            "en": {
+              "title": "Scanning",
+              "caption": "The barcode goes into the field, optionally followed by Tab or Enter – and as a JavaScript event for the web app.",
+              "alt": "Barcode scan in EnterpriseBrowser: the scanned EAN 4006381333931 in the Item field of the demo page, below it the latest scans."
+            },
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-barcode-scan-webformular-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-barcode-scan-webformular-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-menu",
+            "title": "Menü",
+            "caption": "Alles in Daumenreichweite.",
+            "alt": "Menü des EnterpriseBrowser über der Demo-Seite mit Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings und Exit.",
+            "en": {
+              "title": "Menu",
+              "caption": "Everything within thumb reach.",
+              "alt": "EnterpriseBrowser menu over the demo page with Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings and Exit."
+            },
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-menue-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-menue-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-launcher-branded",
+            "title": "Eigenes Design",
+            "caption": "Titel, Untertitel, Logo und Markenfarbe kommen aus der Konfiguration oder werden direkt in der App eingestellt.",
+            "alt": "EnterpriseBrowser im eigenen Design: grüner Kopf mit Kürzel NL, Titel North Logistics Center und Shift A · Hall 3, darunter die Profile.",
+            "en": {
+              "title": "Custom design",
+              "caption": "Title, subtitle, logo and brand color come from the configuration – or are set right in the app.",
+              "alt": "EnterpriseBrowser with custom branding: green header with the initials NL, the title North Logistics Center and Shift A · Hall 3, below it the profiles."
+            },
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-eigenes-design-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-eigenes-design-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-profile-editor",
+            "title": "Profil mit eigener Farbe",
+            "caption": "Jedes Profil kann eine eigene Farbe haben, die auch die Werkzeugleiste in der Web-App einfärbt.",
+            "alt": "Profil bearbeiten im EnterpriseBrowser: Name, Start-URL, erlaubte Hosts, Profilfarbe und Schalter für Autostart, Werkzeugleiste und Vollbild.",
+            "en": {
+              "title": "Profile with its own color",
+              "caption": "Every profile can have its own color, which also tints the toolbar inside the web app.",
+              "alt": "EnterpriseBrowser profile editor: name, start URL, allowed hosts, profile color and switches for open on app start, hide toolbar and full screen."
+            },
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-profil-allowlist-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-profil-allowlist-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-settings",
+            "title": "Einstellungen",
+            "caption": "Mit Kennwort geschützt: Profile, Design und Konfiguration.",
+            "alt": "Einstellungen des EnterpriseBrowser mit Profilliste, Add profile und dem Bereich Design mit Titel, Markenfarbe und Logo.",
+            "en": {
+              "title": "Settings",
+              "caption": "Password protected: profiles, design and configuration.",
+              "alt": "EnterpriseBrowser settings with the profile list, Add profile and the Design section with title, brand color and logo."
+            },
+            "light": {
+              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-einstellungen-light-520.webp",
+              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-einstellungen-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          }
+        ],
+        "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert; Namen und Adressen sind Beispiele.",
+        "galleryNoteEn": "The screenshots are rendered straight from the app's UI code; names and addresses are examples."
       }
     },
     {
-      "id": "bacnet-explorer",
-      "slug": "hausmeister",
-      "nr": 12,
-      "name": "Hausmeister",
-      "kind": "BACnet-Explorer",
-      "tagline": "BACnet-Geräte finden, Datenpunkte prüfen, Werte setzen.",
-      "linie": "explorer",
-      "status": "fast-fertig",
-      "statusKey": "vorabversion",
-      "statusLabel": "Vorabversion 0.1.0",
-      "version": "0.1.0",
-      "text": "Geräte der Gebäudeautomation finden, Objekte durchsuchen, Werte und Trendlogs ansehen, Geräteliste für Abnahmen exportieren. Alternative zu YABE.",
+      "id": "industrialkeyboard",
+      "slug": "industrial-keyboard",
+      "nr": 3,
+      "name": "Industrial Keyboard",
+      "kind": "Bildschirmtastatur für robuste Android-Geräte",
+      "tagline": "Schnelle, zuverlässige Dateneingabe auf robusten Android-Geräten.",
+      "linie": "android",
+      "status": "fertig",
+      "statusKey": "verfuegbar",
+      "statusLabel": "Verfügbar",
+      "version": "2.0.0",
+      "updated": "2026-10-19",
+      "text": "Bildschirmtastatur für robuste Android-Geräte von Zebra und Honeywell: große Tasten für Handschuhe, Scan-Taste, F1–F24 für Terminal-Emulation, zentral per MDM konfigurierbar.",
       "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Gebäudetechniker brauchen ein Werkzeug, um BACnet-Geräte zu finden und zu prüfen, zum Beispiel bei Abnahmen."
-          }
-        ],
+        "problem": null,
         "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Geräte finden, Objekte und Eigenschaften durchsuchen",
-              "Werte live, Diagramme, schreiben mit Priorität",
-              "Trendlogs, Alarme und Ereignisse",
-              "Geräteliste exportieren",
-              "BACnet/IP zuerst, MS/TP später"
-            ]
-          }
-        ]
+        "umfang": null
       },
       "highlights": [
-        "BACnet/IP",
-        "16 Prioritäten im Blick",
-        "Trendlogs und Alarme",
-        "Punkteliste als CSV"
+        "F1–F24",
+        "Scan-Taste eingebaut",
+        "Große Tasten für Handschuhe",
+        "Konfiguration per MDM"
       ],
       "facts": [
         {
           "label": "Plattform",
-          "value": "Windows 10 und 11, Linux (x64 und ARM64)"
+          "value": "Android 8.0 und neuer, robuste Geräte von Zebra und Honeywell"
+        },
+        {
+          "label": "Tasten",
+          "value": "F1–F24, Esc, Ins, Del, Pfeiltasten, eigene Tasten und Makros"
+        },
+        {
+          "label": "Layouts",
+          "value": "QWERTY, QWERTZ, AZERTY, Nordisch und Spanisch"
+        },
+        {
+          "label": "Verwaltung",
+          "value": "Managed Configuration per MDM (SOTI, Intune, Workspace ONE), Konfigurationsdatei, StageNow"
+        },
+        {
+          "label": "Datenschutz",
+          "value": "keine Internet-Berechtigung, kein Wörterbuch, nichts Getipptes wird gespeichert"
         },
         {
           "label": "Oberfläche",
-          "value": "Deutsch, im Browser, nur auf diesem Rechner erreichbar"
-        },
-        {
-          "label": "Protokoll",
-          "value": "BACnet/IP, herstellerunabhängig"
-        },
-        {
-          "label": "Betrieb",
-          "value": "Nur-Lesen-Modus für Abnahmen und Begehungen"
-        },
-        {
-          "label": "Lieferform",
-          "value": "eine Datei, keine Installation"
+          "value": "Englisch, Deutsch, Spanisch, Französisch, Chinesisch"
         }
       ],
       "media": {
-        "logo": "/media/produkte/hausmeister/logo.svg",
-        "colors": null,
+        "logo": "/media/produkte/industrial-keyboard/logo.webp",
+        "colors": [
+          "#2b5996",
+          "#08759b"
+        ],
         "banner": null,
         "demo": null,
         "screenshots": [
           {
-            "name": "uebersicht",
-            "title": "Alle Datenpunkte eines Controllers",
-            "caption": "Mit Wert, Einheit und Zustand. Beim Ausgang ist sofort zu sehen, welche Priorität ihn steuert.",
-            "alt": "Hausmeister im Browser: links vier Geräte (Lüftung, Heizung, Raumregler, Energiezähler). Rechts die Datenpunkte der Lüftungsanlage mit Objekt, Name, Beschreibung, Wert mit Einheit und Zustand, etwa die Zulufttemperatur in °C, den Zuluftventilator „Ein“ und die Betriebsart „Automatik“. Daneben das Heizregisterventil mit seinen 16 Prioritäten: Priorität 8 ist mit 62,5 % belegt und bestimmt den Wert.",
-            "light": {
-              "src": "/media/produkte/hausmeister/uebersicht-light-1600.webp",
-              "srcset": "/media/produkte/hausmeister/uebersicht-light-800.webp 800w, /media/produkte/hausmeister/uebersicht-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
+            "name": "screen-alpha",
+            "title": "Buchstaben",
+            "caption": "Tastenvorschau über dem Finger, Reiter für Zahlen, Zeichen, Funktionstasten und Scan.",
+            "alt": "Industrial Keyboard, Bildschirmtastatur für Android: QWERTZ-Buchstaben unter einem Testformular, Reiter ABC, 123, #+=, Fn und Scan, Vorschau der Taste g.",
+            "en": {
+              "title": "Letters",
+              "caption": "Key preview above the finger, tabs for numbers, symbols, function keys and scan.",
+              "alt": "Industrial Keyboard on-screen keyboard for Android: QWERTZ letters below a test form, tabs ABC, 123, #+=, Fn and Scan, preview of the key g."
             },
-            "dark": {
-              "src": "/media/produkte/hausmeister/uebersicht-dark-1600.webp",
-              "srcset": "/media/produkte/hausmeister/uebersicht-dark-800.webp 800w, /media/produkte/hausmeister/uebersicht-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            }
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/industrial-keyboard-android-tastatur-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/industrial-keyboard-android-tastatur-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
           },
           {
-            "name": "trendlog",
-            "title": "Trendlogs aus dem Controller",
-            "caption": "Per ReadRange gelesen, als Diagramm und CSV. Einheit und Zeitbereich kommen aus dem Gerät.",
-            "alt": "Trendlog der Außenlufttemperatur über 24 Stunden als Linie mit Tagesgang, das Fadenkreuz zeigt Wert in °C und Uhrzeit eines Eintrags. Darüber die Auswahl der letzten 500 Einträge, Als CSV und Schließen.",
-            "light": {
-              "src": "/media/produkte/hausmeister/trendlog-light-1600.webp",
-              "srcset": "/media/produkte/hausmeister/trendlog-light-800.webp 800w, /media/produkte/hausmeister/trendlog-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 562
+            "name": "screen-numeric",
+            "title": "Zahlenblock",
+            "caption": "Öffnet sich in Zahlenfeldern von selbst.",
+            "alt": "Zahlenblock von Industrial Keyboard im dunklen Design: Ziffern, Komma, Punkt, Tab und Enter für das Feld Quantity.",
+            "en": {
+              "title": "Numeric pad",
+              "caption": "Opens by itself in number fields.",
+              "alt": "Industrial Keyboard numeric pad in the dark theme: digits, comma, period, Tab and Enter for the Quantity field."
             },
-            "dark": {
-              "src": "/media/produkte/hausmeister/trendlog-dark-1600.webp",
-              "srcset": "/media/produkte/hausmeister/trendlog-dark-800.webp 800w, /media/produkte/hausmeister/trendlog-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 562
-            }
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/industrial-keyboard-zahlenblock-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/industrial-keyboard-zahlenblock-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
           },
           {
-            "name": "setzen",
-            "title": "Werte setzen, mit Bedacht",
-            "caption": "Present_Value mit Priorität schreiben oder eine Priorität freigeben. Hausmeister warnt, wenn eine höhere Priorität Vorrang hat.",
-            "alt": "Dialog „Wert setzen: AO 1 · LTA01_HZ_VENTIL“ für das Gerät LTA-01 Lüftung Halle 2, aktuell 35 %. Hinweis: Priorität 8 ist belegt und hat Vorrang. Neuer Wert 45, Priorität 10, Kästchen „Diese Priorität freigeben“, Warnung „Wirkt sofort auf die Anlage“ und die Schaltfläche „Mit Priorität 10 setzen“.",
-            "light": {
-              "src": "/media/produkte/hausmeister/setzen-light-1040.webp",
-              "srcset": "/media/produkte/hausmeister/setzen-light-800.webp 800w, /media/produkte/hausmeister/setzen-light-1040.webp 1040w",
-              "width": 1040,
-              "height": 832
+            "name": "screen-scan",
+            "title": "Scan-Reiter",
+            "caption": "Tippen zum Scannen, halten für Dauerscan.",
+            "alt": "Scan-Reiter von Industrial Keyboard mit großer blauer Auslösefläche „Scanning …“ und dem Hinweis auf Dauerscan mit Zebra DataWedge.",
+            "en": {
+              "title": "Scan tab",
+              "caption": "Tap to scan, hold for continuous scanning.",
+              "alt": "Industrial Keyboard scan tab with a large blue trigger pad “Scanning …” and the hint on continuous scanning with Zebra DataWedge."
             },
-            "dark": {
-              "src": "/media/produkte/hausmeister/setzen-dark-1040.webp",
-              "srcset": "/media/produkte/hausmeister/setzen-dark-800.webp 800w, /media/produkte/hausmeister/setzen-dark-1040.webp 1040w",
-              "width": 1040,
-              "height": 832
-            }
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/industrial-keyboard-scan-taste-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/industrial-keyboard-scan-taste-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
           },
           {
-            "name": "alarme",
-            "title": "Objekte im Alarm",
-            "caption": "Alle Geräte auf Objekte im Alarm abfragen, mit Zustand, Wert und Zeitpunkt.",
-            "alt": "Tabelle „Objekte im Alarm“: das Gerät HZG-UG Heizung Untergeschoss meldet für AI 3 HZG_DRUCK den Zustand „Grenzwert unten“ mit 1,32 bar, nicht quittiert. Daneben die Schaltflächen „Alle Geräte abfragen“ und „Als CSV“.",
-            "light": {
-              "src": "/media/produkte/hausmeister/alarme-light-1600.webp",
-              "srcset": "/media/produkte/hausmeister/alarme-light-800.webp 800w, /media/produkte/hausmeister/alarme-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 195
+            "name": "screen-function",
+            "title": "Funktionstasten",
+            "caption": "F1–F24, Esc, Ins, Del und Pfeiltasten – etwa für Terminal-Emulatoren.",
+            "alt": "Funktionstasten in Industrial Keyboard, kontrastreiches Design: F1 bis F12, Esc, Home, End, PgUp, PgDn, Ins, Del und Pfeiltasten.",
+            "en": {
+              "title": "Function keys",
+              "caption": "F1–F24, Esc, Ins, Del and arrow keys – for terminal emulators, for example.",
+              "alt": "Industrial Keyboard function keys in the high-contrast theme: F1 to F12, Esc, Home, End, PgUp, PgDn, Ins, Del and arrows."
             },
-            "dark": {
-              "src": "/media/produkte/hausmeister/alarme-dark-1600.webp",
-              "srcset": "/media/produkte/hausmeister/alarme-dark-800.webp 800w, /media/produkte/hausmeister/alarme-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 195
-            }
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/industrial-keyboard-funktionstasten-f1-f24-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/industrial-keyboard-funktionstasten-f1-f24-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-custom",
+            "title": "Eigene Layouts",
+            "caption": "Eigene Tasten als zusätzlicher Reiter, festgelegt in der Konfiguration – ohne App-Update.",
+            "alt": "Eigener Reiter Pick in Industrial Keyboard mit den Tasten OK, Skip, Short, Damaged, Scan und Numbers.",
+            "en": {
+              "title": "Custom layouts",
+              "caption": "Your own keys as an extra tab, defined in the configuration – no app update needed.",
+              "alt": "Industrial Keyboard custom tab Pick with the keys OK, Skip, Short, Damaged, Scan and Numbers."
+            },
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/industrial-keyboard-eigene-tastenlayouts-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/industrial-keyboard-eigene-tastenlayouts-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
+          },
+          {
+            "name": "screen-settings",
+            "title": "Einstellungen",
+            "caption": "Mit Live-Vorschau, durch Kennwort geschützt.",
+            "alt": "Einstellungen von Industrial Keyboard mit Live-Vorschau, Design System, Light, Dark oder High contrast, Akzentfarbe und Tastenhöhe.",
+            "en": {
+              "title": "Settings",
+              "caption": "With live preview, password protected.",
+              "alt": "Industrial Keyboard settings with live preview, theme System, Light, Dark or High contrast, accent colour and key height."
+            },
+            "light": {
+              "src": "/media/produkte/industrial-keyboard/industrial-keyboard-einstellungen-light-520.webp",
+              "srcset": "/media/produkte/industrial-keyboard/industrial-keyboard-einstellungen-light-520.webp 520w",
+              "width": 520,
+              "height": 1045
+            },
+            "dark": null
           }
         ],
-        "galleryNote": "Abbildungen mit erfundenen Geräten und Werten aus dem Demo-Modus."
+        "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert.",
+        "galleryNoteEn": "The screenshots are rendered from the real keyboard code."
       }
     },
     {
-      "id": "snmp-explorer",
-      "slug": "fuehler",
-      "nr": 13,
-      "name": "Fühler",
-      "kind": "SNMP-Explorer",
-      "tagline": "SNMP verstehen statt OIDs raten.",
-      "linie": "explorer",
+      "id": "qr-scanner",
+      "slug": "lupe",
+      "nr": 6,
+      "name": "Lupe",
+      "kind": "QR-Code- und Barcode-Leser für den PC",
+      "tagline": "Jeder Code, von überall.",
+      "linie": "codes",
       "status": "fast-fertig",
       "statusKey": "vorabversion",
       "statusLabel": "Vorabversion 0.1.0",
       "version": "0.1.0",
-      "text": "MIBs laden, Walk, Get und Set mit v1, v2c und v3, Traps live empfangen, Werte von USV, PDU und Klima als Diagramm, Netz nach SNMP-Geräten durchsuchen. Läuft als eine Datei mit lokaler Web-Oberfläche. Alternative zum iReasoning MIB Browser.",
+      "updated": "2026-10-19",
+      "text": "Liest QR-Codes und Barcodes unter Windows, Linux und macOS – per Webcam, aus jedem Bildschirmausschnitt, aus Bilddateien und der Zwischenablage. Das Ergebnis wird kopiert, eingetippt oder als Link geöffnet.",
       "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "In Rechenzentren laufen USVs, PDUs, Klima und Switches über SNMP."
-          }
-        ],
+        "problem": null,
         "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "MIBs von APC, Eaton, Rittal usw. laden, verständlicher Baum",
-              "Walk, Get, Set mit v1, v2c und v3",
-              "Traps live empfangen",
-              "Werte als Diagramm",
-              "Netz nach SNMP-Geräten durchsuchen, Geräteliste exportieren"
-            ]
-          }
-        ]
+        "umfang": null
       },
       "highlights": [
-        "SNMP v1 · v2c · v3",
-        "MIB-Baum mit Suche",
-        "Traps live",
-        "Netzsuche"
+        "Win+Umschalt+Q",
+        "Webcam als Handscanner",
+        "22 Code-Formate",
+        "Link-Regeln"
       ],
       "facts": [
         {
           "label": "Plattform",
-          "value": "Windows 10 und 11, Windows Server, Linux (x64 und ARM64)"
+          "value": "Windows 10 (ab 1809) und 11, Linux (x64, arm64; X11 und Wayland), macOS ab 12"
         },
         {
           "label": "Oberfläche",
-          "value": "Deutsch, im Browser, nur auf diesem Rechner erreichbar"
+          "value": "Deutsch und Englisch, folgt der Systemsprache"
         },
         {
-          "label": "Geräte",
-          "value": "USVs, Switche, Drucker, Klimageräte und SPS-Gateways"
+          "label": "Daten",
+          "value": "bleiben auf dem Rechner, nichts wird ins Internet gesendet"
         },
         {
-          "label": "MIBs",
-          "value": "Standard-MIBs eingebaut, Hersteller-MIBs wählbar"
+          "label": "Formate",
+          "value": "22 Formate, darunter QR Code, Data Matrix, Code 128, EAN-13 und PDF417"
         },
         {
           "label": "Lieferform",
-          "value": "eine Datei, keine Installation"
+          "value": "MSI oder einzelne Lupe.exe (Windows), .deb und tar.gz (Linux), Lupe.app (macOS)"
         }
       ],
       "media": {
-        "logo": "/media/produkte/fuehler/logo.svg",
-        "colors": null,
+        "logo": "/media/produkte/lupe/logo.svg",
+        "colors": [
+          "#f7a531",
+          "#e8505b"
+        ],
         "banner": null,
         "demo": null,
         "screenshots": [
           {
-            "name": "uebersicht",
-            "title": "Hersteller-MIB statt nackter Zahlen",
-            "caption": "Eine USV mit geladener Hersteller-MIB: Namen, Einheiten, Aufzählungen und Kommastellen.",
-            "alt": "Fühler im Browser: links vier Geräte (USV, Switch, Drucker, SPS-Gateway). In der Mitte der MIB-Baum, aufgeklappt bis zur Batterietemperatur einer USV aus einer Hersteller-MIB. Rechts die Beschreibung des Eintrags mit Typ, Einheit °C und Darstellung d-1, darunter ein Walk mit Werten wie „normal (2)“, Ladezustand in Prozent, Temperatur mit Dezimalkomma in °C und der Stromquelle der USV.",
+            "name": "selection",
+            "title": "QR-Code vom Bildschirm scannen",
+            "caption": "In jedem Programm Win+Umschalt+Q drücken und ein Rechteck um den Code ziehen – über alle Monitore, auch bei geschlossenem Lupe-Fenster.",
+            "alt": "Lupe, QR-Code-Leser für den PC: ein Rechteck um den QR-Code einer PDF-Rechnung, aufgezogen mit Win+Umschalt+Q.",
+            "en": {
+              "title": "Scan a QR code from the screen",
+              "caption": "Press Win+Shift+Q in any program and drag a rectangle around the code – across all monitors, also with the Lupe window closed.",
+              "alt": "Lupe QR code reader for the PC: a rectangle drawn around the QR code of a PDF invoice with Win+Shift+Q."
+            },
             "light": {
-              "src": "/media/produkte/fuehler/uebersicht-light-1600.webp",
-              "srcset": "/media/produkte/fuehler/uebersicht-light-800.webp 800w, /media/produkte/fuehler/uebersicht-light-1600.webp 1600w",
+              "src": "/media/produkte/lupe/lupe-qr-code-vom-bildschirm-scannen-light-1600.webp",
+              "srcset": "/media/produkte/lupe/lupe-qr-code-vom-bildschirm-scannen-light-800.webp 800w, /media/produkte/lupe/lupe-qr-code-vom-bildschirm-scannen-light-1600.webp 1600w",
               "width": 1600,
-              "height": 1075
+              "height": 900
             },
             "dark": {
-              "src": "/media/produkte/fuehler/uebersicht-dark-1600.webp",
-              "srcset": "/media/produkte/fuehler/uebersicht-dark-800.webp 800w, /media/produkte/fuehler/uebersicht-dark-1600.webp 1600w",
+              "src": "/media/produkte/lupe/lupe-qr-code-vom-bildschirm-scannen-dark-1600.webp",
+              "srcset": "/media/produkte/lupe/lupe-qr-code-vom-bildschirm-scannen-dark-800.webp 800w, /media/produkte/lupe/lupe-qr-code-vom-bildschirm-scannen-dark-1600.webp 1600w",
               "width": 1600,
-              "height": 1075
+              "height": 900
             }
           },
           {
-            "name": "traps",
-            "title": "Traps live empfangen",
-            "caption": "v1, v2c und v3, jeder Trap mit Namen und Beschreibung aus der MIB.",
-            "alt": "Trap-Ansicht: Fühler lauscht auf Port 1162. Oben der SNMPv1-Trap „MUSTER-USV-MIB::usvPowerRestored“ mit der Beschreibung „Das Netz ist zurück, die USV lädt die Batterie wieder.“, usvOutputSource utility (1), Agentenadresse und Enterprise. Darunter linkUp und linkDown eines Switch-Ports mit ifIndex, ifAdminStatus und ifOperStatus, dann „usvOnBattery“ mit usvOutputSource battery (2) und Ladezustand 100 %.",
+            "name": "result",
+            "title": "Eingetippt in die Anwendung, aus der Sie kamen",
+            "caption": "Mit „Eintippen“ landet der Inhalt als Tastatureingabe in dem Fenster, das vor dem Scan aktiv war – auf Wunsch gefolgt von Enter oder Tab.",
+            "alt": "Lupe-Benachrichtigung „QR-Code erkannt“ mit einem Beispiel-Link, Status „Kopiert · Eingetippt“ und den Schaltflächen Kopieren, Link öffnen, In Lupe zeigen.",
+            "en": {
+              "title": "Typed into the app you came from",
+              "caption": "With typing switched on, the content goes into the window that was active before the scan – as keyboard input, optionally followed by Enter or Tab.",
+              "alt": "Lupe result notification “QR-Code erkannt” with a sample link, the status “Kopiert · Eingetippt” and the buttons Copy, Open link, Show in Lupe."
+            },
             "light": {
-              "src": "/media/produkte/fuehler/traps-light-1600.webp",
-              "srcset": "/media/produkte/fuehler/traps-light-800.webp 800w, /media/produkte/fuehler/traps-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1075
+              "src": "/media/produkte/lupe/lupe-ergebnis-eingetippt-light-630.webp",
+              "srcset": "/media/produkte/lupe/lupe-ergebnis-eingetippt-light-630.webp 630w",
+              "width": 630,
+              "height": 292
             },
             "dark": {
-              "src": "/media/produkte/fuehler/traps-dark-1600.webp",
-              "srcset": "/media/produkte/fuehler/traps-dark-800.webp 800w, /media/produkte/fuehler/traps-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1075
+              "src": "/media/produkte/lupe/lupe-ergebnis-eingetippt-dark-630.webp",
+              "srcset": "/media/produkte/lupe/lupe-ergebnis-eingetippt-dark-630.webp 630w",
+              "width": 630,
+              "height": 292
             }
           },
           {
-            "name": "diagramme",
-            "title": "Diagramme",
-            "caption": "Ein Klick verfolgt einen Wert. Zähler werden zur Rate pro Sekunde, Bytes zu Bit/s.",
-            "alt": "Vier kleine Diagramme: eingehender und ausgehender Verkehr des Uplink-Ports in Mbit/s, eingehender Verkehr eines zweiten Ports und Eingangsfehler pro Sekunde an Port 6. Über dem ersten Diagramm ein Fadenkreuz mit Wert und Uhrzeit des Messpunkts.",
+            "name": "camera",
+            "title": "Webcam als Barcodescanner",
+            "caption": "Code vor die Kamera halten: Lupe markiert ihn und piept. Derselbe Code wird erst wieder gemeldet, wenn er 3 Sekunden nicht zu sehen war.",
+            "alt": "Lupe liest per Webcam: Livebild der Demo-Kamera mit markiertem QR-Code auf einem Etikett, darunter „Zuletzt erkannt“ mit dem Link.",
+            "en": {
+              "title": "Webcam as a barcode scanner",
+              "caption": "Hold a code in front of the camera. Lupe marks it and beeps; the same code is reported again only after it has been out of sight for 3 seconds.",
+              "alt": "Lupe reading from a webcam: live image of the demo camera with a marked QR code on a label, below it the last recognised link."
+            },
             "light": {
-              "src": "/media/produkte/fuehler/diagramme-light-1204.webp",
-              "srcset": "/media/produkte/fuehler/diagramme-light-800.webp 800w, /media/produkte/fuehler/diagramme-light-1204.webp 1204w",
-              "width": 1204,
-              "height": 792
+              "src": "/media/produkte/lupe/lupe-barcode-per-webcam-scannen-light-1600.webp",
+              "srcset": "/media/produkte/lupe/lupe-barcode-per-webcam-scannen-light-800.webp 800w, /media/produkte/lupe/lupe-barcode-per-webcam-scannen-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
             },
             "dark": {
-              "src": "/media/produkte/fuehler/diagramme-dark-1204.webp",
-              "srcset": "/media/produkte/fuehler/diagramme-dark-800.webp 800w, /media/produkte/fuehler/diagramme-dark-1204.webp 1204w",
-              "width": 1204,
-              "height": 792
+              "src": "/media/produkte/lupe/lupe-barcode-per-webcam-scannen-dark-1600.webp",
+              "srcset": "/media/produkte/lupe/lupe-barcode-per-webcam-scannen-dark-800.webp 800w, /media/produkte/lupe/lupe-barcode-per-webcam-scannen-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
+            }
+          },
+          {
+            "name": "file",
+            "title": "Codes aus Bilddatei und Zwischenablage",
+            "caption": "Bild öffnen, auf die Seite „Datei“ ziehen oder mit Strg+V einfügen. Jeder Code im Bild wird gefunden und nummeriert.",
+            "alt": "Lupe findet vier Codes auf einem Lieferschein – QR-Code, Code 128, EAN-13 und Data Matrix – nummeriert, mit der Liste „4 Codes gefunden“.",
+            "en": {
+              "title": "Image files and clipboard",
+              "caption": "Open an image, drag it onto the Datei page or press Ctrl+V. Every code in the picture is found and numbered.",
+              "alt": "Lupe finds four codes on a delivery note – QR code, Code 128, EAN-13 and Data Matrix – numbered, with the list “4 Codes gefunden”."
+            },
+            "light": {
+              "src": "/media/produkte/lupe/lupe-barcodes-aus-bild-auslesen-light-1600.webp",
+              "srcset": "/media/produkte/lupe/lupe-barcodes-aus-bild-auslesen-light-800.webp 800w, /media/produkte/lupe/lupe-barcodes-aus-bild-auslesen-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
+            },
+            "dark": {
+              "src": "/media/produkte/lupe/lupe-barcodes-aus-bild-auslesen-dark-1600.webp",
+              "srcset": "/media/produkte/lupe/lupe-barcodes-aus-bild-auslesen-dark-800.webp 800w, /media/produkte/lupe/lupe-barcodes-aus-bild-auslesen-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
+            }
+          },
+          {
+            "name": "settings",
+            "title": "Einstellungen und Link-Regeln",
+            "caption": "Je Quelle festlegen, ob ein Treffer kopiert, eingetippt oder als Link geöffnet wird. Link-Regeln machen aus einem Code einen Link, z. B. aus einer EAN die Artikelseite im ERP; geöffnet werden nur http- und https-Links.",
+            "alt": "Lupe-Einstellungen: Aktionen je Quelle (Kopieren, Eintippen, Link öffnen), das Tastenkürzel Win+Umschalt+Q und die Tabelle der Link-Regeln.",
+            "en": {
+              "title": "Settings and link rules",
+              "caption": "Choose per source whether a result is copied, typed or opened as a link. Link rules turn a code into a link, e.g. an EAN into the item page of your ERP; only http and https are ever opened.",
+              "alt": "Lupe settings: actions per source (copy, type, open link), the shortcut Win+Shift+Q and the link-rule table."
+            },
+            "light": {
+              "src": "/media/produkte/lupe/lupe-einstellungen-link-regeln-light-1600.webp",
+              "srcset": "/media/produkte/lupe/lupe-einstellungen-link-regeln-light-800.webp 800w, /media/produkte/lupe/lupe-einstellungen-link-regeln-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
+            },
+            "dark": {
+              "src": "/media/produkte/lupe/lupe-einstellungen-link-regeln-dark-1600.webp",
+              "srcset": "/media/produkte/lupe/lupe-einstellungen-link-regeln-dark-800.webp 800w, /media/produkte/lupe/lupe-einstellungen-link-regeln-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
+            }
+          },
+          {
+            "name": "history",
+            "title": "Verlauf",
+            "caption": "Alles, was Lupe gelesen hat – durchsuchbar und als CSV für Excel exportierbar. Gespeichert pro Benutzer oder abgeschaltet, dann wird die Datei gelöscht.",
+            "alt": "Verlauf in Lupe: zwölf gelesene Codes mit Uhrzeit, Quelle, Format und Inhalt, ein Suchfeld und der Export als CSV.",
+            "en": {
+              "title": "History",
+              "caption": "Everything Lupe has read, searchable and exportable as CSV for Excel. Stored per user – or switched off, which deletes the file.",
+              "alt": "Lupe history: twelve codes read with time, source, format and content, a search box and the CSV export."
+            },
+            "light": {
+              "src": "/media/produkte/lupe/lupe-verlauf-csv-export-light-1600.webp",
+              "srcset": "/media/produkte/lupe/lupe-verlauf-csv-export-light-800.webp 800w, /media/produkte/lupe/lupe-verlauf-csv-export-light-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
+            },
+            "dark": {
+              "src": "/media/produkte/lupe/lupe-verlauf-csv-export-dark-1600.webp",
+              "srcset": "/media/produkte/lupe/lupe-verlauf-csv-export-dark-800.webp 800w, /media/produkte/lupe/lupe-verlauf-csv-export-dark-1600.webp 1600w",
+              "width": 1600,
+              "height": 1076
             }
           }
         ],
-        "galleryNote": "Abbildungen mit erfundenen Geräten und MIBs aus dem Demo-Modus."
+        "galleryNote": "Abbildungen mit Beispieldaten aus dem Demo-Modus (deutsche Oberfläche).",
+        "galleryNoteEn": "Screenshots with sample data from the demo mode (German user interface)."
       }
     },
     {
-      "id": "zertifikats-ablauf-scanner",
-      "slug": "frist",
-      "nr": 25,
-      "name": "Frist",
-      "kind": "Zertifikats-Ablauf-Scanner",
-      "tagline": "Findet TLS-Zertifikate im Netz und warnt, bevor sie ablaufen.",
-      "linie": "explorer",
-      "status": "fast-fertig",
-      "statusKey": "vorabversion",
-      "statusLabel": "Vorabversion 0.1.0",
-      "version": "0.1.0",
-      "text": "Durchsucht Netze nach TLS-Zertifikaten, auch per STARTTLS, RDP und OPC UA, bewertet Ablauf und Schwächen und vergleicht jeden Lauf mit dem letzten. Bericht als HTML und CSV, Exitcodes für Aufgabenplanung und Icinga.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Netzbereich durchsuchen, alle TLS-Zertifikate mit Aussteller und Ablaufdatum auflisten und vor dem Ablauf warnen."
-          }
-        ],
-        "ersetzt": [
-          {
-            "type": "p",
-            "text": "Ersetzt Excel-Listen und Skripte. Bestehende Lösungen sind meist Teil großer Monitoring- oder PKI-Produkte."
-          }
-        ],
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "IP-Bereiche und Ports scannen (443, 8443, OPC UA, LDAPS usw.)",
-              "Liste mit Ablaufdatum, Aussteller, Schlüssellänge, selbstsigniert ja/nein",
-              "Export und Bericht",
-              "Wiederholter Lauf mit Vergleich"
-            ]
-          }
-        ]
-      },
-      "highlights": [
-        "HTTPS, STARTTLS, RDP, OPC UA",
-        "Vergleich mit dem letzten Lauf",
-        "HTML- und CSV-Bericht",
-        "Exitcodes für Icinga"
-      ],
-      "facts": [
-        {
-          "label": "Plattform",
-          "value": "Windows 10 und 11, Windows Server 2016 und neuer, Linux (x64 und ARM64)"
-        },
-        {
-          "label": "Bewertung",
-          "value": "Kritisch, Warnung, Hinweis oder OK – jeweils mit Begründung"
-        },
-        {
-          "label": "Bericht",
-          "value": "eine HTML-Datei, offline lesbar, hell und dunkel; CSV für Excel"
-        },
-        {
-          "label": "Betrieb",
-          "value": "Befehlszeile für Aufgabenplanung und Monitoring"
-        },
-        {
-          "label": "Lieferform",
-          "value": "eine Datei, keine Installation"
-        }
-      ],
-      "media": {
-        "logo": "/media/produkte/frist/logo.svg",
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [
-          {
-            "name": "bericht",
-            "title": "Der HTML-Bericht",
-            "caption": "Eine Datei, offline lesbar, hell und dunkel – mit Abläufen pro Monat und den Änderungen seit dem letzten Lauf.",
-            "alt": "HTML-Bericht von Frist: oben die Kacheln Kritisch 3, Warnung 3, Hinweis 5, OK 6, Ohne Zertifikat 1. Darunter ein Säulendiagramm der Abläufe pro Monat und die Änderungen seit dem letzten Lauf (weg, neu, erneuert). Unten die Tabelle, ganz oben eine OPC-UA-Steuerung mit abgelaufenem Zertifikat.",
-            "light": {
-              "src": "/media/produkte/frist/bericht-light-1600.webp",
-              "srcset": "/media/produkte/frist/bericht-light-800.webp 800w, /media/produkte/frist/bericht-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1161
-            },
-            "dark": {
-              "src": "/media/produkte/frist/bericht-dark-1600.webp",
-              "srcset": "/media/produkte/frist/bericht-dark-800.webp 800w, /media/produkte/frist/bericht-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1161
-            }
-          },
-          {
-            "name": "detail",
-            "title": "Zertifikat, Kette, Befunde",
-            "caption": "Klick auf eine Zeile: Zertifikat, Kette, Befunde, Verbindung. Bei OPC UA auch die angebotenen Sicherheitsrichtlinien.",
-            "alt": "Aufgeklappte Zeile einer OPC-UA-Steuerung: Zertifikat mit Antragsteller, alternativen Namen, Gültigkeit „seit 3 Tagen abgelaufen“, Schlüssel und Fingerabdruck. Daneben die Befunde und die angebotenen OPC-UA-Sicherheitsrichtlinien, darunter None und das veraltete Basic256.",
-            "light": {
-              "src": "/media/produkte/frist/detail-light-1600.webp",
-              "srcset": "/media/produkte/frist/detail-light-800.webp 800w, /media/produkte/frist/detail-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 703
-            },
-            "dark": {
-              "src": "/media/produkte/frist/detail-dark-1600.webp",
-              "srcset": "/media/produkte/frist/detail-dark-800.webp 800w, /media/produkte/frist/detail-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 703
-            }
-          }
-        ],
-        "galleryNote": "Abbildungen mit erfundenen Beispieldaten."
-      }
-    },
-    {
-      "id": "redfish-explorer",
-      "slug": "rundgang",
-      "nr": 30,
-      "name": "Rundgang",
-      "kind": "Redfish/IPMI-Explorer",
-      "tagline": "Alle Server-BMCs auf einen Blick.",
-      "linie": "explorer",
-      "status": "fast-fertig",
-      "statusKey": "vorabversion",
-      "statusLabel": "Vorabversion 0.1.0",
-      "version": "0.1.0",
-      "text": "Server-BMCs von Dell, HPE, Lenovo und Supermicro in einer Oberfläche: Zustand, Sensoren, Firmware, Ereignisse, Ein/Aus und Ortungs-LED über Redfish. Läuft als eine Datei mit lokaler Web-Oberfläche, dazu Inventur per Befehlszeile.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Server-BMCs von Dell, HPE, Supermicro und Lenovo einheitlich ansehen: Sensoren, Firmware, Ereignisse, Neustart."
-          }
-        ],
-        "ersetzt": [
-          {
-            "type": "p",
-            "text": "Ersetzt die einzelnen Oberflächen von iDRAC, iLO, XClarity und Supermicro IPMI."
-          }
-        ],
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "BMCs per Redfish, IPMI als Fallback",
-              "Sensoren, Lüfter, Netzteile, Temperaturen",
-              "Firmware-Stände und Ereignisprotokoll",
-              "Ein-/Ausschalten, Neustart"
-            ]
-          }
-        ]
-      },
-      "highlights": [
-        "Redfish",
-        "Dell · HPE · Lenovo · Supermicro",
-        "Sensoren und Firmware",
-        "Ortungs-LED"
-      ],
-      "facts": [
-        {
-          "label": "Plattform",
-          "value": "Windows 10 und 11, Windows Server, Linux (x64 und ARM64)"
-        },
-        {
-          "label": "Oberfläche",
-          "value": "Deutsch, im Browser, nur auf diesem Rechner erreichbar"
-        },
-        {
-          "label": "Schnittstelle",
-          "value": "Redfish – Dell iDRAC, HPE iLO, Lenovo XClarity, Supermicro und jedes andere BMC mit Redfish"
-        },
-        {
-          "label": "Inventur",
-          "value": "Liste als CSV, dazu Befehlszeile"
-        },
-        {
-          "label": "Lieferform",
-          "value": "eine Datei, keine Installation"
-        }
-      ],
-      "media": {
-        "logo": "/media/produkte/rundgang/logo.svg",
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [
-          {
-            "name": "uebersicht",
-            "title": "Vier Server, vier Hersteller, eine Liste",
-            "caption": "Zustand, Seriennummer, Strom und Firmware aller Server; darunter die Sensoren mit Grenzwerten.",
-            "alt": "Rundgang im Browser: oben vier Server von Dell, HPE, Supermicro und Lenovo mit Zustand, Seriennummer, Strom, BIOS und BMC-Firmware. Der Dell-Server ist kritisch. Darunter seine Sensoren: CPU- und Ansaugtemperaturen mit Grenzwerten, Lüfter 1B mit 0 U/min als kritisch markiert.",
-            "light": {
-              "src": "/media/produkte/rundgang/uebersicht-light-1600.webp",
-              "srcset": "/media/produkte/rundgang/uebersicht-light-800.webp 800w, /media/produkte/rundgang/uebersicht-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1110
-            },
-            "dark": {
-              "src": "/media/produkte/rundgang/uebersicht-dark-1600.webp",
-              "srcset": "/media/produkte/rundgang/uebersicht-dark-800.webp 800w, /media/produkte/rundgang/uebersicht-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1110
-            }
-          },
-          {
-            "name": "ereignisse",
-            "title": "Ereignisse",
-            "caption": "Systemereignisse aller Protokolle des BMC, neueste zuerst, mit Suche und Filter.",
-            "alt": "Reiter Ereignisse des Servers esx-07.werk.local (Dell PowerEdge R760): drei Einträge mit Zeit, Stufe und Meldung – kritisch „Lüfter 1B ausgefallen.“, OK „Server eingeschaltet.“ und Warnung „Netzteil 2 kurz ohne Eingangsspannung.“, darüber Suche und Filter nach Stufe und Protokoll.",
-            "light": {
-              "src": "/media/produkte/rundgang/ereignisse-light-1600.webp",
-              "srcset": "/media/produkte/rundgang/ereignisse-light-800.webp 800w, /media/produkte/rundgang/ereignisse-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 521
-            },
-            "dark": {
-              "src": "/media/produkte/rundgang/ereignisse-dark-1600.webp",
-              "srcset": "/media/produkte/rundgang/ereignisse-dark-800.webp 800w, /media/produkte/rundgang/ereignisse-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 521
-            }
-          },
-          {
-            "name": "einaus",
-            "title": "Ein, Aus, Neustart – mit Bestätigung",
-            "caption": "Was den Server ausschaltet oder neu startet, will den Namen des Servers als Bestätigung.",
-            "alt": "Ein/Aus-Seite mit Knöpfen für Einschalten, Herunterfahren, Neu starten, Sofort aus, Neustart erzwingen und Aus und wieder ein. Darüber der Dialog „Neu starten?“, in dem zur Bestätigung der Servername esx-07.werk.local eingetippt ist.",
-            "light": {
-              "src": "/media/produkte/rundgang/einaus-light-1600.webp",
-              "srcset": "/media/produkte/rundgang/einaus-light-800.webp 800w, /media/produkte/rundgang/einaus-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1110
-            },
-            "dark": {
-              "src": "/media/produkte/rundgang/einaus-dark-1600.webp",
-              "srcset": "/media/produkte/rundgang/einaus-dark-800.webp 800w, /media/produkte/rundgang/einaus-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1110
-            }
-          }
-        ],
-        "galleryNote": "Abbildungen mit erfundenen Daten aus Demo-BMCs."
-      }
-    },
-    {
-      "id": "s7-explorer",
-      "slug": "merker",
-      "nr": 32,
-      "name": "Merker",
-      "kind": "S7-Explorer",
-      "tagline": "Siemens-Steuerungen ansehen – ohne TIA Portal.",
-      "linie": "explorer",
-      "status": "fast-fertig",
-      "statusKey": "vorabversion",
-      "statusLabel": "Vorabversion 0.1.0",
-      "version": "0.1.0",
-      "text": "Siemens-Steuerungen S7-300, S7-400, S7-1200 und S7-1500 finden, CPU-Daten und Diagnosepuffer lesen, Datenbausteine lesen und schreiben, Variablen live beobachten. Ohne TIA Portal, als eine Datei mit lokaler Web-Oberfläche.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Datenbausteine von Siemens-Steuerungen lesen und schreiben, Variablen beobachten."
-          }
-        ],
-        "ersetzt": [
-          {
-            "type": "p",
-            "text": "Ersetzt Notlösungen ohne TIA Portal und kostenpflichtige Tools."
-          }
-        ],
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Verbindung zu S7-300/400/1200/1500",
-              "Datenbausteine lesen und schreiben",
-              "Variablen live beobachten, als Diagramm",
-              "Beobachtungslisten speichern"
-            ]
-          }
-        ]
-      },
-      "highlights": [
-        "S7-300 bis S7-1500",
-        "Diagnosepuffer",
-        "Datenbausteine mit Namen",
-        "Beobachten und Schreiben"
-      ],
-      "facts": [
-        {
-          "label": "Plattform",
-          "value": "Windows 10 und 11, Linux (x64 und ARM64)"
-        },
-        {
-          "label": "Oberfläche",
-          "value": "Deutsch, im Browser, nur auf diesem Rechner erreichbar"
-        },
-        {
-          "label": "Steuerungen",
-          "value": "S7-300, S7-400, S7-1200 und S7-1500 über das S7-Protokoll (PUT/GET)"
-        },
-        {
-          "label": "Betrieb",
-          "value": "Nur-Lesen-Modus für Begehungen und Störungssuche"
-        },
-        {
-          "label": "Lieferform",
-          "value": "eine Datei, keine Installation"
-        }
-      ],
-      "media": {
-        "logo": "/media/produkte/merker/logo.svg",
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [
-          {
-            "name": "datenbaustein",
-            "title": "Datenbausteine mit Namen",
-            "caption": "Ein Datenbaustein mit Namen, Typen und Kommentaren aus der Quelle von TIA Portal.",
-            "alt": "Merker im Browser: links drei Steuerungen (Abfüllung Halle 2 mit CPU 1516-3 PN/DP, Kesselhaus mit CPU 315-2 PN/DP, Verpackung Linie 3 mit CPU 1214C), alle in RUN. Rechts Datenbaustein DB1 „Tank“ mit Adresse, Name, Typ, aktuellem Wert und Kommentar aus der Quelle, etwa Füllstand als REAL, Pumpe_Ein als BOOL, Laufzeit_Pumpe als TIME und Produkt als STRING. Jede Zeile hat „Beobachten“ und „Schreiben …“.",
-            "light": {
-              "src": "/media/produkte/merker/datenbaustein-light-1600.webp",
-              "srcset": "/media/produkte/merker/datenbaustein-light-800.webp 800w, /media/produkte/merker/datenbaustein-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            },
-            "dark": {
-              "src": "/media/produkte/merker/datenbaustein-dark-1600.webp",
-              "srcset": "/media/produkte/merker/datenbaustein-dark-800.webp 800w, /media/produkte/merker/datenbaustein-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            }
-          },
-          {
-            "name": "diagnose",
-            "title": "Der Diagnosepuffer",
-            "caption": "Wie ihn die CPU liefert, mit deutschem Text. „Kommend“ und „gehend“ zeigen, wann eine Störung anfing und wann sie wieder weg war.",
-            "alt": "Diagnosepuffer der CPU 315-2 PN/DP im Kesselhaus mit 31 Einträgen, neuester zuerst: Betriebszustandsübergang von ANLAUF nach RUN, Ausfall einer Station der dezentralen Peripherie kommend und gehend, Baugruppe gestört, Bereichslängenfehler beim Lesen, Zykluszeitüberschreitung. Jeweils mit Zeit der CPU, Ereignis-ID und Details zu OB und Prioritätsklasse.",
-            "light": {
-              "src": "/media/produkte/merker/diagnose-light-1600.webp",
-              "srcset": "/media/produkte/merker/diagnose-light-800.webp 800w, /media/produkte/merker/diagnose-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            },
-            "dark": {
-              "src": "/media/produkte/merker/diagnose-dark-1600.webp",
-              "srcset": "/media/produkte/merker/diagnose-dark-800.webp 800w, /media/produkte/merker/diagnose-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            }
-          },
-          {
-            "name": "uebersicht",
-            "title": "Zustand der CPU",
-            "caption": "Typ, Bestellnummer, Firmware, Anlagen- und Ortskennzeichen, Betriebszustand, Schutzstufe und Uhrzeit der CPU.",
-            "alt": "Übersicht der Steuerung Abfüllung Halle 2 mit CPU 1516-3 PN/DP in RUN: Bestellnummer, Firmware V2.9.4, Baugruppenname, Anlagen- und Ortskennzeichen, Seriennummer, Betriebszustand RUN, Schutzstufe 1, Betriebsartenschalter RUN-P und die Uhrzeit der CPU, die mit diesem Rechner übereinstimmt.",
-            "light": {
-              "src": "/media/produkte/merker/uebersicht-light-1600.webp",
-              "srcset": "/media/produkte/merker/uebersicht-light-800.webp 800w, /media/produkte/merker/uebersicht-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            },
-            "dark": {
-              "src": "/media/produkte/merker/uebersicht-dark-1600.webp",
-              "srcset": "/media/produkte/merker/uebersicht-dark-800.webp 800w, /media/produkte/merker/uebersicht-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            }
-          },
-          {
-            "name": "beobachten",
-            "title": "Beobachten",
-            "caption": "Beobachtungslisten mit Adressen in TIA-Schreibweise, laufend gelesen, mit Verlauf als Diagramm.",
-            "alt": "Beobachtungsliste „Tank und Antriebe“ der Steuerung Abfüllung Halle 2, alle 0,5 s gelesen: Füllstand, Temperatur, Pumpe ein, Sollwert, Drehzahl und Strom eines Antriebs, ein Zykluszähler und ein Eingangsbyte mit Adresse, Typ und Wert. Darunter der Verlauf von Füllstand und Antriebsstrom als kleine Diagramme.",
-            "light": {
-              "src": "/media/produkte/merker/beobachten-light-1600.webp",
-              "srcset": "/media/produkte/merker/beobachten-light-800.webp 800w, /media/produkte/merker/beobachten-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            },
-            "dark": {
-              "src": "/media/produkte/merker/beobachten-dark-1600.webp",
-              "srcset": "/media/produkte/merker/beobachten-dark-800.webp 800w, /media/produkte/merker/beobachten-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            }
-          },
-          {
-            "name": "schreiben",
-            "title": "Schreiben, mit Bedacht",
-            "caption": "Einzelne Variablen schreiben – mit klarer Warnung, dass der Wert sofort in die laufende Steuerung geht.",
-            "alt": "Dialog „Schreiben: Sollwert Füllstand · DB1.DBD16:REAL“ für die Steuerung Abfüllung Halle 2, aktuell 80, neuer Wert 85. Darunter der Hinweis „Schreibt sofort in die laufende Steuerung“ und die Schaltflächen Abbrechen und Schreiben.",
-            "light": {
-              "src": "/media/produkte/merker/schreiben-light-1040.webp",
-              "srcset": "/media/produkte/merker/schreiben-light-800.webp 800w, /media/produkte/merker/schreiben-light-1040.webp 1040w",
-              "width": 1040,
-              "height": 612
-            },
-            "dark": {
-              "src": "/media/produkte/merker/schreiben-dark-1040.webp",
-              "srcset": "/media/produkte/merker/schreiben-dark-800.webp 800w, /media/produkte/merker/schreiben-dark-1040.webp 1040w",
-              "width": 1040,
-              "height": 612
-            }
-          }
-        ],
-        "galleryNote": "Abbildungen mit erfundenen Steuerungen und Werten aus dem Demo-Modus."
-      }
-    },
-    {
-      "id": "ethernetip-explorer",
-      "slug": "lotse",
-      "nr": 33,
-      "name": "Lotse",
-      "kind": "EtherNet/IP-Explorer",
-      "tagline": "EtherNet/IP-Geräte finden, Rockwell-Steuerungen ansehen, Tags lesen.",
-      "linie": "explorer",
+      "id": "labeldesigner",
+      "slug": "plakette",
+      "nr": 4,
+      "name": "Plakette",
+      "kind": "Etiketten-Designer für Zebra-Drucker (ZPL)",
+      "tagline": "Etiketten gestalten, als ZPL drucken.",
+      "linie": "codes",
       "status": "angefangen",
       "statusKey": "in-entwicklung",
       "statusLabel": "In Entwicklung",
       "version": null,
-      "text": "Rockwell-Steuerungen (ControlLogix, CompactLogix) und andere EtherNet/IP-Geräte im Netz finden, Identität und Zustand ansehen, Tags durchsuchen, lesen, beobachten und mit Bestätigung schreiben. Ohne RSLinx, als eine Datei mit lokaler Web-Oberfläche.",
+      "updated": "2026-10-19",
+      "text": "Etiketten-Designer für Zebra- und kompatible Etikettendrucker: druckt ZPL direkt auf den Drucker – ohne Druckertreiber, Lizenzserver oder Administratorrechte, unter Windows und Linux. In Entwicklung.",
       "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Rockwell-Steuerungen und EtherNet/IP-Geräte finden und Tags lesen."
-          }
-        ],
-        "ersetzt": [
-          {
-            "type": "p",
-            "text": "Ersetzt RSLinx-Browser und kostenpflichtige Tools."
-          }
-        ],
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Geräte finden (List Identity)",
-              "Tags durchsuchen und lesen, schreiben optional",
-              "Werte live beobachten",
-              "Export"
-            ]
-          }
-        ]
+        "problem": null,
+        "ersetzt": null,
+        "umfang": null
       },
       "highlights": [
-        "ControlLogix · CompactLogix",
-        "Baugruppenträger",
-        "Tags ohne Projekt",
-        "Schreiben mit Bestätigung"
+        "ZPL direkt",
+        "ohne Druckertreiber",
+        "Windows und Linux",
+        "in Entwicklung"
       ],
       "facts": [
         {
           "label": "Plattform",
-          "value": "Windows 10 und 11, Linux (x64 und ARM64)"
+          "value": "Windows 10 und 11, Linux (x64, arm64)"
+        },
+        {
+          "label": "Drucker",
+          "value": "Zebra- und kompatible Etikettendrucker (ZPL)"
         },
         {
           "label": "Oberfläche",
-          "value": "Deutsch, im Browser, nur auf diesem Rechner erreichbar"
+          "value": "Deutsch und Englisch; Spanisch, Französisch und Chinesisch maschinell vorübersetzt"
         },
         {
-          "label": "Geräte",
-          "value": "ControlLogix, CompactLogix und alle Geräte mit EtherNet/IP: Umrichter, E/A-Koppler, Sensoren, Roboter"
-        },
-        {
-          "label": "Betrieb",
-          "value": "Nur-Lesen-Modus für Begehungen und Störungssuche"
-        },
-        {
-          "label": "Lieferform",
-          "value": "eine Datei, keine Installation"
+          "label": "Daten",
+          "value": "bleiben auf dem Rechner"
         }
       ],
       "media": {
-        "logo": "/media/produkte/lotse/logo.svg",
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [
-          {
-            "name": "tags",
-            "title": "Tags ohne Projekt",
-            "caption": "Die Tags einer CompactLogix mit aufgeklapptem UDT-Array – Controller- und Programm-Tags samt Datentyp.",
-            "alt": "Lotse im Browser: links vier Geräte (CompactLogix 1769-L33ER und ControlLogix 1756-L83E in RUN, ein PowerFlex 525 mit leichtem Fehler, ein WAGO-Koppler ohne I/O-Verbindung). Rechts die Tags der CompactLogix: Liste mit Controller- und Programm-Tags samt Datentyp, daneben das Array Tanks vom Typ Tank[3] aufgeklappt mit Füllstand, Temperatur, Sollwert, Pumpe, Ventil, Störung, Zähler und Bezeichnung. Jeder Wert hat „Schreiben …“ und „Beobachten“.",
-            "light": {
-              "src": "/media/produkte/lotse/tags-light-1600.webp",
-              "srcset": "/media/produkte/lotse/tags-light-800.webp 800w, /media/produkte/lotse/tags-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            },
-            "dark": {
-              "src": "/media/produkte/lotse/tags-dark-1600.webp",
-              "srcset": "/media/produkte/lotse/tags-dark-800.webp 800w, /media/produkte/lotse/tags-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            }
-          },
-          {
-            "name": "suche",
-            "title": "Die Suche liefert das Inventar",
-            "caption": "Hersteller, Typ, Version, Seriennummer und Zustand jedes Geräts, als CSV.",
-            "alt": "Suchergebnis über vier Adressen: CompactLogix 1769-L33ER/A in RUN mit Schlüssel auf REM, Ethernet-Karte 1756-EN2T/D, Frequenzumrichter PowerFlex 525 mit „leichter Fehler“ in Rot, WAGO 750-363 ohne I/O-Verbindung. Jeweils mit Hersteller, Typ, Version, Seriennummer, der IP-Adresse, die das Gerät selbst nennt, und „Verbinden“.",
-            "light": {
-              "src": "/media/produkte/lotse/suche-light-1600.webp",
-              "srcset": "/media/produkte/lotse/suche-light-800.webp 800w, /media/produkte/lotse/suche-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            },
-            "dark": {
-              "src": "/media/produkte/lotse/suche-dark-1600.webp",
-              "srcset": "/media/produkte/lotse/suche-dark-800.webp 800w, /media/produkte/lotse/suche-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            }
-          },
-          {
-            "name": "uebersicht",
-            "title": "Kennung und Netzwerk",
-            "caption": "Zustand im Klartext, bei Rockwell-Steuerungen RUN oder PROGRAM und der Schlüsselschalter, dazu die Netzwerkeinstellungen.",
-            "alt": "Übersicht der ControlLogix 1756-L83E/B in RUN mit Schlüssel auf REM: Produkt, Hersteller, Gerätetyp, Version und Seriennummer der Steuerung und der Ethernet-Schnittstelle 1756-EN2T/D, darunter das Netzwerk mit IP-Adresse, Maske, Gateway, DNS und Domäne.",
-            "light": {
-              "src": "/media/produkte/lotse/uebersicht-light-1600.webp",
-              "srcset": "/media/produkte/lotse/uebersicht-light-800.webp 800w, /media/produkte/lotse/uebersicht-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            },
-            "dark": {
-              "src": "/media/produkte/lotse/uebersicht-dark-1600.webp",
-              "srcset": "/media/produkte/lotse/uebersicht-dark-800.webp 800w, /media/produkte/lotse/uebersicht-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            }
-          },
-          {
-            "name": "baugruppentraeger",
-            "title": "Baugruppenträger",
-            "caption": "Ein ControlLogix-Chassis Steckplatz für Steckplatz: Steuerung, Ethernet- und E/A-Karten mit Version, Seriennummer und Fehlern.",
-            "alt": "Reiter Baugruppenträger der ControlLogix: Steckplätze 0 bis 15 mit Produkt, Typ, Hersteller, Version, Seriennummer und Zustand – Steuerung in Platz 0, Kommunikationsadapter in Platz 2, digitale Ein- und Ausgänge in Platz 3 und 4, eine davon mit „leichter Fehler“ in Rot, die übrigen Plätze leer.",
-            "light": {
-              "src": "/media/produkte/lotse/baugruppentraeger-light-1600.webp",
-              "srcset": "/media/produkte/lotse/baugruppentraeger-light-800.webp 800w, /media/produkte/lotse/baugruppentraeger-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            },
-            "dark": {
-              "src": "/media/produkte/lotse/baugruppentraeger-dark-1600.webp",
-              "srcset": "/media/produkte/lotse/baugruppentraeger-dark-800.webp 800w, /media/produkte/lotse/baugruppentraeger-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            }
-          },
-          {
-            "name": "beobachten",
-            "title": "Beobachten",
-            "caption": "Beobachtungslisten mit Tag-Namen, laufend gelesen, mit Verlauf als Diagramm.",
-            "alt": "Beobachtungsliste „Abfüllung“ der CompactLogix, alle 0,5 s gelesen: Füllstand, Temperatur, Pumpe, Sollwert, Produktions- und Verpackungszähler, ein Rezept als Zeichenkette und ein Freigabe-Bit mit Tag, Typ und Wert. Darunter der Verlauf von Füllstand und Temperatur als kleine Diagramme.",
-            "light": {
-              "src": "/media/produkte/lotse/beobachten-light-1600.webp",
-              "srcset": "/media/produkte/lotse/beobachten-light-800.webp 800w, /media/produkte/lotse/beobachten-light-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            },
-            "dark": {
-              "src": "/media/produkte/lotse/beobachten-dark-1600.webp",
-              "srcset": "/media/produkte/lotse/beobachten-dark-800.webp 800w, /media/produkte/lotse/beobachten-dark-1600.webp 1600w",
-              "width": 1600,
-              "height": 1035
-            }
-          },
-          {
-            "name": "schreiben",
-            "title": "Schreiben mit Bestätigung",
-            "caption": "Ein Wert geht erst nach Bestätigung in die laufende Steuerung – mit klarer Warnung.",
-            "alt": "Dialog „Schreiben: Sollwert Füllstand · Tank1.Sollwert“ für die CompactLogix, aktuell 75, neuer Wert 80. Darunter der Hinweis „Schreibt sofort in die laufende Steuerung“ und die Schaltflächen Abbrechen und Schreiben.",
-            "light": {
-              "src": "/media/produkte/lotse/schreiben-light-1040.webp",
-              "srcset": "/media/produkte/lotse/schreiben-light-800.webp 800w, /media/produkte/lotse/schreiben-light-1040.webp 1040w",
-              "width": 1040,
-              "height": 612
-            },
-            "dark": {
-              "src": "/media/produkte/lotse/schreiben-dark-1040.webp",
-              "srcset": "/media/produkte/lotse/schreiben-dark-800.webp 800w, /media/produkte/lotse/schreiben-dark-1040.webp 1040w",
-              "width": 1040,
-              "height": 612
-            }
-          }
-        ],
-        "galleryNote": "Abbildungen mit erfundenen Geräten und Werten aus dem Demo-Modus."
-      }
-    },
-    {
-      "id": "opcua-explorer",
-      "slug": "opc-ua-explorer",
-      "nr": 10,
-      "name": "OPC-UA-Explorer",
-      "kind": null,
-      "tagline": null,
-      "linie": "explorer",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Server durchsuchen, Werte live als Diagramm, schreiben und Methoden aufrufen, vor allem eine verständliche Verwaltung der Zertifikate. Alternative zu UaExpert.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Inbetriebnehmer und Automatisierer brauchen täglich einen OPC-UA-Client. Am meisten Ärger machen Zertifikate."
-          }
-        ],
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Verständliche Verwaltung der Zertifikate",
-              "Server durchsuchen",
-              "Werte live als Diagramm",
-              "Werte schreiben, Methoden aufrufen",
-              "Lesezeichen, Arbeitsbereiche pro Anlage",
-              "Export als CSV/JSON"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
         "logo": null,
         "colors": null,
         "banner": null,
         "demo": null,
         "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "profinet-scanner",
-      "slug": "profinet-scanner",
-      "nr": 31,
-      "name": "Profinet-Scanner",
-      "kind": null,
-      "tagline": null,
-      "linie": "explorer",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Profinet-Geräte per DCP finden, Gerätenamen und IP setzen, Topologie anzeigen.",
-      "sections": {
-        "problem": null,
-        "ersetzt": [
-          {
-            "type": "p",
-            "text": "Ersetzt Siemens PRONETA und das Gerätesuche-Fenster im TIA Portal."
-          }
-        ],
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Geräte per DCP finden",
-              "Namen und IP setzen, Blinken zum Wiederfinden",
-              "Topologie per LLDP",
-              "Export der Geräteliste"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "iec61850-browser",
-      "slug": "iec-61850-browser",
-      "nr": 34,
-      "name": "IEC-61850-Browser",
-      "kind": null,
-      "tagline": null,
-      "linie": "explorer",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Geräte in Schaltanlagen nach IEC 61850 durchsuchen: logische Knoten, Datenpunkte, Berichte, GOOSE.",
-      "sections": {
-        "problem": null,
-        "ersetzt": [
-          {
-            "type": "p",
-            "text": "Ersetzt teure Spezialtools und ältere kostenlose Browser."
-          }
-        ],
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Verbindung per MMS",
-              "Modell durchsuchen",
-              "Werte und Berichte live",
-              "GOOSE mitlesen"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "explorer-framework",
-      "slug": "explorer-framework",
-      "nr": 38,
-      "name": "Explorer-Framework",
-      "kind": null,
-      "tagline": null,
-      "linie": "explorer",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Alle Explorer in einem Programm: S7, EtherNet/IP, BACnet, SNMP, Redfish, Modbus und später OPC UA als Module. Ein Netzscan findet alles, Beobachtungslisten mischen Werte aus allen Protokollen.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Für jede Anlage braucht der Techniker heute ein anderes Werkzeug: eines für Siemens, eines für Rockwell, eines für die Gebäudeleittechnik, eines für USV und Switches. Wer eine Anlage aufnehmen will, startet mehrere Tools und bekommt ebenso viele Listen."
-          }
-        ],
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Ein Programm, eine Datei. Alle Module sind eingebaut und lassen sich in den Einstellungen ausblenden. Kein Nachladen von Modulen aus dem Internet (OT-Netze sind oft offline, die IT will eine geprüfte Datei).",
-              "Ein Netzscan über alle Protokolle: S7 (102), EtherNet/IP (44818), BACnet (47808), Modbus (502), SNMP (161), Redfish (443), später OPC UA (4840). Ergebnis als ein Inventar mit CSV.",
-              "Oberfläche nach Geräten statt nach Protokollen: links alle Geräte, rechts die Tabs, die zum Gerät passen (Diagnosepuffer bei S7, Baugruppenträger bei Rockwell, Prioritäten bei BACnet).",
-              "Gemeinsames „Beobachten“: Werte aus verschiedenen Protokollen in einer Liste und einem Diagramm."
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "tftp-sftp-server",
-      "slug": "tftp-sftp-server",
-      "nr": 23,
-      "name": "TFTP/SFTP-Server",
-      "kind": null,
-      "tagline": null,
-      "linie": "service",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "TFTP- und SFTP-Server mit Oberfläche für den Service-Laptop: Firmware und Konfigurationen auf Switches und Steuerungen laden, mit Verlauf, wer wann was übertragen hat.",
-      "sections": {
-        "problem": null,
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Ein Klick: Server an, Ordner wählen, Netzwerkkarte wählen",
-              "TFTP und SFTP",
-              "Live-Liste der Übertragungen mit Prüfsumme",
-              "Protokoll als Datei"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "netzprofil-umschalter",
-      "slug": "netzprofil-umschalter",
-      "nr": 24,
-      "name": "Netzprofil-Umschalter",
-      "kind": null,
-      "tagline": null,
-      "linie": "service",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Für Service-Laptops: pro Anlage feste IP, Gateway, DNS, Proxy und Hosts-Einträge als Profil speichern und mit einem Klick umschalten. Prüft vor dem Umschalten, ob die IP schon belegt ist, und zeigt das Gerät, das sie benutzt.",
-      "sections": {
-        "problem": null,
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Profile pro Anlage und Netzwerkkarte",
-              "IP, Maske, Gateway, DNS, Proxy, Hosts-Einträge, Routen",
-              "Umschalten per Klick oder aus dem Infobereich",
-              "Profile exportieren und im Team teilen",
-              "Doppelte-IP-Erkennung: vor dem Setzen einer festen IP per ARP-Probe prüfen, ob die Adresse schon belegt ist (Address Conflict Detection nach RFC 5227). Bei Konflikt nicht umschalten, sondern warnen und MAC-Adresse plus Hersteller (OUI) des belegenden Geräts anzeigen. „Trotzdem anwenden“ nur mit Bestätigung.",
-              "Auch während ein Profil aktiv ist auf Konflikte achten (fremde ARP-Antworten für die eigene IP, Windows-Adressstatus „Duplicate“) und sofort melden",
-              "Optional: freie Adressen im Subnetz vorschlagen"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "fernwartung",
-      "slug": "fernwartung",
-      "nr": 14,
-      "name": "Fernwartung",
-      "kind": null,
-      "tagline": null,
-      "linie": "server",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Komplette Fernwartungs-Suite zum Selbstbetreiben: Agent, Viewer und Gateway-Server mit Aufzeichnung und Audit-Trail. Dazu zeitlich begrenzter, freigegebener Zugang für externe Techniker auf genau eine Anlage. Alternative zu PROXY Pro und Claroty SRA.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Anlagen-, Labor- und Leitstand-PCs müssen aus der Ferne unterstützt werden, oft hinter Firewalls, mit strengen Auflagen (GMP, IEC 62443, NIS2): Wer war wann auf welchem Rechner, was wurde gemacht? Cloud-Tools wie TeamViewer oder AnyDesk sind in OT-Netzen oft nicht erlaubt, VNC hat kein Audit und keine sauberen Rechte."
-          }
-        ],
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "p",
-            "text": "Das ist eine komplette Suite, kein Einzelplatz-Tool:"
-          },
-          {
-            "type": "ul",
-            "items": [
-              "**Agent** für Windows als Dienst: Anmeldebildschirm und UAC sichtbar, nur zusehen oder steuern, Zustimmungsabfrage beim Benutzer (abschaltbar), Dateiübertragung, Zwischenablage auch als Tastatureingabe",
-              "**Viewer** für Windows",
-              "**Gateway-Server** (selbst betrieben): Verzeichnis aller Rechner, Verbindung ohne eingehende Ports am Agent, AD/Entra-Anmeldung, Rechte pro Gruppe und Rechnergruppe",
-              "**Audit-Trail** jeder Sitzung, optional Bildschirmaufzeichnung",
-              "Verteilung per MSI, GPO, Intune, SOTI",
-              "**Herstellerzugang:** Externe Techniker bekommen zeitlich begrenzten Zugriff auf genau eine Anlage, erst nach Freigabe durch den Anlagenverantwortlichen, mit Aufzeichnung. IEC 62443 und NIS2 verlangen genau das."
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "label-print-server",
-      "slug": "label-print-server",
-      "nr": 15,
-      "name": "Label-Print-Server",
-      "kind": null,
-      "tagline": null,
-      "linie": "server",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Druckaufträge aus SAP, MES und LIMS annehmen, Vorlagen rendern und an Tausende Zebra-Drucker verteilen, mit Warteschlangen, Ausfallsicherheit und Druckprotokoll. Alternative zu NiceLabel/Loftware Automation und BarTender.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "In Lager, Abfüllung und Labor kommen Etiketten aus SAP, MES und LIMS und müssen auf Hunderten bis Tausenden Zebra-Druckern landen. Fällt der Druckdienst aus, steht die Produktion. Deshalb läuft das immer im eigenen Werk."
-          }
-        ],
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Aufträge annehmen: REST, Hotfolder (Dateien), Raw-Port 9100 durchreichen, später SAP (Output Management) direkt",
-              "Vorlagen aus dem Labeldesigner mit Variablen füllen und als ZPL ausgeben",
-              "Drucker-Verzeichnis mit Gruppen, Warteschlange pro Drucker, Wiederholen, Umleiten bei Ausfall",
-              "Druckprotokoll: wer, was, wann, welcher Drucker, Ergebnis",
-              "Zwei Knoten für Ausfallsicherheit",
-              "Web-Oberfläche für Status und Warteschlangen"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "zertifikatsserver",
-      "slug": "zertifikatsserver",
-      "nr": 16,
-      "name": "Zertifikatsserver",
-      "kind": "SCEP/EST",
-      "tagline": null,
-      "linie": "server",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Zertifikate per SCEP und EST an Scanner, Drucker, Anlagen-PCs und 802.1X-Geräte ausrollen und Abläufe überwachen, bevor Geräte aus dem Netz fliegen. Alternative zu Microsoft NDES.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Scanner, Drucker, Anlagen-PCs und andere Geräte brauchen Zertifikate für WLAN und 802.1X. Laufen sie ab, fliegen die Geräte aus dem Netz und die Produktion steht. Überblick, welches Gerät welches Zertifikat bis wann hat, fehlt meist. PKI betreibt niemand freiwillig in der Cloud."
-          }
-        ],
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "SCEP- und EST-Endpunkt vor einer bestehenden CA (z. B. Microsoft AD CS) oder mit eigener Sub-CA",
-              "Einmal-Passwörter bzw. Challenges pro Gerät, Anbindung an MDM (SOTI, Intune)",
-              "Inventar aller ausgestellten Zertifikate mit Gerät, Ablaufdatum, Status",
-              "Warnung vor Ablauf, automatische Erneuerung, Sperren",
-              "Web-Oberfläche und Bericht"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "dateischleuse",
-      "slug": "it-ot-dateischleuse",
-      "nr": 17,
-      "name": "IT/OT-Dateischleuse",
-      "kind": null,
-      "tagline": null,
-      "linie": "server",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Dateien aus der IT hochladen, mit mehreren Virenscannern und Dateityp-Prüfung kontrollieren, freigeben lassen und nur auf der OT-Seite abholen. Server-Gegenstück zur USB-Prüfstation, Alternative zu OPSWAT MetaDefender Vault.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Dateien (Rezepte, Software-Updates, Dokumente) müssen aus dem Büronetz in die OT. Heute per USB-Stick oder offener Freigabe, also unkontrolliert. IEC 62443 und NIS2 verlangen einen kontrollierten Übergang."
-          }
-        ],
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Upload auf der IT-Seite per Web",
-              "Prüfung: mehrere Virenscanner, echter Dateityp statt Endung, Archive auspacken, optional Inhalte entschärfen",
-              "Freigabe-Workflow (z. B. Anlagenverantwortlicher), danach Abholung nur auf der OT-Seite",
-              "Ablauf nach Frist, vollständiges Protokoll",
-              "Server steht in der DMZ, Zugriff aus beiden Netzen getrennt"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "update-server",
-      "slug": "update-server-fuer-ot",
-      "nr": 18,
-      "name": "Update-Server für OT",
-      "kind": null,
-      "tagline": null,
-      "linie": "server",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Selbst betriebener Ersatz für den abgekündigten WSUS, gebaut für abgeschottete Netze: Updates im IT-Netz holen und prüfen, über die Dateischleuse in die OT bringen, pro Anlagengruppe freigeben und in Wartungsfenstern verteilen, mit Nachweis.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Anlagen-, Labor- und Leitstand-PCs hängen in abgeschotteten Netzen und werden heute meist über WSUS gepatcht. Microsoft hat WSUS am 20.09.2024 abgekündigt (keine Weiterentwicklung, Support hängt am Server-Betriebssystem, auf Server 2025 bis 2034). Die Nachfolger von Microsoft (Intune, Autopatch, Azure Update Manager) setzen Cloud-Anbindung voraus. Für Netze ohne Internet gibt es keinen Ersatz."
-          }
-        ],
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "**IT-Seite:** Windows-Updates aus dem Microsoft Update Catalog synchronisieren, auswählen, prüfen, als signiertes Paket exportieren",
-              "**Transport:** über die Dateischleuse oder die USB-Prüfstation in die OT",
-              "**OT-Seite:** Paket importieren, Signatur prüfen, an Clients verteilen",
-              "**Freigabe:** erst Test auf Referenzanlage, dann Freigabe pro Anlagengruppe, mit Name und Datum (optional elektronische Signatur aus Vitrine)",
-              "**Wartungsfenster:** Installation und Neustart nur in festgelegten Zeiten",
-              "**Nachweis:** Bericht, welches Update wann auf welchem Rechner installiert ist",
-              "**Clients ohne Agent**, falls möglich: Windows wird per GPO auf unseren Server gezeigt, als wäre er ein WSUS"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "rz-energiebericht",
-      "slug": "rz-energiebericht",
-      "nr": 20,
-      "name": "RZ-Energiebericht",
-      "kind": null,
-      "tagline": null,
-      "linie": "server",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Holt Messwerte automatisch aus USV, PDU, Klima und Zählern (SNMP, Modbus), berechnet PUE, Abwärme- und Ökostromanteil und erzeugt die jährliche Meldung für das Rechenzentrumsregister nach Energieeffizienzgesetz, dazu die Verbrauchsauskunft pro Kunde.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Das Energieeffizienzgesetz (EnEfG) verpflichtet Rechenzentren ab 300 kW nicht-redundanter Nennanschlussleistung, jedes Jahr bis 31. März die Angaben aus Anlage 3 für das Vorjahr an das Rechenzentrumsregister beim BfEE zu melden und zu veröffentlichen. Ab 500 kW kommen die deutlich umfangreicheren Kennzahlen der EU-Verordnung 2024/1364 dazu; das BfEE leitet sie an die EU-Datenbank weiter. Verstöße sind bußgeldbewehrt."
-          },
-          {
-            "type": "p",
-            "text": "In der Praxis sehr aufwendig: Daten aus vielen Quellen zusammensuchen, oft erst bei Kunden anfragen."
-          }
-        ],
-        "ersetzt": [
-          {
-            "type": "p",
-            "text": "Excel und Handarbeit, teure DCIM-Suiten, Berater."
-          }
-        ],
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Datenquellen herstellerunabhängig: USV, PDU und Klima per SNMP, Zähler per Modbus TCP/RTU, CSV-Import für den Rest (z. B. Rechnungen, Ökostrom-Nachweise)",
-              "Zählerstruktur abbilden: Gesamtverbrauch, IT-Last, Kühlung, Kunden bzw. Räume",
-              "Kennzahlen: PUE, Abwärmeanteil, Anteil erneuerbarer Energie, Verbrauch pro Kunde",
-              "Ampel gegen die gesetzlichen Zielwerte",
-              "Jahresmeldung im Format des Registers erzeugen, dazu Veröffentlichung und Kundenauskunft als PDF",
-              "Messdaten revisionssicher aufbewahren (Nachweis bei Prüfung)"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "zebra-druckerflotte-monitor",
-      "slug": "zebra-druckerflotte-monitor",
-      "nr": 26,
-      "name": "Zebra-Druckerflotte-Monitor",
-      "kind": null,
-      "tagline": null,
-      "linie": "server",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Status, Papier, Farbband und Firmware aller Zebra-Drucker per SNMP und Link-OS überwachen, mit Alarm bei Stillstand.",
-      "sections": {
-        "problem": null,
-        "ersetzt": [
-          {
-            "type": "p",
-            "text": "Ersetzt Zebra Printer Profile Manager Enterprise und Teile von SOTI Connect."
-          }
-        ],
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Drucker im Netz finden",
-              "Status, Medien, Farbband, Druckkopf, Firmware",
-              "Alarm per Mail oder Webhook bei Stillstand",
-              "Übersicht nach Standort"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "plc-versionierung",
-      "slug": "plc-projekt-versionierung",
-      "nr": 27,
-      "name": "PLC-Projekt-Versionierung",
-      "kind": null,
-      "tagline": null,
-      "linie": "server",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Projekte von Siemens-, Rockwell- und Beckhoff-Steuerungen automatisch sichern, Änderungen erkennen und festhalten, wer wann was geladen hat.",
-      "sections": {
-        "problem": null,
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Automatisches Sichern der Projekte von den Steuerungen",
-              "Vergleich mit dem letzten Stand, Änderungen anzeigen",
-              "Verlauf: wer, wann, was",
-              "Alarm bei unerwarteter Änderung"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "pcs7-alternative",
-      "slug": "prozessleitsystem",
-      "nr": 29,
-      "name": "Prozessleitsystem",
-      "kind": "PCS-7-Alternative",
-      "tagline": null,
-      "linie": "server",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Modernes, offenes Prozessleitsystem als Alternative zu SIMATIC PCS 7: Engineering, Bedienung und Beobachtung, Alarme, Archiv und Audit-Trail für verfahrenstechnische Anlagen.",
-      "sections": {
-        "problem": null,
-        "ersetzt": [
-          {
-            "type": "p",
-            "text": "SIMATIC PCS 7. Andere Leitsysteme (Emerson DeltaV, ABB 800xA, Honeywell Experion) sind ebenfalls proprietär. Ein offenes Prozessleitsystem gibt es praktisch nicht."
-          }
-        ],
-        "umfang": null
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "visualisierung",
-      "slug": "moderne-visualisierung",
-      "nr": 37,
-      "name": "Moderne Visualisierung",
-      "kind": "WinCC-Alternative",
-      "tagline": null,
-      "linie": "server",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Modernes, offenes SCADA/HMI als Alternative zu WinCC: Bilder im Browser, Anbindung über OPC UA, S7 und Modbus, Alarme, Archiv, Benutzerverwaltung und Audit-Trail.",
-      "sections": {
-        "problem": null,
-        "ersetzt": null,
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Bilder im Browser, Editor für Anlagenbilder",
-              "Anbindung über OPC UA, S7, Modbus",
-              "Alarme, Archiv, Trends",
-              "Benutzerverwaltung mit AD/Entra, Audit-Trail, elektronische Signatur (aus Vitrine)"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "ppwr-verpackungsdaten",
-      "slug": "ppwr-verpackungsdaten",
-      "nr": 19,
-      "name": "PPWR-Verpackungsdaten",
-      "kind": null,
-      "tagline": null,
-      "linie": "neu",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Cloud-Dienst für die EU-Verpackungsverordnung (PPWR): Packmittel-Daten pflegen, Nachweise von Lieferanten einsammeln, Konformitätserklärungen erzeugen und per Kennung oder QR-Code mit dem Etikett verknüpfen, Mengenberichte pro Land.",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Die EU-Verpackungsverordnung (PPWR, EU 2025/40) gilt seit dem 12.08.2026. Hersteller müssen pro Verpackungsart eine Konformitätsbewertung machen, eine EU-Konformitätserklärung mit technischer Dokumentation erstellen und mindestens 5 Jahre aufbewahren (Mehrweg 10 Jahre). Jede Verpackung braucht eine eindeutige Kennung (Charge, Seriennummer), die auf die Erklärung verweist, dazu Marke, Anschrift und elektronischen Kontakt, QR-Code ist zulässig. Lieferanten müssen Daten zur Zusammensetzung liefern. Registrierung und Mengenmeldungen in jedem EU-Land. Keine allgemeine Ausnahme für KMU, in Deutschland Bußgelder bis 200.000 €."
-          },
-          {
-            "type": "p",
-            "text": "Was noch kommt: 2027 digitale Kennzeichnung, 2028 einheitliche Material- und Entsorgungskennzeichnung, 2029 EU-Verpackungsregister statt LUCID, 2030 Recyclingfähigkeit, Leerraum, Mehrwegquoten, Rezyklatanteile."
-          },
-          {
-            "type": "p",
-            "text": "Größter Schmerz in der Praxis: Daten und Nachweise von Lieferanten einsammeln und aktuell halten."
-          }
-        ],
-        "ersetzt": [
-          {
-            "type": "p",
-            "text": "Excel, Ordner mit Lieferantenerklärungen, Berater. Daneben SAP-Module und erste SaaS-Anbieter mit PPWR-Modulen (z. B. Tanso)."
-          }
-        ],
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Packmittel-Stammdaten: Material, Komponenten, Gewicht, Volumen, Recyclingklasse, Rezyklatanteil",
-              "Lieferantenportal: Nachweise anfordern, hochladen lassen, Erinnerung, Ablaufüberwachung",
-              "Konformitätserklärung pro Verpackungsart nach Muster Anhang VIII erzeugen, versioniert und revisionssicher aufbewahrt",
-              "Kennung bzw. QR-Code mit der Erklärung verknüpfen, Übergabe an Labeldesigner und Label-Print-Server",
-              "Mengenberichte pro Land für Registrierung und Meldungen",
-              "Vorbereitet für das digitale Etikett ab 2027"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
-      }
-    },
-    {
-      "id": "verpackungsmengen-plugin",
-      "slug": "verpackungsmengen-plugin",
-      "nr": 21,
-      "name": "Verpackungsmengen-Plugin",
-      "kind": null,
-      "tagline": null,
-      "linie": "neu",
-      "status": "idee",
-      "statusKey": "geplant",
-      "statusLabel": "Geplant",
-      "version": null,
-      "text": "Kostenloses, offenes Plugin für Shopify und WooCommerce, das aus den Bestellungen die Kilo Verpackung pro Material berechnet, als Grundlage für die Meldung nach Verpackungsgesetz (LUCID, duales System).",
-      "sections": {
-        "problem": [
-          {
-            "type": "p",
-            "text": "Online-Händler müssen nach dem Verpackungsgesetz ihre Verpackungsmengen im Register LUCID melden und bei einem dualen System lizenzieren, aufgeteilt nach Material (Papier/Pappe, Kunststoff, Glas, Weißblech usw.) in Kilo. Viele schätzen die Mengen grob oder rechnen sie von Hand in Excel aus den Bestellungen zusammen."
-          }
-        ],
-        "ersetzt": [
-          {
-            "type": "p",
-            "text": "Excel-Schätzungen. Einige duale Systeme bieten eigene Rechner, die sind aber an das jeweilige System gebunden."
-          }
-        ],
-        "umfang": [
-          {
-            "type": "ul",
-            "items": [
-              "Plugin für Shopify und WooCommerce",
-              "Verpackungsprofile pro Produkt oder Versandkarton hinterlegen: Material und Gewicht",
-              "Aus den Bestellungen eines Zeitraums die Kilo pro Material berechnen",
-              "Export als CSV und als Übersicht für die Meldung an LUCID und das duale System",
-              "Kostenlos und Open Source"
-            ]
-          }
-        ]
-      },
-      "highlights": [],
-      "facts": [],
-      "media": {
-        "logo": null,
-        "colors": null,
-        "banner": null,
-        "demo": null,
-        "screenshots": [],
-        "galleryNote": null
+        "galleryNote": null,
+        "galleryNoteEn": null
       }
     }
   ]

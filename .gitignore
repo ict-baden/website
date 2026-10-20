@@ -1,6 +1,7 @@
 # Abhängigkeiten und Build
 node_modules/
 dist/
+dist-live/
 .astro/
 
 # Lokale Prüf- und Bildschirmfotos

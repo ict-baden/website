@@ -3,10 +3,12 @@ import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import { NAV, mailto } from '../config';
 
+interface Props { lang?: 'de' | 'en' }
+const { lang = 'de' } = Astro.props;
 const path = Astro.url.pathname;
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 ---
-<header class="site-header">
+<header class="site-header" lang={lang === 'de' ? undefined : 'de'}>
   <div class="container header-inner">
     <a class="brand" href="/" aria-label="ICT Baden – zur Startseite">
       <Logo uid="h" />

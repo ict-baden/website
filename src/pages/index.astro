@@ -6,10 +6,11 @@ import Parts from '../components/Parts.astro';
 import StatusBadge from '../components/StatusBadge.astro';
 import ProductIcon from '../components/product/ProductIcon.astro';
 import ContactBand from '../components/ContactBand.astro';
+import ProductCover from '../components/product/ProductCover.astro';
 import { lineGlyph } from '../lib/art';
 import { featured, linien, products, productsOfLine, productUrl, statusCounts, lineAnchor, colorClasses, STATUS_LABEL, STATUS_ORDER, plural } from '../lib/products';
+import { organization, productList, webPage, website } from '../lib/seo';
 import { SERVICES, TOPICS } from '../data/portfolio';
-import { COMPANY, SITE_URL, mailto } from '../config';
 
 const bySlug = (s: string) => products.find((p) => p.slug === s);
 const heroBack = bySlug('zutritt');
@@ -17,44 +18,23 @@ const heroMid = bySlug('vitrine');
 const heroFront = bySlug('lupe');
 const shot = (p: typeof heroBack, name: string) => p?.media.screenshots.find((s) => s.name === name);
 const sBack = shot(heroBack, 'folders');
-const sMid = shot(heroMid, 'lock');
+const sMid = shot(heroMid, 'settings-look') ?? shot(heroMid, 'lock');
 const sFront = shot(heroFront, 'result');
 
 const total = statusCounts(products);
-const ready = products.filter((p) => p.statusKey === 'verfuegbar' || p.statusKey === 'vorabversion');
-const moreReady = ready.filter((p) => !featured.includes(p));
-const featuredSlugs = new Set(featured.map((p) => p.slug));
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: COMPANY.name,
-  url: SITE_URL + '/',
-  logo: SITE_URL + '/brand/icon-512.png',
-  email: COMPANY.email,
-  telephone: COMPANY.phone,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: COMPANY.street,
-    postalCode: COMPANY.zip,
-    addressLocality: COMPANY.city,
-    addressCountry: 'DE',
-  },
-};
+const title = 'ICT Baden – Softwareentwicklung und Software-Produkte aus Karlsruhe';
+const description = 'ICT Baden GmbH, Karlsruhe-Durlach: Softwareentwicklung im Auftrag und eigene Software für Industrie, Labor und IT – von der Bildschirmsperre bis zum Kiosk-Browser.';
+const jsonLd = [organization(), website(), webPage('/', title, description, 'de'), productList(products, 'de', 'Software-Produkte von ICT Baden')];
 ---
-<Base
-  title="ICT Baden – Getting Things Done"
-  bareTitle
-  description="ICT Baden GmbH aus Karlsruhe-Durlach: Beratung und Softwareentwicklung im Auftrag – und eigene Software-Produkte für Industrie, Labor und IT."
-  jsonLd={jsonLd}
->
+<Base title={title} bareTitle description={description} jsonLd={jsonLd}>
   <!-- Hero -->
   <section class="hero">
     <div class="hero-field" aria-hidden="true"><span class="hero-bar"></span></div>
     <div class="container hero-inner">
       <div class="hero-copy">
-        <p class="eyebrow hero-eyebrow">Softwareentwicklung · Karlsruhe-Durlach</p>
-        <h1 class="hero-title">Getting Things<br /><span class="hl">Done<span class="dot">.</span></span></h1>
+        <h1 class="eyebrow hero-eyebrow">ICT Baden · Softwareentwicklung in Karlsruhe-Durlach</h1>
+        <p class="hero-title">Getting Things<br /><span class="hl">Done<span class="dot">.</span></span></p>
         <p class="hero-lead">
           Wir bieten Beratung und Softwareentwicklung im Auftrag – und entwickeln eigene
           Software-Produkte für Industrie, Labor und&nbsp;IT.
@@ -73,7 +53,7 @@ const jsonLd = {
       <div class="hero-stage" aria-hidden="true">
         {sBack && (
           <div class="stage-card stage-back">
-            <ThemeImage light={sBack.light} dark={sBack.dark} alt="" sizes="(min-width: 1100px) 560px, 80vw" />
+            <ThemeImage light={sBack.light} dark={sBack.dark} alt="" sizes="(min-width: 1100px) 560px, 80vw" eager />
           </div>
         )}
         {sMid && (
@@ -146,8 +126,9 @@ const jsonLd = {
         <p class="eyebrow eyebrow--inv">Eigene Produkte</p>
         <h2 id="produkte-titel">Software-Produkte für Industrie, Labor und&nbsp;IT</h2>
         <p class="lead">
-          {plural(products.length, 'Produkt', 'Produkte')} in {linien.length} Produktlinien – von der fertigen Anwendung
-          bis zur geplanten Lösung. {total.verfuegbar} sind verfügbar, {total.vorabversion} als Vorabversion.
+          {plural(products.length, 'Produkt', 'Produkte')} in {linien.length} Produktlinien, alle kostenlos unter der MIT-Lizenz:
+          {total.verfuegbar} verfügbar, {total.vorabversion} als Vorabversion{total['in-entwicklung'] > 0 && `, ${total['in-entwicklung']} in Entwicklung`}.
+          Support gibt es auf Wunsch per Supportvertrag.
         </p>
       </div>
 
@@ -160,7 +141,13 @@ const jsonLd = {
                 <div class="feat-head">
                   <ProductIcon product={p} size={52} />
                   <div>
-                    <h3><a href={productUrl(p)}>{p.name}</a></h3>
+                    <h3>
+                      <a href={productUrl(p)}>
+                        <span class="feat-name">{p.name}</span>
+                        {p.kind && <span class="visually-hidden"> – </span>}
+                        {p.kind && <span class="feat-kind">{p.kind}</span>}
+                      </a>
+                    </h3>
                     {p.tagline && <p class="feat-tag">{p.tagline}</p>}
                   </div>
                 </div>
@@ -170,32 +157,17 @@ const jsonLd = {
                   <span class="feat-more" aria-hidden="true">Mehr erfahren <Icon name="arrow-right" /></span>
                 </div>
               </div>
-              {s && (
+              {i === 0 && s ? (
                 <div class="feat-shot">
                   <ThemeImage light={s.light} dark={s.dark} alt="" sizes="(min-width: 1100px) 640px, 92vw" />
                 </div>
+              ) : (
+                <div class="feat-cover"><ProductCover product={p} uid="-feat" sizes="(min-width: 1100px) 520px, 92vw" /></div>
               )}
             </article>
           );
         })}
       </div>
-
-      {moreReady.length > 0 && (
-        <div class="ready reveal">
-          <h3 class="ready-title">Außerdem verfügbar oder als Vorabversion</h3>
-          <ul class="ready-list">
-            {moreReady.map((p) => (
-              <li>
-                <a href={productUrl(p)} class="ready-item">
-                  <ProductIcon product={p} size={36} uid="-r" />
-                  <span class="ready-name"><span class="ready-pname">{p.name}</span><span class="ready-kind">{p.kind ?? linien.find((l) => l.id === p.linie)?.name}</span></span>
-                  <StatusBadge product={p} />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
 
       <div class="lines-head reveal">
         <h3>Die Produktlinien</h3>
@@ -343,8 +315,9 @@ const jsonLd = {
     align-items: center;
     gap: clamp(2rem, 4vw, 4rem);
   }
-  .hero-eyebrow { margin-bottom: var(--s-5); }
+  .hero-eyebrow { margin-bottom: var(--s-5); font-stretch: 100%; line-height: 1.4; text-wrap: wrap; }
   .hero-title {
+    font-family: var(--font-display);
     font-size: var(--fs-hero);
     font-weight: 820;
     font-stretch: 108%;
@@ -539,11 +512,12 @@ const jsonLd = {
   .feat-head { display: flex; align-items: center; gap: var(--s-4); }
   .feat-head :global(.picon) { --picon-size: 52px; }
   .feat h3 { font-size: var(--fs-2xl); color: #ffffff; }
-  .feat h3 a { color: inherit; text-decoration: none; }
+  .feat h3 a { display: grid; color: inherit; text-decoration: none; }
+  .feat-kind { margin-top: 0.2rem; color: var(--ink-2); font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 560; font-stretch: 100%; letter-spacing: 0; line-height: 1.35; }
   .feat h3 a::after { content: ''; position: absolute; inset: 0; z-index: 2; }
   .feat:has(h3 a:focus-visible) { outline: 3px solid var(--brand-yellow); outline-offset: 4px; }
   .feat h3 a:focus-visible { outline: none; }
-  .feat-tag { color: var(--ink-2); font-weight: 560; }
+  .feat-tag { margin-top: var(--s-2); color: var(--ink); font-weight: 600; }
   .feat-text { max-width: 46ch; color: var(--ink-2); }
   .feat-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-3); margin-top: auto; }
   .feat-more { display: inline-flex; align-items: center; gap: 0.4em; color: var(--ink); font-weight: 620; font-size: var(--fs-sm); }
@@ -559,6 +533,8 @@ const jsonLd = {
       linear-gradient(140deg, var(--l1), var(--l2));
   }
   .feat-shot > :global(img) { flex: none; }
+  .feat-cover { align-self: end; }
+  .feat-cover :global(.pcover) { border-radius: 0; }
   .feat--wide .feat-shot { padding-left: clamp(1.4rem, 1rem + 2vw, 3rem); }
   .feat-shot :global(img) {
     width: 100%;
@@ -569,27 +545,6 @@ const jsonLd = {
   }
   .feat:hover .feat-shot :global(img) { transform: translate(-6px, -6px); }
 
-  .ready { margin-top: var(--s-7); }
-  .ready-title { font-size: var(--fs-lg); margin-bottom: var(--s-4); }
-  .ready-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-3); padding: 0; margin: 0; list-style: none; }
-  .ready-item {
-    display: flex;
-    align-items: center;
-    gap: var(--s-3);
-    height: 100%;
-    padding: 0.8rem 1rem 0.8rem 0.8rem;
-    border: 1px solid var(--line);
-    border-radius: var(--r-md);
-    background: rgb(255 255 255 / 0.03);
-    color: var(--ink);
-    text-decoration: none;
-    transition: background-color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
-  }
-  .ready-item:hover { background: rgb(255 255 255 / 0.07); border-color: var(--line-strong); color: var(--ink); }
-  .ready-item :global(.picon) { --picon-size: 36px; filter: none; }
-  .ready-name { display: grid; flex: 1; min-width: 0; font-weight: 620; line-height: 1.3; }
-  .ready-pname, .ready-kind { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .ready-kind { color: var(--ink-3); font-size: var(--fs-xs); font-weight: 500; }
 
   .lines { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-3); padding: 0; margin: 0; list-style: none; }
   .line {
@@ -653,20 +608,10 @@ const jsonLd = {
   .line--all:hover .line-go :global(.icon) { transform: translateX(4px); }
   .link-arrow--inv { color: var(--ink); }
 
-  /* 3 Spalten erst, wenn die Art des Produkts ungekürzt hineinpasst */
-  @media (max-width: 1320px) {
-    .ready-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
   @media (max-width: 1100px) {
     .lines { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     /* Balken nur über der rechten oberen Ecke, damit er nie über dem Text liegt */
     .line-all-bar { right: -4%; width: 11%; bottom: 45%; }
-  }
-  @media (max-width: 560px) {
-    /* Badge in eine eigene Zeile unter den Namen */
-    .ready-item { flex-wrap: wrap; row-gap: var(--s-2); }
-    .ready-name { flex: 1 1 calc(100% - 36px - var(--s-3)); }
-    .ready-item :global(.badge) { margin-left: calc(36px + var(--s-3)); }
   }
   @media (max-width: 860px) {
     .featured { grid-template-columns: 1fr; }
@@ -674,7 +619,7 @@ const jsonLd = {
     .feat--wide .feat-shot { padding-left: clamp(1.4rem, 1rem + 2vw, 2.75rem); }
   }
   @media (max-width: 560px) {
-    .lines, .ready-list { grid-template-columns: minmax(0, 1fr); }
+    .lines { grid-template-columns: minmax(0, 1fr); }
   }
 
   /* Über uns */

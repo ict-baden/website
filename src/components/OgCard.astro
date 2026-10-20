@@ -42,7 +42,7 @@ const icon = p ? productIconUrl(p) : null;
           {icon && <img class="og-icon" src={icon} alt="" width="84" height="84" />}
           <p class="og-line">{line?.name}</p>
           <h1 class:list={[p.name.length > 9 && 'og-mid', p.name.length > 13 && 'og-long']} set:html={nameHtml(p.name)} />
-          {(p.tagline || p.kind) && <p class="og-sub">{p.tagline ?? p.kind}</p>}
+          {(p.kind || p.tagline) && <p class="og-sub">{p.kind ?? p.tagline}</p>}
           <p class="og-status"><span class:list={['og-dot', `og-dot--${p.statusKey}`]}></span>{p.statusLabel}</p>
         </div>
         <div class="og-brand"><Logo uid="og" /><span>Softwareentwicklung · Karlsruhe-Durlach</span></div>

@@ -10,7 +10,10 @@ services:
     volumes:
       # public_html/current ist ein Symlink auf das aktuelle Release (atomarer Wechsel beim Deploy)
       - ./public_html:/usr/share/nginx/html:ro
-      - ./conf/default.conf:/etc/nginx/conf.d/default.conf:ro
+      # Das Verzeichnis einbinden, nicht die Datei: deploy.sh ersetzt default.conf per mv (neuer Inode). Eine
+      # einzeln eingebundene Datei zeigt danach weiter auf den alten Inhalt – neue Weiterleitungen und der Wegfall
+      # von "X-Robots-Tag: noindex" beim Livegang kämen nie an.
+      - ./conf:/etc/nginx/conf.d:ro
     security_opt:
       - no-new-privileges:true
     healthcheck:

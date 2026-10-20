@@ -1,12 +1,42 @@
 {
   "$comment": [
     "Redaktionelle Regeln für die öffentliche Produktseite. Wird von scripts/sync-products.mjs angewendet.",
+    "veroeffentlicht: die EINZIGE Stelle, die festlegt, welche Produkte auf der Website erscheinen (Projekt-ids aus projekte.json). scripts/check-products.mjs prüft, dass products.json genau diese Produkte enthält.",
+    "linien: Produktlinien der Website (ersetzen die Linien aus projekte.json; Linien ohne Produkt entfallen).",
     "Grundsätze: Nur Kürzen oder anhand der Produkt-README berichtigen, nie Hinzudichten. 'Was es ersetzt' wird nur übernommen, wenn hier 'ersetzt': true steht",
     "(neutraler Produktvergleich ohne Werturteile über benannte Fremdprodukte). Neue Produkte erscheinen deshalb",
     "zunächst ohne diesen Abschnitt, bis jemand ihn geprüft hat.",
     "Felder je Produkt-id: ersetzt (bool), problem / umfang (false = Abschnitt weglassen), dropSentences / dropBlocks / dropItems",
     "(Teilstrings; ganze Sätze, Absätze/Listen bzw. Listenpunkte, die sie enthalten, entfallen), replace ([alt, neu]),",
-    "textReplace ([alt, neu]) für das Feld 'text', reason (Begründung, wird nicht veröffentlicht)."
+    "textReplace ([alt, neu]) für das Feld 'text', reason (Begründung, wird nicht veröffentlicht).",
+    "Korrekturen, wo projekte.json veraltet ist (Quelle: README des Produkt-Repos): name, text (ersetzt den Kurztext), status (fertig, fast-fertig, angefangen, idee), version, linie, repo (nur zum Finden von README und Bildern, wird nie veröffentlicht).",
+    "Fremdprodukte und Formulierungen wie 'Alternative zu' sind in allen Textfeldern nur mit 'ersetzt': true erlaubt (scripts/lib/public-guard.mjs, findCompetitorMentions) – vorher rechtlich prüfen lassen."
+  ],
+  "veroeffentlicht": [
+    "vitrine",
+    "qr-scanner",
+    "enterprisebrowser",
+    "industrialkeyboard",
+    "haertungs-check",
+    "freigaben-berechtigungen",
+    "labeldesigner"
+  ],
+  "linien": [
+    {
+      "id": "ot",
+      "name": "OT-Sicherheit & Compliance",
+      "text": "Bildschirme sperren, Windows-Härtung prüfen, Zugriffsrechte nachweisen – für Anlagen, Labore und Leitstände"
+    },
+    {
+      "id": "android",
+      "name": "Android & Zebra",
+      "text": "Browser und Tastatur für robuste Android-Geräte in Lager und Logistik"
+    },
+    {
+      "id": "codes",
+      "name": "Barcodes & Etiketten",
+      "text": "QR-Codes und Barcodes am PC lesen, Etiketten für Zebra-Drucker gestalten"
+    }
   ],
   "products": {
     "ethernetip-explorer": {
@@ -101,22 +131,55 @@
       "reason": "'Nachbau' ist eine interne Formulierung."
     },
     "freigaben-berechtigungen": {
-      "textReplace": [
-        [
-          "Alternative zu teuren Tools wie tenfold.",
-          "Alternative zu Tools wie tenfold."
-        ]
-      ],
-      "reason": "Werturteil über ein benanntes Fremdprodukt im Kurztext."
+      "status": "fast-fertig",
+      "text": "Zeigt, wer auf Dateifreigaben worauf zugreifen darf – und über welche Gruppe. Liest Freigabe- und NTFS-Rechte, löst Gruppen bis zur Person auf, meldet riskante Rechte und schreibt einen Excel- oder PDF-Bericht zum Abzeichnen.",
+      "problem": false,
+      "umfang": false,
+      "reason": "README von Zutritt: Vorabversion, nicht signiert. Der Kurztext aus projekte.json nannte ein Fremdprodukt ohne Freigabe und wird deshalb ersetzt; die Notiz behauptet NAS-Unterstützung, die die README nicht belegt."
     },
     "vitrine": {
+      "version": "0.1.0",
+      "text": "Transparente Bildschirmsperre für Windows: Tastatur und Maus sind gesperrt, Programme bleiben sichtbar und laufen weiter. Mit Microsoft Entra ID, elektronischer Signatur und manipulationserkennendem Protokoll.",
+      "problem": false,
+      "umfang": false,
       "textReplace": [
         [
           "manipulationssicherem Protokoll",
           "manipulationserkennendem Protokoll"
         ]
       ],
-      "reason": "README von Vitrine: Das Protokoll ist manipulationserkennend, nicht manipulationssicher."
+      "reason": "README von Vitrine: Vorabversion 0.1.0, Protokoll manipulationserkennend (nicht manipulationssicher). Die Produktseite hat kuratierte Abschnitte aus der README (src/data/produktseiten/), die Notiz-Abschnitte entfallen. README von Vitrine: Das Protokoll ist manipulationserkennend, nicht manipulationssicher."
+    },
+    "qr-scanner": {
+      "status": "fast-fertig",
+      "linie": "codes",
+      "text": "Liest QR-Codes und Barcodes unter Windows, Linux und macOS – per Webcam, aus jedem Bildschirmausschnitt, aus Bilddateien und der Zwischenablage. Das Ergebnis wird kopiert, eingetippt oder als Link geöffnet.",
+      "problem": false,
+      "umfang": false,
+      "reason": "README von Lupe: Windows, Linux und macOS, Oberfläche Englisch und Deutsch, Vorabversion 0.1.0 (projekte.json: 'fertig', Text 'für Windows' veraltet). Ausgangslage der Notiz enthält eine nicht belegbare Alleinstellungsbehauptung."
+    },
+    "enterprisebrowser": {
+      "text": "Kiosk-Browser für robuste Android-Geräte von Zebra und Honeywell: Barcode-Scan per DataWedge direkt ins Webformular, Profile, Kioskmodus und Konfiguration per MDM (SOTI, Intune, StageNow).",
+      "reason": "Kurztext an die README angepasst (Android 8.0+, Scan per DataWedge oder Intent, Managed Configuration)."
+    },
+    "industrialkeyboard": {
+      "text": "Bildschirmtastatur für robuste Android-Geräte von Zebra und Honeywell: große Tasten für Handschuhe, Scan-Taste, F1–F24 für Terminal-Emulation, zentral per MDM konfigurierbar.",
+      "reason": "projekte.json nennt RDP und SAP – das belegt die README nicht. Text nach dem deutschen Hinweis der README."
+    },
+    "haertungs-check": {
+      "status": "fast-fertig",
+      "text": "Prüft Windows-Rechner in Anlagen, Laboren und Leitständen lesend und offline gegen 153 Härtungsregeln, hält begründete Ausnahmen mit Freigabe fest und erzeugt einen Bericht zum Abzeichnen.",
+      "problem": false,
+      "umfang": false,
+      "reason": "README von Riegel: Vorabversion 0.1, nicht signiert; Regelwerk 2026.10 mit 153 Regeln (bei neuem Regelwerk anpassen); enthält KEINE CIS- oder BSI-SiSyPHuS-Inhalte. Die Notiz-Abschnitte nennen BSI/CIS und Fremdprodukte und entfallen."
+    },
+    "labeldesigner": {
+      "name": "Plakette",
+      "repo": "ict-baden/plakette",
+      "status": "angefangen",
+      "linie": "codes",
+      "text": "Etiketten-Designer für Zebra- und kompatible Etikettendrucker: druckt ZPL direkt auf den Drucker – ohne Druckertreiber, Lizenzserver oder Administratorrechte, unter Windows und Linux. In Entwicklung.",
+      "reason": "projekte.json ist veraltet (repo leer, Status 'fertig', Linie Android, 'im Browser gestalten'). README von Plakette: Name Plakette, in Entwicklung, noch keine Veröffentlichung, Windows und Linux."
     }
   }
 }

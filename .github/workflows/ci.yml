@@ -46,6 +46,18 @@ jobs:
       - name: HTML-Prüfung (html-validate inkl. Barrierefreiheitsregeln)
         run: npm run check:html
 
+      - name: SEO-Prüfung (Titel, Beschreibungen, hreflang, JSON-LD, Sitemap, robots.txt, llms.txt)
+        run: npm run check:seo
+
+      - name: Livegang-Modus bauen und prüfen (robots.txt, kanonische Adressen auf ict-baden.de)
+        env:
+          SITE_STAGING: "0"
+          SITE_URL: https://ict-baden.de
+        run: |
+          npx astro build --outDir dist-live
+          node scripts/check-seo.mjs dist-live
+          node scripts/check-links.mjs dist-live
+
       - name: Barrierefreiheit (axe-core, hell/dunkel, 1440/390 px)
         # Nutzt das auf dem Runner installierte Google Chrome
         run: npm run check:a11y

@@ -4,14 +4,16 @@ import type { IconName } from './icons';
 
 export type Block = { type: 'p'; text: string } | { type: 'ul'; items: string[] };
 export interface ImageSet { src: string; srcset: string; width: number; height: number }
-export interface Shot { name: string; title: string; caption: string | null; alt: string; light: ImageSet; dark: ImageSet | null }
+export interface ShotText { title: string; caption: string | null; alt: string }
+export interface Shot { name: string; title: string; caption: string | null; alt: string; en: ShotText | null; light: ImageSet; dark: ImageSet | null }
 export interface Media {
   logo: string | null;
   colors: [string, string] | null;
-  banner: (ImageSet & { alt: string }) | null;
+  banner: (ImageSet & { alt: string; altEn: string | null }) | null;
   demo: { src: string; still: string; width: number; height: number; alt: string; caption: string | null } | null;
   screenshots: Shot[];
   galleryNote: string | null;
+  galleryNoteEn?: string | null;
 }
 export type StatusKey = 'verfuegbar' | 'vorabversion' | 'in-entwicklung' | 'geplant';
 export interface Product {
@@ -26,6 +28,8 @@ export interface Product {
   statusKey: StatusKey;
   statusLabel: string;
   version: string | null;
+  /** Datum des letzten Commits im Produkt-Repo (JJJJ-MM-TT) */
+  updated: string | null;
   text: string;
   sections: { problem: Block[] | null; ersetzt: Block[] | null; umfang: Block[] | null };
   highlights: string[];
@@ -43,6 +47,7 @@ export const LINE_ICON: Record<string, IconName> = {
   android: 'scanner',
   labor: 'flask',
   ot: 'shield',
+  codes: 'barcode',
   explorer: 'radar',
   service: 'wrench',
   server: 'server',
@@ -77,11 +82,12 @@ export const productUrl = (p: Product) => `/produkte/${p.slug}/`;
 export const isPortrait = (s: Shot) => s.light.height > s.light.width;
 export const lineAnchor = (id: string) => `/produkte/#linie-${id}`;
 
-/** Auswahl für die großen Karten auf der Startseite (verfügbar oder Vorabversion, mit Bildschirmfotos). */
-const FEATURED = ['vitrine', 'lupe', 'zutritt', 'hausmeister', 'merker'];
-export const featured = FEATURED
-  .map((slug) => products.find((p) => p.slug === slug))
-  .filter((p): p is Product => Boolean(p && p.media.screenshots.length > 0 && (p.statusKey === 'verfuegbar' || p.statusKey === 'vorabversion')));
+/** Reihenfolge der großen Karten auf der Startseite: alle veröffentlichten Produkte, die erste Karte breit. */
+const FEATURED = ['vitrine', 'lupe', 'zutritt', 'riegel', 'enterprisebrowser', 'industrial-keyboard', 'plakette'];
+export const featured = [
+  ...FEATURED.map((slug) => products.find((p) => p.slug === slug)).filter((p): p is Product => Boolean(p)),
+  ...products.filter((p) => !FEATURED.includes(p.slug)),
+];
 
 export function statusCounts(list: Product[]) {
   const c: Record<StatusKey, number> = { verfuegbar: 0, vorabversion: 0, 'in-entwicklung': 0, geplant: 0 };

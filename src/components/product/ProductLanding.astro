@@ -1,0 +1,506 @@
+---
+// Produktseite (deutsch unter /produkte/<slug>/, englisch unter /en/products/<slug>/): Antwort zuerst, Funktionen,
+// Bilder, Systemvoraussetzungen, ehrliche Grenzen, FAQ, verwandte Produkte – mit JSON-LD (SoftwareApplication,
+// FAQPage, BreadcrumbList) und hreflang. Inhalte: products.json (Sync) und src/data/produktseiten/<id>.ts.
+import Base from '../../layouts/Base.astro';
+import Icon from '../Icon.astro';
+import ThemeImage from '../ThemeImage.astro';
+import StatusBadge from '../StatusBadge.astro';
+import ContactBand from '../ContactBand.astro';
+import ProductIcon from './ProductIcon.astro';
+import { coverArt } from '../../lib/art';
+import { colorClasses, isPortrait, lineById, nameHtml, nameSize, products, type Product, type Shot } from '../../lib/products';
+import { fill, inline, isReleased, LINE_EN, pageFor, plain, productUrlFor, seoTitle, UI, type Lang } from '../../lib/produktseiten';
+import { breadcrumbs, faqPage, organization, softwareApplication, webPage, website } from '../../lib/seo';
+import { appPrivacyPages } from '../../lib/app-privacy';
+import { mailto } from '../../config';
+import { existsSync } from 'node:fs';
+
+interface Props { product: Product; lang: Lang }
+const { product: p, lang } = Astro.props;
+const t = UI[lang];
+const page = pageFor(p);
+const copy = page[lang];
+const other: Lang = lang === 'de' ? 'en' : 'de';
+const f = (s: string) => fill(s, page, p, lang);
+
+const line = lineById(p.linie);
+const lineName = lang === 'de' ? line.name : LINE_EN[line.id]?.name ?? line.name;
+const kind = (lang === 'de' ? p.kind : copy.kind ?? p.kind) ?? '';
+const tagline = lang === 'de' ? p.tagline : copy.tagline ?? null;
+const url = productUrlFor(p, lang);
+const otherUrl = productUrlFor(p, other);
+const released = isReleased(p);
+const statusLabel = lang === 'de'
+  ? p.statusLabel
+  : `${t.status[p.statusKey]}${p.statusKey === 'vorabversion' && p.version ? ` ${p.version}` : ''}`;
+const facts: [string, string][] = lang === 'de' ? p.facts.map((x) => [x.label, x.value]) : copy.facts ?? [];
+
+const m = p.media;
+/** Bildtexte in der Sprache der Seite */
+const txt = (s: Shot) => (lang === 'en' && s.en ? s.en : { title: s.title, caption: s.caption, alt: s.alt });
+const hero = m.screenshots[0];
+const phones = Boolean(hero && isPortrait(hero));
+const heroPhones = phones ? m.screenshots.slice(0, 3) : [];
+const gallery = m.demo || phones ? m.screenshots : m.screenshots.slice(1);
+const shotKind = (x: Shot) => (isPortrait(x) ? 'phone' : x.light.width / x.light.height >= 2.4 ? 'wide' : x.light.width <= 1100 ? 'small' : 'normal');
+const galleryNote = lang === 'en' ? m.galleryNoteEn ?? null : m.galleryNote;
+
+const related = page.related.map((id) => products.find((x) => x.id === id)).filter((x): x is Product => Boolean(x));
+const relatedKind = (r: Product) => (lang === 'de' ? r.kind : pageFor(r).en.kind ?? r.kind);
+const privacy = page.privacyApp && (await appPrivacyPages()).includes(page.privacyApp) ? `/datenschutz/${page.privacyApp}/` : null;
+const alternatives = page.alternatives?.approved ? page.alternatives[lang] : null;
+
+const subject = t.enquirySubject(p.name);
+const og = existsSync(`public/og/produkte/${p.slug}.jpg`) ? `/og/produkte/${p.slug}.jpg` : undefined;
+const description = plain(f(copy.description));
+const h1Text = kind ? `${p.name} – ${kind}` : p.name;
+const crumbs = lang === 'de'
+  ? [{ name: t.home, url: '/' }, { name: t.products, url: '/produkte/' }, { name: p.name, url }]
+  : [{ name: t.home, url: '/' }, { name: t.products, url: '/en/' }, { name: p.name, url }];
+const software = softwareApplication(p, page, lang, kind);
+const jsonLd = [
+  organization(),
+  website(),
+  webPage(url, seoTitle(copy.title), description, lang, software['@id'] as string, og),
+  software,
+  breadcrumbs(crumbs),
+  faqPage(url, copy.faq.map((x) => ({ q: plain(f(x.q)), a: plain(f(x.a)) })), lang),
+];
+const updated = p.updated ? t.date(p.updated) : null;
+---
+<Base
+  title={seoTitle(copy.title)}
+  bareTitle
+  description={description}
+  lang={lang}
+  alternates={[{ lang: 'de', href: productUrlFor(p, 'de') }, { lang: 'en', href: productUrlFor(p, 'en') }]}
+  ogType="article"
+  ogImage={og}
+  ogImageAlt={h1Text}
+  jsonLd={jsonLd}
+>
+  <section class:list={['dhero', ...colorClasses(p)]}>
+    <div class="dhero-bg" aria-hidden="true"></div>
+    <div class="container dhero-grid">
+      <div class="dhero-copy">
+        <div class="dtop">
+          <nav aria-label={t.crumbs}>
+            <ol class="crumbs">
+              {crumbs.slice(0, -1).map((c) => <li><a href={c.url}>{c.name}</a></li>)}
+              <li><span aria-current="page">{p.name}</span></li>
+            </ol>
+          </nav>
+          <a class="dlang" href={otherUrl} hreflang={other} lang={other} title={t.otherLangLabel}>
+            <Icon name="globe" /> {t.otherLang}
+          </a>
+        </div>
+        <div class:list={['dhead', nameSize(p.name) && `dhead--${nameSize(p.name)}`]}>
+          <ProductIcon product={p} size={76} uid="-hero" class="dicon" eager />
+          <h1>
+            <span class="dname" set:html={nameHtml(p.name)} />
+            {kind && <span class="visually-hidden"> – </span>}
+            {kind && <span class="dkind">{kind}</span>}
+          </h1>
+        </div>
+        {tagline && <p class="dtag">{tagline}</p>}
+        <p class="dlead" set:html={inline(f(copy.lead))} />
+        <div class="dmeta">
+          <StatusBadge product={p} label={statusLabel} />
+          <a class="tag" href={lang === 'de' ? `/produkte/#linie-${line.id}` : '/en/#products'}>{lineName}</a>
+          {updated && <span class="dupdated">{t.updated}: <time datetime={p.updated}>{updated}</time></span>}
+        </div>
+        {lang === 'de' && p.highlights.length > 0 && (
+          <ul class="tag-list dhl" aria-label={t.highlights}>
+            {p.highlights.map((h) => <li class="hl-chip">{h}</li>)}
+          </ul>
+        )}
+        <div class="btn-row dcta">
+          {page.download.public && page.download.url ? (
+            <>
+              <a class="btn" href={page.download.url} rel="noopener"><Icon name="download" /> {t.download}</a>
+              {page.download.source && <a class="btn btn--secondary" href={page.download.source} rel="noopener"><Icon name="code" /> {t.source}</a>}
+            </>
+          ) : (
+            <>
+              <a class="btn" href={mailto(subject)}><Icon name="mail" /> {t.enquiry}</a>
+              {released && <a class="btn btn--secondary" href={mailto(t.supportSubject(p.name))}>{t.support}</a>}
+            </>
+          )}
+        </div>
+        {!page.download.public && (
+          <p class="dnote-dl"><Icon name="info" /> {released ? `${t.downloadSoon}: ${t.downloadSoonHelp}` : t.inDevelopmentHelp}</p>
+        )}
+      </div>
+
+      <div class="dhero-visual">
+        {m.demo ? (
+          <figure class="dvis dvis--shot">
+            <div class="dvis-frame dvis-frame--demo">
+              <picture>
+                <source media="(prefers-reduced-motion: reduce)" srcset={m.demo.still} />
+                <img src={m.demo.src} width={m.demo.width} height={m.demo.height} alt={m.demo.alt} fetchpriority="high" />
+              </picture>
+            </div>
+            {m.demo.caption && <figcaption>{m.demo.caption}</figcaption>}
+          </figure>
+        ) : phones ? (
+          <figure class="dvis dvis--phones">
+            <div class="dvis-frame dvis-frame--phones">
+              {heroPhones.map((x, i) => (
+                <div class="dphone">
+                  <ThemeImage light={x.light} dark={x.dark} alt={i === 0 ? txt(x).alt : ''} sizes="(min-width: 1100px) 190px, 28vw" eager={i === 0} />
+                </div>
+              ))}
+            </div>
+          </figure>
+        ) : hero ? (
+          <figure class="dvis dvis--shot">
+            <div class="dvis-frame">
+              <ThemeImage light={hero.light} dark={hero.dark} alt={txt(hero).alt} sizes="(min-width: 1100px) 620px, 92vw" eager />
+            </div>
+            <figcaption><strong>{txt(hero).title}</strong> {txt(hero).caption}</figcaption>
+          </figure>
+        ) : (
+          <div class="dvis dvis--art" set:html={coverArt(p.slug, p.linie, '-hero')} />
+        )}
+      </div>
+    </div>
+  </section>
+
+  <div class="container dbody">
+    <div class="dmain">
+      {copy.sections.map((s, i) => (
+        <section class="dsec reveal" id={s.id} aria-labelledby={`s-${s.id}`}>
+          <h2 id={`s-${s.id}`}><span class="dsec-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span> {s.title}</h2>
+          {s.blocks.map((b) =>
+            b.type === 'p' ? <p class="blk-p" set:html={inline(f(b.text))} />
+            : b.type === 'list' ? <ul class="blk-ul">{b.items.map((x) => <li set:html={inline(f(x))} />)}</ul>
+            : b.type === 'items' ? (
+              <ul class="feat-list" role="list">
+                {b.items.map((x) => (
+                  <li>
+                    <Icon name="check" class="feat-check" />
+                    <div><h3>{x.title}</h3><p set:html={inline(f(x.text))} /></div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div class="table-wrap">
+                <table class="dtable">
+                  <caption class="visually-hidden">{b.caption}</caption>
+                  <thead><tr>{b.head.map((h) => <th scope="col">{h}</th>)}</tr></thead>
+                  <tbody>{b.rows.map((r) => <tr>{r.map((c, j) => (j === 0 ? <th scope="row">{c}</th> : <td>{c}</td>))}</tr>)}</tbody>
+                </table>
+              </div>
+            )
+          )}
+        </section>
+      ))}
+
+      {alternatives && (
+        <section class="dsec reveal" id="alternativen" aria-labelledby="s-alternativen">
+          <h2 id="s-alternativen">{t.alternatives}</h2>
+          <p class="blk-p">{alternatives}</p>
+        </section>
+      )}
+
+      <section class="dsec reveal" id={lang === 'de' ? 'voraussetzungen' : 'requirements'} aria-labelledby="s-req">
+        <h2 id="s-req"><span class="dsec-n" aria-hidden="true">{String(copy.sections.length + 1).padStart(2, '0')}</span> {t.requirements}</h2>
+        <dl class="req">
+          {copy.requirements.map(([k, v]) => <div><dt>{k}</dt><dd set:html={inline(f(v))} /></div>)}
+        </dl>
+      </section>
+
+      <section class="dsec reveal" id={lang === 'de' ? 'grenzen' : 'limits'} aria-labelledby="s-limits">
+        <h2 id="s-limits"><span class="dsec-n" aria-hidden="true">{String(copy.sections.length + 2).padStart(2, '0')}</span> {t.limits}</h2>
+        <ul class="blk-ul">{copy.limits.map((x) => <li set:html={inline(f(x))} />)}</ul>
+      </section>
+
+      <p class="daka"><strong>{t.aka}:</strong> {copy.aka.join(' · ')}</p>
+    </div>
+
+    <aside class="daside" aria-label={`${p.name}: ${t.glance}`}>
+      <div class="card card--pad dfacts">
+        <p class="daside-title">{t.glance}</p>
+        <dl>
+          <div><dt>{t.line}</dt><dd>{lineName}</dd></div>
+          <div><dt>Status</dt><dd>{statusLabel}<span class="dd-help">{t.statusHelp[p.statusKey]}</span></dd></div>
+          {released && p.version && <div><dt>{t.version}</dt><dd>{p.version}</dd></div>}
+          {updated && <div><dt>{t.updated}</dt><dd><time datetime={p.updated}>{updated}</time></dd></div>}
+          <div><dt>{t.licence}</dt><dd>{t.licenceValue(page.download.public)}</dd></div>
+          {facts.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+        </dl>
+        {privacy && <p class="dprivacy"><a href={privacy} hreflang="de">{t.privacy}</a></p>}
+      </div>
+      <div class="card card--pad dask">
+        <p class="daside-title">{t.askTitle}</p>
+        <p>{t.askText(p.name)}</p>
+        <a class="btn" href={mailto(subject)}><Icon name="mail" /> {t.write}</a>
+      </div>
+    </aside>
+  </div>
+
+  {gallery.length > 0 && (
+    <section class="container dgallery" aria-labelledby="s-bilder">
+      <div class="dgallery-head">
+        <h2 id="s-bilder">{t.gallery(p.name)}</h2>
+        {galleryNote && <p class="muted">{galleryNote}</p>}
+      </div>
+      <ul class:list={['shots', phones && 'shots--phones']} role="list">
+        {gallery.map((s) => (
+          <li class:list={['reveal', `shot-item--${shotKind(s)}`]}>
+            <figure>
+              <a class:list={['shot', 'shot-link', shotKind(s) === 'phone' && 'shot--bare']} href={s.light.src} aria-label={t.galleryOpen(txt(s).title)}>
+                <ThemeImage light={s.light} dark={s.dark} alt={txt(s).alt} sizes={shotKind(s) === 'wide' ? '(min-width: 1300px) 1240px, 94vw' : shotKind(s) === 'phone' ? '(min-width: 1100px) 260px, 44vw' : '(min-width: 1100px) 600px, (min-width: 720px) 46vw, 92vw'} />
+              </a>
+              <figcaption><strong>{txt(s).title}</strong>{txt(s).caption && <span>{txt(s).caption}</span>}</figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <section class="container dfaq" id={lang === 'de' ? 'fragen' : 'faq'} aria-labelledby="s-faq">
+    <h2 id="s-faq">{t.faq}</h2>
+    <div class="faq-list">
+      {copy.faq.map((x) => (
+        <div class="faq-item reveal">
+          <h3 set:html={inline(f(x.q))} />
+          <p set:html={inline(f(x.a))} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="container drelated" aria-labelledby="s-related">
+      <h2 id="s-related">{t.related}</h2>
+      <ul class="rlist" role="list">
+        {related.map((r) => (
+          <li>
+            <a class:list={['ritem', ...colorClasses(r)]} href={productUrlFor(r, lang)}>
+              <ProductIcon product={r} size={44} uid="-rel" />
+              <span class="rtext"><span class="rname">{r.name}</span><span class="rkind">{relatedKind(r)}</span></span>
+              <Icon name="arrow-right" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {copy.trademarks && <div class="container"><p class="dtm">{copy.trademarks}</p></div>}
+
+  <ContactBand lang={lang} title={t.contactTitle(p.name)} subject={subject} text={t.contactText} />
+</Base>
+
+<style>
+  .dhero { position: relative; overflow: clip; padding-block: clamp(2rem, 1rem + 3vw, 4rem) clamp(3rem, 2rem + 4vw, 5.5rem); }
+  .dhero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(46rem 30rem at 85% 10%, color-mix(in srgb, var(--l1) 30%, transparent), transparent 70%),
+      radial-gradient(30rem 24rem at 100% 90%, color-mix(in srgb, var(--l2) 18%, transparent), transparent 70%),
+      linear-gradient(to right, color-mix(in srgb, var(--ink) 4.5%, transparent) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(to bottom, color-mix(in srgb, var(--ink) 4.5%, transparent) 1px, transparent 1px) 0 0 / 56px 56px;
+    mask-image: radial-gradient(ellipse 90% 100% at 70% 20%, #000 30%, transparent 80%);
+  }
+  .dhero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  .dtop { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-4); }
+  .dlang {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    min-height: 32px;
+    padding: 0 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r-pill);
+    background: var(--bg-elev);
+    color: var(--ink-2);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .dlang:hover { color: var(--ink); border-color: var(--ink-3); }
+  .dlang :global(.icon) { width: 1em; height: 1em; }
+  .dhead { display: flex; align-items: center; gap: var(--s-5); margin-top: var(--s-2); }
+  .dhead :global(.dicon) { --picon-size: 76px; }
+  .dhead h1 { display: grid; min-width: 0; margin: 0; }
+  /* Umbruch nur an den Stellen aus nameHtml() (keine automatische Silbentrennung von Markennamen);
+     Größe nach dem längsten unteilbaren Teil des Namens (nameSize) */
+  .dname { font-size: var(--fs-3xl); font-stretch: 106%; letter-spacing: -0.03em; line-height: 1.02; hyphens: manual; text-wrap: balance; }
+  .dhead--long .dname { font-size: clamp(2rem, 1.3rem + 2.4vw, 3.1rem); }
+  .dhead--xlong .dname { font-size: clamp(1.8rem, 1.1rem + 2vw, 2.6rem); }
+  .dkind { margin-top: 0.35rem; color: var(--ink-3); font-family: var(--font-sans); font-size: var(--fs-lg); font-weight: 560; font-stretch: 100%; letter-spacing: 0; line-height: 1.3; text-wrap: balance; }
+  .dtag { margin-top: var(--s-5); max-width: 24ch; font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 700; font-stretch: 104%; line-height: 1.2; letter-spacing: -0.015em; text-wrap: balance; color: var(--ink); }
+  .dlead { margin-top: var(--s-4); max-width: 60ch; color: var(--ink-2); font-size: var(--fs-lg); line-height: 1.55; }
+  .dmeta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); margin-top: var(--s-5); }
+  .dupdated { color: var(--ink-3); font-size: var(--fs-xs); font-weight: 560; }
+  .dhl { margin-top: var(--s-4); }
+  .hl-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.35em 0.85em 0.35em 0.7em;
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    background: var(--bg-elev);
+    color: var(--ink);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+  }
+  .hl-chip::before { content: ""; width: 0.45em; height: 0.45em; border-radius: 2px; background: linear-gradient(135deg, var(--l1), var(--l2)); }
+  .dcta { margin-top: var(--s-6); }
+  .dnote-dl { display: flex; gap: 0.5em; align-items: flex-start; margin-top: var(--s-3); max-width: 56ch; color: var(--ink-3); font-size: var(--fs-sm); }
+  .dnote-dl :global(.icon) { flex: none; width: 1.1em; height: 1.1em; margin-top: 0.2em; }
+
+  .dvis { position: relative; margin: 0; }
+  .dvis-frame { border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
+  .dvis-frame {
+    position: relative;
+    padding: clamp(14px, 2.5vw, 28px) 0 0 clamp(14px, 2.5vw, 28px);
+    background:
+      radial-gradient(120% 90% at 100% 0%, rgb(255 255 255 / 0.32), transparent 55%),
+      linear-gradient(135deg, var(--l1), var(--l2));
+  }
+  .dvis-frame--demo { padding: clamp(10px, 1.6vw, 18px); }
+  .dvis-frame--demo img { width: 100%; height: auto; border-radius: 10px; }
+  .dvis-frame :global(img) { width: 100%; height: auto; border-radius: 10px 0 0 0; box-shadow: 0 -8px 30px -8px rgb(0 0 0 / 0.35); }
+  .dvis--shot figcaption { margin-top: var(--s-3); color: var(--ink-3); font-size: var(--fs-sm); }
+  .dvis--shot figcaption strong { color: var(--ink); margin-right: 0.3em; }
+  .dvis-frame--phones { display: flex; justify-content: center; gap: 5%; padding: clamp(18px, 3vw, 36px) clamp(12px, 2vw, 24px) 0; aspect-ratio: 16 / 11; }
+  .dphone { width: 29%; flex: none; filter: drop-shadow(0 18px 26px rgb(0 0 0 / 0.35)); }
+  .dphone:nth-child(2) { margin-top: 8%; }
+  .dphone:nth-child(3) { margin-top: 16%; }
+  .dvis-frame--phones :global(img) { width: 100%; height: auto; border-radius: 0; box-shadow: none; }
+  .dvis--art { aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--r-lg); box-shadow: var(--shadow-lg); background: linear-gradient(135deg, var(--l1), var(--l2)); }
+  .dvis--art :global(.art) { width: 100%; height: 100%; }
+
+  .dbody { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .dmain { display: grid; gap: var(--s-8); min-width: 0; }
+  .dsec { scroll-margin-top: 96px; }
+  .dsec h2 { display: flex; align-items: baseline; gap: 0.6em; margin-bottom: var(--s-4); font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); }
+  .dsec-n { font-size: var(--fs-sm); font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: 0; }
+  .blk-p { color: var(--ink-2); max-width: 68ch; }
+  .blk-p + .blk-p, .blk-p + .blk-ul, .blk-ul + .blk-p, .table-wrap + .blk-p { margin-top: var(--s-4); }
+  .blk-ul { display: grid; gap: 0.55rem; padding-left: 1.2rem; color: var(--ink-2); max-width: 70ch; }
+  .blk-ul li::marker { color: var(--ink-3); }
+  .dmain :global(code) { padding: 0.08em 0.35em; border-radius: 5px; background: color-mix(in srgb, var(--ink) 7%, transparent); font-size: 0.9em; overflow-wrap: anywhere; }
+  .feat-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); padding: 0; margin: 0; list-style: none; }
+  .feat-list li {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--bg-elev);
+  }
+  .feat-list h3 { font-family: var(--font-sans); font-size: 1rem; font-weight: 680; font-stretch: 100%; letter-spacing: 0; color: var(--ink); }
+  .feat-list p { margin-top: 0.3rem; color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.55; }
+  .feat-list :global(.feat-check) {
+    flex: none;
+    width: 1.35rem;
+    height: 1.35rem;
+    padding: 3px;
+    margin-top: 0.1rem;
+    border-radius: 50%;
+    background: var(--st-ok-bg);
+    color: var(--st-ok-ink);
+    stroke-width: 2.5;
+  }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-md); }
+  .dtable { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+  .dtable th, .dtable td { padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .dtable thead th { background: var(--bg-elev-2); color: var(--ink-3); font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.04em; text-transform: uppercase; }
+  .dtable tbody tr:last-child > * { border-bottom: 0; }
+  .dtable tbody th { color: var(--ink); font-weight: 650; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .dtable td { color: var(--ink-2); }
+  .req { display: grid; gap: 0; margin: 0; border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+  .req > div { display: grid; grid-template-columns: minmax(9rem, 0.35fr) 1fr; gap: var(--s-4); padding: 0.75rem 1rem; border-bottom: 1px solid var(--line); background: var(--bg-elev); }
+  .req > div:last-child { border-bottom: 0; }
+  .req dt { color: var(--ink); font-weight: 620; font-size: var(--fs-sm); }
+  .req dd { margin: 0; color: var(--ink-2); font-size: var(--fs-sm); }
+  .daka { color: var(--ink-3); font-size: var(--fs-sm); max-width: 70ch; }
+  .daka strong { color: var(--ink-2); }
+
+  .daside { position: sticky; top: 96px; display: grid; gap: var(--s-4); }
+  .daside-title { margin-bottom: var(--s-4); font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+  .dfacts dl { display: grid; gap: var(--s-4); margin: 0; }
+  .dfacts dt { color: var(--ink-3); font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.02em; }
+  .dfacts dd { margin: 0.15rem 0 0; color: var(--ink); font-size: var(--fs-sm); font-weight: 540; }
+  .dd-help { display: block; color: var(--ink-3); font-weight: 450; }
+  .dprivacy { margin-top: var(--s-4); font-size: var(--fs-sm); }
+  .dask p { color: var(--ink-2); font-size: var(--fs-sm); margin-bottom: var(--s-4); }
+  .dask .daside-title { margin-bottom: var(--s-3); }
+  .dask .btn { width: 100%; }
+
+  .dgallery { margin-top: var(--section-y); }
+  .dgallery-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-3); margin-bottom: var(--s-6); }
+  .dgallery-head h2 { font-size: var(--fs-2xl); }
+  .shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: row dense; gap: var(--s-7) var(--s-6); padding: 0; margin: 0; list-style: none; }
+  .shot-item--wide { grid-column: 1 / -1; }
+  .shot-item--small .shot-link { max-width: 520px; }
+  .shots--phones { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .shots--phones figure { display: grid; justify-items: center; text-align: center; }
+  .shots--phones figcaption { justify-items: center; }
+  .shot--bare { max-width: 260px; border: 0; border-radius: 0; background: none; box-shadow: none; overflow: visible; filter: drop-shadow(0 18px 28px rgb(17 17 17 / 0.22)); }
+  .shot--bare:hover { box-shadow: none; }
+  .shots figure { margin: 0; }
+  .shot-link { display: block; transition: transform 500ms var(--ease-out), box-shadow 500ms var(--ease-out); }
+  .shot-link:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .shots figcaption { display: grid; gap: 0.2rem; margin-top: var(--s-4); }
+  .shots figcaption strong { color: var(--ink); font-size: var(--fs-lg); font-family: var(--font-display); font-weight: 700; font-stretch: 104%; letter-spacing: -0.01em; }
+  .shots figcaption span { color: var(--ink-2); font-size: var(--fs-sm); max-width: 60ch; }
+
+  .dfaq { margin-top: var(--section-y); scroll-margin-top: 96px; }
+  .dfaq > h2 { font-size: var(--fs-2xl); margin-bottom: var(--s-6); }
+  .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) var(--s-6); }
+  .faq-item { padding: var(--s-5); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg-elev); }
+  .faq-item h3 { font-size: 1.1rem; line-height: 1.35; }
+  .faq-item p { margin-top: var(--s-2); color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.6; }
+
+  .drelated { margin-top: var(--section-y); }
+  .drelated h2 { font-size: var(--fs-2xl); margin-bottom: var(--s-5); }
+  .rlist { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); padding: 0; margin: 0; list-style: none; }
+  .ritem {
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+    height: 100%;
+    padding: var(--s-4) var(--s-5);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background:
+      radial-gradient(70% 120% at 0% 0%, color-mix(in srgb, var(--l1) 14%, transparent), transparent 70%),
+      var(--bg-elev);
+    color: var(--ink);
+    text-decoration: none;
+    transition: transform 380ms var(--ease-out), border-color 380ms var(--ease-out);
+  }
+  .ritem:hover { transform: translateY(-2px); border-color: var(--line-strong); color: var(--ink); }
+  .ritem :global(.picon) { --picon-size: 44px; }
+  .rtext { display: grid; flex: 1; min-width: 0; }
+  .rname { font-family: var(--font-display); font-size: 1.15rem; font-weight: 720; font-stretch: 104%; }
+  .rkind { color: var(--ink-2); font-size: var(--fs-sm); }
+  .ritem > :global(.icon) { flex: none; color: var(--ink-3); }
+
+  .dtm { margin-top: var(--s-8); color: var(--ink-3); font-size: var(--fs-xs); max-width: 90ch; }
+
+  @media (max-width: 1060px) {
+    .dbody { grid-template-columns: minmax(0, 1fr); }
+    .daside { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+  }
+  @media (max-width: 900px) {
+    .dhero-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 720px) {
+    .shots, .daside, .feat-list, .faq-list, .rlist { grid-template-columns: minmax(0, 1fr); }
+    .shots--phones { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6) var(--s-4); }
+    .dhead { gap: var(--s-4); }
+    .dhead :global(.dicon) { --picon-size: 60px; }
+    .req > div { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; }
+  }
+</style>
