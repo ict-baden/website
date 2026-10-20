@@ -1,12 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import Anfahrt from '../components/Anfahrt.astro';
 import Icon from '../components/Icon.astro';
 import { COMPANY, mailto } from '../config';
 ---
 <Base
   title="Kontakt und Anfahrt"
   description="Kontakt zur ICT Baden GmbH in Karlsruhe-Durlach: E-Mail, Telefon, Profile und ausführliche Anfahrtsbeschreibung mit Karte und PDF."
+  scripts={['anfahrt.js']}
 >
   <PageHero eyebrow="Kontakt" title="Kontakt" crumbs={[{ label: 'Kontakt' }]}>
     <p class="lead to">{COMPANY.name}<br />z.Hd. {COMPANY.contactPerson}</p>
@@ -74,65 +76,8 @@ import { COMPANY, mailto } from '../config';
         <h2 id="k-anfahrt">So finden Sie uns</h2>
       </div>
 
-      <div class="agrid">
-        <figure class="map reveal">
-          <div class="map-frame">
-            <img src="/media/kontakt/anfahrt-karte.webp" width="966" height="540" loading="lazy" decoding="async"
-              alt="Lageplan: A5 mit Ausfahrt KA-Durlach, B10 Durlacher Allee Richtung Durlach mit den Straßenbahnlinien 1 und 2, Haltestellen Auer Straße und Friedrichschule, Bahnhof Karlsruhe-Durlach, Pforzheimer Straße, Pfinzstraße, Zur Gießerei mit Parkplatz und dem ICT-Gebäude an der Seboldstraße." />
-          </div>
-          <figcaption><a href="/Anfahrtsbeschreibung.pdf" class="link-arrow"><Icon name="file" /> Anfahrtsbeschreibung als PDF-Download</a></figcaption>
-        </figure>
+      <Anfahrt />
 
-        <div class="addr reveal">
-          <h3>Anschrift</h3>
-          <p>{COMPANY.name}<br />{COMPANY.street}<br />{COMPANY.zip} {COMPANY.city}</p>
-          <p class="navi"><Icon name="route" /><span>Im Navigationssystem angeben: <strong class="nowrap">„{COMPANY.navAddress}“</strong></span></p>
-        </div>
-      </div>
-
-      <div class="routes">
-        <section class="route reveal" aria-labelledby="r-a5">
-          <span class="ri"><Icon name="car" /></span>
-          <h3 id="r-a5">A5 aus Richtung Basel oder Frankfurt</h3>
-          <ol>
-            <li>Ausfahrt 44 Karlsruhe-Durlach</li>
-            <li>Sie fahren auf die B10 (Durlacher Allee) in Richtung Durlach</li>
-            <li>Und folgen der Durlacher Allee weiter in Richtung Durlach (nicht der B10 folgen!)</li>
-            <li>An der nun folgenden Kreuzung biegen Sie links in die Pforzheimer Straße ein</li>
-            <li>An der nächsten Kreuzung fahren Sie rechts in die Pfinzstraße</li>
-            <li>Und biegen direkt danach rechts in die Hofeinfahrt „Zur Gießerei“ ein</li>
-            <li>Sofort wieder links abbiegen</li>
-            <li>Geradeaus zu Ihrer Linken befinden sich die ausgezeichneten Parkplätze</li>
-          </ol>
-        </section>
-        <section class="route reveal" aria-labelledby="r-a8">
-          <span class="ri"><Icon name="car" /></span>
-          <h3 id="r-a8">A8 aus Richtung Stuttgart</h3>
-          <ol>
-            <li>Fahren Sie über die Autobahn A8 bis zum Dreieck Karlsruhe</li>
-            <li>Wechseln Sie auf die A5 Richtung Frankfurt</li>
-            <li>Ausfahrt 44 Karlsruhe-Durlach</li>
-            <li>Von dort folgen Sie der Wegbeschreibung aus Richtung Basel und Frankfurt</li>
-          </ol>
-        </section>
-        <section class="route reveal" aria-labelledby="r-zug">
-          <span class="ri"><Icon name="train" /></span>
-          <h3 id="r-zug">Mit dem Zug</h3>
-          <ul>
-            <li>Vom Hauptbahnhof Karlsruhe können Sie mit einer beliebigen Bahn fahren, die am Bahnhof Karlsruhe-Durlach (siehe Karte) Halt macht, z.&nbsp;B. S3, S31, S32</li>
-            <li>Vom Bahnhof Karlsruhe-Durlach 5 Minuten Fußweg</li>
-          </ul>
-        </section>
-        <section class="route reveal" aria-labelledby="r-tram">
-          <span class="ri"><Icon name="tram" /></span>
-          <h3 id="r-tram">Straßenbahn</h3>
-          <ul>
-            <li>Straßenbahn Linie 1 in Richtung Durlach</li>
-            <li>oder Linie 2 in Richtung Wolfartsweier bis zur Haltestelle „Auer Straße“</li>
-            <li>5 Minuten Fußweg</li>
-          </ul>
-        </section>
-      </div>
     </div>
   </section>
 </Base>
@@ -165,28 +110,9 @@ import { COMPANY, mailto } from '../config';
   .pi { display: inline-grid; place-items: center; width: 44px; height: 44px; flex: none; border-radius: 12px; background: var(--brand-yellow); color: #111111; }
   .profiles :global(.pext) { margin-left: auto; width: 1.1rem; height: 1.1rem; color: var(--ink-3); }
 
-  .agrid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.8fr); gap: var(--s-6); align-items: start; }
-  .map { margin: 0; }
-  .map-frame { padding: clamp(0.75rem, 2vw, 1.5rem); border-radius: var(--r-xl); background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-md); }
-  .map-frame img { width: 100%; height: auto; }
-  .map figcaption { margin-top: var(--s-4); }
-  .addr { padding: var(--s-6); border-radius: var(--r-xl); background: var(--bg-inverse); color: var(--ink-inverse-2); }
-  .addr h3 { color: var(--ink-inverse); font-size: var(--fs-lg); margin-bottom: var(--s-3); }
-  .addr p { color: var(--ink-inverse); line-height: 1.6; }
-  .navi { display: flex; gap: 0.6rem; margin-top: var(--s-5); padding-top: var(--s-5); border-top: 1px solid rgb(255 255 255 / 0.14); }
-  .navi :global(.icon) { flex: none; color: var(--brand-yellow); margin-top: 0.2rem; }
-  .navi strong { color: var(--brand-yellow); }
-
-  .routes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); margin-top: var(--s-7); }
-  .route { padding: clamp(1.25rem, 1rem + 1vw, 2rem); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg-elev); }
-  .ri { display: inline-grid; place-items: center; width: 44px; height: 44px; margin-bottom: var(--s-4); border-radius: 12px; border: 1px solid var(--line); color: var(--accent); }
-  .route h3 { font-size: var(--fs-lg); margin-bottom: var(--s-3); }
-  .route ol, .route ul { display: grid; gap: 0.5rem; margin: 0; padding-left: 1.3rem; color: var(--ink-2); }
-  .route ol li::marker { color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; }
-  .route ul li::marker { color: var(--ink-3); }
 
   @media (max-width: 900px) {
-    .kgrid, .agrid, .routes { grid-template-columns: minmax(0, 1fr); }
+    .kgrid { grid-template-columns: minmax(0, 1fr); }
   }
   @media (max-width: 480px) { .kfacts { grid-template-columns: minmax(0, 1fr); } }
 </style>
