@@ -1,15 +1,22 @@
 ---
-// Abschnitt „Über uns“ des One-Pagers (früher /ueber-uns/)
+// Abschnitt „Über uns“ des One-Pagers (früher /ueber-uns/), deutsch und englisch
 import Icon from '../Icon.astro';
+import { IDS, type Lang } from '../../i18n/site';
+
+interface Props { lang?: Lang }
+const { lang = 'de' } = Astro.props;
+const de = lang === 'de';
 ---
-<section class="section ueber" id="ueber-uns" aria-labelledby="ueber-titel">
+<section class="section ueber" id={IDS[lang].about} aria-labelledby="ueber-titel">
   <div class="container">
     <div class="section-head reveal">
-      <p class="eyebrow">Über uns</p>
-      <h2 id="ueber-titel">„Wir“, das bin hauptsächlich ich, Frank&nbsp;Pfattheicher.</h2>
+      <p class="eyebrow">{de ? 'Über uns' : 'About us'}</p>
+      <h2 id="ueber-titel">{de ? <>„Wir“, das bin hauptsächlich ich, Frank&nbsp;Pfattheicher.</> : <>“We” – that is mainly me, Frank&nbsp;Pfattheicher.</>}</h2>
     </div>
   </div>
   <div class="container about-full">
+    {de ? (
+      <>
     <div class="prose about-main">
       <p class="about-lead">
         Unterstützt werde ich in Büro- und Steuerangelegenheiten durch meine Frau.
@@ -90,8 +97,92 @@ import Icon from '../Icon.astro';
         <span>Seit Jahren auch mit Großfirmen ausschließlich remote</span>
       </div>
     </aside>
-  </div>
+      </>
+    ) : (
+      <>
+    <div class="prose about-main">
+      <p class="about-lead">
+        My wife supports me with office and tax matters.
+      </p>
+      <p>
+        For projects where “one man” is not enough, experienced partners are at my side. They also extend the portfolio
+        with fields that one person cannot cover alone.
+      </p>
+      <p>We are a service provider and partner for everyone who needs individual software solutions.</p>
+      <p>Thanks to efficiency, flexibility and experience, we can also deliver projects on a tight schedule.</p>
 
+      <h3 id="location">Location</h3>
+      <p>I am based in Karlsruhe-Durlach, Germany.<br />For years I have also worked with large companies entirely remotely.</p>
+
+      <h3 id="pulse">At the pulse of time</h3>
+      <p>
+        This means using the most modern technologies currently available on the market – which makes for products that
+        are still fit for use many years from now.
+      </p>
+      <p>
+        It is achieved through commitment to the software developer community. Above all, I support the
+        <a href="http://www.dotnet-ka.de" rel="noopener" hreflang="de"><strong>.NET User Group Karlsruhe</strong></a>, which I co-founded in 2004
+        and led for many years.
+      </p>
+      <p>There, all interested participants get free, no-obligation insight into current software technologies.</p>
+      <p>
+        Working with the <a href="http://nossued.de" rel="noopener" hreflang="de"><strong>.NET Open Space Süd in Karlsruhe</strong></a> helps
+        to carry the exchange beyond the borders of Karlsruhe.
+      </p>
+      <p>
+        Open Space is a method for structuring conferences, characterised by openness in content and form. Participants
+        bring their own topics to the plenary and each forms a working group around them, in which possible projects are
+        developed.
+      </p>
+      <p>
+        In the .NET world in particular, this kind of event has proven very efficient for developers: current topics are
+        worked on together and moved forward.
+      </p>
+      <p>
+        I am also a member of the <a href="http://www.vksi.de/" rel="noopener" hreflang="de">VKSI</a>, the <strong>association of Karlsruhe
+        software engineers</strong>. Together with other Karlsruhe companies, I support its aims:
+      </p>
+      <ul>
+        <li>to promote public awareness of software engineering as an engineering discipline</li>
+        <li>to bring together and pass on knowledge and experience in software engineering</li>
+        <li>to accelerate and spread innovation in software engineering</li>
+        <li>to support young scientists and engineers</li>
+      </ul>
+      <p class="about-close">
+        All these activities make sure that you really do stay at the “pulse of time”. In day-to-day business, being up to
+        date – and therefore being ready for the future – often falls by the wayside. But only software developed with
+        current technologies is a true investment in the future.
+      </p>
+    </div>
+
+    <aside class="about-aside" aria-label="Community">
+      <a class="eng reveal" href="http://www.dotnet-ka.de" rel="noopener" hreflang="de">
+        <span class="eng-year">2004</span>
+        <strong>.NET User Group Karlsruhe</strong>
+        <span>Co-founder, led it for many years</span>
+        <Icon name="arrow-up-right" label="(external link)" class="eng-ext" />
+      </a>
+      <a class="eng reveal" href="http://nossued.de" rel="noopener" hreflang="de">
+        <span class="eng-year">Open Space</span>
+        <strong>.NET Open Space Süd</strong>
+        <span>Contributor in Karlsruhe</span>
+        <Icon name="arrow-up-right" label="(external link)" class="eng-ext" />
+      </a>
+      <a class="eng reveal" href="http://www.vksi.de/" rel="noopener" hreflang="de">
+        <span class="eng-year">Member</span>
+        <strong>VKSI</strong>
+        <span>Association of Karlsruhe software engineers</span>
+        <Icon name="arrow-up-right" label="(external link)" class="eng-ext" />
+      </a>
+      <div class="eng eng--loc reveal">
+        <Icon name="pin" />
+        <strong>Karlsruhe-Durlach</strong>
+        <span>For years, also working entirely remotely with large companies</span>
+      </div>
+    </aside>
+      </>
+    )}
+  </div>
 </section>
 
 <style>

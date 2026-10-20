@@ -1,0 +1,665 @@
+---
+// Der One-Pager (Start, Leistungen, Produkte, Bewährt, Über uns, Kontakt) in Deutsch (/) und Englisch (/en/)
+import Base from '../layouts/Base.astro';
+import Icon from './Icon.astro';
+import ThemeImage from './ThemeImage.astro';
+import Parts from './Parts.astro';
+import StatusBadge from './StatusBadge.astro';
+import ProductIcon from './product/ProductIcon.astro';
+import Bewaehrt from './sections/Bewaehrt.astro';
+import UeberUns from './sections/UeberUns.astro';
+import Kontakt from './sections/Kontakt.astro';
+import ProductCover from './product/ProductCover.astro';
+import { lineGlyph } from '../lib/art';
+import { featured, linien, products, productsOfLine, productUrl, statusCounts, statusSummary, lineAnchor, colorClasses, STATUS_LABEL, STATUS_ORDER, plural } from '../lib/products';
+import { organization, productList, webPage, website } from '../lib/seo';
+import { SERVICES, TOPICS } from '../data/portfolio';
+import { pageFor, productUrlFor, statusLabelFor } from '../lib/produktseiten';
+import { HERO, IDS, PRODUCTS_I18N, SERVICES_I18N, SERVICE_POINTS_EN, TOPICS_EN, type Lang } from '../i18n/site';
+
+interface Props { lang?: Lang }
+const { lang = 'de' } = Astro.props;
+const de = lang === 'de';
+const H = HERO[lang];
+const S = SERVICES_I18N[lang];
+const P = PRODUCTS_I18N[lang];
+const ids = IDS[lang];
+
+const bySlug = (s: string) => products.find((p) => p.slug === s);
+const heroBack = bySlug('zutritt');
+const heroMid = bySlug('vitrine');
+const heroFront = bySlug('lupe');
+const shot = (p: typeof heroBack, name: string) => p?.media.screenshots.find((s) => s.name === name);
+const sBack = shot(heroBack, 'folders');
+const sMid = shot(heroMid, 'settings-look') ?? shot(heroMid, 'lock');
+const sFront = shot(heroFront, 'result');
+
+// Themengebiete als Kachel-Raster: drei breite Kacheln (viel Inhalt), je Zeile eine breite und zwei schmale
+const WIDE = ['Anwendungssoftware', 'Industrie 4.0 – IoT – Embedded', 'Energiemanagement Systeme (EMS)'];
+const ORDER = ['Anwendungssoftware', 'Softwareprotokolle', 'Steuerungstechnik', 'Industrie 4.0 – IoT – Embedded', 'Telekommunikation',
+  'Eigenentwicklungen: Überwachung & Alarmierung', 'Energiemanagement Systeme (EMS)', 'Hosting & Cloud', 'Datenbanken'];
+// Reihenfolge und Breite nach den deutschen Titeln; Englisch nimmt den Eintrag an derselben Stelle aus TOPICS_EN
+const topicTiles = TOPICS.map((t, k) => ({ t, k }))
+  .sort((a, b) => (ORDER.indexOf(a.t.title) + 99) % 99 - (ORDER.indexOf(b.t.title) + 99) % 99)
+  .map(({ t, k }, i) => ({ t: de ? t : { ...t, title: TOPICS_EN[k].title, items: TOPICS_EN[k].items }, wide: WIDE.includes(t.title), n: i + 1 }));
+
+const title = de ? 'ICT Baden – Softwareentwicklung und Software-Produkte aus Karlsruhe' : 'ICT Baden – Software development and products from Karlsruhe';
+const description = de
+  ? 'ICT Baden GmbH, Karlsruhe-Durlach: Softwareentwicklung im Auftrag und eigene Software für Industrie, Labor und IT – von der Bildschirmsperre bis zum Kiosk-Browser.'
+  : 'ICT Baden GmbH, Karlsruhe-Durlach, Germany: custom software development and our own software for industry, labs and IT – from screen lock to kiosk browser.';
+const path = de ? '/' : '/en/';
+const jsonLd = [organization(), website(), webPage(path, title, description, lang), productList(products, lang, de ? 'Software-Produkte von ICT Baden' : 'Software products by ICT Baden')];
+const kindOf = (p: (typeof products)[number]) => (de ? p.kind : pageFor(p).en.kind ?? p.kind);
+const taglineOf = (p: (typeof products)[number]) => (de ? p.tagline : pageFor(p).en.tagline ?? null);
+const textOf = (p: (typeof products)[number]) => (de ? p.text : pageFor(p).en.description);
+const productsLead = de
+  ? `${plural(products.length, 'Produkt', 'Produkte')} in ${linien.length} Produktlinien, alle kostenlos unter der MIT-Lizenz: ${statusSummary(products)}. Support gibt es auf Wunsch per Supportvertrag.`
+  : `${products.length} products in ${linien.length} product lines, all free of charge under the MIT licence. Support is available with a support contract.`;
+---
+<Base title={title} bareTitle description={description} lang={lang} jsonLd={jsonLd} scripts={['anfahrt.js']} alternates={[{ lang: 'de', href: '/' }, { lang: 'en', href: '/en/' }]}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-field" aria-hidden="true"><span class="hero-bar"></span></div>
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <h1 class="eyebrow hero-eyebrow">{H.eyebrow}</h1>
+        <p class="hero-title">Getting Things<br /><span class="hl">Done<span class="dot">.</span></span></p>
+        <p class="hero-lead">{H.lead}</p>
+        <div class="btn-row hero-cta">
+          <a class="btn" href={`#${ids.products}`}>{H.ctaProducts} <Icon name="arrow-right" /></a>
+          <a class="btn btn--secondary" href={`#${ids.services}`}>{H.ctaServices}</a>
+        </div>
+        <ul class="hero-points" aria-label={H.pointsLabel}>
+          {H.points.map(([icon, text]) => <li><Icon name={icon} />{text}</li>)}
+        </ul>
+      </div>
+
+      <div class="hero-stage" aria-hidden="true">
+        {sBack && (
+          <div class="stage-card stage-back">
+            <ThemeImage light={sBack.light} dark={sBack.dark} alt="" sizes="(min-width: 1100px) 560px, 80vw" eager />
+          </div>
+        )}
+        {sMid && (
+          <div class="stage-card stage-mid">
+            <ThemeImage light={sMid.light} dark={sMid.dark} alt="" sizes="(min-width: 1100px) 520px, 76vw" />
+          </div>
+        )}
+        {sFront && (
+          <div class="stage-card stage-front">
+            <ThemeImage light={sFront.light} dark={sFront.dark} alt="" sizes="(min-width: 1100px) 300px, 50vw" />
+          </div>
+        )}
+        <div class="stage-chip stage-chip--a">
+          {heroMid && <ProductIcon product={heroMid} size={28} eager />}
+          <span><strong>Vitrine</strong> {H.chipVitrine}</span>
+        </div>
+        <div class="stage-chip stage-chip--b">
+          {heroBack && <ProductIcon product={heroBack} size={28} eager />}
+          <span><strong>Zutritt</strong> {H.chipZutritt}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leistungen -->
+  <section class="section services" id={ids.services} aria-labelledby="leistungen-titel">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">{S.eyebrow}</p>
+        <h2 id="leistungen-titel">{S.title}</h2>
+        <p class="lead">{S.lead}</p>
+      </div>
+
+      <div class="service-points">
+        {SERVICES.points.map((s, i) => (
+          <article class="spoint reveal">
+            <span class="spoint-n" aria-hidden="true">0{i + 1}</span>
+            <Icon name={s.icon} class="spoint-icon" />
+            <h3>{de ? s.title : SERVICE_POINTS_EN[i].title}</h3>
+            <p>{de ? s.text : SERVICE_POINTS_EN[i].text}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="topics-head reveal">
+        <h3>{S.topics}</h3>
+        <p>{S.topicsLead}</p>
+      </div>
+      <ul class="bento" role="list">
+        {topicTiles.map(({ t, wide, n }) => (
+          <li class:list={['tile', wide && 'tile--wide']}>
+            <span class="tile-mark" aria-hidden="true"><Icon name={t.icon} /></span>
+            <div class="tile-head">
+              <span class="tile-icon"><Icon name={t.icon} /></span>
+              <h4>
+                {t.title.includes(': ') && <span class="tile-kicker">{t.title.split(': ')[0]}</span>}
+                {t.title.includes(': ') ? t.title.split(': ')[1] : t.title}
+              </h4>
+            </div>
+            <span class="tile-n" aria-hidden="true">{String(n).padStart(2, '0')}</span>
+            <ul class="chips-list">
+              {t.items.map((parts) => (
+                <li class:list={['chip-item', parts.some((x) => typeof x !== 'string') && 'chip-item--link']}><Parts parts={parts} /></li>
+              ))}
+            </ul>
+            {(t.title.startsWith('Eigenentwicklungen') || t.title.startsWith('In-house')) && (
+              <a class="tile-more" href={`#${ids.proven}`}>{S.topicsMore} <Icon name="arrow-right" /></a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Produkte -->
+  <section class="section products-band" id={ids.products} aria-labelledby="produkte-titel">
+    <div class="band-bg" aria-hidden="true"></div>
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow eyebrow--inv">{P.eyebrow}</p>
+        <h2 id="produkte-titel">{P.title}</h2>
+        <p class="lead">{productsLead}</p>
+      </div>
+
+      <div class="featured">
+        {featured.map((p, i) => {
+          const s = p.media.screenshots[0];
+          return (
+            <article class:list={['feat', ...colorClasses(p), 'reveal', i === 0 && 'feat--wide']}>
+              <div class="feat-copy">
+                <div class="feat-head">
+                  <ProductIcon product={p} size={52} />
+                  <div>
+                    <h3>
+                      <a href={productUrlFor(p, lang)}>
+                        <span class="feat-name">{p.name}</span>
+                        {kindOf(p) && <span class="visually-hidden"> – </span>}
+                        {kindOf(p) && <span class="feat-kind">{kindOf(p)}</span>}
+                      </a>
+                    </h3>
+                    {taglineOf(p) && <p class="feat-tag">{taglineOf(p)}</p>}
+                  </div>
+                </div>
+                <p class="feat-text">{textOf(p)}</p>
+                <div class="feat-meta">
+                  <StatusBadge product={p} label={statusLabelFor(p, lang)} />
+                  <span class="feat-more" aria-hidden="true">{P.more} <Icon name="arrow-right" /></span>
+                </div>
+              </div>
+              {i === 0 && s ? (
+                <div class="feat-shot">
+                  <ThemeImage light={s.light} dark={s.dark} alt="" sizes="(min-width: 1100px) 640px, 92vw" />
+                </div>
+              ) : (
+                <div class="feat-cover"><ProductCover product={p} uid="-feat" sizes="(min-width: 1100px) 520px, 92vw" /></div>
+              )}
+            </article>
+          );
+        })}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Bewährte Lösungen, Über uns, Kontakt -->
+  <Bewaehrt lang={lang} />
+  <UeberUns lang={lang} />
+  <Kontakt lang={lang} />
+</Base>
+
+<style>
+  /* Hero: im hellen Design ein Band in Baden-Gelb mit dem roten Schrägbalken aus dem Logo rechts,
+     im dunklen Design ein gelbes Feld rechts mit demselben Balken – nie quer über die ganze Fläche */
+  .hero {
+    --hero-ink: #111111;
+    --hero-ink-2: #2d2c26;
+    position: relative;
+    overflow: clip;
+    padding-block: clamp(3rem, 2rem + 5vw, 6.5rem) clamp(3.5rem, 2rem + 6vw, 7rem);
+    background: var(--brand-yellow);
+    color: var(--hero-ink);
+    --bar-x: clamp(96px, 22vw, 330px);
+    --bar-w: clamp(40px, 6vw, 92px);
+    --field-x: clamp(150px, 44vw, 640px);
+  }
+  .hero-field { position: absolute; inset: 0; pointer-events: none; }
+  .hero-field::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(100% - var(--field-x));
+    right: -100%;
+    background: var(--brand-yellow);
+    transform: skewX(var(--bar-angle));
+    transform-origin: 0 0;
+    display: none;
+  }
+  .hero-bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(100% - var(--bar-x));
+    width: var(--bar-w);
+    background: var(--brand-red);
+    transform: skewX(var(--bar-angle));
+    transform-origin: 0 0;
+  }
+  .hero .eyebrow, .hero-title, .hero-points { color: var(--hero-ink); }
+  .hero .eyebrow::before { background: linear-gradient(116.565deg, #111111 0 58%, var(--brand-red) 58% 80%, #111111 80%); box-shadow: none; }
+  .hero :focus-visible { outline-color: #111111; }
+  .hero .btn { --btn-bg: #111111; --btn-ink: var(--brand-yellow); --btn-bg-hover: #ffffff; --btn-ink-hover: #111111; }
+  .hero .btn--secondary { --_bg: transparent; --_ink: #111111; border-color: rgb(17 17 17 / 0.55); background: rgb(255 255 255 / 0.18); }
+  .hero .btn--secondary:hover { background: rgb(255 255 255 / 0.55); border-color: #111111; color: #111111; }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .hero { --hero-ink: var(--ink); --hero-ink-2: var(--ink-2); background: var(--bg); }
+    :global(:root:not([data-theme='light'])) .hero-field::before { display: block; }
+    :global(:root:not([data-theme='light'])) .hero .eyebrow::before { background: linear-gradient(116.565deg, var(--brand-yellow) 0 58%, var(--brand-red) 58% 80%, var(--brand-yellow) 80%); }
+    :global(:root:not([data-theme='light'])) .hero :focus-visible { outline-color: var(--brand-yellow); }
+    :global(:root:not([data-theme='light'])) .hero .btn { --btn-bg: var(--brand-yellow); --btn-ink: #111111; --btn-bg-hover: #ffe566; --btn-ink-hover: #111111; }
+    :global(:root:not([data-theme='light'])) .hero .btn--secondary { --_ink: var(--ink); border-color: var(--line-strong); background: transparent; }
+    :global(:root:not([data-theme='light'])) .hero .btn--secondary:hover { background: var(--bg-elev); color: var(--ink); border-color: var(--ink-3); }
+    :global(:root:not([data-theme='light'])) .hero-title .hl { color: var(--brand-yellow); }
+  }
+  :global(:root[data-theme='dark']) .hero { --hero-ink: var(--ink); --hero-ink-2: var(--ink-2); background: var(--bg); }
+  :global(:root[data-theme='dark']) .hero-field::before { display: block; }
+  :global(:root[data-theme='dark']) .hero .eyebrow::before { background: linear-gradient(116.565deg, var(--brand-yellow) 0 58%, var(--brand-red) 58% 80%, var(--brand-yellow) 80%); }
+  :global(:root[data-theme='dark']) .hero :focus-visible { outline-color: var(--brand-yellow); }
+  :global(:root[data-theme='dark']) .hero .btn { --btn-bg: var(--brand-yellow); --btn-ink: #111111; --btn-bg-hover: #ffe566; --btn-ink-hover: #111111; }
+  :global(:root[data-theme='dark']) .hero .btn--secondary { --_ink: var(--ink); border-color: var(--line-strong); background: transparent; }
+  :global(:root[data-theme='dark']) .hero .btn--secondary:hover { background: var(--bg-elev); color: var(--ink); border-color: var(--ink-3); }
+  :global(:root[data-theme='dark']) .hero-title .hl { color: var(--brand-yellow); }
+  .hero-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2rem, 4vw, 4rem);
+  }
+  .hero-eyebrow { margin-bottom: var(--s-5); font-stretch: 100%; line-height: 1.4; text-wrap: wrap; }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-hero);
+    font-weight: 820;
+    font-stretch: 108%;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+  }
+  .hero-title .hl { display: inline-block; }
+  .hero-title .dot { color: var(--brand-red); }
+  .hero-lead { margin-top: var(--s-5); max-width: 34rem; font-size: var(--fs-lg); line-height: 1.55; color: var(--hero-ink-2); }
+  .hero-cta { margin-top: var(--s-6); }
+  .hero-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-5);
+    margin-top: var(--s-6);
+    padding: 0;
+    list-style: none;
+    color: var(--hero-ink-2);
+    font-size: var(--fs-sm);
+    font-weight: 560;
+  }
+  .hero-points li { display: inline-flex; align-items: center; gap: 0.5em; }
+  .hero-points :global(.icon) { width: 1.1rem; height: 1.1rem; color: var(--hero-ink); }
+
+  .hero-stage { position: relative; aspect-ratio: 1 / 0.86; }
+  .stage-card {
+    position: absolute;
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--bg-elev);
+    box-shadow: 0 2px 4px rgb(17 17 17 / 0.08), 0 30px 60px -20px rgb(17 17 17 / 0.45), 0 0 0 1px rgb(17 17 17 / 0.1);
+  }
+  .stage-card :global(img) { width: 100%; height: auto; }
+  .stage-back { width: 78%; right: 0; top: 0; transform: rotate(1.5deg); }
+  .stage-mid { width: 74%; left: 0; top: 34%; transform: rotate(-1.2deg); }
+  .stage-front { width: 44%; right: 4%; bottom: 2%; border-radius: 12px; }
+  .stage-chip {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.9rem 0.5rem 0.5rem;
+    border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--bg-elev) 88%, transparent);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-md), 0 0 0 1px color-mix(in srgb, var(--ink) 8%, transparent);
+    font-size: var(--fs-xs);
+    color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .stage-chip strong { color: var(--ink); margin-right: 0.35em; }
+  .stage-chip :global(.picon) { --picon-size: 28px; filter: none; }
+  .stage-chip--a { left: 4%; top: 25%; }
+  .stage-chip--b { right: 2%; top: -4%; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-copy > * { animation: rise 900ms var(--ease-out) both; }
+    .hero-copy > :nth-child(2) { animation-delay: 80ms; }
+    .hero-copy > :nth-child(3) { animation-delay: 160ms; }
+    .hero-copy > :nth-child(4) { animation-delay: 240ms; }
+    .hero-copy > :nth-child(5) { animation-delay: 320ms; }
+    .hero-bar, .hero-field::before { animation: bar-in 1100ms 150ms var(--ease-out) both; }
+    .stage-back { animation: in-back 1100ms 120ms var(--ease-out) both; }
+    .stage-mid { animation: in-mid 1100ms 260ms var(--ease-out) both; }
+    .stage-front { animation: in-front 1000ms 480ms var(--ease-out) both; }
+    .stage-chip { animation: rise 800ms 700ms var(--ease-out) both; }
+    .stage-chip--b { animation-delay: 820ms; }
+    .hero-stage:hover .stage-back { transform: rotate(2.2deg) translate(6px, -6px); }
+    .hero-stage:hover .stage-mid { transform: rotate(-1.8deg) translate(-6px, 4px); }
+    .stage-card { transition: transform 900ms var(--ease-out); }
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+  @keyframes bar-in { from { transform: skewX(var(--bar-angle)) translateY(-100%); } }
+  @keyframes in-back { from { opacity: 0; transform: translate(30px, -10px) rotate(4deg); } }
+  @keyframes in-mid { from { opacity: 0; transform: translate(-30px, 20px) rotate(-4deg); } }
+  @keyframes in-front { from { opacity: 0; transform: translateY(30px) scale(0.96); } }
+
+  @media (max-width: 980px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-stage { max-width: 640px; width: 100%; margin-inline: auto; margin-top: var(--s-4); }
+  }
+  /* Einspaltig: Balken und Feld nur über der rechten oberen Ecke (wie beim Kurzzeichen), nie hinter dem Text –
+     im dunklen Design läge das gelbe Feld sonst hinter der weißen Überschrift */
+  @media (max-width: 980px) {
+    .hero { --bar-x: clamp(50px, 9vw, 88px); --bar-w: clamp(20px, 3vw, 30px); --field-x: clamp(78px, 14vw, 136px); }
+  }
+  @media (max-width: 600px) {
+    .hero { --bar-x: 50px; --bar-w: 20px; --field-x: 78px; }
+  }
+  @media (max-width: 520px) {
+    .stage-chip--a { left: 0; top: 30%; }
+    .stage-chip--b { display: none; }
+    .stage-chip { font-size: 0.75rem; }
+  }
+
+  /* Leistungen */
+  .service-points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); }
+  .spoint {
+    position: relative;
+    padding: clamp(1.4rem, 1rem + 1.2vw, 2.2rem);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--bg-elev);
+    box-shadow: var(--shadow-sm);
+  }
+  .spoint-n { position: absolute; top: 1.4rem; right: 1.6rem; font-family: var(--font-display); font-weight: 700; font-size: var(--fs-sm); color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .spoint :global(.spoint-icon) {
+    width: 48px; height: 48px; padding: 11px;
+    border-radius: 14px;
+    background: var(--brand-yellow);
+    color: #111111;
+    margin-bottom: var(--s-5);
+  }
+  .spoint h3 { font-size: var(--fs-lg); }
+  .spoint p { margin-top: var(--s-2); color: var(--ink-2); }
+
+  .topics-head, .lines-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-3); margin: var(--s-8) 0 var(--s-5); }
+  .topics-head h3, .lines-head h3 { font-size: var(--fs-xl); }
+  .topics-head p { color: var(--ink-2); max-width: 60ch; }
+  /* Kachel-Raster der Themengebiete */
+  .bento { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-4); padding: 0; margin: 0; list-style: none; }
+  .tile {
+    position: relative; overflow: hidden; display: flex; flex-direction: column; gap: var(--s-4);
+    padding: clamp(1.25rem, 1rem + 1vw, 1.9rem); border: 1px solid var(--line); border-radius: var(--r-xl);
+    background: radial-gradient(120% 120% at 100% 0%, var(--highlight-soft, rgb(255 210 0 / 0.08)), transparent 55%), var(--bg-elev);
+    box-shadow: var(--shadow-sm);
+    transition: transform 420ms var(--ease-out), box-shadow 420ms var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+  .tile--wide { grid-column: span 2; }
+  .tile:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--line-strong); }
+  .tile-mark { position: absolute; right: -18px; bottom: -22px; color: var(--ink); opacity: 0.05; pointer-events: none; transition: transform 700ms var(--ease-out), opacity 400ms; }
+  .tile-mark :global(.icon) { width: 150px; height: 150px; }
+  .tile:hover .tile-mark { transform: rotate(-10deg) scale(1.08); opacity: 0.08; }
+  .tile-head { display: flex; align-items: center; gap: var(--s-3); }
+  .tile-icon { display: inline-grid; place-items: center; flex: none; width: 48px; height: 48px; border-radius: 14px; background: var(--brand-yellow); color: #111111;
+    box-shadow: 0 8px 22px -10px rgb(255 210 0 / 0.75); transition: transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .tile-icon :global(.icon) { width: 1.4rem; height: 1.4rem; }
+  .tile:hover .tile-icon { transform: rotate(-8deg) scale(1.08); }
+  .tile h4 { font-size: var(--fs-lg); line-height: 1.25; overflow-wrap: normal; word-break: normal; hyphens: auto; min-width: 0; padding-right: 2.2rem; }
+  .tile:not(.tile--wide) h4 { font-size: clamp(1.02rem, 0.9rem + 0.35vw, 1.15rem); }
+  .tile:not(.tile--wide) .tile-icon { width: 42px; height: 42px; border-radius: 12px; }
+  .tile-kicker { display: block; color: var(--ink-3); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .tile-n { position: absolute; top: 1.1rem; right: 1.25rem; color: var(--ink-3); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.1em; font-variant-numeric: tabular-nums; }
+  .chips-list { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; margin: 0; list-style: none; }
+  .chip-item {
+    padding: 0.4rem 0.8rem; border: 1px solid var(--line); border-radius: 999px; background: var(--bg);
+    color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.4;
+  }
+  .chip-item--link { border-color: color-mix(in oklab, var(--brand-yellow) 55%, var(--line)); background: color-mix(in oklab, var(--brand-yellow) 10%, var(--bg)); }
+  .chip-item :global(a) { color: var(--ink); font-weight: 600; text-decoration-color: var(--link-line); }
+  .tile-more { margin-top: auto; display: inline-flex; align-items: center; gap: 0.4rem; color: var(--accent); font-size: var(--fs-sm); font-weight: 650; text-decoration: none; }
+  .tile-more:hover { text-decoration: underline; }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .tile { animation: tile-in linear both; animation-timeline: view(); animation-range: entry 5% cover 28%; }
+      .tile:nth-child(3n + 2) { animation-range: entry 12% cover 33%; }
+      .tile:nth-child(3n) { animation-range: entry 19% cover 38%; }
+    }
+  }
+  @keyframes tile-in { from { opacity: 0; transform: translateY(48px) rotate(1.2deg) scale(0.97); } to { opacity: 1; transform: none; } }
+
+  @media (max-width: 980px) {
+    .service-points { grid-template-columns: 1fr; }
+    .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 620px) {
+    .bento { grid-template-columns: minmax(0, 1fr); }
+    .tile--wide { grid-column: auto; }
+  }
+
+  /* Produkte (dunkles Band) */
+  .products-band {
+    position: relative;
+    isolation: isolate;
+    color: var(--ink-inverse);
+    background: var(--bg-inverse);
+    --ink: var(--ink-inverse);
+    --ink-2: var(--ink-inverse-2);
+    --ink-3: var(--ink-inverse-3);
+    --line: rgb(255 255 255 / 0.1);
+    --line-strong: rgb(255 255 255 / 0.2);
+    --accent: var(--brand-yellow);
+    --link: var(--brand-yellow);
+    --link-line: rgb(255 210 0 / 0.55);
+    --link-hover: #ffe566;
+    --red-ink: #ff5c6a;
+    --focus: var(--brand-yellow);
+    --bg-elev: #1a1a19;
+    --st-ok-ink: #7ee2ad; --st-ok-bg: rgb(126 226 173 / 0.12);
+    --st-beta-ink: var(--brand-yellow); --st-beta-bg: rgb(255 210 0 / 0.14); --st-beta-dot: var(--brand-yellow);
+    --st-dev-ink: #a8c2ff; --st-dev-bg: rgb(155 186 255 / 0.13);
+    --st-plan-ink: #c6c5bf; --st-plan-bg: rgb(255 255 255 / 0.06); --st-plan-dot: #75746e;
+    color-scheme: dark;
+  }
+  .products-band h2, .products-band h3 { color: var(--ink); }
+  .band-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(50rem 30rem at 85% -10%, rgb(255 210 0 / 0.13), transparent 70%),
+      radial-gradient(40rem 30rem at -10% 110%, rgb(255 210 0 / 0.05), transparent 70%);
+  }
+  .eyebrow--inv { color: var(--ink-2); }
+
+  .featured { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); }
+  /* Text auf dunkler Fläche (Kontrast unabhängig von den Produktfarben), das Farbpaar des Produkts
+     trägt den Bildbereich und einen leichten Schein hinter dem Symbol */
+  .feat {
+    overflow-wrap: anywhere;
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    background:
+      radial-gradient(90% 70% at 0% 0%, color-mix(in srgb, var(--l1) 16%, transparent), transparent 70%),
+      #1a1a19;
+    color: var(--ink);
+    box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.6);
+    transition: transform 500ms var(--ease-out), border-color 500ms var(--ease-out);
+  }
+  .feat:hover { transform: translateY(-4px); border-color: var(--line-strong); }
+  .feat--wide { grid-column: 1 / -1; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); grid-template-rows: none; }
+  .feat-copy { position: relative; z-index: 1; display: flex; flex-direction: column; gap: var(--s-4); padding: clamp(1.4rem, 1rem + 2vw, 2.75rem); }
+  .feat-head { display: flex; align-items: center; gap: var(--s-4); }
+  .feat-head :global(.picon) { --picon-size: 52px; }
+  .feat h3 { font-size: var(--fs-2xl); color: #ffffff; }
+  .feat h3 a { display: grid; color: inherit; text-decoration: none; }
+  .feat-kind { margin-top: 0.2rem; color: var(--ink-2); font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 560; font-stretch: 100%; letter-spacing: 0; line-height: 1.35; }
+  .feat h3 a::after { content: ''; position: absolute; inset: 0; z-index: 2; }
+  .feat:has(h3 a:focus-visible) { outline: 3px solid var(--brand-yellow); outline-offset: 4px; }
+  .feat h3 a:focus-visible { outline: none; }
+  .feat-tag { margin-top: var(--s-2); color: var(--ink); font-weight: 600; }
+  .feat-text { max-width: 46ch; color: var(--ink-2); }
+  .feat-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-3); margin-top: auto; }
+  .feat-more { display: inline-flex; align-items: center; gap: 0.4em; color: var(--ink); font-weight: 620; font-size: var(--fs-sm); }
+  .feat-more :global(.icon) { width: 1em; height: 1em; color: var(--brand-yellow); transition: transform var(--dur) var(--ease-out); }
+  .feat:hover .feat-more :global(.icon) { transform: translateX(4px); }
+  .feat-shot {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: clamp(1.25rem, 1rem + 1.5vw, 2.25rem) 0 0 clamp(1.4rem, 1rem + 2vw, 2.75rem);
+    background:
+      radial-gradient(120% 90% at 100% 0%, rgb(255 255 255 / 0.3), transparent 55%),
+      linear-gradient(140deg, var(--l1), var(--l2));
+  }
+  .feat-shot > :global(img) { flex: none; }
+  .feat-cover { align-self: end; }
+  .feat-cover :global(.pcover) { border-radius: 0; }
+  .feat--wide .feat-shot { padding-left: clamp(1.4rem, 1rem + 2vw, 3rem); }
+  .feat-shot :global(img) {
+    width: 100%;
+    height: auto;
+    border-radius: 12px 0 0 0;
+    box-shadow: 0 -10px 40px -10px rgb(0 0 0 / 0.35), 0 0 0 1px rgb(255 255 255 / 0.2);
+    transition: transform 700ms var(--ease-out);
+  }
+  .feat:hover .feat-shot :global(img) { transform: translate(-6px, -6px); }
+
+
+  .lines { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-3); padding: 0; margin: 0; list-style: none; }
+  .line {
+    position: relative;
+    display: grid;
+    gap: var(--s-2);
+    height: 100%;
+    padding: var(--s-5);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: rgb(255 255 255 / 0.03);
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out), transform 380ms var(--ease-out);
+  }
+  .line::before {
+    content: '';
+    position: absolute;
+    inset: auto -30% -60% auto;
+    width: 70%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(255 210 0 / 0.22), transparent 70%);
+    opacity: 0.45;
+    transition: opacity 500ms var(--ease-out);
+  }
+  .line:hover { border-color: var(--line-strong); background: rgb(255 255 255 / 0.06); color: var(--ink); transform: translateY(-3px); }
+  .line:hover::before { opacity: 1; }
+  .line-icon { display: block; width: 44px; height: 44px; margin-bottom: var(--s-2); }
+  .line-name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 720; font-stretch: 104%; letter-spacing: -0.01em; }
+  .line-text { color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.5; }
+  .line-count { margin-top: auto; padding-top: var(--s-3); color: var(--ink-3); font-size: var(--fs-xs); font-weight: 560; }
+  .line-count { display: grid; gap: 0.5rem; }
+  .dist { display: flex; gap: 3px; height: 6px; }
+  .dist-seg { flex: 1 1 0; border-radius: 3px; background: var(--st-plan-dot); }
+  .dist-seg--verfuegbar, .dist-seg--bereit { background: var(--st-ok-dot); }
+  .dist-seg--vorabversion { background: var(--st-beta-dot); }
+  .dist-seg--in-entwicklung { background: var(--st-dev-dot); }
+  .dist-seg.g1 { flex-grow: 1; }
+  .dist-seg.g2 { flex-grow: 2; }
+  .dist-seg.g3 { flex-grow: 3; }
+  .dist-seg.g4 { flex-grow: 4; }
+  .dist-seg.g5 { flex-grow: 5; }
+  .dist-seg.g6 { flex-grow: 6; }
+  .dist-seg.g7 { flex-grow: 7; }
+  .dist-seg.g8 { flex-grow: 8; }
+  .dist-seg.g9 { flex-grow: 9; }
+  .dist-seg.g10 { flex-grow: 10; }
+  .dist-seg.g11 { flex-grow: 11; }
+  .dist-seg.g12 { flex-grow: 12; }
+  .line--all { background: var(--brand-yellow); border-color: transparent; color: #111111; --focus: #111111; }
+  .line--all::before { display: none; }
+  .line--all:hover { background: #ffdb33; color: #111111; border-color: transparent; }
+  .line--all .line-text { color: #2d2c26; }
+  .line-all-bar { position: absolute; top: 0; bottom: 0; right: 14%; width: 15%; background: var(--brand-red); transform: skewX(var(--bar-angle)); transform-origin: 0 0; }
+  .line--all > :not(.line-all-bar) { position: relative; }
+  .line-all-n { font-family: var(--font-display); font-size: 2.6rem; font-weight: 800; font-stretch: 110%; line-height: 1; letter-spacing: -0.03em; margin-bottom: 0.15rem; }
+  .line-go { display: inline-flex; flex-direction: row; align-items: center; gap: 0.4em; color: #111111; font-size: var(--fs-sm); font-weight: 650; }
+  .line-go :global(.icon) { width: 1em; height: 1em; transition: transform var(--dur) var(--ease-out); }
+  .line--all:hover .line-go :global(.icon) { transform: translateX(4px); }
+  .link-arrow--inv { color: var(--ink); }
+
+  @media (max-width: 1100px) {
+    .lines { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    /* Balken nur über der rechten oberen Ecke, damit er nie über dem Text liegt */
+    .line-all-bar { right: -4%; width: 11%; bottom: 45%; }
+  }
+  @media (max-width: 860px) {
+    .featured { grid-template-columns: 1fr; }
+    .feat--wide { grid-template-columns: 1fr; }
+    .feat--wide .feat-shot { padding-left: clamp(1.4rem, 1rem + 2vw, 2.75rem); }
+  }
+  @media (max-width: 560px) {
+    .lines { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  /* Über uns */
+  .about-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .about-quote blockquote { margin: 0; }
+  .about-quote blockquote p {
+    font-family: var(--font-display);
+    font-size: var(--fs-3xl);
+    font-weight: 760;
+    font-stretch: 106%;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .about-text { margin: var(--s-5) 0 var(--s-5); max-width: 52ch; color: var(--ink-2); font-size: var(--fs-lg); line-height: 1.55; }
+  .about-facts { display: grid; gap: var(--s-3); padding: 0; margin: 0; list-style: none; }
+  .about-facts li {
+    display: flex;
+    gap: var(--s-4);
+    padding: var(--s-4) var(--s-5);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--bg-elev);
+  }
+  .about-facts :global(.icon) { width: 1.4rem; height: 1.4rem; margin-top: 0.15rem; color: var(--accent); }
+  .about-facts div { display: grid; }
+  .about-facts strong { color: var(--ink); }
+  .about-facts span { color: var(--ink-2); font-size: var(--fs-sm); }
+  @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } }
+  .own-mini { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 10px; background: var(--brand-yellow); color: var(--brand-black); }
+  .own-mini :global(.icon) { width: 18px; height: 18px; }
+
+  /* Scroll-Animationen des One-Pagers (nur mit scroll-getriebenen Animationen, nie bei „Bewegung reduzieren“):
+     Hero-Bühne gleitet beim Scrollen nach oben, der Text bleibt etwas zurück und blendet aus */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-stage { animation: hero-stage linear both; animation-timeline: scroll(root); animation-range: 0 80vh; }
+      .hero-copy { animation: hero-copy linear both; animation-timeline: scroll(root); animation-range: 0 70vh; }
+      .feat { animation: feat-in linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+    }
+  }
+  @keyframes hero-stage { to { transform: translateY(-90px) scale(0.97); } }
+  @keyframes hero-copy { to { transform: translateY(50px); opacity: 0.35; } }
+  @keyframes feat-in { from { transform: translateY(60px) scale(0.96); opacity: 0; } to { transform: none; opacity: 1; } }
+</style>

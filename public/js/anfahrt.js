@@ -154,7 +154,7 @@
       navigator.clipboard.writeText(copy.dataset.copy).then(function () {
         var l = copy.querySelector('[data-copy-label]');
         var old = l.textContent;
-        l.textContent = 'Kopiert';
+        l.textContent = copy.dataset.copied || 'Kopiert';
         setTimeout(function () { l.textContent = old; }, 1800);
       });
     });

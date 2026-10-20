@@ -19,7 +19,7 @@ interface Props {
   description: string;
   /** Titel ohne " – ICT Baden" (Startseite, Produktseiten mit eigenem Titel) */
   bareTitle?: boolean;
-  /** Sprache der Seite; Kopf- und Fußzeile bleiben deutsch (lang="de") */
+  /** Sprache der Seite; Kopf- und Fußzeile folgen ihr */
   lang?: 'de' | 'en';
   /** Sprachfassungen derselben Seite (hreflang), jeweils mit Pfad; x-default zeigt auf die deutsche */
   alternates?: { lang: 'de' | 'en'; href: string }[];
@@ -98,10 +98,10 @@ const isHome = path === '/';
     <a class="skip-link" href="#inhalt" lang={lang}>{lang === 'en' ? 'Skip to content' : 'Zum Inhalt springen'}</a>
     {STAGING && (
       <aside class="staging-bar" aria-label="Hinweis" lang="de">
-        <span>Vorschau der neuen Website von ICT Baden</span>
+        <span>{lang === 'en' ? 'Preview of the new ICT Baden website' : 'Vorschau der neuen Website von ICT Baden'}</span>
       </aside>
     )}
-    <Header lang={lang} />
+    <Header lang={lang} alternates={alternates} />
     <main id="inhalt" tabindex="-1">
       <slot />
     </main>

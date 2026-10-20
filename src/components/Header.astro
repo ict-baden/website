@@ -1,25 +1,29 @@
 ---
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
-import { NAV, mailto } from '../config';
+import { mailto } from '../config';
+import { HOME, NAV_I18N, UI_SITE, sectionHref, type Lang } from '../i18n/site';
 
-interface Props { lang?: 'de' | 'en' }
-const { lang = 'de' } = Astro.props;
-const path = Astro.url.pathname;
-const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+interface Props { lang?: Lang; alternates?: { lang: Lang; href: string }[] }
+const { lang = 'de', alternates = [] } = Astro.props;
+const T = UI_SITE[lang];
+const nav = NAV_I18N[lang].map((n) => ({ href: sectionHref(lang, n.key), label: n.label }));
+// Sprachumschalter: gleiche Seite in der anderen Sprache, sonst deren Startseite
+const other: Lang = lang === 'de' ? 'en' : 'de';
+const otherHref = alternates.find((a) => a.lang === other)?.href ?? HOME[other];
 ---
-<header class="site-header" lang={lang === 'de' ? undefined : 'de'}>
+<header class="site-header">
   <span class="scroll-progress" aria-hidden="true"></span>
   <div class="container header-inner">
-    <a class="brand" href="/" aria-label="ICT Baden – zur Startseite">
+    <a class="brand" href={HOME[lang]} aria-label={T.toHome}>
       <Logo uid="h" />
     </a>
 
-    <nav class="nav" aria-label="Hauptnavigation">
+    <nav class="nav" aria-label={lang === 'de' ? 'Hauptnavigation' : 'Main navigation'}>
       <ul>
-        {NAV.map((item) => (
+        {nav.map((item) => (
           <li>
-            <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+            <a href={item.href} data-spy>{item.label}</a>
           </li>
         ))}
       </ul>
@@ -27,35 +31,41 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
 
     <div class="header-actions">
       <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-pressed="false" hidden>
-        <span class="visually-hidden">Dunkles Design</span>
+        <span class="visually-hidden">{T.darkMode}</span>
         <Icon name="moon" class="i-moon" />
         <Icon name="sun" class="i-sun" />
       </button>
-      <a class="btn btn--sm header-cta" href={mailto('Anfrage über die Website')}>
+      <a class="lang-switch" href={otherHref} hreflang={other} lang={other} data-lang-switch={other} title={T.langOther}>
+        <span class="visually-hidden">{T.langSwitch}: {T.langOther} – </span>
+        <span class:list={['ls-opt', lang === 'de' && 'is-on']}>DE</span>
+        <span class:list={['ls-opt', lang === 'en' && 'is-on']}>EN</span>
+      </a>
+      <a class="btn btn--sm header-cta" href={mailto(T.requestSubject)}>
         <Icon name="mail" />
-        Anfrage senden
+        {T.request}
       </a>
       <details class="mnav" data-mnav>
-        <summary class="icon-btn" aria-label="Menü">
+        <summary class="icon-btn" aria-label={T.menu} data-label-open={T.menu} data-label-close={T.menuClose}>
           <Icon name="menu" class="i-open" />
           <Icon name="x" class="i-close" />
         </summary>
         <div class="mnav-panel">
-          <nav aria-label="Hauptnavigation (mobil)">
+          <nav aria-label={lang === 'de' ? 'Hauptnavigation (mobil)' : 'Main navigation (mobile)'}>
             <ul>
-              <li><a href="/" aria-current={path === '/' ? 'page' : undefined}>Start</a></li>
-              {NAV.map((item) => (
+              <li><a href={HOME[lang]}>{T.home}</a></li>
+              {nav.map((item) => (
                 <li>
-                  <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                  <a href={item.href} data-spy>
                     {item.label}
                     <Icon name="arrow-right" />
                   </a>
                 </li>
               ))}
+              <li><a href={otherHref} hreflang={other} lang={other} data-lang-switch={other}>{T.langOther}<Icon name="arrow-right" /></a></li>
             </ul>
           </nav>
-          <a class="btn mnav-cta" href={mailto('Anfrage über die Website')}>
-            <Icon name="mail" /> Anfrage senden
+          <a class="btn mnav-cta" href={mailto(T.requestSubject)}>
+            <Icon name="mail" /> {T.request}
           </a>
         </div>
       </details>
@@ -191,4 +201,11 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
     }
   }
   @keyframes scroll-progress { to { transform: scaleX(1); } }
+  /* Sprachumschalter DE | EN */
+  .lang-switch { display: inline-flex; align-items: center; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg-elev); text-decoration: none; font-size: var(--fs-xs); font-weight: 750; letter-spacing: 0.04em; }
+  .ls-opt { padding: 0.32rem 0.6rem; border-radius: 999px; color: var(--ink-3); transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out); }
+  .ls-opt.is-on { background: var(--brand-yellow); color: #111111; }
+  .lang-switch:hover .ls-opt:not(.is-on) { color: var(--ink); }
+  .lang-switch:focus-visible { outline: 3px solid var(--focus, var(--brand-yellow)); outline-offset: 2px; }
+  @media (max-width: 860px) { .lang-switch { display: none; } }
 </style>

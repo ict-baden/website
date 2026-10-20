@@ -4,25 +4,30 @@
 import Icon from '../Icon.astro';
 import { mailto } from '../../config';
 import type { IconName } from '../../lib/icons';
+import { IDS, PROVEN, type Lang } from '../../i18n/site';
+
+interface Props { lang?: Lang }
+const { lang = 'de' } = Astro.props;
+const T = PROVEN[lang];
 
 interface Item { id: string; cat: string; name: string; text: string; icon: IconName; badge: string; action: { label: string; href: string; icon: IconName; external?: boolean; note?: string } }
 const items: Item[] = [
-  { id: 'informant', cat: 'Alarmierung', name: 'Informant', text: 'Alarmierung im industriellen Umfeld.', icon: 'bell', badge: 'Im Einsatz · auf Anfrage',
-    action: { label: 'Anfragen', href: mailto('Anfrage zu Informant'), icon: 'mail' } },
-  { id: 'callcenter', cat: 'Telefonie', name: 'CallCenter', text: 'Industrieller Anrufbeantworter und Telefonzentrale.', icon: 'phone', badge: 'Im Einsatz · auf Anfrage',
-    action: { label: 'Anfragen', href: mailto('Anfrage zu CallCenter'), icon: 'mail' } },
-  { id: 'modbus', cat: 'Modbus', name: 'Modbus­Explorer', text: 'Kostenloses Werkzeug für Modbus TCP.', icon: 'protocol', badge: 'Kostenlos',
-    action: { label: 'Download', href: 'https://modbus.de/explorer.html', icon: 'download', external: true, note: 'Download auf modbus.de' } },
-  { id: 'pulswertigkeit', cat: 'Online-Werkzeug', name: 'Energiezähler | Pulswertigkeit', text: 'Berechnung der Pulswertigkeit aus Wandlerkonstante oder den Daten eines Messwandlerzählers – direkt im Browser.', icon: 'calculator', badge: 'Kostenlos',
-    action: { label: 'Zum Rechner', href: '/werkzeuge/pulswertigkeit/', icon: 'arrow-right' } },
+  { id: 'informant', cat: T.items.informant[0], name: 'Informant', text: T.items.informant[1], icon: 'bell', badge: T.inUse,
+    action: { label: T.ask, href: mailto(`${T.askAbout} Informant`), icon: 'mail' } },
+  { id: 'callcenter', cat: T.items.callcenter[0], name: 'CallCenter', text: T.items.callcenter[1], icon: 'phone', badge: T.inUse,
+    action: { label: T.ask, href: mailto(`${T.askAbout} CallCenter`), icon: 'mail' } },
+  { id: 'modbus', cat: T.items.modbus[0], name: 'Modbus­Explorer', text: T.items.modbus[1], icon: 'protocol', badge: T.free,
+    action: { label: T.download, href: 'https://modbus.de/explorer.html', icon: 'download', external: true, note: T.modbusNote } },
+  { id: 'pulswertigkeit', cat: T.items.pulse[0], name: T.items.pulse[2], text: T.items.pulse[1], icon: 'calculator', badge: T.free,
+    action: { label: T.calc, href: '/werkzeuge/pulswertigkeit/', icon: 'arrow-right' } },
 ];
 ---
-<section class="section bewaehrt" id="bewaehrt" aria-labelledby="bewaehrt-titel">
+<section class="section bewaehrt" id={IDS[lang].proven} aria-labelledby="bewaehrt-titel">
   <div class="container">
     <div class="section-head reveal">
-      <p class="eyebrow">Bewährte Lösungen</p>
-      <h2 id="bewaehrt-titel">Eigenentwicklungen und Werkzeuge</h2>
-      <p class="lead">Seit Jahren im Einsatz: Alarmierung und Telefonie für die Industrie richten wir für Ihre Anlage ein und passen sie an. Die Werkzeuge sind kostenlos.</p>
+      <p class="eyebrow">{T.eyebrow}</p>
+      <h2 id="bewaehrt-titel">{T.title}</h2>
+      <p class="lead">{T.lead}</p>
     </div>
     <ul class="bw-grid" role="list">
       {items.map((it) => (
@@ -34,15 +39,15 @@ const items: Item[] = [
           </div>
           <p class="bw-text">{it.text}</p>
           <span class="badge badge--verfuegbar">{it.badge}</span>
-          <a class="btn btn--secondary bw-btn" href={it.action.href} rel={it.action.external ? 'noopener' : undefined}>
+          <a class="btn btn--secondary bw-btn" href={it.action.href} rel={it.action.external ? 'noopener' : undefined} hreflang={lang === 'en' && it.id === 'pulswertigkeit' ? 'de' : undefined}>
             <Icon name={it.action.icon} /> {it.action.label}
-            {it.action.external && <span class="visually-hidden">(externe Seite modbus.de)</span>}
+            {it.action.external && <span class="visually-hidden">{T.modbusExt}</span>}
           </a>
           {it.action.note && <p class="bw-note">{it.action.note}</p>}
         </li>
       ))}
     </ul>
-    <p class="bw-terms reveal">Die kostenlosen Werkzeuge sind zur Verwendung „wie sie sind“ gedacht; für ihre Funktion wird keine Garantie gegeben.</p>
+    <p class="bw-terms reveal">{T.terms}</p>
   </div>
 </section>
 
@@ -61,7 +66,7 @@ const items: Item[] = [
   .bw h3 { font-size: var(--fs-lg); overflow-wrap: normal; word-break: normal; hyphens: manual; min-width: 0; }
   .bw-head { min-width: 0; flex-wrap: nowrap; }
   .bw-text { color: var(--ink-2); }
-  .bw-btn { margin-top: auto; }
+  .bw-btn { margin-top: auto; max-width: 100%; white-space: normal; }
   .bw-note { color: var(--ink-3); font-size: var(--fs-xs); }
   .bw-terms { margin-top: var(--s-5); color: var(--ink-3); font-size: var(--fs-sm); }
   @media (max-width: 1100px) { .bw-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

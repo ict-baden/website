@@ -3,64 +3,69 @@
 import Anfahrt from '../Anfahrt.astro';
 import Icon from '../Icon.astro';
 import { COMPANY, mailto } from '../../config';
+import { CONTACT_I18N, IDS, UI_SITE, type Lang } from '../../i18n/site';
+
+interface Props { lang?: Lang }
+const { lang = 'de' } = Astro.props;
+const T = CONTACT_I18N[lang];
 ---
-<section class="section kontakt" id="kontakt" aria-labelledby="kontakt-titel">
+<section class="section kontakt" id={IDS[lang].contact} aria-labelledby="kontakt-titel">
   <div class="container">
     <div class="section-head reveal">
-      <p class="eyebrow">Kontakt</p>
-      <h2 id="kontakt-titel">Sprechen wir über Ihr Projekt.</h2>
-      <p class="lead to">{COMPANY.name}<br />z.Hd. {COMPANY.contactPerson}</p>
+      <p class="eyebrow">{T.eyebrow}</p>
+      <h2 id="kontakt-titel">{T.title}</h2>
+      <p class="lead to">{COMPANY.name}<br />{T.attn} {COMPANY.contactPerson}</p>
     </div>
   </div>
   <div class="container kgrid">
     <section class="kcard kcard--main reveal" aria-labelledby="k-post">
-      <h3 id="k-post">Persönlich und per Post</h3>
+      <h3 id="k-post">{T.inPerson}</h3>
       <dl class="kfacts">
         <div>
-          <dt><Icon name="pin" /> Adresse</dt>
-          <dd>{COMPANY.district}<br />{COMPANY.street}<br />{COMPANY.zip} {COMPANY.city}</dd>
+          <dt><Icon name="pin" /> {T.address}</dt>
+          <dd>{COMPANY.district}<br />{COMPANY.street}<br />{COMPANY.zip} {COMPANY.city}{T.country && <><br />{T.country}</>}</dd>
         </div>
         <div>
-          <dt><Icon name="mail" /> E-Mail</dt>
+          <dt><Icon name="mail" /> {T.email}</dt>
           <dd><a href={mailto()}>{COMPANY.email}</a></dd>
         </div>
         <div>
-          <dt><Icon name="phone" /> Telefon</dt>
+          <dt><Icon name="phone" /> {T.phone}</dt>
           <dd><a class="tel" href={COMPANY.mobileHref}>{COMPANY.mobile}</a></dd>
         </div>
         <div>
-          <dt><Icon name="fax" /> Fax</dt>
-          <dd>NICHT MÖGLICH</dd>
+          <dt><Icon name="fax" /> {T.fax}</dt>
+          <dd>{T.faxValue}</dd>
         </div>
       </dl>
       <div class="btn-row">
-        <a class="btn" href={mailto('Anfrage über die Website')}><Icon name="mail" /> E-Mail schreiben</a>
-        <a class="btn btn--secondary" href={COMPANY.mobileHref}><Icon name="phone" /> Anrufen</a>
+        <a class="btn" href={mailto(UI_SITE[lang].requestSubject)}><Icon name="mail" /> {T.write}</a>
+        <a class="btn btn--secondary" href={COMPANY.mobileHref}><Icon name="phone" /> {T.call}</a>
       </div>
     </section>
 
     <section class="kcard reveal" aria-labelledby="k-profile">
-      <h3 id="k-profile">Profile</h3>
+      <h3 id="k-profile">{T.profiles}</h3>
       <ul class="profiles" role="list">
         <li>
           <a href="https://www.freelance.de/Freiberufler/91924" rel="noopener">
             <span class="pi"><Icon name="briefcase" /></span>
-            <span><strong>freelance</strong><span>Profil und Verfügbarkeit</span></span>
-            <Icon name="arrow-up-right" label="(externer Link)" class="pext" />
+            <span><strong>{T.profileItems[0][0]}</strong><span>{T.profileItems[0][1]}</span></span>
+            <Icon name="arrow-up-right" label={T.external} class="pext" />
           </a>
         </li>
         <li>
           <a href="https://www.linkedin.com/in/frank-pfattheicher" rel="noopener">
             <span class="pi"><Icon name="linkedin" /></span>
-            <span><strong>LinkedIn</strong><span>Profil</span></span>
-            <Icon name="arrow-up-right" label="(externer Link)" class="pext" />
+            <span><strong>{T.profileItems[1][0]}</strong><span>{T.profileItems[1][1]}</span></span>
+            <Icon name="arrow-up-right" label={T.external} class="pext" />
           </a>
         </li>
         <li>
           <a href="https://github.com/FrankPfattheicher" rel="noopener">
             <span class="pi"><Icon name="code" /></span>
-            <span><strong>Github</strong><span>Open Source Repositories</span></span>
-            <Icon name="arrow-up-right" label="(externer Link)" class="pext" />
+            <span><strong>{T.profileItems[2][0]}</strong><span>{T.profileItems[2][1]}</span></span>
+            <Icon name="arrow-up-right" label={T.external} class="pext" />
           </a>
         </li>
       </ul>
@@ -68,12 +73,12 @@ import { COMPANY, mailto } from '../../config';
   </div>
 
 
-  <div class="container anfahrt" id="anfahrt">
+  <div class="container anfahrt" id={IDS[lang].directions}>
     <div class="section-head reveal anf-head">
-      <p class="eyebrow">Anfahrt</p>
-      <h3 id="k-anfahrt" class="h2">So finden Sie uns</h3>
+      <p class="eyebrow">{T.directionsEyebrow}</p>
+      <h3 id="k-anfahrt" class="h2">{T.directionsTitle}</h3>
     </div>
-    <Anfahrt />
+    <Anfahrt lang={lang} />
   </div>
 </section>
 

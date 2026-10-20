@@ -1,13 +1,17 @@
 ---
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
-import { COMPANY, NAV, STAGING } from '../config';
+import { COMPANY, STAGING } from '../config';
+import { HOME, NAV_I18N, UI_SITE, sectionHref } from '../i18n/site';
 import { products } from '../lib/products';
 import { pageFor, productUrlFor } from '../lib/produktseiten';
 
 interface Props { lang?: 'de' | 'en' }
 const { lang = 'de' } = Astro.props;
 const year = new Date().getFullYear();
+const T = UI_SITE[lang];
+const nav = NAV_I18N[lang].map((n) => ({ href: sectionHref(lang, n.key), label: n.label }));
+const other = lang === 'de' ? 'en' : 'de';
 // Produktspalte in der Sprache der Seite: englische Seiten verlinken die englischen Produktseiten
 const productLinks = products.map((p) => ({
   name: p.name,
@@ -15,16 +19,16 @@ const productLinks = products.map((p) => ({
   kind: lang === 'en' ? pageFor(p).en.kind ?? p.kind : p.kind,
 }));
 ---
-<footer class="site-footer" lang={lang === 'de' ? undefined : 'de'}>
+<footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="footer-logo" href="/" aria-label="ICT Baden – zur Startseite"><Logo uid="f" /></a>
-        <p class="footer-claim">Softwareentwicklung</p>
+        <a class="footer-logo" href={HOME[lang]} aria-label={T.toHome}><Logo uid="f" /></a>
+        <p class="footer-claim">{T.footerClaim}</p>
         <address>
           {COMPANY.name}<br />
           {COMPANY.street}<br />
-          {COMPANY.zip}&nbsp;{COMPANY.city}
+          {COMPANY.zip}&nbsp;{COMPANY.city}{lang === 'en' && <><br />Germany</>}
         </address>
         <ul class="footer-contact">
           <li><a href={`mailto:${COMPANY.email}`}><Icon name="mail" />{COMPANY.email}</a></li>
@@ -32,32 +36,32 @@ const productLinks = products.map((p) => ({
         </ul>
       </div>
 
-      <nav class="footer-col footer-col--site" aria-label="Website">
-        <p class="footer-label">Website</p>
+      <nav class="footer-col footer-col--site" aria-label={T.website}>
+        <p class="footer-label">{T.website}</p>
         <ul>
-          <li><a href="/">Start</a></li>
-          {NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
-          <li><a href="/en/" hreflang="en" lang="en">English</a></li>
+          <li><a href={HOME[lang]}>{T.home}</a></li>
+          {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+          <li><a href={HOME[other]} hreflang={other} lang={other} data-lang-switch={other}>{T.langOther}</a></li>
         </ul>
       </nav>
 
-      <nav class="footer-col footer-col--products" aria-label={lang === 'en' ? 'Products' : 'Produkte'} lang={lang === 'en' ? 'en' : undefined}>
-        <p class="footer-label">{lang === 'en' ? 'Products' : 'Produkte'}</p>
+      <nav class="footer-col footer-col--products" aria-label={T.products}>
+        <p class="footer-label">{T.products}</p>
         <ul>
           {productLinks.map((x) => <li><a href={x.href}><span class="fp-name">{x.name}</span>{x.kind && <span class="fp-kind">{x.kind}</span>}</a></li>)}
         </ul>
       </nav>
 
-      <nav class="footer-col" aria-label="Werkzeuge und Rechtliches">
-        <p class="footer-label">Werkzeuge</p>
+      <nav class="footer-col" aria-label={`${T.tools} · ${T.legal}`}>
+        <p class="footer-label">{T.tools}</p>
         <ul>
-          <li><a href="/werkzeuge/pulswertigkeit/">Energiezähler-Pulswertigkeit</a></li>
-          <li><a href="/#modbus">ModbusExplorer</a></li>
+          <li><a href="/werkzeuge/pulswertigkeit/" hreflang={lang === 'en' ? 'de' : undefined}>{T.pulse}</a></li>
+          <li><a href={`${HOME[lang]}#modbus`}>ModbusExplorer</a></li>
         </ul>
-        <p class="footer-label mt">Rechtliches</p>
+        <p class="footer-label mt">{T.legal}</p>
         <ul>
-          <li><a href="/impressum/">Impressum</a></li>
-          <li><a href="/datenschutz/">Datenschutz</a></li>
+          <li><a href="/impressum/" hreflang={lang === 'en' ? 'de' : undefined}>{T.imprint}</a></li>
+          <li><a href="/datenschutz/" hreflang={lang === 'en' ? 'de' : undefined}>{T.privacy}</a></li>
         </ul>
       </nav>
     </div>
@@ -65,7 +69,7 @@ const productLinks = products.map((p) => ({
     <div class="footer-bottom">
       <p>©{year} {COMPANY.name}</p>
       <p class="footer-note">
-        Statische Website ohne Tracking{STAGING && ' · Vorschau, nicht für Suchmaschinen freigegeben'}
+        {T.footerNote}{STAGING && T.staging}
       </p>
     </div>
   </div>

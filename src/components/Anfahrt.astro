@@ -7,12 +7,34 @@ import Icon from './Icon.astro';
 import { COMPANY } from '../config';
 import sat from '../data/luftbild.json';
 
+interface Props { lang?: 'de' | 'en' }
+const { lang = 'de' } = Astro.props;
+const de = lang === 'de';
+// Oberflächentexte; Ortsnamen auf der Karte bleiben deutsch
+const L = de ? {
+  apple: 'Apple Karten', choose: 'Anreise wählen', view: 'Ansicht', plan: 'Plan', sat: 'Luftbild',
+  mapTitle: 'Lageplan: A5 mit Ausfahrt KA-Durlach, B10 Durlacher Allee mit den Straßenbahnlinien 1 und 2, Haltestellen Auer Straße und Friedrichschule, Bahnhof Karlsruhe-Durlach, Pforzheimer Straße, Pfinzstraße, Zur Gießerei mit Parkplatz und dem ICT-Gebäude an der Seboldstraße.',
+  satLabel: 'Luftbild der Umgebung von der Ausfahrt Karlsruhe-Durlach bis zur Seboldstraße 9: ICT Baden, Bahnhof Karlsruhe-Durlach und Haltestelle Auer Straße',
+  station: 'Bahnhof', tram: 'Straßenbahn', stopAuer: 'Haltestelle Auer Straße (1, 2)', stopFriedrich: 'Haltestelle Friedrichschule (1)', stopAuerShort: 'Haltestelle Auer Straße',
+  credit: 'Luftbild', ways: 'Wege', ride: 'Fahrt', walk: 'zu Fuß', tramLegend: 'Straßenbahn 1, 2', park: 'Parkplatz', replay: 'Weg noch einmal zeigen',
+  address: 'Anschrift', navi: 'Im Navigationssystem:', plan2: 'Route planen', copy: 'Adresse kopieren', copied: 'Kopiert',
+  note: 'Öffnet den Kartendienst in einem neuen Tab – vorher wird nichts übertragen.', pdf: 'Anfahrt als PDF',
+} : {
+  apple: 'Apple Maps', choose: 'Choose how you travel', view: 'View', plan: 'Map', sat: 'Aerial',
+  mapTitle: 'Site plan: A5 with exit KA-Durlach, B10 Durlacher Allee with tram lines 1 and 2, tram stops Auer Straße and Friedrichschule, Karlsruhe-Durlach station, Pforzheimer Straße, Pfinzstraße, Zur Gießerei with car park and the ICT building in Seboldstraße.',
+  satLabel: 'Aerial view from the Karlsruhe-Durlach motorway exit to Seboldstraße 9: ICT Baden, Karlsruhe-Durlach station and the Auer Straße tram stop',
+  station: 'Station', tram: 'Tram', stopAuer: 'Tram stop Auer Straße (1, 2)', stopFriedrich: 'Tram stop Friedrichschule (1)', stopAuerShort: 'Tram stop Auer Straße',
+  credit: 'Aerial image', ways: 'Routes', ride: 'Drive', walk: 'on foot', tramLegend: 'Tram 1, 2', park: 'Car park', replay: 'Show the route again',
+  address: 'Address', navi: 'For your satnav:', plan2: 'Plan your route', copy: 'Copy address', copied: 'Copied',
+  note: 'Opens the map service in a new tab – nothing is sent before you click.', pdf: 'Directions as PDF (German)',
+};
+
 // Die Kartendienste und „Adresse kopieren“ zeigen auf die Anschrift (Seboldstraße 9), nicht auf die Hofeinfahrt
 const navTarget = `${COMPANY.street}, ${COMPANY.zip} ${COMPANY.city}`;
 const q = encodeURIComponent(navTarget);
 const links = [
   { label: 'Google Maps', href: `https://www.google.com/maps/dir/?api=1&destination=${q}` },
-  { label: 'Apple Karten', href: `https://maps.apple.com/?daddr=${q}` },
+  { label: L.apple, href: `https://maps.apple.com/?daddr=${q}` },
   { label: 'OpenStreetMap', href: `https://www.openstreetmap.org/search?query=${q}` },
 ];
 
@@ -27,50 +49,50 @@ const [ictX, ictY] = sat.ict;
 
 const modes = [
   {
-    id: 'a5', icon: 'car', tab: 'A5', title: 'A5 aus Richtung Basel oder Frankfurt', ordered: true,
+    id: 'a5', icon: 'car', tab: 'A5', title: de ? 'A5 aus Richtung Basel oder Frankfurt' : 'A5 from Basel or Frankfurt', ordered: true,
     ride: `M 470 40 L 262 239 C 236 262, 205 300, 172 288 C 140 276, 150 236, 190 245 ${TAIL}`, walk: null, satRide: sat.a5, satWalk: null, sat: sat.satA5,
     steps: [
-      [0.237, 'Ausfahrt 44 Karlsruhe-Durlach'],
-      [0.392, 'Sie fahren auf die B10 (Durlacher Allee) in Richtung Durlach'],
-      [0.521, 'Und folgen der Durlacher Allee weiter in Richtung Durlach (nicht der B10 folgen!)'],
-      [0.852, 'An der nun folgenden Kreuzung biegen Sie links in die Pforzheimer Straße ein'],
-      [0.946, 'An der nächsten Kreuzung fahren Sie rechts in die Pfinzstraße'],
-      [0.966, 'Und biegen direkt danach rechts in die Hofeinfahrt „Zur Gießerei“ ein'],
-      [0.979, 'Sofort wieder links abbiegen'],
-      [1, 'Geradeaus zu Ihrer Linken befinden sich die ausgezeichneten Parkplätze'],
+      [0.237, de ? 'Ausfahrt 44 Karlsruhe-Durlach' : 'Take exit 44 Karlsruhe-Durlach'],
+      [0.392, de ? 'Sie fahren auf die B10 (Durlacher Allee) in Richtung Durlach' : 'Join the B10 (Durlacher Allee) towards Durlach'],
+      [0.521, de ? 'Und folgen der Durlacher Allee weiter in Richtung Durlach (nicht der B10 folgen!)' : 'Stay on Durlacher Allee towards Durlach (do not follow the B10!)'],
+      [0.852, de ? 'An der nun folgenden Kreuzung biegen Sie links in die Pforzheimer Straße ein' : 'At the next junction, turn left into Pforzheimer Straße'],
+      [0.946, de ? 'An der nächsten Kreuzung fahren Sie rechts in die Pfinzstraße' : 'At the following junction, turn right into Pfinzstraße'],
+      [0.966, de ? 'Und biegen direkt danach rechts in die Hofeinfahrt „Zur Gießerei“ ein' : 'Immediately afterwards, turn right into the courtyard entrance “Zur Gießerei”'],
+      [0.979, de ? 'Sofort wieder links abbiegen' : 'Turn left straight away'],
+      [1, de ? 'Geradeaus zu Ihrer Linken befinden sich die ausgezeichneten Parkplätze' : 'The marked parking spaces are straight ahead on your left'],
     ],
   },
   {
-    id: 'a8', icon: 'car', tab: 'A8', title: 'A8 aus Richtung Stuttgart', ordered: true,
+    id: 'a8', icon: 'car', tab: 'A8', title: de ? 'A8 aus Richtung Stuttgart' : 'A8 from Stuttgart', ordered: true,
     ride: `M 22 474 L 160 340 Q 240 298 ${TAIL.slice(2)}`, walk: null, satRide: sat.a8, satWalk: null, sat: sat.satA8,
     steps: [
-      [0, 'Fahren Sie über die Autobahn A8 bis zum Dreieck Karlsruhe'],
-      [0.06, 'Wechseln Sie auf die A5 Richtung Frankfurt'],
-      [0.2, 'Ausfahrt 44 Karlsruhe-Durlach'],
-      [0.4, 'Von dort folgen Sie der Wegbeschreibung aus Richtung Basel und Frankfurt'],
+      [0, de ? 'Fahren Sie über die Autobahn A8 bis zum Dreieck Karlsruhe' : 'Take the A8 motorway to the Karlsruhe interchange (Dreieck Karlsruhe)'],
+      [0.06, de ? 'Wechseln Sie auf die A5 Richtung Frankfurt' : 'Change to the A5 towards Frankfurt'],
+      [0.2, de ? 'Ausfahrt 44 Karlsruhe-Durlach' : 'Take exit 44 Karlsruhe-Durlach'],
+      [0.4, de ? 'Von dort folgen Sie der Wegbeschreibung aus Richtung Basel und Frankfurt' : 'From there, follow the directions from Basel and Frankfurt'],
     ],
   },
   {
-    id: 'zug', icon: 'train', tab: 'Zug', title: 'Mit dem Zug', ordered: false,
+    id: 'zug', icon: 'train', tab: de ? 'Zug' : 'Train', title: de ? 'Mit dem Zug' : 'By train', ordered: false,
     ride: 'M 300 509 L 655 290', walk: 'M 655 290 L 662 312 L 710 296 L 800.4 305 L 824 307.6 L 830 322 L 858 346', satRide: null, satWalk: SAT_ZUG, sat: [0, 0],
     steps: [
-      [0, 'Vom Hauptbahnhof Karlsruhe können Sie mit einer beliebigen Bahn fahren, die am Bahnhof Karlsruhe-Durlach (siehe Karte) Halt macht, z. B. S3, S31, S32'],
-      [0.5, 'Vom Bahnhof Karlsruhe-Durlach 5 Minuten Fußweg'],
+      [0, de ? 'Vom Hauptbahnhof Karlsruhe können Sie mit einer beliebigen Bahn fahren, die am Bahnhof Karlsruhe-Durlach (siehe Karte) Halt macht, z. B. S3, S31, S32' : 'From Karlsruhe Hauptbahnhof, take any train that stops at Karlsruhe-Durlach station (see map), e.g. S3, S31, S32'],
+      [0.5, de ? 'Vom Bahnhof Karlsruhe-Durlach 5 Minuten Fußweg' : '5-minute walk from Karlsruhe-Durlach station'],
     ],
   },
   {
-    id: 'tram', icon: 'tram', tab: 'Straßenbahn', title: 'Straßenbahn', ordered: false,
+    id: 'tram', icon: 'tram', tab: de ? 'Straßenbahn' : 'Tram', title: de ? 'Straßenbahn' : 'By tram', ordered: false,
     ride: 'M 10 197 L 688 386', walk: 'M 688 386 L 838 428 L 862 371', satRide: null, satWalk: SAT_TRAM, sat: [0, 0, 0],
     steps: [
-      [0, 'Straßenbahn Linie 1 in Richtung Durlach'],
-      [0.05, 'oder Linie 2 in Richtung Wolfartsweier bis zur Haltestelle „Auer Straße“'],
-      [0.8, '5 Minuten Fußweg'],
+      [0, de ? 'Straßenbahn Linie 1 in Richtung Durlach' : 'Tram line 1 towards Durlach'],
+      [0.05, de ? 'oder Linie 2 in Richtung Wolfartsweier bis zur Haltestelle „Auer Straße“' : 'or line 2 towards Wolfartsweier to the stop “Auer Straße”'],
+      [0.8, de ? '5 Minuten Fußweg' : '5-minute walk'],
     ],
   },
 ] as const;
 ---
 <div class="anf" data-anfahrt>
-  <div class="anf-tabs" role="tablist" aria-label="Anreise wählen" hidden data-tabs>
+  <div class="anf-tabs" role="tablist" aria-label={L.choose} hidden data-tabs>
     {modes.map((m, i) => (
       <button class="anf-tab" type="button" role="tab" id={`tab-${m.id}`} aria-controls={`steps-${m.id}`}
         aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-mode={m.id}>
@@ -81,13 +103,13 @@ const modes = [
 
   <div class="anf-grid">
     <figure class="anf-map">
-      <div class="anf-view" role="group" aria-label="Ansicht" hidden data-views>
-        <button type="button" class="anf-vb" aria-pressed="true" data-view="plan">Plan</button>
-        <button type="button" class="anf-vb" aria-pressed="false" data-view="sat">Luftbild</button>
+      <div class="anf-view" role="group" aria-label={L.view} hidden data-views>
+        <button type="button" class="anf-vb" aria-pressed="true" data-view="plan">{L.plan}</button>
+        <button type="button" class="anf-vb" aria-pressed="false" data-view="sat">{L.sat}</button>
       </div>
       <div class="anf-stage">
       <svg viewBox="0 0 966 540" role="img" aria-labelledby="anf-map-title" class="anf-plan-svg">
-        <title id="anf-map-title">Lageplan: A5 mit Ausfahrt KA-Durlach, B10 Durlacher Allee mit den Straßenbahnlinien 1 und 2, Haltestellen Auer Straße und Friedrichschule, Bahnhof Karlsruhe-Durlach, Pforzheimer Straße, Pfinzstraße, Zur Gießerei mit Parkplatz und dem ICT-Gebäude an der Seboldstraße.</title>
+        <title id="anf-map-title">{L.mapTitle}</title>
         <defs>
           <pattern id="anf-grid" width="24" height="24" patternUnits="userSpaceOnUse">
             <path d="M 24 0 L 0 0 0 24" class="g-grid" />
@@ -130,7 +152,7 @@ const modes = [
           <text x="58" y="402" class="g-strong">A5</text>
           <text x="322" y="276">B10 Durlacher Allee</text>
           <text x="706" y="192" class="g-strong">B10</text>
-          <text x="502" y="212">Bahnhof</text><text x="502" y="230">Karlsruhe-Durlach</text>
+          <text x="502" y="212">{L.station}</text><text x="502" y="230">Karlsruhe-Durlach</text>
           <text transform="translate(676 478) rotate(-51.4)" class="g-small">Pforzheimer Straße</text>
           <text x="850" y="298" class="g-small">Pfinzstraße</text>
           <text x="760" y="374" class="g-small">Zur Gießerei</text>
@@ -147,7 +169,7 @@ const modes = [
           <g transform="translate(70 178)">
             <rect width="18" height="20" rx="2" class="g-l1" /><text x="9" y="15" class="g-ln">1</text>
             <rect x="20" width="18" height="20" rx="2" class="g-l2" /><text x="29" y="15" class="g-ln">2</text>
-            <text x="46" y="15" class="g-tram-t">Straßenbahn</text>
+            <text x="46" y="15" class="g-tram-t">{L.tram}</text>
           </g>
           <g transform="translate(655 296)" class="g-pt">
             <rect x="-15" y="-15" width="30" height="30" rx="6" class="g-station" />
@@ -156,11 +178,11 @@ const modes = [
           <g transform="translate(688 375)" class="g-pt g-stop" data-stop="auer">
             <circle r="11" class="g-stop-c" /><text y="5" class="g-stop-t">H</text>
           </g>
-          <text x="540" y="412" class="g-stop-l">Haltestelle Auer Straße (1, 2)</text>
+          <text x="540" y="412" class="g-stop-l">{L.stopAuer}</text>
           <g transform="translate(905 436)" class="g-pt g-stop">
             <circle r="11" class="g-stop-c" /><text y="5" class="g-stop-t">H</text>
           </g>
-          <text x="952" y="478" class="g-stop-l g-end">Haltestelle Friedrichschule (1)</text>
+          <text x="952" y="478" class="g-stop-l g-end">{L.stopFriedrich}</text>
           <g transform="translate(862 308)" class="g-park" data-park>
             <rect x="-11" y="-11" width="22" height="22" rx="4" class="g-park-r" /><text y="6" class="g-park-t">P</text>
           </g>
@@ -197,7 +219,7 @@ const modes = [
         </g>
       </svg>
       <!-- Luftbild (DOP20 des LGL, Datenlizenz Deutschland – Namensnennung 2.0), lädt erst beim Umschalten -->
-      <svg viewBox="0 0 966 540" role="img" aria-label="Luftbild der Umgebung von der Ausfahrt Karlsruhe-Durlach bis zur Seboldstraße 9: ICT Baden, Bahnhof Karlsruhe-Durlach und Haltestelle Auer Straße" class="anf-sat" data-sat>
+      <svg viewBox="0 0 966 540" role="img" aria-label={L.satLabel} class="anf-sat" data-sat>
         <g class="s-zoom">
           <image width="966" height="540" data-src="/media/kontakt/luftbild-1932.webp" />
           <!-- Wege und Markierungen im Zoom, damit sie auf dem Luftbild bleiben -->
@@ -223,7 +245,7 @@ const modes = [
             <circle r="9" class="s-dot" /><circle r="16" class="s-ring" />
             <g transform="translate(-212 -30)"><rect width="196" height="30" rx="15" class="s-tag" /><text x="14" y="20" class="s-tag-t">Bahnhof Karlsruhe-Durlach</text></g>
           </g>
-          <g transform={`translate(${sat.auer[0]} ${sat.auer[1]})`} class="s-mark"><circle r="9" class="s-stop" /><g transform="translate(-190 -44)"><rect width="176" height="28" rx="14" class="s-tag" /><text x="12" y="19" class="s-tag-t">Haltestelle Auer Straße</text></g></g>
+          <g transform={`translate(${sat.auer[0]} ${sat.auer[1]})`} class="s-mark"><circle r="9" class="s-stop" /><g transform="translate(-190 -44)"><rect width="176" height="28" rx="14" class="s-tag" /><text x="12" y="19" class="s-tag-t">{L.stopAuerShort}</text></g></g>
           <g class="g-mover" data-mover><circle r="11" class="g-mover-c" /><circle r="4.5" class="g-mover-d" /></g>
         </g>
         <rect width="966" height="540" class="s-shade" />
@@ -239,12 +261,12 @@ const modes = [
         </g>
       </svg>
       </div>
-      <p class="anf-credit" hidden data-credit>Luftbild: <a href="https://www.lgl-bw.de" rel="noopener">LGL-BW</a> (2026), <a href="https://www.govdata.de/dl-de/by-2-0" rel="noopener">Datenlizenz Deutschland – Namensnennung – Version 2.0</a> · Wege: © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap-Mitwirkende</a></p>
+      <p class="anf-credit" hidden data-credit>{L.credit}: <a href="https://www.lgl-bw.de" rel="noopener">LGL-BW</a> (2026), <a href="https://www.govdata.de/dl-de/by-2-0" rel="noopener">Datenlizenz Deutschland – Namensnennung – Version 2.0</a> · {L.ways}: © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap-Mitwirkende</a></p>
       <figcaption class="anf-legend">
-        <span><i class="lg lg-ride"></i> Fahrt</span>
-        <span><i class="lg lg-walk"></i> zu Fuß</span>
-        <span><i class="lg lg-tram"></i> Straßenbahn 1, 2</span>
-        <span><i class="lg lg-park">P</i> Parkplatz</span>
+        <span><i class="lg lg-ride"></i> {L.ride}</span>
+        <span><i class="lg lg-walk"></i> {L.walk}</span>
+        <span><i class="lg lg-tram"></i> {L.tramLegend}</span>
+        <span><i class="lg lg-park">P</i> {L.park}</span>
       </figcaption>
     </figure>
 
@@ -259,25 +281,25 @@ const modes = [
           )}
         </section>
       ))}
-      <button class="anf-replay" type="button" hidden data-replay><Icon name="route" /> Weg noch einmal zeigen</button>
+      <button class="anf-replay" type="button" hidden data-replay><Icon name="route" /> {L.replay}</button>
     </div>
   </div>
 
   <div class="anf-go">
     <div class="anf-addr">
-      <h3>Anschrift</h3>
-      <p>{COMPANY.name}<br />{COMPANY.street}<br />{COMPANY.zip} {COMPANY.city}</p>
-      <p class="anf-navi"><Icon name="route" /><span>Im Navigationssystem: <strong class="nowrap">„{COMPANY.navAddress}“</strong></span></p>
+      <h3>{L.address}</h3>
+      <p>{COMPANY.name}<br />{COMPANY.street}<br />{COMPANY.zip} {COMPANY.city}{!de && <><br />Germany</>}</p>
+      <p class="anf-navi"><Icon name="route" /><span>{L.navi} <strong class="nowrap">„{COMPANY.navAddress}“</strong></span></p>
     </div>
     <div class="anf-plan">
-      <p class="anf-go-t"><Icon name="pin" /> Route planen</p>
+      <p class="anf-go-t"><Icon name="pin" /> {L.plan2}</p>
       <div class="anf-go-b">
         {links.map((l) => (
           <a class="anf-btn" href={l.href} rel="noopener" target="_blank">{l.label} <Icon name="arrow-up-right" /></a>
         ))}
-        <button class="anf-btn anf-btn--copy" type="button" hidden data-copy={navTarget}><Icon name="file" /> <span data-copy-label>Adresse kopieren</span></button>
+        <button class="anf-btn anf-btn--copy" type="button" hidden data-copy={navTarget} data-copied={L.copied}><Icon name="file" /> <span data-copy-label>{L.copy}</span></button>
       </div>
-      <p class="anf-note">Öffnet den Kartendienst in einem neuen Tab – vorher wird nichts übertragen. <a href="/Anfahrtsbeschreibung.pdf">Anfahrt als PDF</a></p>
+      <p class="anf-note">{L.note} <a href="/Anfahrtsbeschreibung.pdf" hreflang={de ? undefined : 'de'}>{L.pdf}</a></p>
     </div>
   </div>
 </div>
