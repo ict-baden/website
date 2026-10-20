@@ -8,7 +8,7 @@ import { products } from '../lib/products';
 import { pageModified, productUrlFor } from '../lib/produktseiten';
 import { appPrivacyPages } from '../lib/app-privacy';
 
-const STATIC = ['/', '/leistungen/', '/downloads/', '/werkzeuge/pulswertigkeit/', '/ueber-uns/', '/kontakt/', '/impressum/', '/datenschutz/'];
+const STATIC = ['/werkzeuge/pulswertigkeit/', '/impressum/', '/datenschutz/'];
 
 type Entry = { loc: string; lastmod?: string | null; alternates?: { lang: string; href: string }[] };
 
@@ -24,8 +24,8 @@ export const GET: APIRoute = async () => {
   ];
   const entries: Entry[] = [
     ...STATIC.map((loc) => ({ loc })),
-    { loc: '/produkte/', lastmod: latest, alternates: pair('/produkte/', '/en/') },
-    { loc: '/en/', lastmod: latest, alternates: pair('/produkte/', '/en/') },
+    { loc: '/', lastmod: latest, alternates: pair('/', '/en/') },
+    { loc: '/en/', lastmod: latest, alternates: pair('/', '/en/') },
     ...products.flatMap((p) => {
       const alts = pair(productUrlFor(p, 'de'), productUrlFor(p, 'en'));
       return [

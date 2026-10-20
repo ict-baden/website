@@ -45,11 +45,11 @@ export const COMPANY = {
 } as const;
 
 export const NAV = [
-  { href: '/leistungen/', label: 'Leistungen' },
-  { href: '/produkte/', label: 'Produkte' },
-  { href: '/downloads/', label: 'Downloads' },
-  { href: '/ueber-uns/', label: 'Über uns' },
-  { href: '/kontakt/', label: 'Kontakt' },
+  { href: '/#leistungen', label: 'Leistungen' },
+  { href: '/#produkte', label: 'Produkte' },
+  { href: '/#bewaehrt', label: 'Bewährt' },
+  { href: '/#ueber-uns', label: 'Über uns' },
+  { href: '/#kontakt', label: 'Kontakt' },
 ] as const;
 
 /** mailto-Link mit vorbelegtem Betreff. */

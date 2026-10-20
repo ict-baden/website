@@ -9,6 +9,7 @@ const path = Astro.url.pathname;
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 ---
 <header class="site-header" lang={lang === 'de' ? undefined : 'de'}>
+  <span class="scroll-progress" aria-hidden="true"></span>
   <div class="container header-inner">
     <a class="brand" href="/" aria-label="ICT Baden – zur Startseite">
       <Logo uid="h" />
@@ -99,8 +100,8 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
     transition: color var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out);
   }
   .nav a:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, transparent); }
-  .nav a[aria-current='page'] { color: var(--ink); }
-  .nav a[aria-current='page']::after {
+  .nav a[aria-current='page'], .nav a[aria-current='location'] { color: var(--ink); }
+  .nav a[aria-current='page']::after, .nav a[aria-current='location']::after {
     content: '';
     position: absolute;
     left: 0.85rem; right: 0.85rem; bottom: 6px;
@@ -164,7 +165,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
     text-decoration: none;
   }
   .mnav-panel a:not(.btn) :global(.icon) { color: var(--ink-3); }
-  .mnav-panel a[aria-current='page'] { color: var(--red-ink); }
+  .mnav-panel a[aria-current='page'], .mnav-panel a[aria-current='location'] { color: var(--red-ink); }
   .mnav-cta { width: 100%; }
   @media (prefers-reduced-motion: no-preference) {
     .mnav[open] .mnav-panel { animation: drop 260ms var(--ease-out); }
@@ -181,4 +182,13 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
     .header-inner { min-height: 64px; }
     .brand :global(.logo) { height: 40px; }
   }
+  /* Lesefortschritt: dünner Balken in Baden-Gelb/-Rot am unteren Rand der Kopfzeile (scroll-getrieben, ohne JS) */
+  .scroll-progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; transform-origin: 0 50%; transform: scaleX(0);
+    background: linear-gradient(90deg, var(--brand-yellow) 0 70%, var(--brand-red)); pointer-events: none; }
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .scroll-progress { animation: scroll-progress linear both; animation-timeline: scroll(root); }
+    }
+  }
+  @keyframes scroll-progress { to { transform: scaleX(1); } }
 </style>

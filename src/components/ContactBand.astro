@@ -27,7 +27,7 @@ const {
       <div class="cband-actions">
         <a class="btn cband-btn" href={mailto(subject)}><Icon name="mail" /> {COMPANY.email}</a>
         <a class="btn btn--secondary cband-btn tel" href={COMPANY.mobileHref}><Icon name="phone" /> {COMPANY.mobile}</a>
-        <p class="cband-addr"><Icon name="pin" /><span>{COMPANY.street}, {COMPANY.zip}&nbsp;{COMPANY.city}{lang === 'en' && ', Germany'}&nbsp;·&nbsp;<a href="/kontakt/#anfahrt" hreflang={lang === 'en' ? 'de' : undefined}>{lang === 'en' ? 'Directions (German)' : 'Anfahrt'}</a></span></p>
+        <p class="cband-addr"><Icon name="pin" /><span>{COMPANY.street}, {COMPANY.zip}&nbsp;{COMPANY.city}{lang === 'en' && ', Germany'}&nbsp;·&nbsp;<a href="/#anfahrt" hreflang={lang === 'en' ? 'de' : undefined}>{lang === 'en' ? 'Directions (German)' : 'Anfahrt'}</a></span></p>
       </div>
     </div>
   </div>

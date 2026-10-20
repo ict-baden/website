@@ -1,22 +1,20 @@
 ---
-import Base from '../layouts/Base.astro';
-import PageHero from '../components/PageHero.astro';
-import Anfahrt from '../components/Anfahrt.astro';
-import Icon from '../components/Icon.astro';
-import { COMPANY, mailto } from '../config';
+// Abschnitt „Kontakt“ des One-Pagers (früher /kontakt/), mit interaktiver Anfahrt
+import Anfahrt from '../Anfahrt.astro';
+import Icon from '../Icon.astro';
+import { COMPANY, mailto } from '../../config';
 ---
-<Base
-  title="Kontakt und Anfahrt"
-  description="Kontakt zur ICT Baden GmbH in Karlsruhe-Durlach: E-Mail, Telefon, Profile und ausführliche Anfahrtsbeschreibung mit Karte und PDF."
-  scripts={['anfahrt.js']}
->
-  <PageHero eyebrow="Kontakt" title="Kontakt" crumbs={[{ label: 'Kontakt' }]}>
-    <p class="lead to">{COMPANY.name}<br />z.Hd. {COMPANY.contactPerson}</p>
-  </PageHero>
-
+<section class="section kontakt" id="kontakt" aria-labelledby="kontakt-titel">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Kontakt</p>
+      <h2 id="kontakt-titel">Sprechen wir über Ihr Projekt.</h2>
+      <p class="lead to">{COMPANY.name}<br />z.Hd. {COMPANY.contactPerson}</p>
+    </div>
+  </div>
   <div class="container kgrid">
     <section class="kcard kcard--main reveal" aria-labelledby="k-post">
-      <h2 id="k-post">Persönlich und per Post</h2>
+      <h3 id="k-post">Persönlich und per Post</h3>
       <dl class="kfacts">
         <div>
           <dt><Icon name="pin" /> Adresse</dt>
@@ -42,7 +40,7 @@ import { COMPANY, mailto } from '../config';
     </section>
 
     <section class="kcard reveal" aria-labelledby="k-profile">
-      <h2 id="k-profile">Profile</h2>
+      <h3 id="k-profile">Profile</h3>
       <ul class="profiles" role="list">
         <li>
           <a href="https://www.freelance.de/Freiberufler/91924" rel="noopener">
@@ -69,24 +67,21 @@ import { COMPANY, mailto } from '../config';
     </section>
   </div>
 
-  <section class="section anfahrt" id="anfahrt" aria-labelledby="k-anfahrt">
-    <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Anfahrt</p>
-        <h2 id="k-anfahrt">So finden Sie uns</h2>
-      </div>
 
-      <Anfahrt />
-
+  <div class="container anfahrt" id="anfahrt">
+    <div class="section-head reveal anf-head">
+      <p class="eyebrow">Anfahrt</p>
+      <h3 id="k-anfahrt" class="h2">So finden Sie uns</h3>
     </div>
-  </section>
-</Base>
+    <Anfahrt />
+  </div>
+</section>
 
 <style>
   .to { margin-top: var(--s-5); color: var(--ink); }
   .kgrid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: var(--s-5); }
   .kcard { padding: clamp(1.4rem, 1rem + 1.5vw, 2.4rem); border: 1px solid var(--line); border-radius: var(--r-xl); background: var(--bg-elev); box-shadow: var(--shadow-sm); }
-  .kcard h2 { font-size: var(--fs-xl); margin-bottom: var(--s-5); }
+  .kcard h3 { font-size: var(--fs-xl); margin-bottom: var(--s-5); }
   .kfacts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); margin: 0 0 var(--s-6); }
   .kfacts dt { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--ink-3); font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; }
   .kfacts dt :global(.icon) { width: 1rem; height: 1rem; }
@@ -115,4 +110,6 @@ import { COMPANY, mailto } from '../config';
     .kgrid { grid-template-columns: minmax(0, 1fr); }
   }
   @media (max-width: 480px) { .kfacts { grid-template-columns: minmax(0, 1fr); } }
+  .anfahrt { margin-top: var(--s-9); }
+  .anf-head .h2 { font-size: var(--fs-2xl, 2rem); }
 </style>

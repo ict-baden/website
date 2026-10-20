@@ -1,4 +1,4 @@
-// Allgemeine Bedienung: Umschalter Hell/Dunkel, mobiles Menü.
+// Allgemeine Bedienung: Umschalter Hell/Dunkel, mobiles Menü, Markierung des sichtbaren Abschnitts im One-Pager.
 (function () {
   'use strict';
   var root = document.documentElement;
@@ -62,6 +62,31 @@
     }
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  // One-Pager: der Navigationspunkt des Abschnitts, der gerade im Bild ist, wird markiert (aria-current="location");
+  // ein Klick im mobilen Menü schließt es
+  function spy() {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-header a[href^="/#"]'));
+    var sections = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(2)); }).filter(Boolean);
+    var mnav = document.querySelector('[data-mnav]');
+    links.forEach(function (a) { a.addEventListener('click', function () { if (mnav) mnav.open = false; }); });
+    if (!sections.length || !('IntersectionObserver' in window)) return;
+    var visible = {};
+    function mark() {
+      var best = null;
+      sections.forEach(function (s) { if (visible[s.id] && (!best || visible[s.id] > visible[best])) best = s.id; });
+      links.forEach(function (a) {
+        if (best && a.getAttribute('href') === '/#' + best) a.setAttribute('aria-current', 'location');
+        else if (a.getAttribute('aria-current') === 'location') a.removeAttribute('aria-current');
+      });
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting ? e.intersectionRatio : 0; });
+      mark();
+    }, { rootMargin: '-35% 0px -45% 0px', threshold: [0, 0.01, 0.25, 0.5, 0.75, 1] });
+    sections.forEach(function (s) { io.observe(s); });
+  }
+
+  function start() { init(); spy(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();

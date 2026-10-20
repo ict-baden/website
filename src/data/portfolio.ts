@@ -27,7 +27,7 @@ export const TOPICS: Topic[] = [
     icon: 'protocol',
     items: [
       ['OPC-UA und Classic'],
-      ['Modbus TCP – ', { t: 'ModbusExplorer (kostenlos)', href: '/downloads/#modbus' }],
+      ['Modbus TCP – ', { t: 'ModbusExplorer (kostenlos)', href: '#modbus' }],
       ['IEC 60870-5-101 / 104'],
     ],
   },
