@@ -6,7 +6,8 @@
 import Icon from './Icon.astro';
 import { COMPANY } from '../config';
 
-const navTarget = `${COMPANY.navAddress}, ${COMPANY.zip} ${COMPANY.city}`;
+// Die Kartendienste und „Adresse kopieren“ zeigen auf die Anschrift (Seboldstraße 9), nicht auf die Hofeinfahrt
+const navTarget = `${COMPANY.street}, ${COMPANY.zip} ${COMPANY.city}`;
 const q = encodeURIComponent(navTarget);
 const links = [
   { label: 'Google Maps', href: `https://www.google.com/maps/dir/?api=1&destination=${q}` },
@@ -74,7 +75,12 @@ const modes = [
 
   <div class="anf-grid">
     <figure class="anf-map">
-      <svg viewBox="0 0 966 540" role="img" aria-labelledby="anf-map-title">
+      <div class="anf-view" role="group" aria-label="Ansicht" hidden data-views>
+        <button type="button" class="anf-vb" aria-pressed="true" data-view="plan">Plan</button>
+        <button type="button" class="anf-vb" aria-pressed="false" data-view="sat">Luftbild</button>
+      </div>
+      <div class="anf-stage">
+      <svg viewBox="0 0 966 540" role="img" aria-labelledby="anf-map-title" class="anf-plan-svg">
         <title id="anf-map-title">Lageplan: A5 mit Ausfahrt KA-Durlach, B10 Durlacher Allee mit den Straßenbahnlinien 1 und 2, Haltestellen Auer Straße und Friedrichschule, Bahnhof Karlsruhe-Durlach, Pforzheimer Straße, Pfinzstraße, Zur Gießerei mit Parkplatz und dem ICT-Gebäude an der Seboldstraße.</title>
         <defs>
           <pattern id="anf-grid" width="24" height="24" patternUnits="userSpaceOnUse">
@@ -179,6 +185,30 @@ const modes = [
           <circle r="5" class="g-mover-d" />
         </g>
       </svg>
+      <!-- Luftbild (DOP20 des LGL, Datenlizenz Deutschland – Namensnennung 2.0), lädt erst beim Umschalten -->
+      <svg viewBox="0 0 966 540" role="img" aria-label="Luftbild der Umgebung: ICT Baden in der Seboldstraße 9 und der Bahnhof Karlsruhe-Durlach" class="anf-sat" data-sat>
+        <g class="s-zoom">
+          <image width="966" height="540" data-src="/media/kontakt/luftbild-1932.webp" />
+          <!-- im Zoom mitbewegt, damit die Markierung auf dem Bahnhof bleibt -->
+  <g transform="translate(204 148)" class="s-mark">
+          <circle r="9" class="s-dot" /><circle r="16" class="s-ring" />
+          <g transform="translate(16 -30)"><rect width="196" height="30" rx="15" class="s-tag" /><text x="14" y="20" class="s-tag-t">Bahnhof Karlsruhe-Durlach</text></g>
+        </g>
+        </g>
+        <rect width="966" height="540" class="s-shade" />
+        <g transform="translate(621 239)" class="s-ict">
+          <circle r="30" class="g-pulse s-pulse" />
+          <circle r="30" class="g-pulse s-pulse g-pulse--2" />
+          <g class="s-pin"><path d="M 0 0 C -14 -16, -20 -24, -20 -32 A 20 20 0 0 1 20 -32 C 20 -24, 14 -16, 0 0 Z" class="g-pin" /><text y="-28" class="s-pin-t">ICT</text></g>
+          <g transform="translate(26 -64)"><rect width="214" height="48" rx="12" class="s-card" /><text x="14" y="21" class="s-card-h">ICT Baden GmbH</text><text x="14" y="38" class="s-card-t">Seboldstraße 9, 76227 Karlsruhe</text></g>
+        </g>
+        <g transform="translate(24 508)" class="s-scale">
+          <rect x="-8" y="-20" width="142" height="30" rx="6" class="s-scale-bg" />
+          <g class="s-scale-z"><path d="M 0 0 H 84 M 0 -5 V 5 M 84 -5 V 5" class="s-scale-l" /></g><text x="92" y="4" class="s-scale-t">100 m</text>
+        </g>
+      </svg>
+      </div>
+      <p class="anf-credit" hidden data-credit>Luftbild: <a href="https://www.lgl-bw.de" rel="noopener">LGL-BW</a> (2026), <a href="https://www.govdata.de/dl-de/by-2-0" rel="noopener">Datenlizenz Deutschland – Namensnennung – Version 2.0</a></p>
       <figcaption class="anf-legend">
         <span><i class="lg lg-ride"></i> Fahrt</span>
         <span><i class="lg lg-walk"></i> zu Fuß</span>
@@ -235,7 +265,45 @@ const modes = [
 
   .anf-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.85fr); gap: var(--s-6); align-items: start; }
   .anf-map { margin: 0; border-radius: var(--r-xl); overflow: hidden; background: var(--map-bg); box-shadow: var(--shadow-md); border: 1px solid rgb(255 255 255 / 0.06); }
-  .anf-map svg { display: block; width: 100%; height: auto; }
+  .anf-map { position: relative; }
+  .anf-stage { display: grid; }
+  .anf-stage > svg { grid-area: 1 / 1; display: block; width: 100%; height: auto; }
+  .anf-sat { opacity: 0; visibility: hidden; transition: opacity 600ms var(--ease-out), visibility 0s linear 600ms; background: #111; }
+  .anf.is-sat .anf-sat { opacity: 1; visibility: visible; transition: opacity 600ms var(--ease-out); }
+  .anf-view { position: absolute; z-index: 2; top: 14px; right: 14px; display: flex; padding: 4px; border-radius: 999px; background: rgb(17 17 17 / 0.72); backdrop-filter: blur(8px); border: 1px solid rgb(255 255 255 / 0.14); }
+  .anf-vb { padding: 0.4rem 0.95rem; border: 0; border-radius: 999px; background: transparent; color: #e5e5e5; font: inherit; font-size: var(--fs-sm); font-weight: 650; cursor: pointer; }
+  .anf-vb[aria-pressed='true'] { background: var(--brand-yellow); color: #111111; }
+  .anf-credit { margin: 0; padding: var(--s-2) var(--s-5) var(--s-3); background: #161616; color: #9a9a9a; font-size: 11px; }
+  .anf-credit a { color: #bdbdbd; }
+  .s-zoom { transform-box: view-box; transform-origin: 621px 239px; transition: transform 7s cubic-bezier(0.22, 1, 0.36, 1); }
+  .anf.is-sat .s-zoom { transform: scale(1.3); }
+  .s-shade { fill: rgb(0 0 0 / 0.12); }
+  .s-mark, .s-ict { opacity: 0; transition: opacity 500ms var(--ease-out) 900ms; }
+  .anf.is-sat .s-mark, .anf.is-sat .s-ict { opacity: 1; }
+  .s-dot { fill: #2563eb; stroke: #fff; stroke-width: 3; }
+  .s-ring { fill: none; stroke: #fff; stroke-width: 2; opacity: 0.7; }
+  .s-tag { fill: rgb(17 17 17 / 0.82); }
+  .s-tag-t { fill: #fff; font-size: 13px; font-weight: 650; }
+  .s-pin { transform-box: fill-box; transform-origin: 50% 100%; }
+  .anf.is-sat .s-pin { animation: anf-drop 700ms cubic-bezier(0.34, 1.56, 0.64, 1) 900ms both; }
+  @keyframes anf-drop { from { transform: translateY(-40px) scale(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
+  .s-pin .g-pin { fill: var(--brand-red); stroke: #fff; stroke-width: 2.5; }
+  .s-pin-t { fill: #fff; font-size: 11px; font-weight: 900; text-anchor: middle; }
+  .anf.is-sat .s-pulse { animation: anf-pulse 2.2s var(--ease-out) 1.4s infinite; }
+  .anf.is-sat .s-pulse.g-pulse--2 { animation-delay: 2.5s; }
+  .s-card { fill: rgb(17 17 17 / 0.86); stroke: var(--brand-yellow); stroke-width: 1.5; }
+  .s-card-h { fill: var(--brand-yellow); font-size: 14px; font-weight: 800; }
+  .s-card-t { fill: #fff; font-size: 12.5px; }
+  .s-scale-bg { fill: rgb(17 17 17 / 0.7); }
+  .s-scale-l { stroke: #fff; stroke-width: 2.5; fill: none; }
+  /* Der Maßstab wächst mit dem Zoom (gleiche Dauer und Kurve), damit 100 m stimmen */
+  .s-scale-z { transform-box: fill-box; transform-origin: 0 50%; transition: transform 7s cubic-bezier(0.22, 1, 0.36, 1); }
+  .anf.is-sat .s-scale-z { transform: scaleX(1.3); }
+  .s-scale-t { transition: transform 7s cubic-bezier(0.22, 1, 0.36, 1); }
+  .anf.is-sat .s-scale-t { transform: translateX(25px); }
+  .anf.is-sat .anf-legend { display: none; }
+  .s-scale-t { fill: #fff; font-size: 12px; font-weight: 650; }
+  @media (prefers-reduced-motion: reduce) { .anf.is-sat .s-zoom, .anf.is-sat .s-scale-z, .anf.is-sat .s-scale-t { transform: none; } }
 
   .g-bg { fill: var(--map-bg); }
   .g-grid { fill: none; stroke: rgb(255 255 255 / 0.035); stroke-width: 1; }

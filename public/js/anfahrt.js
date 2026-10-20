@@ -89,7 +89,12 @@
   }
 
   tabs.forEach(function (t, i) {
-    t.addEventListener('click', function () { show(t.dataset.mode); });
+    t.addEventListener('click', function () {
+      // Ein Weg wird auf dem Plan gezeigt: aus dem Luftbild zurück
+      var plan = root.querySelector('[data-view="plan"]');
+      if (root.classList.contains('is-sat') && plan) plan.click();
+      show(t.dataset.mode);
+    });
     t.addEventListener('keydown', function (ev) {
       var d = ev.key === 'ArrowRight' ? 1 : ev.key === 'ArrowLeft' ? -1 : 0;
       if (!d) return;
@@ -109,6 +114,23 @@
         var old = l.textContent;
         l.textContent = 'Kopiert';
         setTimeout(function () { l.textContent = old; }, 1800);
+      });
+    });
+  }
+
+  // Ansicht Plan / Luftbild; das Luftbild lädt erst beim ersten Umschalten
+  var views = root.querySelector('[data-views]');
+  var credit = root.querySelector('[data-credit]');
+  if (views) {
+    views.hidden = false;
+    var img = root.querySelector('[data-sat] image');
+    views.querySelectorAll('[data-view]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var sat = b.dataset.view === 'sat';
+        if (sat && !img.getAttribute('href')) img.setAttribute('href', img.dataset.src);
+        views.querySelectorAll('[data-view]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        root.classList.toggle('is-sat', sat);
+        if (credit) credit.hidden = !sat;
       });
     });
   }
