@@ -103,7 +103,7 @@ export const isPortrait = (s: Shot) => s.light.height > s.light.width;
 export const lineAnchor = (id: string) => `/produkte/#linie-${id}`;
 
 /** Reihenfolge der großen Karten auf der Startseite: alle veröffentlichten Produkte, die erste Karte breit. */
-const FEATURED = ['vitrine', 'lupe', 'zutritt', 'riegel', 'enterprisebrowser', 'industrial-keyboard', 'plakette'];
+const FEATURED = ['vitrine', 'lupe', 'zutritt', 'riegel', 'enterprisebrowser', 'industrial-keyboard'];
 export const featured = [
   ...FEATURED.map((slug) => products.find((p) => p.slug === slug)).filter((p): p is Product => Boolean(p)),
   ...products.filter((p) => !FEATURED.includes(p.slug)),
