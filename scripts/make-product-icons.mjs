@@ -21,8 +21,9 @@ const problems = [];
 // Prüfen
 
 const HEX = /^#[0-9a-f]{6}$/;
+// Nur veröffentlichte Produkte (products.json) bekommen ein Symbol; die übrigen Entwürfe bleiben unbenutzt
+const ACTIVE = Object.fromEntries(Object.entries(ICON_SPECS).filter(([id]) => byId.has(id)));
 for (const [id, spec] of Object.entries(ICON_SPECS)) {
-  if (!byId.has(id)) problems.push(`${id}: kein Produkt mit dieser id in products.json`);
   if (!spec.colors?.every((c) => HEX.test(c))) problems.push(`${id}: Farben müssen #rrggbb in Kleinbuchstaben sein`);
   if (/<(?!\/?(path|circle|rect|g)\b)/.test(spec.symbol)) problems.push(`${id}: Symbol enthält andere Elemente als path, circle, rect, g`);
   if (/<text|href|style=/i.test(spec.symbol)) problems.push(`${id}: keine Schrift, Verweise oder style-Attribute im Symbol`);
@@ -62,14 +63,14 @@ if (problems.length) {
 // Schreiben
 
 mkdirSync(OUT, { recursive: true });
-for (const f of readdirSync(OUT)) if (f.endsWith('.svg') && !ICON_SPECS[f.slice(0, -4)]) rmSync(join(OUT, f));
-for (const [id, spec] of Object.entries(ICON_SPECS)) writeFileSync(join(OUT, `${id}.svg`), iconSvg(id, spec));
+for (const f of readdirSync(OUT)) if (f.endsWith('.svg') && !ACTIVE[f.slice(0, -4)]) rmSync(join(OUT, f));
+for (const [id, spec] of Object.entries(ACTIVE)) writeFileSync(join(OUT, `${id}.svg`), iconSvg(id, spec));
 const n = writeProductColors(data.products);
 
 // Tabelle der Farbpaare im README (zwischen den Markierungen)
 const linie = new Map(data.linien.map((l) => [l.id, l.name]));
 const rows = data.products.map((p) => {
-  const spec = ICON_SPECS[p.id];
+  const spec = ACTIVE[p.id];
   const c = productColors(p);
   const source = spec ? (spec.repoLogo ? 'generated, symbol from the repo logo' : 'generated') : p.media.logo ? 'own icon from the repo' : '–';
   const sw = (hex) => (hex ? `\`${hex}\`` : '–');
@@ -86,7 +87,7 @@ if (readme.includes(START) && readme.includes(END)) {
 } else {
   console.warn('README: Markierungen für die Farbtabelle fehlen, Tabelle nicht geschrieben');
 }
-console.log(`${Object.keys(ICON_SPECS).length} Produktsymbole → src/assets/product-icons/, ${n} Farbpaare → src/styles/product-colors.css`);
+console.log(`${Object.keys(ACTIVE).length} Produktsymbole → src/assets/product-icons/, ${n} Farbpaare → src/styles/product-colors.css`);
 
 // ---------------------------------------------------------------------------------------------
 // Kontaktbogen (optional)
@@ -96,7 +97,7 @@ if (sheetArg > 0) {
   const { launch } = await import('./lib/browser.mjs');
   const uri = (s) => 'data:image/svg+xml;base64,' + Buffer.from(s).toString('base64');
   const items = data.products.map((p) => {
-    const spec = ICON_SPECS[p.id];
+    const spec = ACTIVE[p.id];
     if (spec) return [p.name, uri(iconSvg(p.id, spec))];
     const file = p.media.logo && join(ROOT, 'public', p.media.logo);
     if (!file || !existsSync(file)) return [p.name, ''];

@@ -47,6 +47,18 @@ jobs:
       - name: HTML-Prüfung (html-validate inkl. Barrierefreiheitsregeln)
         run: npm run check:html
 
+      - name: SEO-Prüfung (Titel, Beschreibungen, hreflang, JSON-LD, Sitemap, robots.txt, llms.txt)
+        run: npm run check:seo
+
+      - name: Livegang-Modus bauen und prüfen (robots.txt, kanonische Adressen auf ict-baden.de)
+        env:
+          SITE_STAGING: "0"
+          SITE_URL: https://ict-baden.de
+        run: |
+          npx astro build --outDir dist-live
+          node scripts/check-seo.mjs dist-live
+          node scripts/check-links.mjs dist-live
+
       - name: Barrierefreiheit (axe-core, hell/dunkel, 1440/390 px)
         # Nutzt das auf dem Runner installierte Google Chrome
         run: npm run check:a11y
@@ -60,11 +72,17 @@ jobs:
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
           REV="$(git rev-parse --short HEAD)"
-          docker build -f deploy/Dockerfile --build-arg REV="$REV" --build-arg SITE_STAGING="$SITE_STAGING"             -t "$IMAGE:latest" -t "$IMAGE:$REV" .
+          docker build -f deploy/Dockerfile --build-arg REV="$REV" --build-arg SITE_STAGING="$SITE_STAGING" \
+            -t "$IMAGE:latest" -t "$IMAGE:$REV" .
           docker run --rm -d --name probe -p 8080:80 "$IMAGE:$REV"
           for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8080/health >/dev/null && break; sleep 1; done
           test "$(curl -fsS http://127.0.0.1:8080/version.txt)" = "$REV"
           curl -fsS -o /dev/null http://127.0.0.1:8080/
+          # Konfiguration wirkt: Weiterleitungen und noindex-Kopfzeile der Vorschau
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/produkte/industrialkeyboard)" = 301
+          test "$(curl -s -o /dev/null -w '%{http_code}' 'http://127.0.0.1:8080/index.html?page=contact')" = 301
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/produkte/vitrine/)" = 200
+          if [ "$SITE_STAGING" = "1" ]; then curl -sI http://127.0.0.1:8080/ | grep -qi '^x-robots-tag: *noindex'; fi
           docker rm -f probe
           docker push "$IMAGE:$REV"
           docker push "$IMAGE:latest"

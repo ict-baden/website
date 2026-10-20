@@ -2,10 +2,14 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
+import StatusBadge from '../components/StatusBadge.astro';
+import ProductIcon from '../components/product/ProductIcon.astro';
+import { products, productUrl } from '../lib/products';
+import { isReleased, pageFor } from '../lib/produktseiten';
 ---
 <Base
   title="Downloads"
-  description="Kostenlose Programme von ICT Baden: der ModbusExplorer für Modbus TCP und der Online-Rechner für die Pulswertigkeit von Energiezählern."
+  description="Kostenlose Software von ICT Baden: unsere Produkte wie Vitrine, Lupe und Zutritt, der ModbusExplorer für Modbus TCP und der Rechner für die Pulswertigkeit von Energiezählern."
 >
   <PageHero eyebrow="Downloads" title="Downloads und Werkzeuge" crumbs={[{ label: 'Downloads' }]}>
     <div class="terms">
@@ -14,6 +18,28 @@ import Icon from '../components/Icon.astro';
       <p>Es wird keine Garantie für die Funktion gegeben.</p>
     </div>
   </PageHero>
+
+  <section class="container dl-products" id="produkte" aria-labelledby="dl-produkte">
+    <h2 id="dl-produkte">Software-Produkte</h2>
+    <p class="dl-products-lead">Alle Produkte sind kostenlos unter der MIT-Lizenz. Downloads und Quellcode werden mit der Veröffentlichung des jeweiligen Produkts hier verlinkt.</p>
+    <ul class="dl-plist" role="list">
+      {products.map((p) => {
+        const page = pageFor(p);
+        return (
+          <li class="dl-pitem">
+            <ProductIcon product={p} size={40} uid="-dl" />
+            <a class="dl-pname" href={productUrl(p)}><strong>{p.name}</strong><span>{p.kind}</span></a>
+            <StatusBadge product={p} />
+            {page.download.public && page.download.url ? (
+              <a class="btn btn--sm" href={page.download.url} rel="noopener"><Icon name="download" /> Download</a>
+            ) : (
+              <span class="dl-pnote">{isReleased(p) ? 'Download folgt' : 'noch nicht veröffentlicht'}</span>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  </section>
 
   <div class="container dl-grid">
     <section class="dl reveal" id="modbus" aria-labelledby="dl-modbus">
@@ -53,6 +79,21 @@ import Icon from '../components/Icon.astro';
 </Base>
 
 <style>
+  .dl-products { margin-bottom: var(--s-8); }
+  .dl-products h2 { font-size: var(--fs-2xl); }
+  .dl-products-lead { margin: var(--s-3) 0 var(--s-5); max-width: 70ch; color: var(--ink-2); }
+  .dl-plist { display: grid; gap: 0; padding: 0; margin: 0; list-style: none; border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+  .dl-pitem { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; gap: var(--s-4); padding: var(--s-3) var(--s-5); border-bottom: 1px solid var(--line); background: var(--bg-elev); }
+  .dl-pitem:last-child { border-bottom: 0; }
+  .dl-pitem :global(.picon) { --picon-size: 40px; }
+  .dl-pname { display: grid; color: var(--ink); text-decoration: none; }
+  .dl-pname span { color: var(--ink-3); font-size: var(--fs-sm); }
+  .dl-pname:hover strong { text-decoration: underline; text-decoration-color: var(--link-line); }
+  .dl-pnote { color: var(--ink-3); font-size: var(--fs-sm); white-space: nowrap; }
+  @media (max-width: 640px) {
+    .dl-pitem { grid-template-columns: auto minmax(0, 1fr); row-gap: var(--s-2); }
+    .dl-pitem > :global(.badge), .dl-pnote, .dl-pitem > .btn { grid-column: 2; justify-self: start; }
+  }
   .terms { display: grid; gap: 0.15rem; margin-top: var(--s-5); color: var(--ink-2); font-size: var(--fs-lg); }
   .dl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); }
   .dl {

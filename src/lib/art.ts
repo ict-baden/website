@@ -180,7 +180,8 @@ function neu(R: Rand): string {
   return out;
 }
 
-const MOTIFS: Record<string, (R: Rand) => string> = { explorer, labor, ot, server, android, service, neu };
+// codes (Barcodes & Etiketten) nutzt das Strichcode-Motiv
+const MOTIFS: Record<string, (R: Rand) => string> = { explorer, labor, ot, server, android, codes: android, service, neu };
 
 /** SVG-Markup des Titelmotivs (16:10). */
 export function coverArt(slug: string, linie: string, uid = ""): string {

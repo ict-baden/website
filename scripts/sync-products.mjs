@@ -6,14 +6,16 @@
 //
 // Produkt-Repos werden in allen angegebenen Ordnern und immer auch neben ict-baden-projekte gesucht
 // (z. B. ../lupe); bei mehreren Treffern gilt der zuerst angegebene Ordner.
-// Übernommen werden nur öffentliche Felder (siehe scripts/lib/public-guard.mjs). Das Ergebnis wird
-// eingecheckt, damit der Build ohne Zugriff auf die privaten Repos funktioniert.
+// Übernommen werden nur öffentliche Felder (siehe scripts/lib/public-guard.mjs) und nur die Produkte aus
+// "veroeffentlicht" in scripts/public-overrides.json. Das Ergebnis wird eingecheckt, damit der Build ohne
+// Zugriff auf die privaten Repos funktioniert.
 
+import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
-import { findLeaks } from './lib/public-guard.mjs';
+import { findCompetitorMentions, findLeaks } from './lib/public-guard.mjs';
 import { writeProductColors } from './lib/product-colors.mjs';
 import { PUBLIC_SECTIONS, sentences, splitSections, toBlocks } from './lib/notes.mjs';
 
@@ -49,7 +51,19 @@ if (!existsSync(projekteFile)) {
 }
 
 const source = JSON.parse(readFileSync(projekteFile, 'utf8'));
-const overrides = JSON.parse(readFileSync(join(ROOT, 'scripts', 'public-overrides.json'), 'utf8')).products ?? {};
+const overrideFile = JSON.parse(readFileSync(join(ROOT, 'scripts', 'public-overrides.json'), 'utf8'));
+const overrides = overrideFile.products ?? {};
+// Nur diese Produkte erscheinen auf der Website (eine Stelle, siehe README "Product selection")
+const published = overrideFile.veroeffentlicht ?? [];
+if (!published.length) {
+  console.error('scripts/public-overrides.json: Liste "veroeffentlicht" fehlt oder ist leer');
+  process.exit(2);
+}
+const missing = published.filter((id) => !source.projekte.some((p) => p.id === id));
+if (missing.length) {
+  console.error(`In projekte.json fehlen veröffentlichte Produkte: ${missing.join(', ')}`);
+  process.exit(2);
+}
 const mediaConfig = JSON.parse(readFileSync(join(ROOT, 'scripts', 'product-media.json'), 'utf8')).repos ?? {};
 const previous = existsSync(OUT_JSON) ? JSON.parse(readFileSync(OUT_JSON, 'utf8')) : { products: [] };
 const previousBySlug = new Map(previous.products.map((p) => [p.slug, p]));
@@ -127,6 +141,16 @@ function readmeName(readme) {
   if (heading) return heading[1].trim();
   const alt = /<img[^>]+alt="([^"–-]{2,40})\s+[–-]/.exec(readme);
   return alt ? alt[1].trim() : null;
+}
+
+/** Datum des letzten Commits eines Repos (JJJJ-MM-TT) oder null. */
+function lastCommitDate(dir) {
+  try {
+    const d = execFileSync('git', ['-C', dir, 'log', '-1', '--format=%cs'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+    return /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : null;
+  } catch {
+    return null;
+  }
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -231,7 +255,7 @@ async function buildMedia(dir, slug, productName, cfg) {
   const outDir = join(OUT_MEDIA, slug);
   rmSync(outDir, { recursive: true, force: true });
   mkdirSync(outDir, { recursive: true });
-  const media = { logo: null, colors: null, banner: null, demo: null, screenshots: [], galleryNote: cfg.galleryNote ?? null, source: [] };
+  const media = { logo: null, colors: null, banner: null, demo: null, screenshots: [], galleryNote: cfg.galleryNote ?? null, galleryNoteEn: cfg.galleryNoteEn ?? null, source: [] };
 
   const logo = join(assets, 'logo.svg');
   // App-Symbol als PNG (Android-Apps): erst aus der Doku, sonst das Play-Store-Symbol der App
@@ -255,12 +279,14 @@ async function buildMedia(dir, slug, productName, cfg) {
 
   const banner = join(assets, 'banner.png');
   if (cfg.banner === true && existsSync(banner)) {
-    media.banner = { ...(await webpVariants(banner, outDir, 'banner', BANNER_WIDTHS, 80)), alt: cfg.bannerAlt ?? `${productName}` };
+    media.banner = { ...(await webpVariants(banner, outDir, cfg.bannerFile ? slugify(cfg.bannerFile) : 'banner', BANNER_WIDTHS, 80)), alt: cfg.bannerAlt ?? `${productName}`, altEn: cfg.bannerAltEn ?? null };
     media.source.push('banner.png');
   }
 
-  if (cfg.demo?.file && existsSync(join(assets, cfg.demo.file))) {
-    const gif = join(assets, cfg.demo.file);
+  // Demo-Animation: aus dem Produkt-Repo (demo.file) oder aus diesem Repo (demo.local, z. B. scripts/media/…)
+  const demoPath = cfg.demo?.local ? join(ROOT, cfg.demo.local) : cfg.demo?.file ? join(assets, cfg.demo.file) : null;
+  if (demoPath && existsSync(demoPath)) {
+    const gif = demoPath;
     const meta = await sharp(gif, { animated: true }).metadata();
     const height = meta.pageHeight ?? meta.height;
     await sharp(gif, { animated: true }).webp({ quality: 72, effort: 6 }).toFile(join(outDir, 'demo.webp'));
@@ -273,7 +299,7 @@ async function buildMedia(dir, slug, productName, cfg) {
       alt: cfg.demo.alt,
       caption: cfg.demo.caption ?? null,
     };
-    media.source.push(cfg.demo.file);
+    media.source.push(cfg.demo.local ?? cfg.demo.file);
   }
 
   let shots = cfg.screenshots;
@@ -296,9 +322,12 @@ async function buildMedia(dir, slug, productName, cfg) {
       continue;
     }
     const darkFile = findShot(dir, s.name, 'dark');
-    const light = await webpVariants(lightFile, outDir, `${s.name}-light`, SHOT_WIDTHS);
-    const dark = darkFile ? await webpVariants(darkFile, outDir, `${s.name}-dark`, SHOT_WIDTHS) : null;
-    media.screenshots.push({ name: s.name, title: s.title, caption: s.caption ?? null, alt: s.alt, light, dark });
+    // Dateiname: sprechend, wenn kuratiert ("file", z. B. vitrine-transparente-bildschirmsperre), sonst der Name im Repo
+    const base = s.file ? slugify(s.file) : s.name;
+    const light = await webpVariants(lightFile, outDir, `${base}-light`, SHOT_WIDTHS);
+    const dark = darkFile ? await webpVariants(darkFile, outDir, `${base}-dark`, SHOT_WIDTHS) : null;
+    const en = s.en ? { title: s.en.title, caption: s.en.caption ?? null, alt: s.en.alt } : null;
+    media.screenshots.push({ name: s.name, title: s.title, caption: s.caption ?? null, alt: s.alt, en, light, dark });
     media.source.push(`${relative(docs, lightFile).split('\\').join('/')}${dark ? ' (+ dark)' : ''}`);
   }
   return media;
@@ -307,18 +336,19 @@ async function buildMedia(dir, slug, productName, cfg) {
 // ---------------------------------------------------------------------------------------------
 // Produkte zusammenstellen
 
-const linien = source.linien.map(({ id, name, text }) => ({ id, name, text }));
-const linieIds = new Set(linien.map((l) => l.id));
+// Produktlinien: aus public-overrides.json ("linien"), sonst aus projekte.json; nur Linien mit Produkten bleiben
+const allLinien = (overrideFile.linien ?? source.linien).map(({ id, name, text }) => ({ id, name, text }));
+const linieIds = new Set(allLinien.map((l) => l.id));
 const products = [];
 const report = [];
 const seenSlugs = new Set();
 
-for (const p of source.projekte) {
-  if (!STATUS[p.status]) throw new Error(`${p.id}: unbekannter Status "${p.status}"`);
-  if (!linieIds.has(p.linie)) throw new Error(`${p.id}: unbekannte Linie "${p.linie}"`);
+for (const p of source.projekte.filter((x) => published.includes(x.id))) {
   const rule = overrides[p.id] ?? {};
-  const repoDir = findRepoDir(p.repo);
-  const repoKey = p.repo ? p.repo.split('/').pop().toLowerCase() : null;
+  // Korrekturen aus public-overrides.json (Repo nur für die Suche nach README und Bildern, nie veröffentlicht)
+  const repo = rule.repo ?? p.repo;
+  const repoDir = findRepoDir(repo);
+  const repoKey = repo ? repo.split('/').pop().toLowerCase() : null;
   const cfg = (repoKey && mediaConfig[repoKey]) || {};
 
   // Name: aus der README des Produkt-Repos, sonst aus dem Feld "name" ("Hausmeister (BACnet-Explorer)")
@@ -332,18 +362,18 @@ for (const p of source.projekte) {
     if (squash(fromReadme) !== squash(name)) kind = kind ?? base.name;
     name = fromReadme;
   }
+  if (rule.name) name = rule.name;
   if (cfg.kind) kind = cfg.kind;
   const slug = slugify(name);
   if (seenSlugs.has(slug)) throw new Error(`Doppelter Slug "${slug}" (${p.id})`);
   seenSlugs.add(slug);
 
-  // Öffentlicher Status: wie in projekte.json, außer eine Redaktionsregel setzt ihn mit Begründung zurück
-  // („fertig“ heißt dort oft „v0.1 steht“; „Verfügbar“ auf der Webseite heißt: getestet und für Kunden freigegeben)
-  const statusName = rule.status ?? p.status;
-  if (!STATUS[statusName]) throw new Error(`${p.id}: unbekannter Status "${statusName}" in public-overrides.json`);
-  if (rule.status && !rule.reason) throw new Error(`${p.id}: Status-Regel ohne Begründung`);
-  const status = STATUS[statusName];
-  const version = p.version ? String(p.version) : null;
+  const statusId = rule.status ?? p.status;
+  if (!STATUS[statusId]) throw new Error(`${p.id}: unbekannter Status "${statusId}"`);
+  const status = STATUS[statusId];
+  const version = rule.version ?? (p.version ? String(p.version) : null);
+  const linie = rule.linie ?? p.linie;
+  if (!linieIds.has(linie)) throw new Error(`${p.id}: unbekannte Linie "${linie}"`);
 
   // Notiz: nur Problem, Was es ersetzt (wenn freigegeben) und Umfang v1
   const notePath = join(projektePath, 'notizen', `${p.id}.md`);
@@ -359,7 +389,7 @@ for (const p of source.projekte) {
     }
   }
 
-  const text = applyToText(p.text, rule);
+  const text = applyToText(rule.text ?? p.text, rule);
   // Viele Notizen wiederholen im Abschnitt "Problem" nur den Kurztext – dann entfällt er
   const norm = (s) => s.toLowerCase().replace(/[^a-z0-9äöüß]+/g, ' ').trim();
   if (sections.problem?.length === 1 && sections.problem[0].type === 'p' && norm(text).startsWith(norm(sections.problem[0].text))) {
@@ -369,7 +399,7 @@ for (const p of source.projekte) {
   // Bilder: aus dem Repo, sonst (falls das Repo hier fehlt) vom letzten Lauf übernehmen
   let media = repoDir ? await buildMedia(repoDir, slug, name, cfg) : null;
   let mediaFrom = media ? 'repo' : null;
-  if (!media && p.repo) {
+  if (!media && repo) {
     const prev = previousBySlug.get(slug)?.media;
     if (prev && existsSync(join(OUT_MEDIA, slug))) {
       media = prev;
@@ -386,36 +416,40 @@ for (const p of source.projekte) {
     name,
     kind,
     tagline: cfg.tagline ?? null,
-    linie: p.linie,
-    status: statusName,
+    linie,
+    status: statusId,
     statusKey: status.key,
-    statusLabel: statusName === 'fast-fertig' && version ? `${status.label} ${version}` : status.label,
+    statusLabel: statusId === 'fast-fertig' && version ? `${status.label} ${version}` : status.label,
     version,
+    // Stand: Datum des letzten Commits im Produkt-Repo (Sitemap lastmod, „Stand“ auf der Seite)
+    updated: repoDir ? lastCommitDate(repoDir) : (previousBySlug.get(slug)?.updated ?? null),
     text,
     sections,
     highlights: cfg.highlights ?? [],
     facts: (cfg.facts ?? []).map(([label, value]) => ({ label, value })),
-    media: media ?? { logo: null, colors: null, banner: null, demo: null, screenshots: [], galleryNote: null },
+    media: media ?? { logo: null, colors: null, banner: null, demo: null, screenshots: [], galleryNote: null, galleryNoteEn: null },
   });
   report.push({
     id: p.id,
     slug,
     name,
-    repo: p.repo ? (repoDir ? `gefunden (${basename(repoDir)})` : 'nicht lokal vorhanden') : '–',
+    repo: repo ? (repoDir ? `gefunden (${basename(repoDir)})` : 'nicht lokal vorhanden') : '–',
     media: mediaFrom ? `${mediaFrom}: ${sourceList.join(', ') || 'keine Bilder'}` : 'keine (erzeugtes Motiv)',
   });
 }
 
-// Reihenfolge: Linie wie in projekte.json, darin Reifegrad, dann Nummer
+const linien = allLinien.filter((l) => products.some((p) => p.linie === l.id));
+// Reihenfolge: Linie wie in der Liste, darin Reifegrad, dann Reihenfolge in "veroeffentlicht"
 const linieOrder = new Map(linien.map((l, i) => [l.id, i]));
 products.sort((a, b) =>
   linieOrder.get(a.linie) - linieOrder.get(b.linie) ||
   STATUS[a.status].rank - STATUS[b.status].rank ||
-  a.nr - b.nr);
+  published.indexOf(a.id) - published.indexOf(b.id));
 
 const output = { stand: source.stand ?? null, linien, products };
 
-const leaks = findLeaks(output);
+const approved = new Set(Object.entries(overrides).filter(([, r]) => r.ersetzt === true).map(([id]) => id));
+const leaks = [...findLeaks(output), ...findCompetitorMentions(output, approved)];
 if (leaks.length) {
   console.error('Interne Inhalte gefunden – nichts geschrieben:\n  ' + leaks.join('\n  '));
   process.exit(1);

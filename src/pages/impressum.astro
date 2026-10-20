@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { COMPANY } from '../config';
 ---
-<Base title="Impressum" description="Impressum der ICT Baden GmbH, Seboldstraße 9, 76227 Karlsruhe.">
+<Base title="Impressum" description="Impressum der ICT Baden GmbH, Seboldstraße 9, 76227 Karlsruhe: Geschäftsführer, Handelsregister, Umsatzsteuer-ID und Kontaktdaten.">
   <PageHero eyebrow="Rechtliches" title="Impressum" crumbs={[{ label: 'Impressum' }]} narrow />
 
   <div class="container container--narrow">
@@ -38,9 +38,11 @@ import { COMPANY } from '../config';
 </Base>
 
 <style>
-  .imp { display: grid; gap: var(--s-5); }
+  /* minmax(0, 1fr): bei 320 px wächst die Spalte sonst auf die Breite der Telefonnummer und läuft rechts hinaus */
+  .imp { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-5); }
   .imp-block { display: grid; gap: var(--s-3); padding: clamp(1.25rem, 1rem + 1.5vw, 2.25rem); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg-elev); }
   .imp-block h2 { font-size: var(--fs-lg); }
   .imp-block p { color: var(--ink); line-height: 1.6; }
-  .imp-block .facts { margin-top: var(--s-2); }
+  .imp-block .facts { margin-top: var(--s-2); grid-template-columns: max-content minmax(0, 1fr); }
+  .imp-block .facts dd { overflow-wrap: anywhere; }
 </style>

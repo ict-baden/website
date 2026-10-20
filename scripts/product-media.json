@@ -4,77 +4,116 @@
     "Quelle aller Texte: README und Oberfläche des jeweiligen Repos (englische READMEs sinngemäß übersetzt).",
     "Bildschirmfotos werden unter dem Namen gesucht: docs/assets/screenshots/, docs/assets/ (<name>-light.png + <name>-dark.png)",
     "und docs/images/<name>.png (Android-Apps, nur hell). Repos ohne Eintrag: Logo und Bildschirmfotos werden automatisch erkannt.",
-    "kind (optional) ersetzt die Art unter dem Namen; Banner nur mit banner: true (oft englischer Text)."
+    "kind (optional) ersetzt die Art unter dem Namen; Banner nur mit banner: true (oft englischer Text).",
+    "file (optional): sprechender Dateiname der Bilder (z. B. vitrine-transparente-bildschirmsperre → …-light-1600.webp). en: englischer Titel, Bildunterschrift und Alternativtext für die englische Produktseite (aus der README). Alternativtexte höchstens etwa 150 Zeichen: Produkt, Art und was das Bild zeigt – Einzelheiten in der Bildunterschrift."
   ],
   "repos": {
     "lupe": {
-      "tagline": "QR- und Barcodes lesen",
+      "kind": "QR-Code- und Barcode-Leser für den PC",
+      "tagline": "Jeder Code, von überall.",
       "banner": false,
       "highlights": [
         "Win+Umschalt+Q",
-        "QR · Data Matrix · EAN",
-        "Tippt in jede Anwendung",
+        "Webcam als Handscanner",
+        "22 Code-Formate",
         "Link-Regeln"
       ],
       "facts": [
         [
           "Plattform",
-          "Windows 10 und 11, x64"
+          "Windows 10 (ab 1809) und 11, Linux (x64, arm64; X11 und Wayland), macOS ab 12"
         ],
         [
           "Oberfläche",
-          "Deutsch"
+          "Deutsch und Englisch, folgt der Systemsprache"
         ],
         [
           "Daten",
-          "bleiben auf dem PC, nichts wird ins Internet gesendet"
+          "bleiben auf dem Rechner, nichts wird ins Internet gesendet"
         ],
         [
           "Formate",
-          "22 Code-Formate, darunter QR Code, Data Matrix, Code 128 und EAN"
+          "22 Formate, darunter QR Code, Data Matrix, Code 128, EAN-13 und PDF417"
         ],
         [
           "Lieferform",
-          "MSI für alle Benutzer oder eine einzelne Lupe.exe ohne Installation"
+          "MSI oder einzelne Lupe.exe (Windows), .deb und tar.gz (Linux), Lupe.app (macOS)"
         ]
       ],
-      "galleryNote": "Abbildungen mit Beispieldaten aus dem Demo-Modus.",
+      "galleryNote": "Abbildungen mit Beispieldaten aus dem Demo-Modus (deutsche Oberfläche).",
+      "galleryNoteEn": "Screenshots with sample data from the demo mode (German user interface).",
       "screenshots": [
         {
-          "name": "file",
-          "title": "Dateien und Zwischenablage",
-          "caption": "Bild öffnen, auf die Seite „Datei“ ziehen oder mit Strg+V einfügen. Jeder Code im Bild wird gefunden und nummeriert.",
-          "alt": "Seite Datei: ein Lieferschein mit vier Codes, markiert als 1 QR-Code, 2 Code 128, 3 EAN-13 und 4 Data Matrix, darunter die Liste „4 Codes gefunden“ mit Kopieren und Link öffnen je Zeile."
-        },
-        {
           "name": "selection",
-          "title": "Jeder Bildschirmausschnitt",
+          "file": "lupe-qr-code-vom-bildschirm-scannen",
+          "title": "QR-Code vom Bildschirm scannen",
           "caption": "In jedem Programm Win+Umschalt+Q drücken und ein Rechteck um den Code ziehen – über alle Monitore, auch bei geschlossenem Lupe-Fenster.",
-          "alt": "Auswahl über einem abgedunkelten Standbild des Desktops: eine PDF-Rechnung mit QR-Code, ein blaues Rechteck um den Code und der Hinweis „Rechteck um den Code aufziehen · Klick: ganzer Bildschirm · Esc: abbrechen“."
-        },
-        {
-          "name": "camera",
-          "title": "Webcam",
-          "caption": "Code vor die Kamera halten: Lupe markiert ihn und piept. Derselbe Code wird erst wieder gemeldet, wenn er 3 Sekunden nicht zu sehen war.",
-          "alt": "Seite Kamera: Livebild der Demo-Kamera mit einem QR-Code auf einem Etikett, markiert als „QR-Code“, Zielecken in der Mitte, darunter „Zuletzt erkannt“ mit dem Link und den Schaltflächen Kopieren und Link öffnen."
+          "alt": "Lupe, QR-Code-Leser für den PC: ein Rechteck um den QR-Code einer PDF-Rechnung, aufgezogen mit Win+Umschalt+Q.",
+          "en": {
+            "title": "Scan a QR code from the screen",
+            "caption": "Press Win+Shift+Q in any program and drag a rectangle around the code – across all monitors, also with the Lupe window closed.",
+            "alt": "Lupe QR code reader for the PC: a rectangle drawn around the QR code of a PDF invoice with Win+Shift+Q."
+          }
         },
         {
           "name": "result",
+          "file": "lupe-ergebnis-eingetippt",
           "title": "Eingetippt in die Anwendung, aus der Sie kamen",
           "caption": "Mit „Eintippen“ landet der Inhalt als Tastatureingabe in dem Fenster, das vor dem Scan aktiv war – auf Wunsch gefolgt von Enter oder Tab.",
-          "alt": "Ergebnis-Benachrichtigung „QR-Code erkannt“ mit einem Beispiel-Link, dem Status „Kopiert · Eingetippt“ und den Schaltflächen Kopieren, Link öffnen und In Lupe zeigen."
+          "alt": "Lupe-Benachrichtigung „QR-Code erkannt“ mit einem Beispiel-Link, Status „Kopiert · Eingetippt“ und den Schaltflächen Kopieren, Link öffnen, In Lupe zeigen.",
+          "en": {
+            "title": "Typed into the app you came from",
+            "caption": "With typing switched on, the content goes into the window that was active before the scan – as keyboard input, optionally followed by Enter or Tab.",
+            "alt": "Lupe result notification “QR-Code erkannt” with a sample link, the status “Kopiert · Eingetippt” and the buttons Copy, Open link, Show in Lupe."
+          }
+        },
+        {
+          "name": "camera",
+          "file": "lupe-barcode-per-webcam-scannen",
+          "title": "Webcam als Barcodescanner",
+          "caption": "Code vor die Kamera halten: Lupe markiert ihn und piept. Derselbe Code wird erst wieder gemeldet, wenn er 3 Sekunden nicht zu sehen war.",
+          "alt": "Lupe liest per Webcam: Livebild der Demo-Kamera mit markiertem QR-Code auf einem Etikett, darunter „Zuletzt erkannt“ mit dem Link.",
+          "en": {
+            "title": "Webcam as a barcode scanner",
+            "caption": "Hold a code in front of the camera. Lupe marks it and beeps; the same code is reported again only after it has been out of sight for 3 seconds.",
+            "alt": "Lupe reading from a webcam: live image of the demo camera with a marked QR code on a label, below it the last recognised link."
+          }
+        },
+        {
+          "name": "file",
+          "file": "lupe-barcodes-aus-bild-auslesen",
+          "title": "Codes aus Bilddatei und Zwischenablage",
+          "caption": "Bild öffnen, auf die Seite „Datei“ ziehen oder mit Strg+V einfügen. Jeder Code im Bild wird gefunden und nummeriert.",
+          "alt": "Lupe findet vier Codes auf einem Lieferschein – QR-Code, Code 128, EAN-13 und Data Matrix – nummeriert, mit der Liste „4 Codes gefunden“.",
+          "en": {
+            "title": "Image files and clipboard",
+            "caption": "Open an image, drag it onto the Datei page or press Ctrl+V. Every code in the picture is found and numbered.",
+            "alt": "Lupe finds four codes on a delivery note – QR code, Code 128, EAN-13 and Data Matrix – numbered, with the list “4 Codes gefunden”."
+          }
         },
         {
           "name": "settings",
-          "title": "Einstellungen",
-          "caption": "Je Quelle festlegen, ob ein Treffer kopiert, eingetippt oder als Link geöffnet wird – dazu Taste und Tempo beim Eintippen und das Tastenkürzel für den Bildschirm-Scan. Link-Regeln machen aus einem Code einen Link, z. B. aus einer EAN die Artikelseite im ERP; geöffnet werden nur http- und https-Links.",
-          "alt": "Seite Einstellungen: Aktionen je Quelle (Kopieren, Eintippen, Link öffnen), die Taste nach dem Eintippen, das Tempo beim Eintippen, das Tastenkürzel Win+Umschalt+Q als bereit markiert und darunter der Anfang des Bereichs Link-Regeln mit Erklärung."
+          "file": "lupe-einstellungen-link-regeln",
+          "title": "Einstellungen und Link-Regeln",
+          "caption": "Je Quelle festlegen, ob ein Treffer kopiert, eingetippt oder als Link geöffnet wird. Link-Regeln machen aus einem Code einen Link, z. B. aus einer EAN die Artikelseite im ERP; geöffnet werden nur http- und https-Links.",
+          "alt": "Lupe-Einstellungen: Aktionen je Quelle (Kopieren, Eintippen, Link öffnen), das Tastenkürzel Win+Umschalt+Q und die Tabelle der Link-Regeln.",
+          "en": {
+            "title": "Settings and link rules",
+            "caption": "Choose per source whether a result is copied, typed or opened as a link. Link rules turn a code into a link, e.g. an EAN into the item page of your ERP; only http and https are ever opened.",
+            "alt": "Lupe settings: actions per source (copy, type, open link), the shortcut Win+Shift+Q and the link-rule table."
+          }
         },
         {
           "name": "history",
+          "file": "lupe-verlauf-csv-export",
           "title": "Verlauf",
           "caption": "Alles, was Lupe gelesen hat – durchsuchbar und als CSV für Excel exportierbar. Gespeichert pro Benutzer oder abgeschaltet, dann wird die Datei gelöscht.",
-          "alt": "Seite Verlauf: zwölf Einträge mit Uhrzeit, Quelle (Kamera, Bildschirm, Datei, Zwischenablage), Format und Inhalt, ein Suchfeld und die Schaltflächen „Als CSV exportieren …“ und „Alles löschen“."
+          "alt": "Verlauf in Lupe: zwölf gelesene Codes mit Uhrzeit, Quelle, Format und Inhalt, ein Suchfeld und der Export als CSV.",
+          "en": {
+            "title": "History",
+            "caption": "Everything Lupe has read, searchable and exportable as CSV for Excel. Stored per user – or switched off, which deletes the file.",
+            "alt": "Lupe history: twelve codes read with time, source, format and content, a search box and the CSV export."
+          }
         }
       ]
     },
@@ -90,11 +129,11 @@
       "facts": [
         [
           "Plattform",
-          "Windows 10 und 11, x64"
+          "Windows 10 (ab 1809) und 11, 64 Bit"
         ],
         [
           "Oberfläche",
-          "Deutsch, auch die Berichte"
+          "Deutsch, auch Befehlszeile und Berichte"
         ],
         [
           "Zugriff",
@@ -115,49 +154,82 @@
           "name": "folders",
           "title": "Wer darf hier rein?",
           "caption": "Pro Ordner jede Person mit dem effektiven Recht über Freigabe und NTFS – und die Gruppenkette, über die der Zugriff kommt.",
-          "alt": "Seite Ordner: Ordnerbaum mit Markierungen und der Reiter „Wer darf hier rein“, der jede Person mit dem effektiven Recht über die Freigabe, dem NTFS-Recht und den Gruppen auflistet, über die der Zugriff kommt."
+          "alt": "Zutritt, Berechtigungsbericht: Ordnerbaum und der Reiter „Wer darf hier rein“ mit jeder Person, ihrem effektiven Recht und der Gruppenkette.",
+          "file": "zutritt-ntfs-berechtigungen-ordner",
+          "en": {
+            "title": "Who can get in here?",
+            "caption": "Per folder, every person with the effective right over the share and over NTFS – and the group chain it comes through.",
+            "alt": "Zutritt permissions report: folder tree and the tab “Wer darf hier rein” listing each person with the effective right and the group chain."
+          }
         },
         {
           "name": "overview",
           "title": "Freigaben, Server und Ordner prüfen",
           "caption": "Eine Freigabe, ein ganzer Server, lokale Ordner oder alle Freigaben dieses PCs. Verknüpfungspunkte werden erfasst, aber nicht verfolgt.",
-          "alt": "Seite Übersicht: Ergebniskacheln für 18.734 geprüfte Ordner, 41 mit eigenen Berechtigungen, 20 Personen, 2 nicht lesbar und Befunde nach Schweregrad; darunter das Formular für einen neuen Scan."
+          "alt": "Übersicht in Zutritt: 18.734 geprüfte Ordner, 41 mit eigenen Rechten, 20 Personen, Befunde nach Schweregrad und das Formular für einen neuen Scan.",
+          "file": "zutritt-freigaben-scannen",
+          "en": {
+            "title": "Scan shares, servers and folders",
+            "caption": "A share, a whole server, local folders or all shares of this PC. Junctions are recorded but not followed.",
+            "alt": "Zutritt overview: 18,734 folders checked, 41 with their own permissions, 20 people, findings by severity and the form for a new scan."
+          }
         },
         {
           "name": "findings",
           "title": "14 Regeln mit klarer Empfehlung",
           "caption": "„Jeder“ darf schreiben, verwaiste SIDs, Rechte an Einzelpersonen, versteckte Vererbungsbrüche, verschobene Ordner – jeweils mit Erklärung, warum es wichtig ist.",
-          "alt": "Seite Befunde: Befunde nach Schweregrad gruppiert, mit dem Detailbereich für die Regel ZT01 mit Erklärung und Empfehlung."
+          "alt": "Befunde in Zutritt nach Schweregrad, daneben die Regel ZT01 „Breite Gruppe darf schreiben“ mit Erklärung und Empfehlung.",
+          "file": "zutritt-befunde-pruefregeln",
+          "en": {
+            "title": "14 rules with a clear recommendation",
+            "caption": "Everyone can write, orphaned SIDs, rights given to individuals, hidden inheritance breaks, moved folders – each with “why it matters”.",
+            "alt": "Zutritt findings grouped by severity, with the detail pane for rule ZT01 showing explanation and recommendation."
+          }
         },
         {
           "name": "people",
           "title": "Wohin darf diese Person?",
           "caption": "Jeder Ordner, den eine Person erreicht, mit dem effektiven Recht und den Gruppen dahinter – auch verschachtelte Gruppen und deaktivierte Konten.",
-          "alt": "Seite Personen: eine Beispielperson mit ihren Gruppenmitgliedschaften und allen 26 Ordnern, auf die sie zugreifen kann, jeweils mit Recht und Gruppenkette."
+          "alt": "Personen-Ansicht in Zutritt: das Rollenkonto QC-Leitung mit Gruppenmitgliedschaften und allen 26 erreichbaren Ordnern samt Recht und Gruppenkette.",
+          "file": "zutritt-zugriffsrechte-person",
+          "en": {
+            "title": "Where can this person go?",
+            "caption": "Every folder a person can reach, the effective right and the groups behind it – including nested groups and disabled accounts.",
+            "alt": "Zutritt people page: the role account QC-Leitung with its group memberships and all 26 folders it can access, with right and group chain."
+          }
         },
         {
           "name": "comparison",
           "title": "Was hat sich seit dem letzten Lauf geändert?",
           "caption": "Neue und erledigte Befunde, geänderte ACL-Einträge und Gruppenmitgliedschaften – und wer jetzt mehr oder weniger Zugriff hat.",
-          "alt": "Seite Vergleich: verglichen mit dem Lauf sieben Tage zuvor – 4 neue Befunde, 3 erledigt, 79 Zugriffsänderungen, 6 ACL-Änderungen und 1 geänderte Mitgliedschaft."
+          "alt": "Vergleich in Zutritt mit dem Lauf sieben Tage zuvor: 4 neue Befunde, 3 erledigt, 79 Zugriffsänderungen, 6 ACL-Änderungen, 1 geänderte Mitgliedschaft.",
+          "file": "zutritt-vergleich-letzter-lauf",
+          "en": {
+            "title": "What changed since the last run?",
+            "caption": "New and resolved findings, changed ACL entries and group memberships, and who can now access more or less.",
+            "alt": "Zutritt comparison with the run of seven days earlier: 4 new findings, 3 resolved, 79 access changes, 6 ACL changes, 1 membership change."
+          }
         },
         {
           "name": "report",
           "title": "Excel zum Arbeiten, PDF zum Abzeichnen",
           "caption": "Filterbare Excel-Arbeitsmappe mit jedem Eintrag; PDF mit Deckblatt, Zusammenfassung, Befunden und einem Abzeichnungsblock für die Rechteprüfung.",
-          "alt": "Seite Bericht: Excel- oder PDF-Bericht speichern, den Vergleich einbeziehen und eine Vorschau des Abzeichnungsblocks."
+          "alt": "Bericht in Zutritt: Excel- oder PDF-Bericht speichern, den Vergleich einbeziehen, mit Vorschau des Abzeichnungsblocks.",
+          "file": "zutritt-bericht-excel-pdf",
+          "en": {
+            "title": "Excel to work with, PDF to sign",
+            "caption": "Filterable Excel workbook with every entry; PDF with cover, summary, findings and a sign-off block for the access review.",
+            "alt": "Zutritt report page: save the Excel or PDF report, include the comparison, and a preview of the sign-off block."
+          }
         }
-      ]
+      ],
+      "kind": "Berechtigungsbericht für Dateifreigaben (NTFS und SMB)",
+      "galleryNoteEn": "Screenshots with sample data from the demo mode (German user interface)."
     },
     "vitrine": {
+      "kind": "Transparente Bildschirmsperre für Windows",
       "tagline": "Ansehen, nicht anfassen.",
       "banner": false,
-      "bannerAlt": "Vitrine – transparente Bildschirmsperre mit Microsoft Entra ID. Ansehen, nicht anfassen: Programme bleiben sichtbar und laufen weiter.",
-      "demo": {
-        "file": "demo.gif",
-        "alt": "Animation: Eine HPLC-Messkurve läuft unter der durchsichtigen Sperre weiter. Ein Klick öffnet den Entsperrdialog, „Weiter mit Microsoft“ entsperrt den Arbeitsplatz.",
-        "caption": "Die Messung läuft unter der Sperre weiter › Klick öffnet den Entsperrdialog › „Weiter mit Microsoft“ › entsperrt"
-      },
       "highlights": [
         "Microsoft Entra ID",
         "E-Signaturen",
@@ -167,7 +239,7 @@
       "facts": [
         [
           "Plattform",
-          "Windows 10 und 11"
+          "Windows 10 (ab Version 1809) und Windows 11, 64 Bit"
         ],
         [
           "Anmeldung",
@@ -175,7 +247,11 @@
         ],
         [
           "Verwaltung",
-          "Gruppenrichtlinie oder Intune per ADMX/ADML"
+          "Gruppenrichtlinie oder Intune per ADMX/ADML mit 52 Richtlinien"
+        ],
+        [
+          "Oberfläche",
+          "Englisch, Deutsch, Spanisch, Französisch, Chinesisch"
         ],
         [
           "Einsatz",
@@ -186,45 +262,100 @@
           "MSI für alle Benutzer oder eine einzelne Vitrine.exe ohne Installation"
         ]
       ],
-      "galleryNote": "Die Abbildungen stammen aus einer interaktiven Design-Vorschau der Anwendung; Namen und Werte sind Beispiele.",
+      "galleryNote": "Die Abbildungen zeichnet die echte Anwendung mit Beispieldaten (englische Oberfläche); Namen und Werte sind Beispiele.",
+      "galleryNoteEn": "The screenshots are drawn by the real application with sample data; names and values are examples.",
       "screenshots": [
         {
-          "name": "lock",
-          "title": "Durchsichtig sperren",
-          "caption": "Programme bleiben sichtbar und laufen weiter. Ein Overlay pro Monitor, DPI-genau, mit eigenem Hinweistext.",
-          "alt": "Durchsichtig gesperrt: Die Laborsoftware bleibt sichtbar, unten die Hinweisleiste „Messung läuft – bitte nicht berühren“."
+          "name": "settings-look",
+          "file": "vitrine-transparente-bildschirmsperre",
+          "title": "Durchsichtig oder verdeckt",
+          "caption": "Was ist während der Sperre zu sehen? Durchsichtig – die Programme bleiben sichtbar, ideal für Messungen und Prozesse – oder verdeckt für vertrauliche Daten. Dazu Abdunkelung, Hinweistext und Uhr.",
+          "alt": "Vitrine, transparente Bildschirmsperre: Einstellungen › Darstellung mit der Wahl zwischen durchsichtiger und verdeckter Sperre, Abdunkelung 8 % und Hinweistext.",
+          "en": {
+            "title": "Transparent or covered",
+            "caption": "What is visible while locked? Transparent – programs stay visible, ideal for watching measurements and processes – or covered for confidential data. Plus dimming, notice text and clock.",
+            "alt": "Vitrine transparent screen lock: Settings › Appearance with the choice between transparent and covered lock, dimming 8 % and notice text."
+          }
         },
         {
-          "name": "unlock",
-          "title": "Anmelden mit Microsoft Entra ID",
-          "caption": "Über den Windows-Kontobroker: MFA, Authenticator, Passkeys/FIDO2, Windows Hello for Business, Conditional Access.",
-          "alt": "Entsperrdialog mit den Verfahren Microsoft, Kennwort und Hello und der Schaltfläche „Weiter mit Microsoft“."
+          "name": "lock",
+          "file": "vitrine-durchsichtig-gesperrt",
+          "title": "Durchsichtig sperren",
+          "caption": "Programme bleiben sichtbar und laufen weiter. Ein Overlay pro Monitor, DPI-genau, mit optionalem Hinweistext.",
+          "alt": "Vitrine durchsichtig gesperrt: Der Desktop bleibt sichtbar, unten die Hinweisleiste „Locked · Lab operator“ mit Uhrzeit.",
+          "en": {
+            "title": "Lock transparently",
+            "caption": "Programs stay visible and keep running. One overlay per monitor, placed per monitor DPI, with an optional notice text.",
+            "alt": "Vitrine locked transparently: the desktop stays visible, at the bottom the notice bar “Locked · Lab operator” with the time."
+          }
+        },
+        {
+          "name": "unlock-entra",
+          "file": "vitrine-entsperren-microsoft-entra-id",
+          "title": "Entsperren mit Microsoft Entra ID",
+          "caption": "Über den Windows-Kontobroker: Passkeys und FIDO2-Schlüssel, Authenticator, MFA, Windows Hello for Business und Conditional Access. Dazu Windows-Kennwort und Windows Hello.",
+          "alt": "Entsperrdialog von Vitrine mit den Verfahren Microsoft, Kennwort und Hello und der Schaltfläche „Continue with Microsoft“.",
+          "en": {
+            "title": "Unlock with Microsoft Entra ID",
+            "caption": "Through the Windows account broker: passkeys and FIDO2 keys, Authenticator, MFA, Windows Hello for Business and Conditional Access. Also Windows password and Windows Hello.",
+            "alt": "Vitrine unlock dialog with the methods Microsoft, Password and Hello and the button “Continue with Microsoft”."
+          }
         },
         {
           "name": "sign",
+          "file": "vitrine-elektronische-signatur",
           "title": "Elektronische Signaturen",
           "caption": "Fachanwendungen fordern über eine lokale Schnittstelle eine Signatur an. Person, Zeitpunkt, Grund und Bedeutung landen im Protokoll.",
-          "alt": "Signaturdialog: „Sie signieren elektronisch – Freigabe Sequenz QC-2026-1012, Bedeutung: Geprüft und freigegeben, angefordert von ChromLab 7“."
+          "alt": "Signaturdialog von Vitrine: „You are signing electronically – Release batch 4711“, Bedeutung „Reviewed and approved“, angefordert vom LIMS.",
+          "en": {
+            "title": "Electronic signatures",
+            "caption": "Line-of-business applications request a signature over a local interface. Person, time, reason and meaning go into the audit log.",
+            "alt": "Vitrine signature dialog: “You are signing electronically”, the reason “Release batch 4711”, “Meaning: Reviewed and approved”, requested by LIMS."
+          }
         },
         {
           "name": "blank",
+          "file": "vitrine-verdeckt-sperren",
           "title": "Verdeckt sperren",
-          "caption": "Für vertrauliche Inhalte: große Uhr statt Durchsicht. Die Programme laufen trotzdem weiter.",
-          "alt": "Verdeckt gesperrt: dunkler Bildschirm mit großer Uhr 10:42 und Datum."
+          "caption": "Für vertrauliche Inhalte: große Uhr statt Desktop. Die Programme laufen trotzdem weiter.",
+          "alt": "Vitrine verdeckt gesperrt: Der Bildschirm ist abgedeckt und zeigt eine große Uhr mit Datum.",
+          "en": {
+            "title": "Lock with the screen covered",
+            "caption": "For confidential content: a large clock instead of the desktop. Programs still keep running.",
+            "alt": "Vitrine covered lock: the screen is covered and shows a large clock with the date."
+          }
         },
         {
           "name": "settings-audit",
+          "file": "vitrine-audit-protokoll-hash-kette",
           "title": "Protokoll mit Hash-Kette",
-          "caption": "Jede Aktion mit Zeit, Person und Verfahren. Die SHA-256-Kette macht Änderungen sichtbar, dazu Netzwerkkopie und Ereignisprotokoll.",
-          "alt": "Einstellungen › Protokoll: Hash-Kette, Kopie auf dem Netzlaufwerk und die letzten Einträge mit „Kette vollständig“."
+          "caption": "Jede Sperre, Entsperrung, jeder Fehlversuch und jede Signatur mit Zeit (UTC), Person und Verfahren. Die SHA-256-Kette macht Änderungen sichtbar; Netzwerkkopie und Windows-Ereignisprotokoll sind unabhängige Gegenstücke.",
+          "alt": "Vitrine-Einstellungen, Seite Audit log: Ordner, Kopie auf einem Netzlaufwerk, Windows-Ereignisprotokoll und die letzten Einträge mit „Verify chain“.",
+          "en": {
+            "title": "Tamper-evident audit log",
+            "caption": "Every lock, unlock, failed attempt and signature with time (UTC), person and method. The SHA-256 chain makes changes visible; a copy on a network share and the Windows event log add independent records.",
+            "alt": "Vitrine settings, Audit log page: folder, copy on a network share, Windows event log and the latest entries with “Verify chain”."
+          }
         },
         {
           "name": "tray",
-          "title": "Infobereich im Windows-11-Stil",
-          "caption": "Flyout mit Status und Sperr-Knöpfen. Fluent-Design in Hell, Dunkel oder hohem Kontrast, mit Windows- oder Firmen-Akzentfarbe.",
-          "alt": "Infobereich-Flyout mit der Statuskarte „Bereit“ und den Einträgen „Jetzt durchsichtig sperren“, „Verdeckt sperren“ und „Protokoll“."
+          "file": "vitrine-infobereich",
+          "title": "Infobereich",
+          "caption": "Flyout mit Status und Sperr-Knöpfen. Hell, dunkel und hoher Kontrast, mit Windows- oder Firmen-Akzentfarbe.",
+          "alt": "Vitrine im Infobereich: Statuskarte „Ready“, Schaltfläche „Lock now, transparent“ und Kacheln für verdecktes Sperren, Protokoll und Info.",
+          "en": {
+            "title": "Notification area",
+            "caption": "A flyout with status and lock buttons. Light, dark and high contrast, Windows or company accent colour.",
+            "alt": "Vitrine notification area flyout: status card “Ready”, the button “Lock now, transparent” and tiles for covered lock, audit log and About."
+          }
         }
-      ]
+      ],
+      "demo": {
+        "local": "scripts/media/vitrine-demo.webp",
+        "alt": "Animation: Eine Messung läuft unter der durchsichtigen Sperre von Vitrine weiter, unten die Sperrleiste. Ein Klick öffnet den Entsperr-Dialog mit Microsoft-Anmeldung, danach ist der Arbeitsplatz wieder frei.",
+        "caption": "Die Messung läuft unter der Sperre weiter › Klick öffnet den Entsperr-Dialog › entsperrt",
+        "_quelle": "scripts/make-vitrine-demo.py: Sperrleiste und Dialog sind echte Vitrine-Bildschirmfotos, nur die Messsoftware im Hintergrund ist gezeichnet."
+      }
     },
     "hausmeister": {
       "tagline": "BACnet-Geräte finden, Datenpunkte prüfen, Werte setzen.",
@@ -575,19 +706,19 @@
       ]
     },
     "enterprisebrowser": {
-      "kind": "Kiosk-Browser",
+      "kind": "Kiosk-Browser für Android-MDE-Geräte",
       "tagline": "Web-Apps auf robusten Android-Geräten.",
       "banner": false,
       "highlights": [
-        "Zebra DataWedge",
-        "Honeywell",
+        "Scan direkt ins Webformular",
         "Kioskmodus",
+        "URL-Allowlist",
         "MDM: SOTI, Intune, StageNow"
       ],
       "facts": [
         [
           "Plattform",
-          "Android 8.0 und neuer, Zebra und Honeywell"
+          "Android 8.0 und neuer, robuste Geräte von Zebra und Honeywell"
         ],
         [
           "Scannen",
@@ -604,6 +735,10 @@
         [
           "Lieferform",
           "APK zur Verteilung per MDM"
+        ],
+        [
+          "Oberfläche",
+          "Englisch, Deutsch, Spanisch, Französisch, Chinesisch"
         ]
       ],
       "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert; Namen und Adressen sind Beispiele.",
@@ -612,42 +747,79 @@
           "name": "screen-launcher",
           "title": "Profile",
           "caption": "Ein Tipp öffnet die Web-App. Mehrere Web-Apps auf einem Gerät, jede mit eigener Start-Adresse und eigenen Regeln.",
-          "alt": "Startbildschirm von EnterpriseBrowser auf einem Zebra TC58 mit den Profilen Goods receipt, Picking, Shipping & labels und Demo & scanner test, jeweils mit Adresse und Kennzeichen wie Autostart, Allowlist, Kiosk oder Scanner off."
+          "alt": "EnterpriseBrowser, Kiosk-Browser für Android-MDE-Geräte: Startbildschirm mit den Profilen Goods receipt, Picking, Shipping & labels und Scanner-Test.",
+          "file": "enterprisebrowser-kiosk-browser-profile",
+          "en": {
+            "title": "Profiles",
+            "caption": "One tap opens the web app. Several web apps on one device, each with its own start address and rules.",
+            "alt": "EnterpriseBrowser kiosk browser for rugged Android devices: start screen with the profiles Goods receipt, Picking, Shipping & labels and the scanner test."
+          }
         },
         {
           "name": "screen-browser",
           "title": "Scannen",
           "caption": "Der Barcode landet im Feld, auf Wunsch gefolgt von Tab oder Enter – und als JavaScript-Ereignis für die Web-App.",
-          "alt": "Demo-Seite „Scanner & Bridge Demo“: im Feld Item der gescannte EAN 4006381333931, darunter das Feld Location, die Schaltflächen Scan, Beep, Vibration und Device und die Liste der letzten Scans mit EAN13 und CODE128."
+          "alt": "Barcode-Scan im EnterpriseBrowser: die gescannte EAN 4006381333931 steht im Feld Item der Demo-Seite, darunter die letzten Scans.",
+          "file": "enterprisebrowser-barcode-scan-webformular",
+          "en": {
+            "title": "Scanning",
+            "caption": "The barcode goes into the field, optionally followed by Tab or Enter – and as a JavaScript event for the web app.",
+            "alt": "Barcode scan in EnterpriseBrowser: the scanned EAN 4006381333931 in the Item field of the demo page, below it the latest scans."
+          }
         },
         {
           "name": "screen-menu",
           "title": "Menü",
           "caption": "Alles in Daumenreichweite.",
-          "alt": "Aufgeklapptes Menü über der Demo-Seite mit Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings und Exit."
+          "alt": "Menü des EnterpriseBrowser über der Demo-Seite mit Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings und Exit.",
+          "file": "enterprisebrowser-menue",
+          "en": {
+            "title": "Menu",
+            "caption": "Everything within thumb reach.",
+            "alt": "EnterpriseBrowser menu over the demo page with Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings and Exit."
+          }
         },
         {
           "name": "screen-launcher-branded",
           "title": "Eigenes Design",
           "caption": "Titel, Untertitel, Logo und Markenfarbe kommen aus der Konfiguration oder werden direkt in der App eingestellt.",
-          "alt": "Startbildschirm im eigenen Design: grüner Kopf mit dem Kürzel NL, dem Titel North Logistics Center und Shift A · Hall 3, darunter die Profile."
+          "alt": "EnterpriseBrowser im eigenen Design: grüner Kopf mit Kürzel NL, Titel North Logistics Center und Shift A · Hall 3, darunter die Profile.",
+          "file": "enterprisebrowser-eigenes-design",
+          "en": {
+            "title": "Custom design",
+            "caption": "Title, subtitle, logo and brand color come from the configuration – or are set right in the app.",
+            "alt": "EnterpriseBrowser with custom branding: green header with the initials NL, the title North Logistics Center and Shift A · Hall 3, below it the profiles."
+          }
         },
         {
           "name": "screen-profile-editor",
           "title": "Profil mit eigener Farbe",
           "caption": "Jedes Profil kann eine eigene Farbe haben, die auch die Werkzeugleiste in der Web-App einfärbt.",
-          "alt": "Dialog Edit profile mit Name Goods receipt, Start-URL, erlaubten Hosts, Profilfarbe und den Schaltern Open on app start, Hide toolbar und Full screen."
+          "alt": "Profil bearbeiten im EnterpriseBrowser: Name, Start-URL, erlaubte Hosts, Profilfarbe und Schalter für Autostart, Werkzeugleiste und Vollbild.",
+          "file": "enterprisebrowser-profil-allowlist",
+          "en": {
+            "title": "Profile with its own color",
+            "caption": "Every profile can have its own color, which also tints the toolbar inside the web app.",
+            "alt": "EnterpriseBrowser profile editor: name, start URL, allowed hosts, profile color and switches for open on app start, hide toolbar and full screen."
+          }
         },
         {
           "name": "screen-settings",
           "title": "Einstellungen",
           "caption": "Mit Kennwort geschützt: Profile, Design und Konfiguration.",
-          "alt": "Einstellungen mit der Profilliste, Add profile und dem Bereich Design mit Titel, Markenfarbe und Logo."
+          "alt": "Einstellungen des EnterpriseBrowser mit Profilliste, Add profile und dem Bereich Design mit Titel, Markenfarbe und Logo.",
+          "file": "enterprisebrowser-einstellungen",
+          "en": {
+            "title": "Settings",
+            "caption": "Password protected: profiles, design and configuration.",
+            "alt": "EnterpriseBrowser settings with the profile list, Add profile and the Design section with title, brand color and logo."
+          }
         }
-      ]
+      ],
+      "galleryNoteEn": "The screenshots are rendered straight from the app's UI code; names and addresses are examples."
     },
     "industrialkeyboard": {
-      "kind": "Android-Tastatur",
+      "kind": "Bildschirmtastatur für robuste Android-Geräte",
       "tagline": "Schnelle, zuverlässige Dateneingabe auf robusten Android-Geräten.",
       "banner": false,
       "highlights": [
@@ -659,7 +831,7 @@
       "facts": [
         [
           "Plattform",
-          "Android 8.0 und neuer, Zebra und Honeywell"
+          "Android 8.0 und neuer, robuste Geräte von Zebra und Honeywell"
         ],
         [
           "Tasten",
@@ -676,6 +848,10 @@
         [
           "Datenschutz",
           "keine Internet-Berechtigung, kein Wörterbuch, nichts Getipptes wird gespeichert"
+        ],
+        [
+          "Oberfläche",
+          "Englisch, Deutsch, Spanisch, Französisch, Chinesisch"
         ]
       ],
       "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert.",
@@ -684,45 +860,204 @@
           "name": "screen-alpha",
           "title": "Buchstaben",
           "caption": "Tastenvorschau über dem Finger, Reiter für Zahlen, Zeichen, Funktionstasten und Scan.",
-          "alt": "Testformular mit den Feldern Item number, Quantity, Weight (kg) und Phone, darunter die Tastatur mit QWERTZ-Buchstaben, der Reiterleiste ABC, 123, #+=, Fn und Scan und der Vorschau der gedrückten Taste g."
+          "alt": "Industrial Keyboard, Bildschirmtastatur für Android: QWERTZ-Buchstaben unter einem Testformular, Reiter ABC, 123, #+=, Fn und Scan, Vorschau der Taste g.",
+          "file": "industrial-keyboard-android-tastatur",
+          "en": {
+            "title": "Letters",
+            "caption": "Key preview above the finger, tabs for numbers, symbols, function keys and scan.",
+            "alt": "Industrial Keyboard on-screen keyboard for Android: QWERTZ letters below a test form, tabs ABC, 123, #+=, Fn and Scan, preview of the key g."
+          }
         },
         {
           "name": "screen-numeric",
           "title": "Zahlenblock",
           "caption": "Öffnet sich in Zahlenfeldern von selbst.",
-          "alt": "Feld Quantity aktiv, die Tastatur zeigt im dunklen Design den Zahlenblock mit Ziffern, Komma, Punkt, Tab und Enter."
+          "alt": "Zahlenblock von Industrial Keyboard im dunklen Design: Ziffern, Komma, Punkt, Tab und Enter für das Feld Quantity.",
+          "file": "industrial-keyboard-zahlenblock",
+          "en": {
+            "title": "Numeric pad",
+            "caption": "Opens by itself in number fields.",
+            "alt": "Industrial Keyboard numeric pad in the dark theme: digits, comma, period, Tab and Enter for the Quantity field."
+          }
         },
         {
           "name": "screen-scan",
           "title": "Scan-Reiter",
           "caption": "Tippen zum Scannen, halten für Dauerscan.",
-          "alt": "Scan-Reiter mit großer blauer Auslösefläche „Scanning …“ und dem Hinweis auf Dauerscan mit Zebra DataWedge."
+          "alt": "Scan-Reiter von Industrial Keyboard mit großer blauer Auslösefläche „Scanning …“ und dem Hinweis auf Dauerscan mit Zebra DataWedge.",
+          "file": "industrial-keyboard-scan-taste",
+          "en": {
+            "title": "Scan tab",
+            "caption": "Tap to scan, hold for continuous scanning.",
+            "alt": "Industrial Keyboard scan tab with a large blue trigger pad “Scanning …” and the hint on continuous scanning with Zebra DataWedge."
+          }
         },
         {
           "name": "screen-function",
           "title": "Funktionstasten",
           "caption": "F1–F24, Esc, Ins, Del und Pfeiltasten – etwa für Terminal-Emulatoren.",
-          "alt": "Fn-Reiter im kontrastreichen Design mit F1 bis F12, Esc, Home, End, PgUp, PgDn, Ins, Del und den Pfeiltasten."
+          "alt": "Funktionstasten in Industrial Keyboard, kontrastreiches Design: F1 bis F12, Esc, Home, End, PgUp, PgDn, Ins, Del und Pfeiltasten.",
+          "file": "industrial-keyboard-funktionstasten-f1-f24",
+          "en": {
+            "title": "Function keys",
+            "caption": "F1–F24, Esc, Ins, Del and arrow keys – for terminal emulators, for example.",
+            "alt": "Industrial Keyboard function keys in the high-contrast theme: F1 to F12, Esc, Home, End, PgUp, PgDn, Ins, Del and arrows."
+          }
         },
         {
           "name": "screen-custom",
           "title": "Eigene Layouts",
           "caption": "Eigene Tasten als zusätzlicher Reiter, festgelegt in der Konfiguration – ohne App-Update.",
-          "alt": "Eigener Reiter Pick mit den Tasten OK, Skip, Short, Damaged, Scan und Numbers."
+          "alt": "Eigener Reiter Pick in Industrial Keyboard mit den Tasten OK, Skip, Short, Damaged, Scan und Numbers.",
+          "file": "industrial-keyboard-eigene-tastenlayouts",
+          "en": {
+            "title": "Custom layouts",
+            "caption": "Your own keys as an extra tab, defined in the configuration – no app update needed.",
+            "alt": "Industrial Keyboard custom tab Pick with the keys OK, Skip, Short, Damaged, Scan and Numbers."
+          }
         },
         {
           "name": "screen-settings",
           "title": "Einstellungen",
           "caption": "Mit Live-Vorschau, durch Kennwort geschützt.",
-          "alt": "Keyboard settings mit Vorschau der Tastatur, Design System, Light, Dark oder High contrast, Akzentfarbe und Tastenhöhe 100 %."
+          "alt": "Einstellungen von Industrial Keyboard mit Live-Vorschau, Design System, Light, Dark oder High contrast, Akzentfarbe und Tastenhöhe.",
+          "file": "industrial-keyboard-einstellungen",
+          "en": {
+            "title": "Settings",
+            "caption": "With live preview, password protected.",
+            "alt": "Industrial Keyboard settings with live preview, theme System, Light, Dark or High contrast, accent colour and key height."
+          }
+        }
+      ],
+      "galleryNoteEn": "The screenshots are rendered from the real keyboard code."
+    },
+    "riegel": {
+      "kind": "Härtungs-Check für Windows in OT und Labor",
+      "tagline": "Gehärtet, wo es geht. Begründet offen, wo nicht.",
+      "banner": false,
+      "highlights": [
+        "153 Regeln",
+        "nur lesend, offline",
+        "begründete Ausnahmen",
+        "Bericht zum Abzeichnen"
+      ],
+      "facts": [
+        [
+          "Geprüfte Rechner",
+          "Windows 7 SP1 bis 11, Windows Server 2008 R2 bis 2025 (portabler Sammler)"
+        ],
+        [
+          "Auswertung",
+          "Windows 10 (ab 1809) und Server 2019 oder neuer; Befehlszeile auch für Linux (x64, arm64)"
+        ],
+        [
+          "Zugriff",
+          "nur lesend, offline, keine Installation auf dem geprüften Rechner"
+        ],
+        [
+          "Oberfläche",
+          "Deutsch, Englisch, Spanisch, Französisch, Chinesisch – auch die Berichte"
+        ],
+        [
+          "Lieferform",
+          "portabler Sammler (ZIP), MSI oder Riegel.exe für Auswerte-PCs"
+        ]
+      ],
+      "galleryNote": "Abbildungen aus dem Demo-Modus mit der erfundenen Beispielanlage „Musterwerk – Linie 3“ (englische Oberfläche).",
+      "galleryNoteEn": "Screenshots from the demo mode with the fictitious plant “Musterwerk – Linie 3”.",
+      "screenshots": [
+        {
+          "name": "results",
+          "file": "riegel-windows-haertung-pruefen",
+          "title": "153 Regeln, ehrliche Ergebnisse",
+          "caption": "Netzwerk, Anmeldedaten, Defender und ASR, Anwendungssteuerung, Verschlüsselung, Firewall, Protokollierung, RDP, Wechselmedien, TLS. Erfüllt heißt: positiv belegt – was nicht lesbar war, ist „nicht prüfbar“, nie stillschweigend erfüllt.",
+          "alt": "Riegel, Härtungs-Check für Windows: Ergebnisse aller Regeln eines Anlagenrechners mit Status, daneben Soll- und Ist-Wert, Quelle und Hinweis für Anlagen.",
+          "en": {
+            "title": "153 rules, honest results",
+            "caption": "Network, credentials, Defender and ASR, application control, encryption, firewall, audit, RDP, removable media, TLS. A pass needs positive evidence; what could not be read is not checkable, never a silent pass.",
+            "alt": "Riegel Windows hardening check: results of every rule on one plant PC with status, and a detail pane with expected and actual value, source and a note for plants."
+          }
+        },
+        {
+          "name": "exceptions",
+          "file": "riegel-begruendete-ausnahmen",
+          "title": "Bewusst offen, mit Freigabe",
+          "caption": "Ausnahmen mit Begründung, akzeptiertem Wert, freigebender Rolle und Änderungs- oder QMS-Nachweis – an ihren Inhalt gebunden, mit Ablaufdatum und Verlauf.",
+          "alt": "Ausnahmenregister in Riegel: bewusst offene Befunde mit Kategorie, Geltungsbereich, Freigabestatus, Prüftermin und Freigabenachweis.",
+          "en": {
+            "title": "Deliberately open, approved",
+            "caption": "Exceptions with a justification, the accepted value, an approving role and a change or QMS record – bound to their content, with expiry and history.",
+            "alt": "Riegel exceptions register: deliberately open findings with category, scope, approval state, review date and approval record."
+          }
+        },
+        {
+          "name": "comparison",
+          "file": "riegel-vergleich-freigegebener-stand",
+          "title": "Was hat sich seit der Freigabe geändert?",
+          "caption": "Vergleich mit dem letzten Lauf und mit dem freigegebenen Stand nach Inbetriebnahme oder Herstellerbesuch: Verschlechterungen zuerst, dann Abweichungen der Rohwerte.",
+          "alt": "Vergleich in Riegel: Statusänderungen und Abweichungen der Rohwerte gegenüber dem letzten Lauf oder dem freigegebenen Stand.",
+          "en": {
+            "title": "What changed since approval?",
+            "caption": "Comparison with the previous run and with the approved state after commissioning or a vendor visit: worse first, then raw-value drift.",
+            "alt": "Riegel comparison page: status changes and raw-value drift against the previous run or the approved state."
+          }
+        },
+        {
+          "name": "machines",
+          "file": "riegel-anlagenrechner-uebersicht",
+          "title": "Ein Anlagenordner statt eines Servers",
+          "caption": "Rechner, Gruppen und Rollen, Erhebungen, Läufe und Register als lesbare JSON-Dateien in einem Ordner – auf einem Stick, einer Freigabe oder unter der Änderungskontrolle des Kunden.",
+          "alt": "Rechner einer Anlage in Riegel mit Gruppe, Rolle, letzter Erhebung, offenen Befunden, Härtungsgrad und Prüfabdeckung.",
+          "en": {
+            "title": "A plant folder, not a server",
+            "caption": "Machines, groups and roles, snapshots, runs and registers as readable JSON files in one folder – on a stick, a share or under the customer's change control.",
+            "alt": "Riegel machines page: the machines of the plant with group and role, last collection, open findings, hardening score and checked share."
+          }
+        },
+        {
+          "name": "reports",
+          "file": "riegel-haertungsbericht-abzeichnen",
+          "title": "Dokumente zum Abzeichnen",
+          "caption": "Anlagenbericht mit Abzeichnung, Management-Übersicht, Soll-Konfiguration, Freigabeblatt, Erhebungsprotokoll, Excel, CSV und ein Nachweispaket, das Prüfer mit „verify“ nachrechnen.",
+          "alt": "Berichte in Riegel: Anlagenbericht zum Abzeichnen mit Rollen für Erstellung, Prüfung und Freigabe, Formate PDF und Excel und das Nachweispaket.",
+          "en": {
+            "title": "Documents to sign",
+            "caption": "Plant report with sign-off, one-page summary, target configuration, approval sheet, collection record, Excel, CSV and an evidence ZIP that auditors re-check with verify.",
+            "alt": "Riegel reports page: plant report to sign with roles for prepared, reviewed and approved, PDF and Excel formats and the evidence pack."
+          }
         }
       ]
     },
     "plakette": {
-      "tagline": "Etiketten für Zebra-Drucker gestalten",
+      "kind": "Etiketten-Designer für Zebra-Drucker (ZPL)",
+      "tagline": "Etiketten gestalten, als ZPL drucken.",
       "banner": false,
-      "screenshots": [],
-      "_reason": "Oberfläche wird überarbeitet (2026-10-20): bis dahin keine Bildschirmfotos, nur das Logo."
+      "highlights": [
+        "ZPL direkt",
+        "ohne Druckertreiber",
+        "Windows und Linux",
+        "in Entwicklung"
+      ],
+      "facts": [
+        [
+          "Plattform",
+          "Windows 10 und 11, Linux (x64, arm64)"
+        ],
+        [
+          "Drucker",
+          "Zebra- und kompatible Etikettendrucker (ZPL)"
+        ],
+        [
+          "Oberfläche",
+          "Deutsch und Englisch; Spanisch, Französisch und Chinesisch maschinell vorübersetzt"
+        ],
+        [
+          "Daten",
+          "bleiben auf dem Rechner"
+        ]
+      ],
+      "galleryNote": null,
+      "screenshots": []
     }
   }
 }

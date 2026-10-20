@@ -6,7 +6,8 @@
 //  - public/favicon.svg, public/favicon.ico (16/32/48) – Kurzzeichen
 //  - public/apple-touch-icon.png (180, volle Fläche), public/brand/icon-32/180/192/512.png, icon-maskable-512.png
 //  - public/brand/ict-baden-logo.svg, ict-baden-zeichen.svg – Logo und Kurzzeichen mit Umrissen zum Weitergeben
-//  - public/og/ict-baden.png und public/og/produkte/<slug>.jpg (Vorlage: src/components/OgCard.astro)
+//  - public/og/ict-baden.png, public/og/produkte/<slug>.jpg und die englischen Karten public/og/en/produkte/<slug>.jpg
+//    (Vorlage: src/components/OgCard.astro)
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -19,6 +20,7 @@ const marke = JSON.parse(readFileSync(join(ROOT, 'src/assets/brand/marke.json'),
 const pub = (...p) => join(ROOT, 'public', ...p);
 mkdirSync(pub('brand'), { recursive: true });
 mkdirSync(pub('og', 'produkte'), { recursive: true });
+mkdirSync(pub('og', 'en', 'produkte'), { recursive: true });
 
 const { gelb, schwarz, rot } = marke.colors;
 const z = marke.zeichen;
@@ -99,8 +101,13 @@ if (!process.argv.includes('--no-og')) {
   const browser = await launch();
   try {
     const page = await browser.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });
-    for (const slug of ['ict-baden', ...products.map((p) => p.slug)].filter((s) => !only || only.includes(s))) {
-      await page.goto(`${url}/og-vorlage/${slug}/`, { waitUntil: 'networkidle' });
+    const cards = [
+      { slug: 'ict-baden', path: 'ict-baden', out: pub('og', 'ict-baden.png') },
+      ...products.map((p) => ({ slug: p.slug, path: p.slug, out: pub('og', 'produkte', `${p.slug}.jpg`) })),
+      ...products.map((p) => ({ slug: p.slug, path: `en/${p.slug}`, out: pub('og', 'en', 'produkte', `${p.slug}.jpg`) })),
+    ].filter((c) => !only || only.includes(c.slug));
+    for (const { slug, path, out } of cards) {
+      await page.goto(`${url}/og-vorlage/${path}/`, { waitUntil: 'networkidle' });
       await page.evaluate(() => document.fonts.ready);
       // Produktname: Schrift verkleinern, bis kein Teil über die Textspalte ragt und er höchstens zwei Zeilen hat
       const fit = await page.evaluate(() => {
@@ -115,10 +122,10 @@ if (!process.argv.includes('--no-og')) {
         }
         return { size, ok: !bad() };
       });
-      if (fit && !fit.ok) throw new Error(`${slug}: Produktname passt auch in ${fit.size} px nicht ins Open-Graph-Bild`);
+      if (fit && !fit.ok) throw new Error(`${path}: Produktname passt auch in ${fit.size} px nicht ins Open-Graph-Bild`);
       const shot = await page.screenshot({ type: 'png', clip: { x: 0, y: 0, width: 1200, height: 630 } });
-      if (slug === 'ict-baden') writeFileSync(pub('og', 'ict-baden.png'), await sharp(shot).png({ compressionLevel: 9, palette: false }).toBuffer());
-      else writeFileSync(pub('og', 'produkte', `${slug}.jpg`), await sharp(shot).jpeg({ quality: 84, mozjpeg: true }).toBuffer());
+      if (out.endsWith('.png')) writeFileSync(out, await sharp(shot).png({ compressionLevel: 9, palette: false }).toBuffer());
+      else writeFileSync(out, await sharp(shot).jpeg({ quality: 84, mozjpeg: true }).toBuffer());
     }
   } finally {
     await browser.close();
@@ -127,6 +134,9 @@ if (!process.argv.includes('--no-og')) {
   }
   // OG-Bilder von Produkten entfernen, die es nicht mehr gibt (z. B. nach einer Umbenennung)
   const keep = new Set(products.map((p) => `${p.slug}.jpg`));
-  for (const f of (await import('node:fs')).readdirSync(pub('og', 'produkte'))) if (!keep.has(f)) rmSync(pub('og', 'produkte', f));
-  console.log(`Open-Graph-Bilder geschrieben (${only ? only.length : products.length + 1})`);
+  const { readdirSync, statSync } = await import('node:fs');
+  for (const dir of [pub('og', 'produkte'), pub('og', 'en', 'produkte')]) {
+    for (const f of readdirSync(dir)) if (!keep.has(f) && statSync(join(dir, f)).isFile()) rmSync(join(dir, f));
+  }
+  console.log(`Open-Graph-Bilder geschrieben (${only ? `${only.join(', ')}, deutsch und englisch` : 2 * products.length + 1})`);
 }

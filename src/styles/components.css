@@ -79,7 +79,7 @@
   background: var(--_dot);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--_dot) 22%, transparent);
 }
-.badge--verfuegbar { --_ink: var(--st-ok-ink); --_bg: var(--st-ok-bg); --_dot: var(--st-ok-dot); }
+.badge--verfuegbar, .badge--bereit { --_ink: var(--st-ok-ink); --_bg: var(--st-ok-bg); --_dot: var(--st-ok-dot); }
 .badge--vorabversion { --_ink: var(--st-beta-ink); --_bg: var(--st-beta-bg); --_dot: var(--st-beta-dot); }
 .badge--in-entwicklung { --_ink: var(--st-dev-ink); --_bg: var(--st-dev-bg); --_dot: var(--st-dev-dot); }
 .badge--geplant { box-shadow: inset 0 0 0 1px var(--line); }

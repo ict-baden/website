@@ -1,5 +1,9 @@
 ---
 // Bild mit heller und (optional) dunkler Fassung; sichtbar ist die zum aktiven Design passende.
+// eager (Bild oben auf der Seite, oft das LCP-Element): <picture> mit einer Quelle für das dunkle Systemdesign –
+// der Browser lädt nur die passende Fassung, und zwar mit hoher Priorität. Wer das Design über den Schalter
+// abweichend vom System gewählt hat, bekommt die Quelle von public/js/site.js umgestellt (data-theme-pic).
+// Sonst zwei <img>, per CSS umgeschaltet (.theme-light/.theme-dark in base.css); die dunkle Fassung lädt lazy.
 import type { ImageSet } from '../lib/products';
 
 interface Props {
@@ -13,6 +17,15 @@ interface Props {
 const { light, dark, alt, sizes, eager = false, class: className } = Astro.props;
 const common = { sizes, loading: eager ? ('eager' as const) : ('lazy' as const), decoding: 'async' as const };
 ---
-<img class:list={[dark && 'theme-light', className]} src={light.src} srcset={light.srcset} width={light.width} height={light.height} alt={alt} {...common} fetchpriority={eager ? 'high' : undefined} />
-{/* dunkle Fassung immer lazy: ausgeblendete Bilder lädt der Browser erst, wenn sie sichtbar werden */}
-{dark && <img class:list={['theme-dark', className]} src={dark.src} srcset={dark.srcset} width={dark.width} height={dark.height} alt={alt} sizes={sizes} loading="lazy" decoding="async" />}
+{eager && dark ? (
+  <picture class="theme-pic" data-theme-pic>
+    <source media="(prefers-color-scheme: dark)" srcset={dark.srcset} sizes={sizes} width={dark.width} height={dark.height} />
+    <img class={className} src={light.src} srcset={light.srcset} width={light.width} height={light.height} alt={alt} {...common} fetchpriority="high" />
+  </picture>
+) : (
+  <>
+    <img class:list={[dark && 'theme-light', className]} src={light.src} srcset={light.srcset} width={light.width} height={light.height} alt={alt} {...common} fetchpriority={eager ? 'high' : undefined} />
+    {/* dunkle Fassung immer lazy: ausgeblendete Bilder lädt der Browser erst, wenn sie sichtbar werden */}
+    {dark && <img class:list={['theme-dark', className]} src={dark.src} srcset={dark.srcset} width={dark.width} height={dark.height} alt={alt} sizes={sizes} loading="lazy" decoding="async" />}
+  </>
+)}

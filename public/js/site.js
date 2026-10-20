@@ -13,7 +13,18 @@
     btn.setAttribute('aria-pressed', effectiveDark() ? 'true' : 'false');
   }
 
+  // Bilder oben auf der Seite (<picture data-theme-pic>, siehe ThemeImage.astro) wählen die Fassung per Media-Query
+  // nach dem System. Ist das Design über den Schalter gewählt, gilt diese Wahl.
+  function syncPictures() {
+    var t = root.getAttribute('data-theme');
+    var q = t === 'dark' ? 'all' : t === 'light' ? 'not all' : '(prefers-color-scheme: dark)';
+    document.querySelectorAll('picture[data-theme-pic] > source').forEach(function (s) {
+      if (s.media !== q) s.media = q;
+    });
+  }
+
   function init() {
+    syncPictures();
     var btn = document.querySelector('[data-theme-toggle]');
     if (btn) {
       btn.hidden = false;
@@ -29,6 +40,7 @@
           try { localStorage.setItem('theme', next); } catch (e) {}
         }
         sync(btn);
+        syncPictures();
       });
       media.addEventListener('change', function () { sync(btn); });
     }

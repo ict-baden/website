@@ -2,12 +2,13 @@
 // Raster 32 × 32, Fläche 28 × 28 ab (2, 2), Eckenradius 7, Verlauf von oben nach unten aus einem eigenen
 // Farbpaar je Produkt, Symbol in Weiß (Strich 2–2,6, runde Enden, höchstens zwei, drei Formen), keine Schrift.
 //
-// Produkte mit eigenem App-Icon im Repo (Lupe, Zutritt, Vitrine, EnterpriseBrowser, Industrial Keyboard)
+// Produkte mit eigenem App-Icon im Repo (Lupe, Zutritt, Vitrine, Riegel, EnterpriseBrowser, Industrial Keyboard)
 // behalten es und stehen hier nicht. Hausmeister, Fühler, Frist, Rundgang, Merker und Lotse haben im Repo
 // nur ein einfarbiges Liniensymbol ohne Kachel: Es wird hier unverändert übernommen (Umrisse aus
 // docs/assets/logo.svg des jeweiligen Repos) und in die Vorlage gesetzt – weiß auf eigenem Verlauf.
 //
-// Schlüssel = Projekt-id aus projekte.json. Datei: src/assets/product-icons/<id>.svg (npm run icons).
+// Schlüssel = Projekt-id aus projekte.json. Datei: src/assets/product-icons/<id>.svg (npm run icons). Erzeugt werden
+// nur Symbole der veröffentlichten Produkte; die übrigen Einträge bleiben als Entwurf für spätere Produkte stehen.
 
 /** Symbol aus einem Repo-Logo: Geometrie unverändert, auf die Symbolfläche skaliert. */
 const fromRepo = (shapes, box, size = 16.5, stroke = 2.3) => {
@@ -19,7 +20,7 @@ const fromRepo = (shapes, box, size = 16.5, stroke = 2.3) => {
 };
 
 export const ICON_SPECS = {
-  // ---------------------------------------------------------------- Android & Zebra
+  // ---------------------------------------------------------------- Mobile Datenerfassung (Android)
   labeldesigner: {
     colors: ['#f995eb', '#9059c0'],
     motif: 'Etikett mit Loch',
@@ -51,12 +52,6 @@ export const ICON_SPECS = {
     motif: 'Person mit Haken',
     en: 'person with check mark',
     symbol: '<circle cx="13" cy="12" r="3.6"/><path d="M7 24a6 6 0 0 1 12 0"/><path d="m18.6 16.4 2 2 3.9-4.2"/>',
-  },
-  'haertungs-check': {
-    colors: ['#f3821d', '#ac281b'],
-    motif: 'Schild mit Haken',
-    en: 'shield with check mark',
-    symbol: '<path d="M16 6.8 9 9.4v5.4c0 4.3 2.9 7.5 7 9 4.1-1.5 7-4.7 7-9V9.4Z"/><path d="m12.6 15.4 2.3 2.3 4.5-4.7"/>',
   },
   'wincc-audit-trail-viewer': {
     colors: ['#829cb3', '#3c4e66'],

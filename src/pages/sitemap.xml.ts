@@ -1,16 +1,52 @@
-// Sitemap aller Seiten (statisch erzeugt).
+// Sitemap aller Seiten (statisch erzeugt) mit Sprachfassungen (hreflang) und lastmod.
+// Produktseiten: lastmod = letzte Änderung am Inhalt der Seite (pageModified: Seitentext, Bilder, OG-Bild; ohne
+// Git-Verlauf der letzte Commit im Produkt-Repo). App-Datenschutzseiten
+// (/datenschutz/<app>/, PR #1) kommen von selbst dazu, sobald es sie gibt (src/lib/app-privacy.ts).
 import type { APIRoute } from 'astro';
 import { SITE_URL } from '../config';
-import { products, stand } from '../lib/products';
+import { products } from '../lib/products';
+import { pageModified, productUrlFor } from '../lib/produktseiten';
+import { appPrivacyPages } from '../lib/app-privacy';
 
-const STATIC = ['/', '/leistungen/', '/produkte/', '/downloads/', '/werkzeuge/pulswertigkeit/', '/ueber-uns/', '/kontakt/', '/impressum/', '/datenschutz/'];
+const STATIC = ['/', '/leistungen/', '/downloads/', '/werkzeuge/pulswertigkeit/', '/ueber-uns/', '/kontakt/', '/impressum/', '/datenschutz/'];
 
-export const GET: APIRoute = () => {
-  const urls = [...STATIC, ...products.map((p) => `/produkte/${p.slug}/`)];
-  const lastmod = stand ? `<lastmod>${stand}</lastmod>` : '';
+type Entry = { loc: string; lastmod?: string | null; alternates?: { lang: string; href: string }[] };
+
+const latest = products.map((p) => pageModified(p)).filter(Boolean).sort().at(-1) ?? null;
+
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+export const GET: APIRoute = async () => {
+  const pair = (de: string, en: string) => [
+    { lang: 'de', href: de },
+    { lang: 'en', href: en },
+    { lang: 'x-default', href: de },
+  ];
+  const entries: Entry[] = [
+    ...STATIC.map((loc) => ({ loc })),
+    { loc: '/produkte/', lastmod: latest, alternates: pair('/produkte/', '/en/') },
+    { loc: '/en/', lastmod: latest, alternates: pair('/produkte/', '/en/') },
+    ...products.flatMap((p) => {
+      const alts = pair(productUrlFor(p, 'de'), productUrlFor(p, 'en'));
+      return [
+        { loc: productUrlFor(p, 'de'), lastmod: pageModified(p), alternates: alts },
+        { loc: productUrlFor(p, 'en'), lastmod: pageModified(p), alternates: alts },
+      ];
+    }),
+    ...(await appPrivacyPages()).map((app) => ({ loc: `/datenschutz/${app}/` })),
+  ];
   const body =
-    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-    urls.map((u) => `  <url><loc>${SITE_URL}${u}</loc>${u.startsWith('/produkte/') && u !== '/produkte/' ? lastmod : ''}</url>`).join('\n') +
+    '<?xml version="1.0" encoding="UTF-8"?>\n' +
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' +
+    entries
+      .map((e) =>
+        '  <url>\n' +
+        `    <loc>${esc(SITE_URL + e.loc)}</loc>\n` +
+        (e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>\n` : '') +
+        (e.alternates ?? []).map((a) => `    <xhtml:link rel="alternate" hreflang="${a.lang}" href="${esc(SITE_URL + a.href)}"/>\n`).join('') +
+        '  </url>',
+      )
+      .join('\n') +
     '\n</urlset>\n';
   return new Response(body, { headers: { 'Content-Type': 'application/xml; charset=utf-8' } });
 };

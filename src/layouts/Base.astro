@@ -11,33 +11,47 @@ import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal
 import archivoLatin from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { COMPANY, SITE_URL, STAGING } from '../config';
+import { COMPANY, SITE_URL, STAGING, VERIFY } from '../config';
+import { graph } from '../lib/seo';
 
 interface Props {
   title: string;
   description: string;
-  /** Titel ohne " – ICT Baden" (Startseite) */
+  /** Titel ohne " – ICT Baden" (Startseite, Produktseiten mit eigenem Titel) */
   bareTitle?: boolean;
+  /** Sprache der Seite; Kopf- und Fußzeile bleiben deutsch (lang="de") */
+  lang?: 'de' | 'en';
+  /** Sprachfassungen derselben Seite (hreflang), jeweils mit Pfad; x-default zeigt auf die deutsche */
+  alternates?: { lang: 'de' | 'en'; href: string }[];
   ogImage?: string;
+  ogImageAlt?: string;
   ogType?: 'website' | 'article';
   /** zusätzliche Skripte (Pfad unter /js/), werden mit defer geladen */
   scripts?: string[];
   /** Modul-Skripte (Pfad unter /js/) */
   modules?: string[];
-  jsonLd?: Record<string, unknown>;
+  /** ein Knoten oder mehrere (werden als @graph ausgegeben) */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   bodyClass?: string;
 }
 
-const { title, description, bareTitle = false, ogImage = '/og/ict-baden.png', ogType = 'website', scripts = [], modules = [], jsonLd, bodyClass } = Astro.props;
+const {
+  title, description, bareTitle = false, lang = 'de', alternates = [], ogImage = '/og/ict-baden.png',
+  ogImageAlt, ogType = 'website', scripts = [], modules = [], jsonLd, bodyClass,
+} = Astro.props;
 const fullTitle = bareTitle ? title : `${title} – ICT Baden`;
 const path = Astro.url.pathname;
 // Die Fehlerseite hat keine eigene Adresse: keine kanonische URL, nie indexieren
 const is404 = /^\/404(\.html|\/)?$/.test(path);
 const canonical = `${SITE_URL}${path}`;
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`;
+const ogAlt = ogImageAlt ?? (ogImage === '/og/ict-baden.png' ? 'ICT Baden – Getting Things Done. Softwareentwicklung in Karlsruhe-Durlach' : fullTitle);
+const ld = jsonLd ? (Array.isArray(jsonLd) ? graph(...jsonLd) : { '@context': 'https://schema.org', ...jsonLd }) : null;
+const xDefault = alternates.find((a) => a.lang === 'de');
+const isHome = path === '/';
 ---
 <!doctype html>
-<html lang="de">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -45,6 +59,10 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}
     <meta name="description" content={description} />
     {(STAGING || is404) && <meta name="robots" content="noindex, nofollow" />}
     {!is404 && <link rel="canonical" href={canonical} />}
+    {alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={`${SITE_URL}${a.href}`} />)}
+    {xDefault && <link rel="alternate" hreflang="x-default" href={`${SITE_URL}${xDefault.href}`} />}
+    {isHome && VERIFY.google && <meta name="google-site-verification" content={VERIFY.google} />}
+    {isHome && VERIFY.bing && <meta name="msvalidate.01" content={VERIFY.bing} />}
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf9f5" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111111" />
@@ -60,31 +78,34 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}
 
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={COMPANY.name} />
-    <meta property="og:locale" content="de_DE" />
+    <meta property="og:locale" content={lang === 'en' ? 'en_GB' : 'de_DE'} />
+    {alternates.filter((a) => a.lang !== lang).map((a) => <meta property="og:locale:alternate" content={a.lang === 'en' ? 'en_GB' : 'de_DE'} />)}
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     {!is404 && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogAlt} />
     <meta name="twitter:card" content="summary_large_image" />
-    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <meta name="twitter:image:alt" content={ogAlt} />
+    {ld && <script type="application/ld+json" set:html={JSON.stringify(ld).replace(/</g, '\\u003c')} />}
     <script is:inline src="/js/site.js" defer></script>
     {scripts.map((s) => <script is:inline src={`/js/${s}`} defer></script>)}
     {modules.map((s) => <script is:inline type="module" src={`/js/${s}`}></script>)}
   </head>
   <body class={bodyClass}>
-    <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+    <a class="skip-link" href="#inhalt" lang={lang}>{lang === 'en' ? 'Skip to content' : 'Zum Inhalt springen'}</a>
     {STAGING && (
-      <aside class="staging-bar" aria-label="Hinweis">
+      <aside class="staging-bar" aria-label="Hinweis" lang="de">
         <span>Vorschau der neuen Website von ICT Baden</span>
       </aside>
     )}
-    <Header />
+    <Header lang={lang} />
     <main id="inhalt" tabindex="-1">
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>
 

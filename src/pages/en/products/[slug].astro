@@ -1,0 +1,13 @@
+---
+// Englische Produktseite (/en/products/<slug>/) – gleicher Aufbau wie die deutsche, Texte aus der englischen README.
+import ProductLanding from '../../../components/product/ProductLanding.astro';
+import { products, type Product } from '../../../lib/products';
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { slug: p.slug }, props: { product: p } }));
+}
+
+interface Props { product: Product }
+const { product } = Astro.props;
+---
+<ProductLanding product={product} lang="en" />

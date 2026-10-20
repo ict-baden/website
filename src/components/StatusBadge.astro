@@ -1,6 +1,6 @@
 ---
 import type { Product } from '../lib/products';
-interface Props { product: Pick<Product, 'statusKey' | 'statusLabel'>; class?: string }
-const { product, class: className } = Astro.props;
+interface Props { product: Pick<Product, 'statusKey' | 'statusLabel'>; class?: string; label?: string }
+const { product, class: className, label } = Astro.props;
 ---
-<span class:list={['badge', `badge--${product.statusKey}`, className]}><span class="visually-hidden">Status: </span>{product.statusLabel}</span>
+<span class:list={['badge', `badge--${product.statusKey}`, className]}><span class="visually-hidden">Status: </span>{label ?? product.statusLabel}</span>

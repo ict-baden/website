@@ -20,18 +20,24 @@ from the internal project list.
 
 | URL | Content |
 |---|---|
-| `/` | Hero, services, topic areas, featured products, product lines, about, contact |
+| `/` | Hero, services, topic areas, the published products, product lines, about, contact |
 | `/leistungen/` | Services and the complete old portfolio with all links |
-| `/produkte/` | All products grouped by product line, filter by line and status (`?linie=…&status=…`) |
-| `/produkte/<slug>/` | Product detail pages (38) |
-| `/downloads/` | ModbusExplorer (modbus.de), TRON (no download available), link to the calculator |
+| `/produkte/` | All published products grouped by product line, filter by line and status (`?linie=…&status=…`) |
+| `/produkte/<slug>/` | Product landing pages (7, German): Vitrine, Lupe, Zutritt, Riegel, EnterpriseBrowser, Industrial Keyboard, Plakette |
+| `/en/` | English product overview (the rest of the site stays German) |
+| `/en/products/<slug>/` | English product landing pages (7), `hreflang` pairs with the German pages |
+| `/downloads/` | The products (download as soon as each one is public), ModbusExplorer (modbus.de), TRON (no download available), link to the calculator |
 | `/werkzeuge/pulswertigkeit/` | Energy meter pulse value calculator (rebuilt from `counter-pulse.html`) |
 | `/ueber-uns/`, `/kontakt/` | About text, contact data, profiles, directions with map and PDF |
-| `/impressum/`, `/datenschutz/` | Imprint, privacy policy |
+| `/impressum/`, `/datenschutz/` | Imprint, privacy policy (PR #1 adds `/datenschutz/<app>/` for the Android apps) |
 | `/404.html`, `/robots.txt`, `/sitemap.xml`, `/manifest.webmanifest` | Generated |
+| `/llms.txt`, `/llms-full.txt` | Generated from the product data: short overview and all product facts in Markdown for AI assistants ([llmstxt.org](https://llmstxt.org)) |
+| `/<INDEXNOW_KEY>.txt` | IndexNow key file, only when `INDEXNOW_KEY` is set |
 
-Old URLs (`index.html?page=contact`, `portfolio.html`, …) and renamed product pages (`/produkte/industrialkeyboard/`)
-are redirected by nginx (see `deploy/nginx.conf`).
+Old URLs (`index.html?page=contact`, `portfolio.html`, `/about/Kontakt.html`, …), renamed product pages
+(`/produkte/industrialkeyboard/`, `/produkte/haertungs-check/` → `/produkte/riegel/`, `/produkte/labeldesigner/` →
+`/produkte/plakette/`) and the 31 product pages that are no longer published (→ `/produkte/`) are redirected by nginx
+(see `deploy/nginx.conf`).
 
 ## Structure
 
@@ -43,13 +49,18 @@ src/
   assets/brand/          marke.json (logo and short mark as outlines) + the original drafts from ict-baden/richtlinien
   assets/product-icons/  GENERATED product icons (scripts/make-product-icons.mjs)
   data/portfolio.ts      services and topic areas from the old site
+  data/produktseiten/    curated German + English copy of every product page (<project id>.ts, sources in the header)
   lib/products.ts        typed access to products.json, status labels, helpers
+  lib/produktseiten.ts   types and helpers of the product pages (titles, {lizenz}/{download} placeholders, UI texts)
+  lib/seo.ts             JSON-LD builders (Organization, WebSite, WebPage, SoftwareApplication, FAQPage, BreadcrumbList)
+  lib/llms.ts            /llms.txt and /llms-full.txt
+  lib/app-privacy.ts     finds the app privacy pages of PR #1 (/datenschutz/<app>/) for the sitemap and product pages
   lib/art.ts             generated cover art (products without screenshots) and the product line tiles
   lib/product-icons.ts   resolves the icon of a product (generated or the repository's own)
   lib/icons.ts           stroke icon set
-  components/            Header, Footer, Logo, cards, product components, …
-  layouts/Base.astro     <head> (meta, OG, preloads), header, footer
-  pages/                 one file per route, products/[slug].astro for the detail pages
+  components/            Header, Footer, Logo, cards, product components (product/ProductLanding.astro: product page), …
+  layouts/Base.astro     <head> (meta, OG, hreflang, JSON-LD, verification tags, preloads), header, footer
+  pages/                 one file per route; produkte/[slug].astro and en/products/[slug].astro for the product pages
   styles/                tokens.css (colours, type, spacing), base.css, components.css, art.css
 public/
   js/                    theme-init.js (blocking, sets the stored theme), site.js, products.js, pulse*.js
@@ -64,6 +75,24 @@ deploy/                  Dockerfile, nginx.conf, docker-compose.yml, deploy.sh
 
 The catalogue is generated from the private repository `ict-baden/ict-baden-projekte` and the product
 repositories. Nothing from those repositories is linked or published except the fields listed below.
+
+### Product selection
+
+Only the products listed in `"veroeffentlicht"` in `scripts/public-overrides.json` appear on the website – this is
+the one place that decides it (project ids from `projekte.json`). Today these are the seven products being
+released: `vitrine` (Vitrine), `qr-scanner` (Lupe), `enterprisebrowser` (EnterpriseBrowser), `industrialkeyboard`
+(Industrial Keyboard), `haertungs-check` (Riegel), `freigaben-berechtigungen` (Zutritt) and `labeldesigner`
+(Plakette). Ideas and other projects in `projekte.json` stay internal. `scripts/check-products.mjs` (and therefore
+CI) fails unless `products.json` contains exactly these ids and every product has a page in
+`src/data/produktseiten/`.
+
+To publish another product: add its id to `"veroeffentlicht"`, write `src/data/produktseiten/<id>.ts` (German and
+English, every claim backed by the product README – see the header comment of the existing files), add curated
+media to `scripts/product-media.json`, run the sync, `npm run icons` and `npm run brand -- --only <slug>`. To remove
+one: take it out of the list, run the sync and add a 301 for its slug in `deploy/nginx.conf`.
+
+The product lines of the website are set in `"linien"` (same file); lines without a product are dropped
+automatically.
 
 ```bash
 node scripts/sync-products.mjs <path-to-ict-baden-projekte> [<folder-with-product-repos> …]
@@ -103,21 +132,61 @@ and aborts the sync (and the CI) if anything slips through.
 - sentences/blocks can be dropped (`dropSentences`, `dropBlocks`, `dropItems`) or corrected (`textReplace`),
   e.g. Vitrine's log is „manipulationserkennend“ (as its README says), not „manipulationssicher“.
 - a *Problem* section that only repeats the short text is dropped automatically; `"problem": false` or
-  `"umfang": false` drop a section explicitly (e.g. the Prozessleitsystem, whose v1 scope is still open).
+  `"umfang": false` drop a section explicitly (the seven product pages use curated sections from
+  `src/data/produktseiten/` instead of the note sections).
+- where `projekte.json` is out of date, a product can be corrected from its README: `name` (Riegel, Plakette),
+  `text`, `status`, `version`, `linie` and `repo` (only used to find README and images, never published).
+- **Third-party product names and comparisons** („Alternative zu …“, „Nachbau“, „feature parity“, names such as
+  tenfold, ZebraDesigner, Transparent Screen Lock, HardeningKitty …) are rejected in *every* text field of a product
+  – short text, meta description, alt texts – unless that product has `"ersetzt": true`
+  (`findCompetitorMentions` in `scripts/lib/public-guard.mjs`; the sync, `check:products` and `check:seo` use it).
+  Set `"ersetzt": true` only after a legal review. The same applies to the optional „Alternative zu …“ block of a
+  product page (`alternatives.approved` in `src/data/produktseiten/<id>.ts`, off for all seven today).
 
-**Curated media** live in `scripts/product-media.json` (key = repository name): German tagline, kind (optional),
-highlights, facts, which screenshots to use with German titles/captions/alt texts (taken from the product
-READMEs and UIs; English READMEs translated). Repositories without an entry still work: the logo is used and
+**Curated media** live in `scripts/product-media.json` (key = repository name): German tagline, kind (the
+category that goes into the H1 and title, e.g. „Transparente Bildschirmsperre für Windows“), highlights, facts,
+which screenshots to use with German and English titles/captions/alt texts (taken from the product READMEs and
+UIs) and a descriptive file name (`"file"`, e.g. `vitrine-transparente-bildschirmsperre` →
+`vitrine-transparente-bildschirmsperre-light-1600.webp`). Alt texts start with product and category and stay under
+about 150 characters; details go into the caption. Repositories without an entry still work: the logo is used and
 screenshots are picked up automatically with a generic alt text. Banners are off by default (they repeat the
-name and claim the page already shows, and some are in English); `"banner": true` enables one.
+name and claim the page already shows, and some are in English); `"banner": true` enables one. The sync also
+records the date of the last commit of each product repository (`updated`): it is shown as „Stand“ on the page
+and used as `lastmod` in the sitemap and `dateModified` in the JSON-LD.
 
-**Real assets** (state of the last sync): Lupe, Zutritt, Vitrine, Hausmeister, Fühler, Frist, Rundgang, Merker,
-Lotse, EnterpriseBrowser and Industrial Keyboard have their README name, screenshots and German texts on the
-site. All other products are concepts without a repository.
+**Real assets** (state of the last sync): Vitrine, Lupe, Zutritt, Riegel, EnterpriseBrowser and Industrial Keyboard
+have their README name, real screenshots (Vitrine: the real application with sample data, no longer the design
+preview) and German and English texts on the site. Plakette has no screenshots yet (the repository adds them with
+its first release) and shows generated cover art.
 
-**Products without screenshots** get generated cover art in the style of their product line (network graph for
-Explorer, sample rack for Labor, locked cell grid for OT, server rack, barcode with scan line, signal waves,
-sparks) – reproducible from the slug, drawn on graphite and tinted with the product's colour pair.
+**Products without screenshots** get generated cover art in the style of their product line (locked cell grid for
+OT, barcode with scan line, …) – reproducible from the slug, drawn on graphite and tinted with the product's colour
+pair.
+
+### Product pages
+
+Every product has a landing page in German (`/produkte/<slug>/`) and English (`/en/products/<slug>/`), built by
+`src/components/product/ProductLanding.astro` from `products.json` and `src/data/produktseiten/<id>.ts`:
+
+- H1 = name + category, a first paragraph that answers „what is it, for whom, platform, licence“ in one or two
+  plain sentences (search engines and AI answers quote it), sections per search intent, features, screenshots,
+  system requirements, honest limits, FAQ (5–8 questions from the keyword research), „Auch bekannt als“ with the
+  common synonyms, related products, trademark note.
+- `<title>` and meta description per language (title ≤ 65 characters, „ | ICT Baden“ only where it fits;
+  description 120–170 characters); `hreflang` de/en/x-default both ways; `og:image` per product
+  (`public/og/produkte/<slug>.jpg`) with `og:image:alt`.
+- JSON-LD as one `@graph`: Organization, WebSite, WebPage, SoftwareApplication (name, alternateName = category and
+  synonyms, applicationCategory, operatingSystem, licence MIT, `isAccessibleForFree`, publisher; `offers` with price
+  0 EUR and `softwareVersion` only for released products; `downloadUrl`/`sameAs` only when the download is public),
+  FAQPage (same questions as on the page) and BreadcrumbList. No ratings – there are none.
+- **Download flag:** `download.public` in `src/data/produktseiten/<id>.ts` is `false` for all seven, because the
+  repositories are private and GitHub would answer every download link with a 404. The page then shows
+  „Download folgt“ (released products) or „noch nicht veröffentlicht“ (Plakette), says „kostenlos unter der
+  MIT-Lizenz“ instead of „Open Source“, and the JSON-LD has no `downloadUrl`. When a repository goes public, set
+  `public: true` – the download button, the source link, „Open Source“ and `downloadUrl`/`sameAs` appear by
+  themselves. Set `play` once the app is on Google Play.
+- The Android pages link their privacy policy `/datenschutz/<app>/` as soon as PR #1 is merged (`privacyApp`,
+  found through `src/lib/app-privacy.ts`, so nothing links to a missing page).
 
 ## Local development
 
@@ -138,6 +207,9 @@ npm run check:products   # products.json: only public fields, no internal conten
 npm test                 # calculator vs. the original formulas of counter-pulse.html (worked examples)
 npm run check:links      # internal links, images, srcset and anchors in dist/ (add --external for http checks)
 npm run check:html       # html-validate with a11y rules
+npm run check:seo        # titles, descriptions, one H1, canonical, og:image:alt, hreflang both ways, every JSON-LD
+                         # block parses and has its required fields, FAQ questions visible, alt texts, no third-party
+                         # product names without approval, sitemap/robots.txt/llms.txt (node scripts/check-seo.mjs <dir>)
 npm run check:a11y       # axe-core on every page, light/dark, 1440/390 px (needs Chromium or Chrome)
 npm run screenshots      # full-page screenshots of all pages into .screenshots/ (390/1440, light/dark)
 ```
@@ -168,60 +240,28 @@ Every product has an app icon in the style of `marke/app-icon-vorlage.svg` from 
 28 × 28 tile at (2, 2) with radius 7, top-to-bottom gradient of the product's own colour pair, white symbol
 (stroke 2–2.6, round caps, at most two or three shapes, legible at 16 px), no text, no third-party logos.
 
-- Products whose repository has its own icon in this style keep it (Lupe, Zutritt, Vitrine; EnterpriseBrowser
+- Products whose repository has its own icon in this style keep it (Lupe, Zutritt, Vitrine, Riegel; EnterpriseBrowser
   and Industrial Keyboard with their Android app icons). Raster app icons are fitted into the template geometry
   by the sync (tile 28/32 with a 2/32 margin, corner radius 7/32), so they match the generated icons in size.
 - All others get a generated icon: `scripts/product-icons.mjs` defines colour pair and symbol per project id,
   `npm run icons` writes `src/assets/product-icons/<id>.svg`, `src/styles/product-colors.css` and the table below,
   checks that every pair is distinct from all others (OKLab distance of the two stops and of the gradient's
   mid-tone, including the repository icons) and can render a contact sheet (`npm run icons -- --sheet sheet.png`).
-- Hausmeister, Fühler, Frist, Rundgang, Merker and Lotse have a single-colour line symbol as `docs/assets/logo.svg`
-  in their repositories, without tile or gradient. Their symbol is taken over unchanged (same paths, scaled into
-  the tile) and set in the template – white on its own gradient. The repositories can adopt these icons.
+- Repositories with a single-colour line symbol as `docs/assets/logo.svg` (without tile or gradient) get that symbol
+  unchanged (same paths, scaled into the tile), set in the template – white on its own gradient. The repositories
+  can adopt these icons. Today only Plakette uses a generated icon (it has no logo yet).
 - Colour pairs were chosen on a grid of 13 hues × 3 lightness levels so that products of the same line differ
   clearly; the generated cover art of products without screenshots is tinted with the same pair.
 
 <!-- product-icons:start -->
 | Product | Line | Top | Bottom | Symbol | Source |
 |---|---|---|---|---|---|
-| EnterpriseBrowser | Android & Zebra | `#0d47a1` | `#0d47a1` | own | own icon from the repo |
-| Industrial Keyboard | Android & Zebra | `#2b5996` | `#08759b` | own | own icon from the repo |
-| Lupe | Labor | `#f7a531` | `#e8505b` | own | own icon from the repo |
-| Plakette | Labor | `#f995eb` | `#9059c0` | label tag | generated |
-| Vial-Scanner | Labor | `#4daaff` | `#4651be` | sample tube | generated |
 | Vitrine | OT-Sicherheit & Compliance | `#5b8cff` | `#8b5cf6` | own | own icon from the repo |
-| Riegel | OT-Sicherheit & Compliance | `#f3821d` | `#ac281b` | shield with check mark | generated |
+| Riegel | OT-Sicherheit & Compliance | `#f3821d` | `#ac281b` | own | own icon from the repo |
 | Zutritt | OT-Sicherheit & Compliance | `#22c3a6` | `#3b6cf6` | own | own icon from the repo |
-| USB-Prüfstation | OT-Sicherheit & Compliance | `#cf5d85` | `#7b226d` | USB plug with check mark | generated |
-| SecureDesktop | OT-Sicherheit & Compliance | `#579e3c` | `#025c3f` | app window with check mark | generated |
-| User Review | OT-Sicherheit & Compliance | `#90e2e1` | `#389560` | person with check mark | generated |
-| WinCC Audit-Trail-Viewer | OT-Sicherheit & Compliance | `#829cb3` | `#3c4e66` | timeline with entries | generated |
-| GPO-Doku und -Vergleich | OT-Sicherheit & Compliance | `#d1a9ff` | `#6868d2` | two documents compared | generated |
-| Modbus-Explorer | Explorer | `#09d8d7` | `#0685a0` | bus with three devices | generated |
-| Hausmeister | Explorer | `#88d56c` | `#068d62` | house (Hausmeister repo logo) | generated, symbol from the repo logo |
-| Fühler | Explorer | `#be85f9` | `#524dbd` | signal curve (Fühler repo logo) | generated, symbol from the repo logo |
-| Frist | Explorer | `#f771a0` | `#962f86` | calendar with check mark (Frist repo logo) | generated, symbol from the repo logo |
-| Rundgang | Explorer | `#747de2` | `#004d8f` | server rack units (Rundgang repo logo) | generated, symbol from the repo logo |
-| Merker | Explorer | `#ffa194` | `#bf456e` | PLC module (Merker repo logo) | generated, symbol from the repo logo |
-| Lotse | Explorer | `#00b6de` | `#0065a3` | ship's wheel (Lotse repo logo) | generated, symbol from the repo logo |
-| OPC-UA-Explorer | Explorer | `#88c3fe` | `#5c6bd4` | node tree | generated |
-| Profinet-Scanner | Explorer | `#8fb51f` | `#017530` | radar | generated |
-| IEC-61850-Browser | Explorer | `#efb219` | `#b15f01` | lightning bolt | generated |
-| Explorer-Framework | Explorer | `#bc63b1` | `#632f8b` | stacked layers (modules) | generated |
-| TFTP/SFTP-Server | Service-Laptop | `#a9cf7a` | `#8a6a0a` | upload and download | generated |
-| Netzprofil-Umschalter | Service-Laptop | `#fd7466` | `#a82457` | toggle switch | generated |
-| Fernwartung | Self-hosted Server-Apps | `#e078d3` | `#7a3daa` | screen with pointer | generated |
-| Label-Print-Server | Self-hosted Server-Apps | `#d56054` | `#891845` | printer | generated |
-| Zertifikatsserver | Self-hosted Server-Apps | `#d19a00` | `#904c00` | seal with ribbons | generated |
-| IT/OT-Dateischleuse | Self-hosted Server-Apps | `#04a177` | `#015956` | arrow through an airlock | generated |
-| Update-Server für OT | Self-hosted Server-Apps | `#029bab` | `#025474` | circular arrow with download | generated |
-| RZ-Energiebericht | Self-hosted Server-Apps | `#c5c632` | `#4a8b10` | report with lightning bolt | generated |
-| Zebra-Druckerflotte-Monitor | Self-hosted Server-Apps | `#ff99c2` | `#94468f` | printer with pulse line | generated |
-| PLC-Projekt-Versionierung | Self-hosted Server-Apps | `#5ad0ac` | `#446a2c` | version branch | generated |
-| Prozessleitsystem | Self-hosted Server-Apps | `#9264ef` | `#442e9d` | gauge | generated |
-| Moderne Visualisierung | Self-hosted Server-Apps | `#b47fa2` | `#543652` | screen with trend curve | generated |
-| PPWR-Verpackungsdaten | Neue Ideen | `#cc6c13` | `#8d1c11` | package | generated |
-| Verpackungsmengen-Plugin | Neue Ideen | `#b59a75` | `#6c4932` | weight | generated |
+| EnterpriseBrowser | Mobile Datenerfassung (Android) | `#0d47a1` | `#0d47a1` | own | own icon from the repo |
+| Industrial Keyboard | Mobile Datenerfassung (Android) | `#2b5996` | `#08759b` | own | own icon from the repo |
+| Lupe | Barcodes & Etiketten | `#f7a531` | `#e8505b` | own | own icon from the repo |
 <!-- product-icons:end -->
 
 ## Configuration and staging
@@ -229,10 +269,54 @@ Every product has an app icon in the style of `marke/app-icon-vorlage.svg` from 
 | Variable | Default | Effect |
 |---|---|---|
 | `SITE_URL` | `https://ictbaden.netgetvpn.de` | canonical URLs, sitemap, Open Graph |
-| `SITE_STAGING` | `1` | `1`: `<meta name="robots" content="noindex">`, `robots.txt` disallows everything, preview bar, Cloudflare section in the privacy policy, nginx sends `X-Robots-Tag: noindex`. `0`: live. |
+| `SITE_STAGING` | `1` | `1`: `<meta name="robots" content="noindex">`, `robots.txt` disallows everything, preview bar, Cloudflare section in the privacy policy, nginx sends `X-Robots-Tag: noindex`. `0`: live – `robots.txt` allows everything and names the main search and AI crawlers explicitly. |
+| `GOOGLE_SITE_VERIFICATION` | empty | content of the `google-site-verification` meta tag on the home page (only if Search Console is verified by meta tag instead of DNS) |
+| `BING_SITE_VERIFICATION` | empty | content of the `msvalidate.01` meta tag on the home page (Bing Webmaster Tools) |
+| `INDEXNOW_KEY` | empty | IndexNow key (8–128 characters `a-z A-Z 0-9 -`): the build writes `/<key>.txt`, `deploy/deploy.sh` submits the sitemap URLs to IndexNow after a live deploy |
+
+No real keys are in the repository; set them in the environment of the deploy (e.g. `export INDEXNOW_KEY=…`).
 
 For the go-live on ict-baden.de: set `SITE_URL=https://ict-baden.de` and `SITE_STAGING=0` in the CI job (after the
-legal review, and with the hosting described correctly in the privacy policy).
+legal review, and with the hosting described correctly in the privacy policy) – see the checklist below. IndexNow
+submission after a live deploy is not part of the automatic deploy yet; submit the sitemap once by hand at go-live.
+
+## Search engines and AI search
+
+What the site does for Google, Bing and AI answer engines (ChatGPT search, Perplexity, Claude, Google AI Overviews):
+
+- One landing page per product and language whose H1, title, first sentence and FAQ use the words people search
+  for („transparente Bildschirmsperre“, „QR-Code am PC scannen“, „NTFS-Berechtigungen auslesen“, „Kiosk-Browser
+  Zebra“, …), synonyms in the running text and in „Auch bekannt als“, no hidden text.
+- Static HTML only – every crawler gets the full content without JavaScript.
+- Structured data (see Product pages), Organization/ProfessionalService + WebSite on the home page (data from
+  `src/config.ts` only).
+- `sitemap.xml` with `xhtml:link` hreflang alternates and `lastmod` (product pages: last commit of the product
+  repository); `/llms.txt` and `/llms-full.txt` from the same data.
+- Descriptive file names and alt texts for screenshots; decorative images (icons next to a heading, the hero
+  collage, cover art) keep `alt=""`/`aria-hidden`.
+- Third-party product names only after legal review (see Editorial rules).
+
+### Going live – checklist
+
+1. Legal review done (privacy policy, imprint, the third-party names and product names listed in the PR).
+2. DNS for `ict-baden.de` and `www.ict-baden.de` to the new hosting; TLS for both; `www` → apex and `http` → `https`
+   as 301 (apex is canonical). If Cloudflare is in front: switch off „Block AI bots“ / AI Crawl Control blocking and
+   the managed `robots.txt`, keep Bot Fight Mode from challenging verified bots, and describe Cloudflare in the
+   privacy policy (the paragraph is shown only in staging today).
+3. Deploy: `SITE_URL=https://ict-baden.de SITE_STAGING=0 INDEXNOW_KEY=<key> deploy/deploy.sh`. The script checks
+   after the switch that no `X-Robots-Tag` is sent, that `/produkte/industrialkeyboard` and an old URL answer 301,
+   and switches back otherwise; then it submits all sitemap URLs to IndexNow.
+4. From outside: `curl -sI https://ict-baden.de/` (no `X-Robots-Tag`), `curl https://ict-baden.de/robots.txt`
+   (no `Disallow: /`), `curl -sI https://ict-baden.de/index.html?page=contact` (301).
+5. Google Search Console: add the domain property (DNS TXT, preferred) or set `GOOGLE_SITE_VERIFICATION`; submit
+   `https://ict-baden.de/sitemap.xml`; request indexing of the seven product pages (de and en).
+6. Bing Webmaster Tools (also feeds ChatGPT search and Copilot): import from Search Console or verify by DNS /
+   `BING_SITE_VERIFICATION`; submit the sitemap.
+7. Check the product pages with the Rich Results Test and validator.schema.org, and the home page with PageSpeed
+   Insights.
+8. When a product repository goes public: set `download.public: true` (and `play` for the Android apps), set the
+   repository homepage to the product page and add topics; then list the product where AI answers look
+   (AlternativeTo, winget, Google Play, Flathub) – nominative comparisons only after legal review.
 
 ## Deployment (docker01, automatic)
 
@@ -258,6 +342,8 @@ Server layout (`DEPLOY_DIR`, default `/srv/docker/ictbaden.netgetvpn.de`): `dock
 `cf.tunnel.hostname=ictbaden.netgetvpn.de`, `cf.tunnel.service`, `cf.tunnel.access=none`; optionally `.env` with a
 pinned `IMAGE_TAG`. The image package is public (it only contains the public website), so docker01 needs no
 registry credentials.
+
+The CI probe also checks that the redirects and the `X-Robots-Tag` header behave as configured before it pushes.
 
 nginx serves static files with gzip, long-lived caching for hashed assets (`/_astro/`), security headers and a
 strict Content-Security-Policy (`script-src 'self'; style-src 'self'` – the site has no inline scripts or styles),

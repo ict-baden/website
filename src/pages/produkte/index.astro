@@ -8,22 +8,36 @@ import { lineGlyph } from '../../lib/art';
 import { OWN_PRODUCTS } from '../../data/portfolio';
 import { mailto } from '../../config';
 import { linien, products, productsOfLine, statusCounts, STATUS_ORDER, STATUS_LABEL, STATUS_HELP, plural } from '../../lib/products';
+import { breadcrumbs, organization, productList, webPage, website } from '../../lib/seo';
 
 const total = statusCounts(products);
+// Nur Status, die vorkommen (keine leeren Filter und Legenden-Einträge)
+const statuses = STATUS_ORDER.filter((k) => total[k] > 0);
+const title = 'Software-Produkte für Industrie, Labor und IT';
+const description = 'Software von ICT Baden: transparente Bildschirmsperre, QR- und Barcode-Leser, Kiosk-Browser und Tastatur für MDE-Geräte, Windows-Härtung, Berechtigungsbericht.';
+const jsonLd = [
+  organization(),
+  website(),
+  webPage('/produkte/', `${title} – ICT Baden`, description, 'de'),
+  productList(products, 'de', 'Software-Produkte von ICT Baden'),
+  breadcrumbs([{ name: 'Start', url: '/' }, { name: 'Produkte', url: '/produkte/' }]),
+];
 ---
 <Base
-  title="Produkte"
-  description={`${products.length} Software-Produkte von ICT Baden in ${linien.length} Produktlinien: ${linien.map((l) => l.name).join(', ')}.`}
+  title={title}
+  description={description}
+  alternates={[{ lang: 'de', href: '/produkte/' }, { lang: 'en', href: '/en/' }]}
   scripts={['products.js']}
+  jsonLd={jsonLd}
 >
   <PageHero
     eyebrow="Eigene Produkte"
     title="Software-Produkte für Industrie, Labor und IT"
-    lead={`${plural(products.length, 'Produkt', 'Produkte')} in ${linien.length} Produktlinien – fertige Anwendungen, Vorabversionen und Produkte in Entwicklung. Zu jedem Produkt beraten wir Sie gern persönlich.`}
+    lead={`${plural(products.length, 'Produkt', 'Produkte')} in ${linien.length} Produktlinien – alle kostenlos unter der MIT-Lizenz, Support auf Wunsch per Supportvertrag. Zu jedem Produkt beraten wir Sie gern persönlich.`}
     crumbs={[{ label: 'Produkte' }]}
   >
     <ul class="legend" aria-label="Status der Produkte">
-      {STATUS_ORDER.map((k) => (
+      {statuses.map((k) => (
         <li>
           <span class:list={['badge', `badge--${k}`]}>{STATUS_LABEL[k]}</span>
           <span class="legend-n tabular">{total[k]}</span>
@@ -70,7 +84,7 @@ const total = statusCounts(products);
         <span class="flabel" id="f-status"><Icon name="check-circle" /> Status</span>
         <div class="chips" role="group" aria-labelledby="f-status">
           <button class="chip" type="button" data-filter="status" data-value="" aria-pressed="true">Alle</button>
-          {STATUS_ORDER.map((k) => (
+          {statuses.map((k) => (
             <button class="chip" type="button" data-filter="status" data-value={k} aria-pressed="false">{STATUS_LABEL[k]} <span class="count">{total[k]}</span></button>
           ))}
         </div>
@@ -114,6 +128,8 @@ const total = statusCounts(products);
       );
     })}
 
+    <p class="en-link"><a href="/en/" hreflang="en" lang="en">Products in English</a></p>
+
     <div class="pempty" data-empty hidden>
       <p>Für diese Auswahl gibt es noch kein Produkt.</p>
       <button class="btn btn--secondary" type="button" data-reset>Filter zurücksetzen</button>
@@ -134,8 +150,6 @@ const total = statusCounts(products);
   .legend-help { color: var(--ink-3); }
   @media (max-width: 640px) { .legend-help { display: none; } .legend { gap: var(--s-3); } }
 
-  /* Eine Spalte, die nie breiter als der Container wird: sonst bläst die angedockte Filterleiste (Chips ohne
-     Umbruch) die Spalte auf, alle Karten ordnen sich neu an und die Seite springt beim Scrollen */
   .own { margin-bottom: var(--s-8); }
   .own-head { margin-bottom: var(--s-5); }
   .own-head h2 { font-size: var(--fs-xl); }
@@ -155,11 +169,13 @@ const total = statusCounts(products);
   .own-text { color: var(--ink-2); margin-bottom: var(--s-3); }
   .own-link { grid-column: 2; justify-self: start; }
   @media (max-width: 760px) { .own-grid { grid-template-columns: minmax(0, 1fr); } }
+  /* Eine Spalte, die nie breiter als der Container wird: sonst bläst die angedockte Filterleiste (Chips ohne
+     Umbruch) die Spalte auf, alle Karten ordnen sich neu an und die Seite springt beim Scrollen */
   .catalog { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); }
+  .en-link { color: var(--ink-3); font-size: var(--fs-sm); }
   .filters {
     position: sticky;
     top: 72px;
-    min-width: 0;
     z-index: 20;
     display: grid;
     gap: var(--s-3);
@@ -252,7 +268,8 @@ const total = statusCounts(products);
   }
   @media (max-width: 760px) { .pgrid--compact { grid-template-columns: minmax(0, 1fr); } }
   @media (max-width: 640px) {
-    .pgrid { grid-template-columns: minmax(0, 1fr); }
+    /* auch die Zeilen mit zwei Produkten (data-n='2' oben) – sonst bleiben auf dem Telefon zwei schmale Spalten */
+    .pgrid, .pgrid--feat[data-n='2'] { grid-template-columns: minmax(0, 1fr); }
     .pline-head { grid-template-columns: auto 1fr; }
     .pline-n { grid-column: 2; }
     .filters { position: static; }
