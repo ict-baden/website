@@ -11,6 +11,7 @@ export const ICONS = {
   download: '<path d="M12 4v11M7 10.5l5 5 5-5M5 19.5h14"/>',
   file: '<path d="M14 3.5H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5L14 3.5Z"/><path d="M14 3.5v5h5M9 13h6M9 16.5h4"/>',
   check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+  play: '<path d="M7 4.5v15l12.5-7.5L7 4.5Z" fill="currentColor"/>',
   'check-circle': '<circle cx="12" cy="12" r="9"/><path d="m8 12.3 2.8 2.8L16.2 9.6"/>',
   x: '<path d="M6 6l12 12M18 6 6 18"/>',
   menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',

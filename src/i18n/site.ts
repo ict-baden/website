@@ -63,14 +63,14 @@ export const HERO = {
   de: {
     eyebrow: 'ICT Baden · Softwareentwicklung in Karlsruhe-Durlach',
     lead: 'Wir bieten Beratung und Softwareentwicklung im Auftrag – und entwickeln eigene Software-Produkte für Industrie, Labor und IT.',
-    ctaProducts: 'Produkte ansehen', ctaServices: 'Leistungen', pointsLabel: 'Schwerpunkte',
+    ctaProducts: 'Produkte ansehen', ctaServices: 'Leistungen', ctaVideo: 'Video ansehen', pointsLabel: 'Schwerpunkte',
     points: [['code', 'C# · Mono bis .NET 10'], ['layers', 'Linux · Windows · Cloud'], ['chip', 'C/C++ für Embedded']] as [IconName, string][],
     chipVitrine: 'Ansehen, nicht anfassen.', chipZutritt: 'Wer darf wohin?',
   },
   en: {
     eyebrow: 'ICT Baden · Software development in Karlsruhe-Durlach, Germany',
     lead: 'We offer consulting and software development for our clients – and build our own software products for industry, labs and IT.',
-    ctaProducts: 'View products', ctaServices: 'Services', pointsLabel: 'Focus areas',
+    ctaProducts: 'View products', ctaServices: 'Services', ctaVideo: 'Watch the video', pointsLabel: 'Focus areas',
     points: [['code', 'C# · Mono to .NET 10'], ['layers', 'Linux · Windows · Cloud'], ['chip', 'C/C++ for embedded']] as [IconName, string][],
     chipVitrine: 'Look, don’t touch.', chipZutritt: 'Who may go where?',
   },

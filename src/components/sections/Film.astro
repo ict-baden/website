@@ -1,0 +1,51 @@
+---
+// Abschnitt mit dem Portfolio-Video (englischer Sprecher, Untertitel deutsch auf /, englisch auf /en/).
+// Vom eigenen Server; vor dem Abspielen lädt nur das Vorschaubild (preload="none"). Quelle: video/ict-baden-promo.
+import Icon from '../Icon.astro';
+import type { Lang } from '../../i18n/site';
+
+interface Props { lang?: Lang }
+const { lang = 'de' } = Astro.props;
+const de = lang === 'de';
+const T = de
+  ? { eyebrow: 'Im Video', title: 'ICT Baden in 50 Sekunden', lead: 'Was wir machen, wer wir sind und welche Software wir selbst entwickeln.', play: 'Video abspielen', note: 'Englisch gesprochen, mit deutschen Untertiteln · 54 s', id: 'video' }
+  : { eyebrow: 'Watch', title: 'ICT Baden in 50 seconds', lead: 'What we do, who we are and the software we build ourselves.', play: 'Play video', note: 'With English subtitles · 54 s', id: 'video' };
+---
+<section class="section film" id={T.id} aria-labelledby="film-titel">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">{T.eyebrow}</p>
+      <h2 id="film-titel">{T.title}</h2>
+      <p class="lead">{T.lead}</p>
+    </div>
+    <figure class="film-frame reveal" data-film>
+      <video controls preload="none" playsinline width="1920" height="1080" poster="/media/video/ict-baden-poster.webp" aria-label={T.title}>
+        <source src="/media/video/ict-baden-portfolio.mp4" type="video/mp4" />
+        <track kind="subtitles" srclang="de" label="Deutsch" src="/media/video/ict-baden-de.vtt" default={de} />
+        <track kind="subtitles" srclang="en" label="English" src="/media/video/ict-baden-en.vtt" default={!de} />
+      </video>
+      <button class="film-play" type="button" hidden data-film-play aria-label={T.play}>
+        <span class="film-play-i"><Icon name="play" /></span><span>{T.play}</span>
+      </button>
+      <figcaption class="film-note">{T.note}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .film-frame { position: relative; margin: 0; }
+  .film-frame video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: var(--r-xl); background: #ffd200;
+    box-shadow: var(--shadow-lg, 0 40px 80px -40px rgb(0 0 0 / 0.45)); }
+  .film-play { position: absolute; inset: 0; bottom: 2.4rem; display: grid; place-content: center; justify-items: center; gap: var(--s-3);
+    border: 0; background: none; color: #111111; font: inherit; font-weight: 700; cursor: pointer; }
+  .film-play-i { display: grid; place-items: center; width: clamp(64px, 9vw, 112px); aspect-ratio: 1; border-radius: 50%; background: #111111; color: #ffd200;
+    box-shadow: 0 20px 40px -16px rgb(0 0 0 / 0.55); transition: transform var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out); }
+  .film-play-i :global(.icon) { width: 42%; height: 42%; margin-left: 8%; }
+  .film-play > span:last-child { padding: 0.35rem 0.9rem; border-radius: 999px; background: rgb(255 255 255 / 0.85); font-size: var(--fs-sm); }
+  .film-play[hidden] { display: none; }
+  .film-play:hover .film-play-i { transform: scale(1.06); background: #e2001a; color: #ffffff; }
+  .film-play:focus-visible { outline: none; }
+  .film-play:focus-visible .film-play-i { outline: 3px solid #111111; outline-offset: 4px; }
+  .film-note { margin-top: var(--s-3); color: var(--ink-3); font-size: var(--fs-sm); }
+  @media (max-width: 620px) { .film-play > span:last-child { display: none; } }
+</style>

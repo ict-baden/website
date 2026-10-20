@@ -9,6 +9,7 @@ import ProductIcon from './product/ProductIcon.astro';
 import Bewaehrt from './sections/Bewaehrt.astro';
 import UeberUns from './sections/UeberUns.astro';
 import Kontakt from './sections/Kontakt.astro';
+import Film from './sections/Film.astro';
 import ProductCover from './product/ProductCover.astro';
 import { lineGlyph } from '../lib/art';
 import { featured, linien, products, productsOfLine, productUrl, statusCounts, statusSummary, lineAnchor, colorClasses, STATUS_LABEL, STATUS_ORDER, plural } from '../lib/products';
@@ -56,7 +57,7 @@ const productsLead = de
   ? `${plural(products.length, 'Produkt', 'Produkte')} in ${linien.length} Produktlinien, alle kostenlos unter der MIT-Lizenz: ${statusSummary(products)}. Support gibt es auf Wunsch per Supportvertrag.`
   : `${products.length} products in ${linien.length} product lines, all free of charge under the MIT licence. Support is available with a support contract.`;
 ---
-<Base title={title} bareTitle description={description} lang={lang} jsonLd={jsonLd} scripts={['anfahrt.js']} alternates={[{ lang: 'de', href: '/' }, { lang: 'en', href: '/en/' }]}>
+<Base title={title} bareTitle description={description} lang={lang} jsonLd={jsonLd} scripts={['anfahrt.js', 'film.js']} alternates={[{ lang: 'de', href: '/' }, { lang: 'en', href: '/en/' }]}>
   <!-- Hero -->
   <section class="hero">
     <div class="hero-field" aria-hidden="true"><span class="hero-bar"></span></div>
@@ -67,7 +68,7 @@ const productsLead = de
         <p class="hero-lead">{H.lead}</p>
         <div class="btn-row hero-cta">
           <a class="btn" href={`#${ids.products}`}>{H.ctaProducts} <Icon name="arrow-right" /></a>
-          <a class="btn btn--secondary" href={`#${ids.services}`}>{H.ctaServices}</a>
+          <a class="btn btn--secondary" href="#video"><Icon name="play" /> {H.ctaVideo}</a>
         </div>
         <ul class="hero-points" aria-label={H.pointsLabel}>
           {H.points.map(([icon, text]) => <li><Icon name={icon} />{text}</li>)}
@@ -101,6 +102,9 @@ const productsLead = de
       </div>
     </div>
   </section>
+
+  <!-- Video -->
+  <Film lang={lang} />
 
   <!-- Leistungen -->
   <section class="section services" id={ids.services} aria-labelledby="leistungen-titel">
