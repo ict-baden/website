@@ -18,7 +18,6 @@ const links = [
 
 // Gemeinsame Strecke ab der Ausfahrt: Durlacher Allee › Pforzheimer Straße › Pfinzstraße › Zur Gießerei › Parkplatz
 const TAIL = 'L 340 289 L 727.6 393.9 L 800.4 305 L 824 307.6 L 830 322 L 856 322';
-const WALK = 'L 727.6 393.9 L 800.4 305 L 824 307.6 L 830 322 L 858 346';
 
 // Luftbild mit Wegen auf den echten Straßen: erzeugt von scripts/make-luftbild.py (Orthofoto des LGL, Wege mit OSRM
 // auf OpenStreetMap-Daten); sat = Anteil des Weges, ab dem ein Schritt auf dem Luftbild gilt
@@ -29,15 +28,15 @@ const [ictX, ictY] = sat.ict;
 const modes = [
   {
     id: 'a5', icon: 'car', tab: 'A5', title: 'A5 aus Richtung Basel oder Frankfurt', ordered: true,
-    ride: `M 470 40 L 212 291 Q 228 300 260 296 ${TAIL}`, walk: null, satRide: sat.a5, satWalk: null, sat: sat.satA5,
+    ride: `M 470 40 L 262 239 C 236 262, 205 300, 172 288 C 140 276, 150 236, 190 245 ${TAIL}`, walk: null, satRide: sat.a5, satWalk: null, sat: sat.satA5,
     steps: [
-      [0.3, 'Ausfahrt 44 Karlsruhe-Durlach'],
-      [0.46, 'Sie fahren auf die B10 (Durlacher Allee) in Richtung Durlach'],
-      [0.56, 'Und folgen der Durlacher Allee weiter in Richtung Durlach (nicht der B10 folgen!)'],
-      [0.83, 'An der nun folgenden Kreuzung biegen Sie links in die Pforzheimer Straße ein'],
-      [0.93, 'An der nächsten Kreuzung fahren Sie rechts in die Pfinzstraße'],
-      [0.955, 'Und biegen direkt danach rechts in die Hofeinfahrt „Zur Gießerei“ ein'],
-      [0.97, 'Sofort wieder links abbiegen'],
+      [0.237, 'Ausfahrt 44 Karlsruhe-Durlach'],
+      [0.392, 'Sie fahren auf die B10 (Durlacher Allee) in Richtung Durlach'],
+      [0.521, 'Und folgen der Durlacher Allee weiter in Richtung Durlach (nicht der B10 folgen!)'],
+      [0.852, 'An der nun folgenden Kreuzung biegen Sie links in die Pforzheimer Straße ein'],
+      [0.946, 'An der nächsten Kreuzung fahren Sie rechts in die Pfinzstraße'],
+      [0.966, 'Und biegen direkt danach rechts in die Hofeinfahrt „Zur Gießerei“ ein'],
+      [0.979, 'Sofort wieder links abbiegen'],
       [1, 'Geradeaus zu Ihrer Linken befinden sich die ausgezeichneten Parkplätze'],
     ],
   },
@@ -53,15 +52,15 @@ const modes = [
   },
   {
     id: 'zug', icon: 'train', tab: 'Zug', title: 'Mit dem Zug', ordered: false,
-    ride: 'M 520 352 L 640 318', walk: 'M 640 322 L 710 296 L 800.4 305 L 824 307.6 L 830 322 L 858 346', satRide: null, satWalk: SAT_ZUG, sat: [0, 0],
+    ride: 'M 300 509 L 655 290', walk: 'M 655 290 L 662 312 L 710 296 L 800.4 305 L 824 307.6 L 830 322 L 858 346', satRide: null, satWalk: SAT_ZUG, sat: [0, 0],
     steps: [
       [0, 'Vom Hauptbahnhof Karlsruhe können Sie mit einer beliebigen Bahn fahren, die am Bahnhof Karlsruhe-Durlach (siehe Karte) Halt macht, z. B. S3, S31, S32'],
-      [0.35, 'Vom Bahnhof Karlsruhe-Durlach 5 Minuten Fußweg'],
+      [0.5, 'Vom Bahnhof Karlsruhe-Durlach 5 Minuten Fußweg'],
     ],
   },
   {
     id: 'tram', icon: 'tram', tab: 'Straßenbahn', title: 'Straßenbahn', ordered: false,
-    ride: 'M 10 197 L 688 386', walk: `M 688 386 ${WALK}`, satRide: null, satWalk: SAT_TRAM, sat: [0, 0, 0],
+    ride: 'M 10 197 L 688 386', walk: 'M 688 386 L 838 428 L 862 371', satRide: null, satWalk: SAT_TRAM, sat: [0, 0, 0],
     steps: [
       [0, 'Straßenbahn Linie 1 in Richtung Durlach'],
       [0.05, 'oder Linie 2 in Richtung Wolfartsweier bis zur Haltestelle „Auer Straße“'],
@@ -107,7 +106,7 @@ const modes = [
           <path d="M 18 478 L 476 30" class="g-hwy" />
           <path d="M 18 478 L 476 30" class="g-hwy-in" />
           <path d="M 168 352 Q 240 300 340 292" class="g-ramp" />
-          <path d="M 212 291 C 160 300, 150 255, 200 258" class="g-ramp" />
+          <path d="M 262 239 C 236 262, 205 300, 172 288 C 140 276, 150 236, 190 245" class="g-ramp" />
           <path d="M 10 197 L 910 448" class="g-main" />
           <path d="M 440 330 C 425 355, 455 362, 480 346 L 765 172" class="g-street" />
           <path d="M 628 522 L 904 176" class="g-street" />
@@ -116,6 +115,11 @@ const modes = [
           <path d="M 868 330 L 912 330 M 884 348 L 920 348 M 884 372 L 914 372 M 842 398 L 906 404" class="g-lane" />
           <path d="M 835 425 L 875 345" class="g-sebold" />
           <path d="M 10 197 L 910 448" class="g-tram" />
+        </g>
+        <!-- Bahnstrecke (Karlsruhe Hbf – Durlach) durch den Bahnhof -->
+        <g class="g-rail">
+          <path d="M 250 540 L 655 290 L 966 98" class="g-rail-bed" />
+          <path d="M 250 540 L 655 290 L 966 98" class="g-rail-ties" />
         </g>
 
         <!-- Beschriftungen -->
@@ -127,7 +131,7 @@ const modes = [
           <text x="322" y="276">B10 Durlacher Allee</text>
           <text x="706" y="192" class="g-strong">B10</text>
           <text x="502" y="212">Bahnhof</text><text x="502" y="230">Karlsruhe-Durlach</text>
-          <text x="748" y="240" class="g-small">Pforzheimer Straße</text>
+          <text transform="translate(676 478) rotate(-51.4)" class="g-small">Pforzheimer Straße</text>
           <text x="850" y="298" class="g-small">Pfinzstraße</text>
           <text x="760" y="374" class="g-small">Zur Gießerei</text>
           <text x="840" y="398" class="g-small">Seboldstraße</text>
@@ -347,6 +351,10 @@ const modes = [
   .g-street { stroke: var(--road); stroke-width: 9; }
   .g-lane { stroke: var(--road-2); stroke-width: 7; }
   .g-sebold { stroke: #50627a; stroke-width: 8; }
+  .g-rail path { fill: none; }
+  .g-rail { opacity: 0.75; }
+  .g-rail-bed { stroke: #3d3730; stroke-width: 6; }
+  .g-rail-ties { stroke: #6f6455; stroke-width: 10; stroke-dasharray: 2 8; }
   .g-tram { stroke: #6ea8ff; stroke-width: 2; stroke-dasharray: 10 8; opacity: 0.75; }
 
   .g-labels text { fill: var(--label); font-size: 15px; font-weight: 500; }

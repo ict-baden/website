@@ -35,6 +35,7 @@ FRANKFURT = (50.11, 8.68)                # A5 nach Süden, Ausfahrt Karlsruhe-Du
 STUTTGART = (48.78, 9.18)                # A8 bis Dreieck Karlsruhe, dann A5 nach Norden
 CROSS = (49.0019457, 8.4670985)          # Pforzheimer Straße × Pfinzstraße
 PFINZ_END = (49.0017813, 8.4690696)      # Pfinzstraße auf Höhe ICT
+SEBOLD_SUED = (48.999521, 8.467566)      # Seboldstraße, südliches Ende an der Pfinztalstraße
 
 
 def merc(lat, lon):
@@ -108,7 +109,8 @@ def car_route(origin):
 car_f, steps_f = car_route(FRANKFURT)
 car_s, steps_s = car_route(STUTTGART)
 zug, _, _ = route('foot', [BAHNHOF, ICT])
-tram, _, _ = route('foot', [AUER, ICT])
+# Von der Haltestelle die Allee entlang und dann direkt durch die Seboldstraße
+tram, _, _ = route('foot', [AUER, SEBOLD_SUED, ICT])
 
 # Anteile der Schritte aus den Abbiegungen der Route (B10, Durlacher Allee weiter, Pforzheimer, Pfinzstraße)
 def at_step(points, steps, pred):
