@@ -158,6 +158,10 @@ const { name, pkg, repo, de, en } = Astro.props;
 </Base>
 
 <style>
+  /* Lange Paketnamen und Adressen brechen auf schmalen Bildschirmen um (320 px ohne seitlichen Überlauf) */
+  .prose :global(code), .prose :global(a), .prose :global(td) { overflow-wrap: anywhere; }
+  main :global(code) { overflow-wrap: anywhere; }
+  main :global(p), main :global(li), main :global(td) { overflow-wrap: break-word; }
   .lang-switch { margin-top: 0 !important; color: var(--ink-3); }
   .privacy h2 { scroll-margin-top: 6rem; }
 </style>
