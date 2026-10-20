@@ -110,10 +110,13 @@ const total = statusCounts(products);
   .legend-help { color: var(--ink-3); }
   @media (max-width: 640px) { .legend-help { display: none; } .legend { gap: var(--s-3); } }
 
-  .catalog { display: grid; gap: var(--s-8); }
+  /* Eine Spalte, die nie breiter als der Container wird: sonst bläst die angedockte Filterleiste (Chips ohne
+     Umbruch) die Spalte auf, alle Karten ordnen sich neu an und die Seite springt beim Scrollen */
+  .catalog { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); }
   .filters {
     position: sticky;
     top: 72px;
+    min-width: 0;
     z-index: 20;
     display: grid;
     gap: var(--s-3);
