@@ -3,6 +3,7 @@
 // Produkt-Repos belegt (siehe Kommentar in der jeweiligen Datei) – nichts hinzudichten.
 import { execFileSync } from 'node:child_process';
 import type { Product } from './products';
+import serp from '../data/serp.json';
 
 export type Lang = 'de' | 'en';
 
@@ -40,9 +41,10 @@ export interface Comparison {
 }
 
 export interface PageCopy {
-  /** <title> ohne Marke; " | ICT Baden" wird angehängt, wenn es in 65 Zeichen passt */
+  /** <title> ohne Marke, höchstens 580 px im Suchergebnis (src/data/serp.json); " | ICT Baden" wird angehängt, wenn es
+   *  danach noch passt (seoTitle) */
   title: string;
-  /** Meta-Beschreibung, 120–160 Zeichen */
+  /** Meta-Beschreibung, 110–155 Zeichen, Hauptaussage zuerst (src/data/serp.json, geprüft von scripts/check-seo.mjs) */
   description: string;
   /** Art des Produkts für die H1 (deutsch: aus products.json, hier nur für Englisch nötig) */
   kind?: string;
@@ -55,9 +57,11 @@ export interface PageCopy {
   limits: string[];
   faq: Faq[];
   /**
-   * Weitere Bezeichnungen und Suchbegriffe – sichtbar als „Auch bekannt als“, im JSON-LD als keywords (nicht als
-   * alternateName: das sind keine Namen des Produkts). Nur Gattungsbegriffe, keine fremden Marken als Namensbestandteil
-   * („Zebra-Tastatur“, „DataWedge browser“) – Kompatibilität gehört in den Fließtext („für Zebra-Geräte“).
+   * Weitere Bezeichnungen und Suchbegriffe – im JSON-LD als keywords (nicht als alternateName: das sind keine Namen des
+   * Produkts). Keine sichtbare Begriffsliste (Google wertet Blöcke aus Suchbegriffen als Keyword-Stuffing): Jeder Begriff
+   * muss stattdessen mindestens einmal natürlich im Text der Seite stehen (Einleitung, Abschnitte, FAQ) –
+   * scripts/check-seo.mjs prüft das. Nur Gattungsbegriffe, keine fremden Marken als Namensbestandteil („Zebra-Tastatur“,
+   * „DataWedge browser“) – Kompatibilität gehört in den Fließtext („für Zebra-Geräte“).
    */
   aka: string[];
   /** Eckdaten für die englische Seite (die deutsche nimmt die Fakten aus products.json) */
@@ -134,13 +138,17 @@ export function pageModified(p: Product): string | null {
   return result;
 }
 
-/** Platzhalter in den Texten: {lizenz} (mit „Open Source“ nur bei öffentlichem Quellcode), {download}. */
-export function fill(text: string, page: ProductPage, p: Product, lang: Lang): string {
+/**
+ * Platzhalter in den Texten: {lizenz} (mit „Open Source“ nur bei öffentlichem Quellcode), {download}.
+ * download: false lässt den Satz „Der Download folgt …“ weg – für Ausgaben, die den Download-Stand selbst nennen
+ * (llms.txt, llms-full.txt).
+ */
+export function fill(text: string, page: ProductPage, p: Product, lang: Lang, opts: { download?: boolean } = {}): string {
   const open = page.download.public;
   const lizenz = lang === 'de'
     ? open ? 'kostenlos und Open Source (MIT-Lizenz)' : 'kostenlos unter der MIT-Lizenz'
     : open ? 'free and open source (MIT licence)' : 'free of charge under the MIT licence';
-  const download = open || !isReleased(p) ? '' : lang === 'de'
+  const download = opts.download === false || open || !isReleased(p) ? '' : lang === 'de'
     ? ' Der Download folgt mit der Veröffentlichung.'
     : ' The download follows with the public release.';
   return text.replaceAll('{lizenz}', lizenz).replaceAll('{download}', download);
@@ -167,13 +175,22 @@ export function pageFor(p: Product): ProductPage {
   return page;
 }
 
-/** Titel mit Marke, wenn es in 65 Zeichen passt. */
+/** Geschätzte Breite eines Titels im Suchergebnis in px (Arial 20 px, Tabelle in src/data/serp.json). */
+const widths = serp.arial20 as Record<string, number>;
+export const titleWidth = (text: string) => [...text].reduce((sum, ch) => sum + (widths[ch] ?? serp.fallbackPx), 0);
+
+/** Titel mit Marke, wenn er dann noch in die Breite des Suchergebnisses passt (serp.json, title.maxPx). */
 export function seoTitle(title: string): string {
   const withBrand = `${title} | ICT Baden`;
-  return withBrand.length <= 65 ? withBrand : title;
+  return titleWidth(withBrand) <= serp.title.maxPx ? withBrand : title;
 }
 
 export const productUrlFor = (p: Product, lang: Lang) => (lang === 'de' ? `/produkte/${p.slug}/` : `/en/products/${p.slug}/`);
+/** Produktübersicht (alle Produkte, nach Produktlinien) in der Sprache. */
+export const productsUrlFor = (lang: Lang) => (lang === 'de' ? '/produkte/' : '/en/products/');
+/** Anker einer Produktlinie auf der Produktübersicht (id im Dokument ohne „#“ bzw. als Link). */
+export const lineIdFor = (lineId: string, lang: Lang) => `${lang === 'de' ? 'linie' : 'line'}-${lineId}`;
+export const lineAnchorFor = (lineId: string, lang: Lang) => `${productsUrlFor(lang)}#${lineIdFor(lineId, lang)}`;
 
 /** Oberflächentexte der Produktseiten. */
 export const UI = {
@@ -209,7 +226,6 @@ export const UI = {
     requirements: 'Systemvoraussetzungen',
     limits: 'Grenzen, ehrlich gesagt',
     faq: 'Häufige Fragen',
-    aka: 'Verwandte Begriffe',
     gallery: (n: string) => `So sieht ${n} aus`,
     galleryOpen: (t: string) => `${t}: Bild in voller Größe öffnen`,
     related: 'Passende Produkte',
@@ -255,7 +271,6 @@ export const UI = {
     requirements: 'System requirements',
     limits: 'Limits, honestly',
     faq: 'Frequently asked questions',
-    aka: 'Related terms',
     gallery: (n: string) => `What ${n} looks like`,
     galleryOpen: (t: string) => `${t}: open full-size image`,
     related: 'Related products',

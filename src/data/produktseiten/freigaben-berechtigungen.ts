@@ -2,9 +2,11 @@
 // Quellen (ict-baden/zutritt, Stand Tag v0.1.0 vom 2026-10-21): README.md (Funktionen, „And also“, Quick start,
 // Befehlszeile, die 15 Regeln mit deutschen Titeln, Vergleich nach Kategorien, „For audits“, „Limits, honestly“, MIT,
 // fünf Sprachen), docs/rules.md (ZT08 „Freigabe: alle dürfen ändern“, ZT15), docs/limitations.md (bedingte
-// Verweigern-Einträge, Kürzung großer Berichte, Sprachen), docs/usage.md (Sprachen), docs/command-line.md (englische
-// Befehle), docs/installation.md (Voraussetzungen, Rechte), docs/data-and-privacy.md (keine Daten an ICT-Baden, SQLite
-// pro Benutzer), CHANGELOG.md (0.1.0), docs/assets/report-summary.png („Über das Netz gilt jeweils die strengere …“).
+// Verweigern-Einträge, Kürzung großer Berichte, Sprachen), docs/usage.md (Sprachen, Seite „Bericht“: Excel- und
+// PDF-Bericht speichern), docs/excel-and-pdf.md (Blatt „Ordner & Rechte“, PDF-Abschnitt „Ordner mit eigenen Rechten“),
+// docs/command-line.md (englische Befehle), docs/installation.md (Voraussetzungen, Rechte), docs/data-and-privacy.md
+// (keine Daten an ICT-Baden, SQLite pro Benutzer), CHANGELOG.md (0.1.0), docs/assets/report-summary.png („Über das
+// Netz gilt jeweils die strengere …“).
 // Vergleich (alternatives): über die Fremdprodukte nur, dass sie dieselbe Aufgabe erfüllen (Herstellerseiten
 // netwrix.com „Effective Permissions Reporting Tool“, Cjwdev „NTFS Permissions Reporter“); keine Aussagen zu Preis,
 // Editionen oder Funktionsumfang der Fremdprodukte.
@@ -110,25 +112,25 @@ const page: ProductPage = {
   },
   de: {
     title: 'Zutritt: Freigabe- und NTFS-Berechtigungen auslesen',
-    description: 'Zutritt liest Freigabe- und NTFS-Berechtigungen aus, löst AD-Gruppen bis zur Person auf, wertet die Rechte mit 15 Regeln aus und schreibt einen Bericht zum Abzeichnen.',
+    description: 'Zutritt liest NTFS- und Freigabeberechtigungen unter Windows aus und zeigt Zugriffsrechte bis zur Person – mit 15 Prüfregeln und Bericht zum Abzeichnen.',
     lead: 'Zutritt ist ein Berechtigungsbericht für Windows-Dateifreigaben: Es liest Freigabe- und NTFS-Berechtigungen, löst Gruppen bis zur einzelnen Person auf, meldet riskante Rechte mit 15 Prüfregeln und schreibt einen Excel- oder PDF-Bericht zum Abzeichnen. Nur lesend, ohne Server und ohne Agent – für Windows 10 und 11, {lizenz}.',
     sections: [
       {
         id: 'wofuer',
         title: 'Zugriffsrechte anzeigen: Wer darf worauf zugreifen – und warum?',
         blocks: [
-          { type: 'p', text: 'Auf gewachsenen Fileservern ist oft schwer zu sehen, wer wohin darf: Rechte hängen an verschachtelten Gruppen, die Vererbung ist irgendwo unterbrochen, verschobene Ordner haben ihre alten Rechte mitgenommen. Für eine regelmäßige Berechtigungsprüfung braucht es trotzdem eine klare Antwort und einen Nachweis.' },
-          { type: 'p', text: 'Zutritt beantwortet genau diese Frage – wer darf worauf zugreifen, und warum – für Admins und Prüfer, die die Antwort regelmäßig brauchen, ohne eine neue Plattform einzuführen. Nicht zu verwechseln mit einer Zutrittskontrolle für Türen: Zutritt prüft Zugriffsrechte auf Dateifreigaben.' },
+          { type: 'p', text: 'Auf gewachsenen Fileservern ist oft schwer zu sehen, wer wohin darf: Rechte hängen an verschachtelten Gruppen, die Vererbung ist irgendwo unterbrochen, verschobene Ordner haben ihre alten Rechte mitgenommen. Für eine regelmäßige Berechtigungsprüfung braucht es trotzdem eine klare Antwort und einen Nachweis, etwa einen NTFS-Berechtigungsbericht zum Abzeichnen.' },
+          { type: 'p', text: 'Als Berechtigungsanalyse für Fileserver beantwortet Zutritt genau diese Frage – wer darf worauf zugreifen, und warum – für Admins und Prüfer, die die Antwort regelmäßig brauchen, ohne eine neue Plattform einzuführen. Nicht zu verwechseln mit einer Zutrittskontrolle für Türen: Zutritt prüft Zugriffsrechte auf Dateifreigaben.' },
         ],
       },
       {
         id: 'funktionen',
-        title: 'Funktionen',
+        title: 'Funktionen des Berechtigungsberichts',
         blocks: [
           {
             type: 'items',
             items: [
-              { title: 'Freigabe- und NTFS-Rechte auslesen', text: 'Eine Freigabe, ein ganzer Server, lokale Ordner oder alle Freigaben dieses PCs. Abzweigungen (Junctions) werden vermerkt, aber nicht verfolgt.' },
+              { title: 'NTFS- und Freigabeberechtigungen auslesen', text: 'Eine Freigabe, ein ganzer Server, lokale Ordner oder alle Freigaben dieses PCs. Abzweigungen (Junctions) werden vermerkt, aber nicht verfolgt.' },
               { title: 'Effektive Berechtigungen wie Windows', text: 'Gespeicherte Reihenfolge der Einträge (auch nicht kanonische), Verweigern-Einträge, Vererbung, OWNER RIGHTS und Freigabe mit NTFS zusammen – in der Testsuite gegen die Zugriffsprüfung von Windows geprüft.' },
               { title: 'Gruppen bis zur Person', text: 'Lokale Konten und Gruppen des Servers und, auf Rechnern in einer Domäne, Active Directory – verschachtelt, mit Schutz vor Zyklen.' },
               { title: 'Wer darf hier rein? Wohin darf diese Person?', text: 'Pro Ordner jede Person mit effektivem Recht und Gruppenkette; pro Person jeder erreichbare Ordner – auch über verschachtelte Gruppen und deaktivierte Konten.' },
@@ -160,7 +162,7 @@ const page: ProductPage = {
     requirements: [
       ['Betriebssystem', 'Windows 10 ab Version 1809 oder Windows 11, x64 – nur Windows, weil NTFS, Freigaben und Active Directory nur dort lesbar sind'],
       ['.NET', 'nicht nötig für die MSI und Zutritt.exe; das ZIP braucht die .NET 10 Desktop Runtime'],
-      ['Rechte', 'ein Konto, das die gewünschten Berechtigungen lesen darf; Freigabe-Berechtigungen brauchen Administratorrechte auf dem Server'],
+      ['Rechte', 'ein Konto, das die gewünschten Berechtigungen lesen darf; Freigabeberechtigungen brauchen Administratorrechte auf dem Server'],
       ['Active Directory', 'optional, wenn der prüfende PC Mitglied der Domäne ist'],
       ['Sprache', 'Oberfläche, Befehlszeile und Berichte auf Deutsch, Englisch, Spanisch, Französisch und Chinesisch (die letzten drei maschinell übersetzt, noch nicht von Muttersprachlern gegengelesen)'],
     ],
@@ -173,7 +175,7 @@ const page: ProductPage = {
       'Kein Dauer-Monitoring und keine Auswertung von Dateizugriffen; Rechte ändert Zutritt bewusst nicht.',
     ],
     faq: [
-      { q: 'Wie lese ich NTFS-Berechtigungen aller Unterordner aus und exportiere sie nach Excel?', a: 'Mit Zutritt: Freigabe, Server oder Ordner eingeben und den Scan starten. Zutritt liest alle Ordner mit eigenen Rechten und speichert den Bericht als filterbare Excel-Arbeitsmappe oder als PDF.' },
+      { q: 'Wie kann ich NTFS-Berechtigungen auslesen und für alle Unterordner nach Excel exportieren?', a: 'Mit Zutritt: Freigabe, Server oder Ordner eingeben und den Scan starten. Zutritt liest alle Ordner mit eigenen Rechten; auf der Seite „Bericht“ lassen sich dann die Ordnerberechtigungen exportieren – als filterbare Excel-Arbeitsmappe oder als PDF.' },
       { q: 'Wie zeige ich die Zugriffsrechte an, also wer auf welchen Ordner unseres Fileservers zugreifen darf?', a: 'Die Ansicht „Wer darf hier rein“ zeigt pro Ordner jede Person mit ihrem effektiven Recht über Freigabe und NTFS und die Gruppen, über die der Zugriff kommt.' },
       { q: 'Auf welche Ordner hat ein bestimmter Benutzer Zugriff?', a: 'Die Seite „Personen“ listet jeden Ordner, den eine Person erreicht, mit effektivem Recht und Gruppenkette – auch über verschachtelte Gruppen.' },
       { q: 'Wie ergeben sich die effektiven Berechtigungen aus Freigabe- und NTFS-Rechten?', a: 'Über das Netz gilt jeweils die strengere von beiden. Innerhalb von NTFS zählen die gespeicherte Reihenfolge der Einträge, Verweigern-Einträge und die Vererbung. Zutritt rechnet das wie Windows und ist dagegen getestet; Einträge in nicht kanonischer Reihenfolge meldet Regel ZT15.' },
@@ -182,14 +184,14 @@ const page: ProductPage = {
       { q: 'Werden Daten an ICT Baden gesendet?', a: 'Nein: keine Telemetrie, keine Absturzberichte, keine Update-Prüfung. Die Läufe liegen in einer SQLite-Datei pro Benutzer auf dem prüfenden PC.' },
       { q: 'Ist Zutritt kostenlos?', a: 'Ja, Zutritt ist {lizenz}.{download}' },
     ],
-    aka: ['NTFS-Berechtigungsbericht', 'Berechtigungsanalyse für Fileserver', 'Berechtigungen auswerten', 'Zugriffsrechte anzeigen', 'Freigabeberechtigungen auslesen', 'Ordnerberechtigungen exportieren', 'effektive Berechtigungen', 'Access Review für Dateifreigaben', 'Berechtigungsprüfung'],
+    aka: ['NTFS-Berechtigungen auslesen', 'NTFS-Berechtigungsbericht', 'Berechtigungsanalyse für Fileserver', 'Berechtigungen auswerten', 'Zugriffsrechte anzeigen', 'Freigabeberechtigungen auslesen', 'Ordnerberechtigungen exportieren', 'effektive Berechtigungen', 'Berechtigungsprüfung'],
     trademarks: 'Windows, Active Directory und Excel sind Marken der Microsoft-Unternehmensgruppe. Sie werden nur genannt, um die Kompatibilität zu beschreiben.',
   },
   en: {
     operatingSystem: 'Windows 10 (version 1809 or later), Windows 11',
     softwareRequirements: 'Windows 10 version 1809 (build 17763) or later, 64-bit',
     title: 'Zutritt: NTFS and share permissions report for Windows',
-    description: 'Who has access to this folder? Zutritt reads share and NTFS permissions, computes effective permissions down to each person and writes a PDF or Excel report to sign.',
+    description: 'Zutritt reads share and NTFS permissions on Windows, computes effective permissions down to each person and writes a PDF or Excel report to sign.',
     kind: 'Share and NTFS permissions report',
     tagline: 'Who can access what?',
     lead: 'Zutritt is a permissions report for Windows file shares: it reads SMB share permissions and NTFS ACLs, resolves groups down to individual people, flags risky permissions with 15 rules and writes an Excel or PDF report you can sign off in an audit. Read-only, no server, no agent – for Windows 10 and 11, in English and German, {lizenz}.',
@@ -198,13 +200,13 @@ const page: ProductPage = {
         id: 'why',
         title: 'Who can access what – and through which group?',
         blocks: [
-          { type: 'p', text: 'On file servers that have grown over the years, it is often hard to see who can go where: rights hang on nested groups, inheritance is broken somewhere, moved folders carried their old rights along. A periodic access review still needs a clear answer and evidence.' },
-          { type: 'p', text: 'Zutritt answers exactly that question – who can access what, and why – for admins and auditors who need the answer regularly without introducing a new platform.' },
+          { type: 'p', text: 'On file servers that have grown over the years, it is often hard to see who can go where: rights hang on nested groups, inheritance is broken somewhere, moved folders carried their old rights along. A periodic user access review for file shares still needs a clear answer and evidence.' },
+          { type: 'p', text: 'Zutritt answers exactly that question – who can access what, and why – with a folder access report for admins and auditors who need the answer regularly without introducing a new platform.' },
         ],
       },
       {
         id: 'features',
-        title: 'Features',
+        title: 'What the permissions report covers',
         blocks: [
           {
             type: 'items',
@@ -233,7 +235,7 @@ const page: ProductPage = {
         id: 'audits',
         title: 'For access reviews and audits',
         blocks: [
-          { type: 'p', text: 'Periodic reviews of access rights are expected in GMP environments (EU GMP Annex 11), under ISO/IEC 27001 (control A.5.18 “Access rights”) and NIS2. Zutritt produces the evidence for such a review: what was checked, by whom, when, with which result and what changed since last time – and a page to sign.' },
+          { type: 'p', text: 'Periodic reviews of access rights are expected in GMP environments (EU GMP Annex 11), under ISO/IEC 27001 (control A.5.18 “Access rights”) and NIS2. For a file share permissions audit, Zutritt produces the evidence: what was checked, by whom, when, with which result and what changed since last time – and a page to sign.' },
           { type: 'p', text: 'Zutritt is not a validated system and makes no compliance claim. It is a read-only analysis tool; how it is qualified and used in a regulated process is up to the operator.' },
         ],
       },
@@ -254,7 +256,7 @@ const page: ProductPage = {
       'No continuous monitoring and no file-access auditing; Zutritt deliberately does not change permissions.',
     ],
     faq: [
-      { q: 'How do I get a report of NTFS and share permissions for a whole file server?', a: 'With Zutritt: enter the share, server or folder and start the scan. Zutritt reads every folder with its own permissions and saves the report as a filterable Excel workbook or a PDF.' },
+      { q: 'How do I get an NTFS and share permissions report for a whole file server?', a: 'With Zutritt: enter the share, server or folder and start the scan. Zutritt reads every folder with its own permissions; on the report page you can then export folder permissions to Excel as a filterable workbook, or save the report as a PDF.' },
       { q: 'How can I see who has access to this folder – and through which group?', a: 'The folder view (“who can get in here”) shows, per folder, every person with the effective right over share and NTFS and the groups the access comes through.' },
       { q: 'How do I list all folders a user has access to?', a: 'The people page lists every folder a person can reach, with the effective right and the group chain – including nested groups.' },
       { q: 'How do share and NTFS permissions combine into effective permissions?', a: 'Over the network the more restrictive of the two applies. Within NTFS, the stored order of the entries, deny entries and inheritance count. Zutritt computes this like Windows and is tested against it; rule ZT15 reports entries that are not in canonical order.' },
@@ -263,7 +265,7 @@ const page: ProductPage = {
       { q: 'Is any data sent to ICT Baden?', a: 'No: no telemetry, no crash reports, no update check. Runs are stored in a per-user SQLite file on the scanning PC.' },
       { q: 'Is Zutritt free?', a: 'Yes, Zutritt is {lizenz}.{download}' },
     ],
-    aka: ['NTFS permissions report', 'file share permissions audit', 'share permissions reporter', 'effective permissions report', 'export folder permissions to Excel', 'user access review for file shares', 'folder access report'],
+    aka: ['NTFS permissions report', 'share permissions report', 'effective permissions', 'export folder permissions to Excel', 'file share permissions audit', 'user access review for file shares', 'folder access report'],
     facts: [
       ['Platform', 'Windows 10 (1809 or later) and 11, 64-bit'],
       ['User interface', 'English and German; Spanish, French and Chinese machine-translated – including command line and reports'],

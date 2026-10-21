@@ -12,10 +12,10 @@ import Kontakt from './sections/Kontakt.astro';
 import Film from './sections/Film.astro';
 import ProductCover from './product/ProductCover.astro';
 import { lineGlyph } from '../lib/art';
-import { featured, linien, products, productsOfLine, productUrl, statusCounts, statusSummary, lineAnchor, colorClasses, STATUS_LABEL, STATUS_ORDER, plural } from '../lib/products';
+import { featured, linien, products, productsOfLine, productUrl, statusCounts, statusSummary, colorClasses, STATUS_LABEL, STATUS_ORDER, plural } from '../lib/products';
 import { organization, productList, videoObject, webPage, website } from '../lib/seo';
 import { SERVICES, TOPICS } from '../data/portfolio';
-import { pageFor, productUrlFor, statusLabelFor } from '../lib/produktseiten';
+import { pageFor, productsUrlFor, productUrlFor, statusLabelFor } from '../lib/produktseiten';
 import { HERO, IDS, PRODUCTS_I18N, SERVICES_I18N, SERVICE_POINTS_EN, TOPICS_EN, type Lang } from '../i18n/site';
 
 interface Props { lang?: Lang }
@@ -46,17 +46,18 @@ const topicTiles = TOPICS.map((t, k) => ({ t, k }))
   .sort((a, b) => (ORDER.indexOf(a.t.title) + 99) % 99 - (ORDER.indexOf(b.t.title) + 99) % 99)
   .map(({ t, k }, i) => ({ t: de ? t : { ...t, title: TOPICS_EN[k].title, items: TOPICS_EN[k].items }, wide: WIDE.includes(t.title), n: i + 1 }));
 
-const title = de ? 'ICT Baden – Softwareentwicklung und Software-Produkte aus Karlsruhe' : 'ICT Baden – Software development and products from Karlsruhe';
+// Titel höchstens 580 px im Suchergebnis, Beschreibung 110–155 Zeichen (src/data/serp.json)
+const title = de ? 'ICT Baden – Softwareentwicklung in Karlsruhe, eigene Produkte' : 'ICT Baden – Software development and products from Karlsruhe';
 const description = de
-  ? 'ICT Baden GmbH, Karlsruhe-Durlach: Softwareentwicklung im Auftrag und eigene Software für Industrie, Labor und IT – von der Bildschirmsperre bis zum Kiosk-Browser.'
+  ? 'ICT Baden GmbH, Karlsruhe-Durlach: Softwareentwicklung im Auftrag und eigene Software für Industrie, Labor und IT – von Bildschirmsperre bis Kiosk-Browser.'
   : 'ICT Baden GmbH, Karlsruhe-Durlach, Germany: custom software development and our own software for industry, labs and IT – from screen lock to kiosk browser.';
 const path = de ? '/' : '/en/';
-const jsonLd = [organization(), website(), webPage(path, title, description, lang), videoObject(lang), productList(products, lang, de ? 'Software-Produkte von ICT Baden' : 'Software products by ICT Baden')];
+const jsonLd = [organization(lang), website(), webPage(path, title, description, lang), videoObject(lang), productList(products, lang, de ? 'Software-Produkte von ICT Baden' : 'Software products by ICT Baden')];
 const kindOf = (p: (typeof products)[number]) => (de ? p.kind : pageFor(p).en.kind ?? p.kind);
 const taglineOf = (p: (typeof products)[number]) => (de ? p.tagline : pageFor(p).en.tagline ?? null);
 const textOf = (p: (typeof products)[number]) => (de ? p.text : pageFor(p).en.description);
 const productsLead = de
-  ? `${plural(products.length, 'Produkt', 'Produkte')} in ${linien.length} Produktlinien, alle kostenlos unter der MIT-Lizenz: ${statusSummary(products)}. Support gibt es auf Wunsch per Supportvertrag.`
+  ? `${plural(products.length, 'Produkt', 'Produkte')} in ${linien.length} Produktlinien, alle kostenlos unter der MIT-Lizenz (${statusSummary(products)}). Support gibt es auf Wunsch per Supportvertrag.`
   : `${products.length} products in ${linien.length} product lines, all free of charge under the MIT licence. Support is available with a support contract.`;
 ---
 <Base title={title} bareTitle description={description} lang={lang} jsonLd={jsonLd} scripts={['anfahrt.js', 'film.js']} alternates={[{ lang: 'de', href: '/' }, { lang: 'en', href: '/en/' }]}>
@@ -205,6 +206,7 @@ const productsLead = de
         })}
       </div>
 
+      <p class="products-all reveal"><a class="btn btn--secondary" href={productsUrlFor(lang)}>{P.all} <Icon name="arrow-right" /></a></p>
     </div>
   </section>
 
@@ -475,6 +477,7 @@ const productsLead = de
   .eyebrow--inv { color: var(--ink-2); }
 
   .featured { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); }
+  .products-all { display: flex; justify-content: center; margin-top: var(--s-7); }
   /* Text auf dunkler Fläche (Kontrast unabhängig von den Produktfarben), das Farbpaar des Produkts
      trägt den Bildbereich und einen leichten Schein hinter dem Symbol */
   .feat {

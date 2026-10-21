@@ -17,14 +17,16 @@ interface Props {
   kind?: string | null;
   text?: string;
   statusLabel?: string;
+  /** Sprache der Alternativtexte im Titelbild */
+  lang?: 'de' | 'en';
 }
-const { product, uid = '', headingLevel = 'h3', showLine = false, compact = false, href, kind, text, statusLabel } = Astro.props;
+const { product, uid = '', headingLevel = 'h3', showLine = false, compact = false, href, kind, text, statusLabel, lang = 'de' } = Astro.props;
 const H = headingLevel;
 const line = lineById(product.linie);
 const k = kind === undefined ? product.kind : kind;
 ---
 <article class:list={['pcard', compact && 'pcard--compact']}>
-  <ProductCover product={product} uid={uid} />
+  <ProductCover product={product} uid={uid} lang={lang} />
   <div class="pcard-body">
     <div class="pcard-top">
       <ProductIcon product={product} uid={`${uid}-i`} class="pcard-icon" />

@@ -1,16 +1,28 @@
 ---
+// Fehlerseite für 404 und 410 (nginx error_page, auch für /en/…): deutsch und englisch, weil sie für jede Adresse
+// gilt. Nie indexiert (noindex, keine kanonische Adresse – siehe Base.astro).
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 ---
-<Base title="Seite nicht gefunden" description="Diese Seite gibt es nicht (mehr).">
+<Base title="Seite nicht gefunden · Page not found" description="Diese Seite gibt es nicht (mehr). This page does not exist (any more).">
   <section class="container nf">
     <p class="nf-code" aria-hidden="true">404</p>
-    <h1>Seite nicht gefunden</h1>
-    <p class="lead">Diese Adresse gibt es nicht (mehr). Vielleicht hilft einer dieser Wege weiter:</p>
-    <div class="btn-row">
-      <a class="btn" href="/">Zur Startseite <Icon name="arrow-right" /></a>
-      <a class="btn btn--secondary" href="/#produkte">Produkte</a>
-      <a class="btn btn--secondary" href="/#kontakt">Kontakt</a>
+    <h1>Seite nicht gefunden<span class="visually-hidden"> – </span><span class="nf-en" lang="en">Page not found</span></h1>
+    <div class="nf-lang">
+      <p class="lead">Diese Adresse gibt es nicht (mehr). Vielleicht hilft einer dieser Wege weiter:</p>
+      <div class="btn-row">
+        <a class="btn" href="/">Zur Startseite <Icon name="arrow-right" /></a>
+        <a class="btn btn--secondary" href="/produkte/">Produkte</a>
+        <a class="btn btn--secondary" href="/#kontakt">Kontakt</a>
+      </div>
+    </div>
+    <div class="nf-lang" lang="en">
+      <p class="lead">This address does not exist (any more). One of these may help:</p>
+      <div class="btn-row">
+        <a class="btn" href="/en/" hreflang="en">Home page in English <Icon name="arrow-right" /></a>
+        <a class="btn btn--secondary" href="/en/products/" hreflang="en">Products</a>
+        <a class="btn btn--secondary" href="/en/#contact" hreflang="en">Contact</a>
+      </div>
     </div>
   </section>
 </Base>
@@ -30,4 +42,8 @@ import Icon from '../components/Icon.astro';
     background-clip: text;
     color: transparent;
   }
+  .nf h1 { display: grid; gap: 0.15em; }
+  .nf-en { color: var(--ink-3); font-size: 0.6em; font-weight: 650; }
+  .nf-lang { display: grid; gap: var(--s-4); }
+  .nf-lang + .nf-lang { padding-top: var(--s-5); border-top: 1px solid var(--line); }
 </style>

@@ -20,15 +20,13 @@ from the internal project list.
 
 | URL | Content |
 |---|---|
-| `/` | Hero, services, topic areas, the published products, product lines, about, contact |
-| `/leistungen/` | Services and the complete old portfolio with all links |
-| `/produkte/` | All published products grouped by product line, filter by line and status (`?linie=…&status=…`) |
+| `/` | One-pager: hero, video, services and topic areas, the published products, proven solutions (Informant, CallCenter, ModbusExplorer, calculator), about, contact with directions |
+| `/produkte/` | Product overview: all published products as cards, grouped by product line (CollectionPage + ItemList) |
 | `/produkte/<slug>/` | Product landing pages (7, German): Vitrine, Lupe, Zutritt, Riegel, Pforte (formerly EnterpriseBrowser), Industrial Keyboard, Plakette |
-| `/en/` | English product overview (the rest of the site stays German) |
+| `/en/` | English one-pager (same sections as `/`) |
+| `/en/products/` | English product overview, `hreflang` pair of `/produkte/` |
 | `/en/products/<slug>/` | English product landing pages (7), `hreflang` pairs with the German pages |
-| `/downloads/` | The products (download as soon as each one is public), ModbusExplorer (modbus.de), TRON (no download available), link to the calculator |
 | `/werkzeuge/pulswertigkeit/` | Energy meter pulse value calculator (rebuilt from `counter-pulse.html`) |
-| `/ueber-uns/`, `/kontakt/` | About text, contact data, profiles, directions with map and PDF |
 | `/impressum/`, `/datenschutz/` | Imprint, privacy policy of the website |
 | `/datenschutz/<app>/` | Privacy policies of the seven apps (`vitrine`, `lupe`, `zutritt`, `riegel`, `plakette`, `pforte`, `industrialkeyboard` – the paths the apps link), from `src/data/app-datenschutz.ts` |
 | `/404.html`, `/robots.txt`, `/sitemap.xml`, `/manifest.webmanifest` | Generated |
@@ -38,8 +36,11 @@ from the internal project list.
 Old URLs (`index.html?page=contact`, `portfolio.html`, `/about/Kontakt.html`, …), renamed product pages
 (`/produkte/industrialkeyboard/`, `/produkte/haertungs-check/` → `/produkte/riegel/`, `/produkte/labeldesigner/` →
 `/produkte/plakette/`, `/produkte/enterprisebrowser/` → `/produkte/pforte/`, also the English pages and
-`/datenschutz/enterprisebrowser/`) are redirected with 301; the ideas and internal projects that were never published
-answer **410 Gone**, so search engines drop them (see `deploy/nginx.conf`).
+`/datenschutz/enterprisebrowser/`) and the former subpages of the one-pager (`/leistungen/`, `/downloads/`,
+`/ueber-uns/`, `/kontakt/` → their section on `/`) are redirected with 301; the ideas and internal projects that were
+never published answer **410 Gone**, so search engines drop them (see `deploy/nginx.conf`). `scripts/check-live.mjs`
+fails if a redirect or 410 in `deploy/nginx.conf` would hide a page that the build produces. The 404 page (also used for
+410 and for `/en/…`) is German and English.
 
 ## Structure
 
@@ -52,6 +53,7 @@ src/
   assets/product-icons/  GENERATED product icons (scripts/make-product-icons.mjs)
   data/portfolio.ts      services and topic areas from the old site
   data/produktseiten/    curated German + English copy of every product page (<project id>.ts, sources in the header)
+  data/serp.json         the length rule for <title> (≤ 580 px) and meta description (110–155 characters) + width table
   lib/products.ts        typed access to products.json, status labels, helpers
   lib/produktseiten.ts   types and helpers of the product pages (titles, {lizenz}/{download} placeholders, UI texts)
   lib/seo.ts             JSON-LD builders (Organization, WebSite, WebPage, SoftwareApplication, FAQPage, BreadcrumbList)
@@ -60,9 +62,11 @@ src/
   lib/art.ts             generated cover art (products without screenshots) and the product line tiles
   lib/product-icons.ts   resolves the icon of a product (generated or the repository's own)
   lib/icons.ts           stroke icon set
-  components/            Header, Footer, Logo, cards, product components (product/ProductLanding.astro: product page), …
+  components/            Header, Footer, Logo, cards, product components (product/ProductLanding.astro: product page,
+                         product/ProductOverview.astro: /produkte/ and /en/products/), …
   layouts/Base.astro     <head> (meta, OG, hreflang, JSON-LD, verification tags, preloads), header, footer
-  pages/                 one file per route; produkte/[slug].astro and en/products/[slug].astro for the product pages
+  pages/                 one file per route; produkte/[slug].astro and en/products/[slug].astro for the product pages,
+                         produkte/index.astro and en/products/index.astro for the overviews
   styles/                tokens.css (colours, type, spacing), base.css, components.css, art.css
 public/
   js/                    theme-init.js (blocking, sets the stored theme), site.js, film.js, anfahrt.js, pulse*.js
@@ -177,16 +181,27 @@ Every product has a landing page in German (`/produkte/<slug>/`) and English (`/
 `src/components/product/ProductLanding.astro` from `products.json` and `src/data/produktseiten/<id>.ts`:
 
 - H1 = name + category, a first paragraph that answers „what is it, for whom, platform, licence“ in one or two
-  plain sentences (search engines and AI answers quote it), sections per search intent, features, screenshots,
-  system requirements, honest limits, FAQ (5–8 questions from the keyword research), „Auch bekannt als“ with the
-  common synonyms, related products, trademark note.
-- `<title>` and meta description per language (title ≤ 65 characters, „ | ICT Baden“ only where it fits;
-  description 120–170 characters); `hreflang` de/en/x-default both ways; `og:image` per product
-  (`public/og/produkte/<slug>.jpg`) with `og:image:alt`.
-- JSON-LD as one `@graph`: Organization, WebSite, WebPage, SoftwareApplication (name, alternateName = category and
-  synonyms, applicationCategory, operatingSystem, licence MIT, `isAccessibleForFree`, publisher; `offers` with price
-  0 EUR and `softwareVersion` only for released products; `downloadUrl`/`sameAs` only when the download is public),
-  FAQPage (same questions as on the page) and BreadcrumbList. No ratings – there are none.
+  plain sentences (search engines and AI answers quote it), sections per search intent with descriptive H2s (the
+  running numbers are a CSS counter, not part of the heading text), features, screenshots, system requirements,
+  honest limits, FAQ (questions from the keyword research, plus the comparison questions), related products,
+  trademark note. Breadcrumb: Start › Produkte (`/produkte/`) › product.
+- **Synonyms without a keyword list:** the common synonyms and search terms (`aka` in `src/data/produktseiten/<id>.ts`)
+  are not shown as a list – Google's spam policies count blocks of target terms as keyword stuffing. Each term appears
+  naturally at least once in the lead, a section or the FAQ and goes into the JSON-LD as `keywords`; `check:seo` fails
+  if a keyword is missing from the visible text.
+- `<title>` and meta description per language – **one rule in `src/data/serp.json`, enforced by `check:seo` for every
+  page:** title at most 580 px wide in the search result (estimated with Arial 20 px, the width table is in the same
+  file), „ | ICT Baden“ only where it still fits (`seoTitle`); description 110–155 characters, main statement first.
+  `hreflang` de/en/x-default both ways; `og:type` `website`; `og:image` per product and language
+  (`public/og/produkte/<slug>.jpg`, `public/og/en/produkte/<slug>.jpg`) with `og:image:alt`.
+- JSON-LD as one `@graph`: Organization, WebSite, WebPage, SoftwareApplication (name, applicationCategory,
+  applicationSubCategory = category, `keywords` = synonyms, operatingSystem, licence MIT, `isAccessibleForFree`,
+  publisher; `offers` with price 0 EUR and `softwareVersion` only for released products; `downloadUrl`/`sameAs` only
+  when the download is public), FAQPage (same questions as on the page) and BreadcrumbList. No ratings – there are
+  none. **One SoftwareApplication `@id` per language page** (`<page URL>#software`): each page describes the product
+  completely in its language (own url, OG image, description, keywords, feature list); one shared `@id` would give the
+  same node two different urls, images and descriptions. The language versions are linked by `hreflang`; Organization
+  (`/#organization`, text in the page's language), WebSite and the portfolio video (`/#video`) are one node each.
 - **Download flag – one line per product:** `download.public` in `src/data/produktseiten/<id>.ts` is `false` for all
   seven, because the repositories are private and GitHub would answer every download link with a 404. Then the
   status everywhere (cards, product page, OG image, llms.txt) is „Vorabversion <version>“ with „Veröffentlichung in
@@ -218,9 +233,11 @@ npm run check:products   # products.json: only public fields, no internal conten
 npm test                 # calculator vs. the original formulas of counter-pulse.html (worked examples)
 npm run check:links      # internal links, images, srcset and anchors in dist/ (add --external for http checks)
 npm run check:html       # html-validate with a11y rules
-npm run check:seo        # titles, descriptions, one H1, canonical, og:image:alt, hreflang both ways, every JSON-LD
-                         # block parses and has its required fields, FAQ questions visible, alt texts, no third-party
-                         # product names without approval, sitemap/robots.txt/llms.txt (node scripts/check-seo.mjs <dir>)
+npm run check:seo        # titles (≤ 580 px) and descriptions (110–155 characters, src/data/serp.json), one H1,
+                         # canonical, og:image:alt, hreflang both ways, every JSON-LD block parses and has its
+                         # required fields, FAQ questions and keywords visible, no glued words at element borders
+                         # („PlaketteEtiketten-Designer“), no numbers in H2 text, alt texts, no third-party product
+                         # names without approval, sitemap/robots.txt/llms.txt (node scripts/check-seo.mjs <dir>)
 npm run check:a11y       # axe-core on every page, light/dark, 1440/390 px (needs Chromium or Chrome)
 npm run screenshots      # full-page screenshots of all pages into .screenshots/ (390/1440, light/dark)
 ```
@@ -298,16 +315,19 @@ build takes `INDEXNOW_KEY`, `GOOGLE_SITE_VERIFICATION` and `BING_SITE_VERIFICATI
 What the site does for Google, Bing and AI answer engines (ChatGPT search, Perplexity, Claude, Google AI Overviews):
 
 - One landing page per product and language whose H1, title, first sentence and FAQ use the words people search
-  for („transparente Bildschirmsperre“, „QR-Code am PC scannen“, „NTFS-Berechtigungen auslesen“, „Kiosk-Browser
-  Zebra“, …), synonyms in the running text and in „Auch bekannt als“, no hidden text.
+  for („transparente Bildschirmsperre“, „Barcode-Scanner für den PC“, „NTFS-Berechtigungen auslesen“, „Kiosk-Browser
+  für Zebra-Geräte“, …), synonyms in the running text and FAQ (no keyword lists), no hidden text; a product overview
+  per language (`/produkte/`, `/en/products/`) with all products as cards.
 - Static HTML only – every crawler gets the full content without JavaScript.
-- Structured data (see Product pages), Organization + LocalBusiness (address, areaServed; no opening hours or
-  coordinates – there is no source for them), WebSite and the portfolio video as VideoObject on the home page (data
-  from `src/config.ts` only).
+- Structured data (see Product pages), Organization + LocalBusiness (address, areaServed, contact in German and
+  English, `sameAs` the public GitHub organisation; no opening hours or coordinates – there is no source for them;
+  texts in the language of the page), WebSite and the portfolio video as VideoObject on the home page (data from
+  `src/config.ts` only); the product overviews carry an ItemList.
 - No automatic language redirect: a German page shows a small „also available in English →“ bar when the browser
   language is not German; the visitor's choice is remembered (`localStorage` `lang`, `lang-hint`).
 - `sitemap.xml` with `xhtml:link` hreflang alternates and `lastmod` (product pages: last commit of the product
-  repository); `/llms.txt` and `/llms-full.txt` from the same data.
+  repository); `/llms.txt` and `/llms-full.txt` from the same data, German and English (each product with its English
+  page, lead and FAQ; the download status is stated once per product).
 - Descriptive file names and alt texts for screenshots; decorative images (icons next to a heading, the hero
   collage, cover art) keep `alt=""`/`aria-hidden`.
 - Factual comparison sections with third-party names, checked by `check:seo` (see Editorial rules).
@@ -316,7 +336,20 @@ What the site does for Google, Bing and AI answer engines (ChatGPT search, Perpl
 
 The live image `ghcr.io/ict-baden/website:live` is built and probed by the CI on every push to `main` (no
 `X-Robots-Tag`, no `noindex`, `robots.txt` without `Disallow: /`, canonical, hreflang and sitemap on
-`https://ict-baden.de`, all redirects and 410s). Nothing runs on ict-baden.de until someone starts it:
+`https://ict-baden.de`, all redirects and 410s). Nothing runs on ict-baden.de until someone starts it.
+
+**State of the domain today** (checked 2026-10-21 with `dig` and `curl`): the zone `ict-baden.de` is **not** on
+Cloudflare but at GoDaddy (nameservers `ns35.domaincontrol.com`, `ns36.domaincontrol.com`; the TXT record
+`_domainconnect` → `domainconnect.hosteurope.de` suggests it is managed through Host Europe, a GoDaddy brand; no
+DNSSEC). The old site runs on a GoDaddy Apache at `92.205.238.62` (also `ftp.ict-baden.de`); `www.ict-baden.de` is a
+CNAME to the apex, and `https://www.ict-baden.de` fails (the certificate has no `www`). http is not redirected to
+https, there is no HSTS. Mail: MX for Google Workspace (`aspmx.l.google.com` priority 1,
+`alt1`/`alt2.aspmx.l.google.com` 5, `alt3`/`alt4.aspmx.l.google.com` 10) plus `mail.ict-baden.de` (priority 50, A
+`46.163.106.222`). TXT: `MS=…` and `google-site-verification=…`; no SPF, no DMARC. The alias domains `ict-baden.com`,
+`ictbaden.de`, `it-baden.de`, `itbaden.de` and `itbaden.org` (also at GoDaddy, some with their own MX) serve the old
+site with 200.
+
+Steps:
 
 1. **People first:** legal review of the privacy policies (website and the seven apps), the imprint (company name
    „ICT Baden GmbH“), the comparison sections with their trademark notices (incl. the factual claim about CodeTwo on
@@ -325,30 +358,60 @@ The live image `ghcr.io/ict-baden/website:live` is built and probed by the CI on
 2. **Repository variables** (optional, not secret): `INDEXNOW_KEY` (e.g. `uuidgen | tr -d -`), and – only if Search
    Console/Bing are verified by meta tag instead of DNS – `GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION`. Then
    re-run the CI on `main` so that `:live` contains them.
-3. **Start the live container on docker01:** `SITE_MODE=live deploy/deploy.sh` (copies
+3. **Start the live container on docker01:** `SKIP_OUTSIDE=1 SITE_MODE=live deploy/deploy.sh` (copies
    `deploy/docker-compose.live.yml` to `/srv/docker/ict-baden.de`, starts `ictbaden-live` on 192.168.4.6:8018 with
-   the tunnel label `cf.tunnel.hostname=ict-baden.de`). The preview keeps running (`ictbaden-web`, noindex); after
-   the go-live put it behind Cloudflare Access (`cf.tunnel.access`) or stop it, so that no externally linked preview
-   URL shows up as „indexed, though blocked by robots.txt“. `deploy.sh` refuses to put a preview image on ict-baden.de
-   or the live image on the preview (tag and image label are checked before switching).
-4. **Cloudflare / DNS (owner of the zone):** point `ict-baden.de` and `www.ict-baden.de` to the tunnel (the label
-   above, or a public hostname in the tunnel config → `http://192.168.4.6:8018`); SSL/TLS „Full“, „Always Use HTTPS“
-   on (http → https 301); `www` → apex 301 (Redirect Rule; nginx does it as well). **Security › Bots:** „Block AI
-   bots“ off, AI Crawl Control „allow“, „Manage robots.txt“ off (the site has its own), Bot Fight Mode must not
-   challenge verified bots. Keep the Cloudflare paragraph in the privacy policy (shown because `SITE_CDN=cloudflare`).
-5. **Check from outside**, then submit to IndexNow: `SITE_MODE=live INDEXNOW_KEY=<key> deploy/deploy.sh` again (it
-   checks `X-Robots-Tag`, `robots.txt`, canonical and a redirect, then submits all sitemap URLs). By hand:
-   `curl -sI https://ict-baden.de/` (no `X-Robots-Tag`), `curl https://ict-baden.de/robots.txt` (no `Disallow: /`),
-   `curl -sI https://www.ict-baden.de/` (301 → `https://ict-baden.de/`), `curl -sI https://ict-baden.de/produkte/enterprisebrowser/`
-   (301 → `/produkte/pforte/`), `curl -sI https://ict-baden.de/produkte/hausmeister/` (410).
-6. **Google Search Console:** domain property `ict-baden.de` (DNS TXT, preferred), submit
+   the tunnel label `cf.tunnel.hostname=ict-baden.de`; `SKIP_OUTSIDE=1` skips the check from outside, which would
+   still reach the old site now – it runs in step 7). The preview keeps running (`ictbaden-web`, noindex); after the
+   go-live put it behind Cloudflare Access (`cf.tunnel.access`) or stop it, so that no externally linked preview URL
+   shows up as „indexed, though blocked by robots.txt“. `deploy.sh` refuses to put a preview image on ict-baden.de or
+   the live image on the preview (tag and image label are checked before switching).
+4. **Move the zone to Cloudflare (owner of the domain), before anything points to the tunnel:** export the zone file
+   from GoDaddy (DNS › Export) as a reference. Add the site `ict-baden.de` to Cloudflare and re-create **all**
+   records that the import misses – the apex A record (still `92.205.238.62` until step 5) and `www`, both **DNS
+   only** for now, so that nothing changes for visitors yet; all six MX records with their priorities,
+   `mail.ict-baden.de` (A, **DNS only**, never proxied), both TXT records (`MS=…`, `google-site-verification=…`) and
+   every other record in the export (`ftp`, `_domainconnect`, SRV, CNAMEs such as `autodiscover`). Compare the two
+   zones line by line, then switch the nameservers wherever the domain is managed (GoDaddy or Host Europe account,
+   „Nameserver“ setting; no DNSSEC to switch off first) to the two Cloudflare nameservers and wait until Cloudflare
+   shows the zone as active (only then can the tunnel label from step 3 route `ict-baden.de`; if the hostname was not
+   created by itself, add it in step 5). **Check mail right afterwards:** `dig MX ict-baden.de @1.1.1.1` shows the
+   same six entries, `dig mail.ict-baden.de @1.1.1.1` still gives `46.163.106.222` (the fallback MX, priority 50), a
+   test mail from outside reaches the Google Workspace mailbox, and the Search Console property is still verified.
+   (SPF/DMARC do not exist today; adding them is a separate decision for whoever runs the mail.) If the zone has to
+   stay at GoDaddy, Cloudflare can only front the site through a partial (CNAME) setup, which needs the Business plan
+   and cannot cover the apex `ict-baden.de` from GoDaddy DNS – so moving the zone is the way.
+5. **Cloudflare / DNS (now on Cloudflare):** point `ict-baden.de` and `www.ict-baden.de` to the tunnel (the label
+   above, or a public hostname in the tunnel config → `http://192.168.4.6:8018`) and keep the original `Host` header
+   (no `httpHostHeader` override – nginx answers every host other than `ict-baden.de` with a 301, an override would
+   loop); SSL/TLS „Full“, **„Always Use HTTPS“ on** (http → https 301 – behind the tunnel nginx only sees http and
+   cannot do it); `www` → apex 301 (Redirect Rule; nginx does it as well). HSTS comes from nginx (`max-age=31536000`,
+   no `includeSubDomains`; leave Cloudflare's own HSTS setting off). **Security › Bots:** „Block AI bots“ off, AI
+   Crawl Control „allow“, „Manage robots.txt“ off (the site has its own), Bot Fight Mode must not challenge verified
+   bots. Keep the Cloudflare paragraph in the privacy policy (shown because `SITE_CDN=cloudflare`).
+6. **Alias domains → 301 to `https://ict-baden.de/`:** `ict-baden.com`, `ictbaden.de`, `it-baden.de`, `itbaden.de`,
+   `itbaden.org` each redirect permanently to the main address – either at their DNS host (GoDaddy forwarding:
+   permanent 301 to `https://ict-baden.de/`; whether it keeps the path and answers on https as well has to be tested)
+   or, if a domain is moved to Cloudflare as well, with a Redirect Rule (or Bulk Redirects) `301 →
+   https://ict-baden.de${path}`, which keeps path and https. Their MX records stay untouched. A hostname that is
+   routed to the tunnel instead gets the same 301 from nginx (every host other than `ict-baden.de`).
+7. **Check from outside**, then submit to IndexNow: `SITE_MODE=live INDEXNOW_KEY=<key> deploy/deploy.sh` again (it
+   checks `X-Robots-Tag`, `robots.txt`, canonical, 200 on the home page and a redirect, then submits all sitemap
+   URLs). By hand: `curl -sI
+   https://ict-baden.de/` (200 – not 301 –, no `X-Robots-Tag`, `strict-transport-security: max-age=31536000`), `curl
+   -sI http://ict-baden.de/` (301 → `https://ict-baden.de/`), `curl https://ict-baden.de/robots.txt` (no `Disallow:
+   /`), `curl -sI https://www.ict-baden.de/` (301 → `https://ict-baden.de/`, valid certificate), `curl -sI
+   https://ict-baden.de/produkte/enterprisebrowser/` (301 → `/produkte/pforte/`), `curl -sI
+   https://ict-baden.de/produkte/hausmeister/` (410), `curl -sI http://ictbaden.de/` and `curl -sI
+   https://ictbaden.de/produkte/` for every alias domain (301 → `https://ict-baden.de/…`), and the mail check from
+   step 4 once more.
+8. **Google Search Console:** domain property `ict-baden.de` (DNS TXT, preferred), submit
    `https://ict-baden.de/sitemap.xml`, request indexing of the 14 product pages (de and en) and the home page.
-7. **Bing Webmaster Tools** (also feeds ChatGPT search and Copilot): import from Search Console, submit the sitemap.
-8. Rich Results Test and validator.schema.org for one product page per language and the home page (LocalBusiness,
+9. **Bing Webmaster Tools** (also feeds ChatGPT search and Copilot): import from Search Console, submit the sitemap.
+10. Rich Results Test and validator.schema.org for one product page per language and the home page (LocalBusiness,
    VideoObject); PageSpeed Insights for the home page. Expected: LocalBusiness warns about missing opening hours and
    coordinates (add them to `src/lib/seo.ts` once someone confirms them); SoftwareApplication shows no software rich
    result while there are no ratings and no public download (`offers` appears with `download.public`).
-9. When a product repository goes public: `download.public: true` in its `src/data/produktseiten/<id>.ts` (one line;
+11. When a product repository goes public: `download.public: true` in its `src/data/produktseiten/<id>.ts` (one line;
    `play` for the Android apps once on Google Play), OG image (`npm run brand -- --only <slug>`); then list the product
    where AI answers look (AlternativeTo, winget, Google Play, Flathub).
 
@@ -359,9 +422,11 @@ Every push to `main` deploys itself:
 1. CI (`.github/workflows/ci.yml`) builds the site twice (preview and live) and runs the product, link, HTML, SEO,
    live (`scripts/check-live.mjs`) and accessibility checks;
 2. it builds `deploy/Dockerfile` twice (nginx 1.27 + `dist/` or `dist-live/` + `deploy/nginx.conf`, the `# STAGING`
-   lines only in the preview, `/version.txt` = commit), starts each image once on the runner and probes it
-   (`scripts/probe-image.sh`: pages, app privacy pages, redirects, 410, www → apex, noindex in the preview and none in
-   the live image) – on pull requests too;
+   lines only in the preview, the `# LIVE` lines only in the live image, `/version.txt` = commit), starts each image
+   once on the runner and probes it (`scripts/probe-image.sh`: pages incl. the paths the apps link and the product
+   overviews, redirects, 410, www → apex, HSTS, noindex in the preview and none in the live image, and in the live
+   image every other host – alias domains, an IP – → 301 to `https://ict-baden.de`, `/health` on every host) – on pull
+   requests too;
 3. on `main` it pushes `ghcr.io/ict-baden/website:latest` and `:<commit>` (preview) and `:live` and `:live-<commit>`;
 4. Watchtower on docker01 checks every 5 minutes and restarts `ictbaden-web` (and, after the go-live, `ictbaden-live`)
    with the new image.
@@ -386,8 +451,11 @@ The CI probe also checks that the redirects and the `X-Robots-Tag` header behave
 
 nginx serves static files with gzip, long-lived caching for hashed assets (`/_astro/`), security headers and a
 strict Content-Security-Policy (`script-src 'self'; style-src 'self'` – the site has no inline scripts or styles),
-`/health`, and 301 redirects from the old URLs. The access log format deliberately leaves out forwarded client
-addresses.
+HSTS (`max-age=31536000`, deliberately without `includeSubDomains`: the subdomains such as `mail.ict-baden.de` are not
+ours to pin), `/health`, and 301 redirects from the old URLs. The live image answers every host other than
+`ict-baden.de` – `www`, the alias domains, a bare IP – with a 301 to `https://ict-baden.de$request_uri` (`/health`
+excepted, for the Docker and deploy health checks); http → https is Cloudflare's job (behind the tunnel nginx only
+sees http). The access log format deliberately leaves out forwarded client addresses.
 
 ## Design
 

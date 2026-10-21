@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 // Prüft die gebaute Website (dist/) auf das, was Suchmaschinen und KI-Suche brauchen:
-//   - Titel (≤ 70 Zeichen), Meta-Beschreibung (70–170), genau eine H1, kanonische Adresse, og:image:alt
+//   - Titel (≤ 580 px im Suchergebnis) und Meta-Beschreibung (110–155 Zeichen) – Regeln in src/data/serp.json –,
+//     genau eine H1, kanonische Adresse, og:image:alt
+//   - Text: keine zusammengezogenen Wörter an Elementgrenzen („PlaketteEtiketten-Designer“), keine Nummern im Text
+//     der H2; auf Produktseiten steht jeder Suchbegriff (SoftwareApplication.keywords) auch im sichtbaren Text
 //   - hreflang: jede Sprachfassung existiert und verweist zurück, x-default vorhanden
 //   - JSON-LD: gültiges JSON, Pflichtfelder je Typ, FAQ-Fragen auch sichtbar auf der Seite
 //   - Bilder: jedes <img> hat ein alt-Attribut; Bildschirmfotos der Produktseiten haben einen Alternativtext
@@ -17,6 +20,29 @@ const DIST = resolve(process.argv[2] ?? join(ROOT, 'dist'));
 const SITE_URL = (process.env.SITE_URL || 'https://ictbaden.netgetvpn.de').replace(/\/+$/, '');
 const STAGING = (process.env.SITE_STAGING ?? '1') !== '0';
 const products = JSON.parse(readFileSync(join(ROOT, 'src/data/products.json'), 'utf8')).products;
+// Längenregeln für Titel und Beschreibung (dieselbe Datei nutzt seoTitle in src/lib/produktseiten.ts)
+const SERP = JSON.parse(readFileSync(join(ROOT, 'src/data/serp.json'), 'utf8'));
+const titleWidth = (t) => [...t].reduce((sum, ch) => sum + (SERP.arial20[ch] ?? SERP.fallbackPx), 0);
+const { min: DESC_MIN, max: DESC_MAX } = SERP.description;
+// Für den Vergleich mit Suchbegriffen: klein, ohne weiche Trennstriche, Bindestrich-Varianten vereinheitlicht
+const normWords = (t) => t.toLowerCase().replace(/&shy;|[\u00ad\u200b]/g, '').replace(/[\u2010\u2011\u2012]/g, '-').replace(/\s+/g, ' ');
+// Zwei Wörter ohne Leerraum an einer Elementgrenze: Crawler lesen „<span>Plakette</span><span>Etiketten…“ als
+// „PlaketteEtiketten…“ (visually-hidden-Trenner wie „ – “ beginnen mit einem Leerzeichen und fallen nicht darunter).
+// Drei Fälle: Ende eines Inline-Elements direkt vor dem nächsten, Text direkt vor einem Inline-Element
+// („0.2.0<span>Veröffentlichung“) und Text direkt nach einem Inline-Element („</strong>Etiketten“).
+const INLINE = 'span|strong|em|b|i|code|small|a|time|abbr';
+const W_BEFORE = '([\\p{L}\\p{N}.:!?)])';
+const W_AFTER = '([\\p{L}\\p{N}(])';
+const OPEN = `<(?:${INLINE})\\b[^>]*>`;
+const CLOSE = `</(?:${INLINE})>`;
+const GLUED = [
+  new RegExp(`${W_BEFORE}${CLOSE}(?:</?(?:${INLINE})\\b[^>]*>)*${OPEN}(?:${OPEN})*${W_AFTER}`, 'gu'),
+  new RegExp(`${W_BEFORE}${OPEN}(?:${OPEN})*${W_AFTER}`, 'gu'),
+  new RegExp(`${W_BEFORE}${CLOSE}(?:${CLOSE})*${W_AFTER}`, 'gu'),
+];
+// Blockgrenzen für die Suche nach Suchbegriffen: ein Begriff zählt nur, wenn er innerhalb eines Absatzes, einer
+// Überschrift, eines Listenpunkts usw. steht – nicht über H2 und folgende H3 hinweg
+const BLOCK_END = /<\/(?:h[1-6]|p|li|dt|dd|td|th|figcaption|caption|div|section|header|footer|nav|summary|blockquote)>/gi;
 // Alle genannten Fremdnamen eines Texts (ohne vergleichende Formulierungen wie „Alternative zu“, die keine Namen sind)
 const PHRASES = /^(?:alternative (?:zu|to)|nachbau|klon|clone of|feature parity|funktionsgleich)$/i;
 const allCompetitorNames = (text) => [...new Set(COMPETITOR_PATTERNS.flatMap((re) => [...text.matchAll(new RegExp(re.source, re.flags.includes('g') ? re.flags : re.flags + 'g'))].map((m) => m[0])))].filter((n) => !PHRASES.test(n));
@@ -57,6 +83,7 @@ const REQUIRED = {
   Organization: ['name', 'url', 'logo', 'address'],
   WebSite: ['name', 'url'],
   WebPage: ['url', 'name', 'inLanguage'],
+  CollectionPage: ['url', 'name', 'inLanguage'],
   SoftwareApplication: ['name', 'description', 'url', 'applicationCategory', 'operatingSystem', 'publisher', 'license'],
   FAQPage: ['mainEntity'],
   BreadcrumbList: ['itemListElement'],
@@ -71,9 +98,19 @@ for (const [page, html] of pages) {
   const title = decode(/<title>([^<]*)<\/title>/.exec(head)?.[1] ?? '');
   const desc = attr(/<meta name="description"[^>]*>/.exec(head)?.[0] ?? '', 'content') ?? '';
   if (!title) fail(page, 'kein <title>');
-  else if (title.length > 70) fail(page, `Titel zu lang (${title.length}): ${title}`);
+  else if (titleWidth(title) > SERP.title.maxPx) fail(page, `Titel zu breit (${titleWidth(title)} px, höchstens ${SERP.title.maxPx}): ${title}`);
   if (!desc) fail(page, 'keine Meta-Beschreibung');
-  else if (!is404 && (desc.length < 70 || desc.length > 170)) fail(page, `Meta-Beschreibung ${desc.length} Zeichen (70–170): ${desc}`);
+  else if (!is404 && (desc.length < DESC_MIN || desc.length > DESC_MAX)) fail(page, `Meta-Beschreibung ${desc.length} Zeichen (${DESC_MIN}–${DESC_MAX}): ${desc}`);
+  // Zusammengezogene Wörter an Elementgrenzen (Linktexte, Überschriften, Bildunterschriften, Statusangaben …)
+  const body = html.slice(html.indexOf('<body')).replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ');
+  // Ausschnitt um eine Fundstelle als Text, ohne angeschnittene Tags am Rand
+  const around = (i, len) => textOf(body.slice(Math.max(0, i - 60), i + len + 40).replace(/^[^<]*>/, '').replace(/<[^>]*$/, '')).slice(0, 100);
+  for (const re of GLUED) for (const m of body.matchAll(re)) fail(page, `Wörter ohne Trenner zusammengezogen: „${around(m.index, m[0].length)}“ (${m[1]}|${m[2]})`);
+  // Laufende Nummern gehören nicht in den Text der H2 (sonst lesen Suchmaschinen „01 QR-Code am PC scannen“) – dafür
+  // gibt es den CSS-Zähler. Erkannt werden führende Nummern wie „01 “ und eine Nummer in einem eigenen Element am Anfang.
+  for (const h of html.matchAll(/<h2\b[^>]*>([\s\S]*?)<\/h2>/g)) {
+    if (/^0\d\s/.test(textOf(h[1])) || /^\s*<span\b[^>]*>\s*\d+\s*<\/span>/.test(h[1])) fail(page, `H2 beginnt mit einer Nummer: ${textOf(h[1])}`);
+  }
   const h1 = html.match(/<h1[\s>]/g)?.length ?? 0;
   if (h1 !== 1) fail(page, `${h1} H1-Überschriften`);
   if (!is404) {
@@ -178,6 +215,21 @@ for (const [page, html] of pages) {
         }
       }
     }
+    // Suchbegriffe (keywords = aka) stehen nicht als Liste auf der Seite, sondern jeder mindestens einmal im Text
+    // (Hauptinhalt ohne die verlinkten verwandten Produkte)
+    const main = html.slice(html.indexOf('<main'), html.indexOf('</main>')).replace(/<section[^>]*\bdrelated\b[\s\S]*?<\/section>/, ' ');
+    const mainText = normWords(textOf(main.replace(BLOCK_END, ' ¶ ')));
+    for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+      let data;
+      try { data = JSON.parse(m[1]); } catch { continue; }
+      for (const n of data['@graph'] ?? [data]) {
+        if (!types(n).includes('SoftwareApplication')) continue;
+        for (const k of String(n.keywords ?? '').split(',').map((x) => x.trim()).filter(Boolean)) {
+          if (!mainText.includes(normWords(k))) fail(page, `Suchbegriff „${k}“ (keywords) steht nicht im sichtbaren Text`);
+        }
+      }
+    }
+    if (/class="daka"/.test(html)) fail(page, 'sichtbare Liste der Suchbegriffe („Verwandte Begriffe“) – Begriffe gehören in den Text');
     // Vergleichsabschnitt: Markenhinweis nennt jeden Fremdnamen
     const cmpText = textOf(section + ' ' + cmpFaq.join(' '));
     const names = allCompetitorNames(cmpText);

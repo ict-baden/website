@@ -512,11 +512,11 @@
           },
           {
             "name": "findings",
-            "title": "14 Regeln mit klarer Empfehlung",
+            "title": "15 Regeln mit klarer Empfehlung",
             "caption": "„Jeder“ darf schreiben, verwaiste SIDs, Rechte an Einzelpersonen, versteckte Vererbungsbrüche, verschobene Ordner – jeweils mit Erklärung, warum es wichtig ist.",
             "alt": "Befunde in Zutritt nach Schweregrad, daneben die Regel ZT01 „Breite Gruppe darf schreiben“ mit Erklärung und Empfehlung.",
             "en": {
-              "title": "14 rules with a clear recommendation",
+              "title": "15 rules with a clear recommendation",
               "caption": "Everyone can write, orphaned SIDs, rights given to individuals, hidden inheritance breaks, moved folders – each with “why it matters”.",
               "alt": "Zutritt findings grouped by severity, with the detail pane for rule ZT01 showing explanation and recommendation."
             },
@@ -618,7 +618,7 @@
       "status": "fertig",
       "statusKey": "verfuegbar",
       "statusLabel": "Verfügbar",
-      "version": "0.6.0",
+      "version": "0.6.1",
       "updated": "2026-10-21",
       "text": "Kiosk-Browser für robuste Android-Geräte, zum Beispiel von Zebra und Honeywell: Barcode-Scan direkt ins Webformular, Profile, Kioskmodus und Konfiguration per MDM (SOTI, Intune, StageNow).",
       "sections": {
@@ -791,7 +791,7 @@
       "status": "fertig",
       "statusKey": "verfuegbar",
       "statusLabel": "Verfügbar",
-      "version": "2.1.0",
+      "version": "2.1.1",
       "updated": "2026-10-21",
       "text": "Bildschirmtastatur für robuste Android-Geräte von Zebra und Honeywell: große Tasten für Handschuhe, Scan-Taste, F1–F24 für Terminal-Emulation, zentral per MDM konfigurierbar.",
       "sections": {
@@ -958,13 +958,13 @@
       "slug": "lupe",
       "nr": 6,
       "name": "Lupe",
-      "kind": "QR-Code- und Barcode-Leser für den PC",
+      "kind": "QR-Code- und Barcode-Scanner für den PC",
       "tagline": "Jeder Code, von überall.",
       "linie": "codes",
       "status": "fertig",
       "statusKey": "verfuegbar",
       "statusLabel": "Verfügbar",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "updated": "2026-10-21",
       "text": "Liest QR-Codes und Barcodes unter Windows, Linux und macOS – per Webcam, aus jedem Bildschirmausschnitt, aus Bilddateien und der Zwischenablage. Das Ergebnis wird kopiert, eingetippt oder als Link geöffnet.",
       "sections": {
@@ -1162,8 +1162,8 @@
       "linie": "codes",
       "status": "fast-fertig",
       "statusKey": "vorabversion",
-      "statusLabel": "Vorabversion 0.1.0",
-      "version": "0.1.0",
+      "statusLabel": "Vorabversion 0.2.0",
+      "version": "0.2.0",
       "updated": "2026-10-21",
       "text": "Etiketten-Designer für Zebra- und kompatible Etikettendrucker: gestaltet Etiketten am Rechner und druckt ZPL direkt auf den Drucker – ohne Druckertreiber, Lizenzserver oder Administratorrechte, unter Windows und Linux.",
       "sections": {

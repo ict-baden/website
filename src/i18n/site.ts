@@ -41,7 +41,7 @@ export const UI_SITE = {
     toHome: 'ICT Baden – zur Startseite',
     darkMode: 'Dunkles Design',
     langSwitch: 'Sprache', langOther: 'English', langOtherShort: 'EN', langSelfShort: 'DE',
-    footerClaim: 'Softwareentwicklung', website: 'Website', products: 'Produkte', tools: 'Werkzeuge', legal: 'Rechtliches',
+    footerClaim: 'Softwareentwicklung', website: 'Website', products: 'Produkte', allProducts: 'Alle Produkte', tools: 'Werkzeuge', legal: 'Rechtliches',
     pulse: 'Energiezähler-Pulswertigkeit', imprint: 'Impressum', privacy: 'Datenschutz',
     footerNote: 'Statische Website ohne Tracking', staging: ' · Vorschau, nicht für Suchmaschinen freigegeben',
   },
@@ -53,7 +53,7 @@ export const UI_SITE = {
     toHome: 'ICT Baden – to the home page',
     darkMode: 'Dark theme',
     langSwitch: 'Language', langOther: 'Deutsch', langOtherShort: 'DE', langSelfShort: 'EN',
-    footerClaim: 'Software development', website: 'Website', products: 'Products', tools: 'Tools', legal: 'Legal',
+    footerClaim: 'Software development', website: 'Website', products: 'Products', allProducts: 'All products', tools: 'Tools', legal: 'Legal',
     pulse: 'Energy meter pulse value (German)', imprint: 'Imprint (German)', privacy: 'Privacy policy (German)',
     footerNote: 'Static website without tracking', staging: ' · preview, not released for search engines',
   },
@@ -154,8 +154,8 @@ export const TOPICS_EN: { title: string; items: Part[][] }[] = [
 ];
 
 export const PRODUCTS_I18N = {
-  de: { eyebrow: 'Eigene Produkte', title: 'Software-Produkte für Industrie, Labor und IT', more: 'Mehr erfahren' },
-  en: { eyebrow: 'Own products', title: 'Software products for industry, labs and IT', more: 'Learn more' },
+  de: { eyebrow: 'Eigene Produkte', title: 'Software-Produkte für Industrie, Labor und IT', more: 'Mehr erfahren', all: 'Alle Produkte im Überblick' },
+  en: { eyebrow: 'Own products', title: 'Software products for industry, labs and IT', more: 'Learn more', all: 'All products at a glance' },
 };
 
 export const PROVEN = {

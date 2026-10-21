@@ -4,7 +4,7 @@ import Icon from './Icon.astro';
 import { COMPANY, STAGING } from '../config';
 import { HOME, NAV_I18N, UI_SITE, sectionHref } from '../i18n/site';
 import { products } from '../lib/products';
-import { pageFor, productUrlFor } from '../lib/produktseiten';
+import { pageFor, productsUrlFor, productUrlFor } from '../lib/produktseiten';
 
 interface Props { lang?: 'de' | 'en' }
 const { lang = 'de' } = Astro.props;
@@ -48,7 +48,9 @@ const productLinks = products.map((p) => ({
       <nav class="footer-col footer-col--products" aria-label={T.products}>
         <p class="footer-label">{T.products}</p>
         <ul>
-          {productLinks.map((x) => <li><a href={x.href}><span class="fp-name">{x.name}</span>{x.kind && <span class="fp-kind">{x.kind}</span>}</a></li>)}
+          {/* Unsichtbarer Trenner: sonst lesen Suchmaschinen den Linktext als „PlaketteEtiketten-Designer …“ */}
+          {productLinks.map((x) => <li><a href={x.href}><span class="fp-name">{x.name}</span>{x.kind && <><span class="visually-hidden"> – </span><span class="fp-kind">{x.kind}</span></>}</a></li>)}
+          <li class="fp-all"><a href={productsUrlFor(lang)}>{T.allProducts} <Icon name="arrow-right" /></a></li>
         </ul>
       </nav>
 
@@ -110,6 +112,8 @@ const productLinks = products.map((p) => ({
   .fp-name { color: var(--ink); font-weight: 560; }
   .fp-kind { color: var(--ink-3); font-size: var(--fs-xs); }
   .footer-col--products a:hover .fp-name { color: var(--link-hover); }
+  .footer-col.footer-col--products .fp-all a { display: inline-flex; align-items: center; gap: 0.35em; color: var(--ink); font-weight: 620; }
+  .fp-all :global(.icon) { width: 1em; height: 1em; color: var(--accent); }
   .footer-col ul { display: grid; gap: 0.15rem; padding: 0; margin: 0; list-style: none; }
   .footer-col a {
     display: inline-flex;

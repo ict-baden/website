@@ -1,5 +1,6 @@
 ---
-// Seitenkopf für Unterseiten: Brotkrumen, kleine Überschrift, Titel, Einleitung.
+// Seitenkopf für Unterseiten: Brotkrumen, kleine Überschrift, Titel, Einleitung. lang: Sprache der Brotkrumen
+// (englisch: Startseite /en/ und „Breadcrumb“).
 interface Crumb { href?: string; label: string }
 interface Props {
   eyebrow?: string;
@@ -7,16 +8,18 @@ interface Props {
   lead?: string;
   crumbs?: Crumb[];
   narrow?: boolean;
+  lang?: 'de' | 'en';
 }
-const { eyebrow, title, lead, crumbs = [], narrow = false } = Astro.props;
+const { eyebrow, title, lead, crumbs = [], narrow = false, lang = 'de' } = Astro.props;
+const en = lang === 'en';
 ---
 <section class="phero">
   <div class="phero-bg" aria-hidden="true"><span class="phero-field"><span class="phero-bar"></span></span></div>
   <div class:list={['container', narrow && 'container--narrow', 'phero-inner']}>
     {crumbs.length > 0 && (
-      <nav aria-label="Brotkrumen">
+      <nav aria-label={en ? 'Breadcrumb' : 'Brotkrumen'}>
         <ol class="crumbs">
-          <li><a href="/">Start</a></li>
+          <li><a href={en ? '/en/' : '/'}>{en ? 'ICT Baden' : 'Start'}</a></li>
           {crumbs.map((c, i) => (
             <li>{c.href && i < crumbs.length - 1 ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</li>
           ))}

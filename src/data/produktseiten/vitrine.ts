@@ -77,7 +77,7 @@ const page: ProductPage = {
   },
   de: {
     title: 'Transparente Bildschirmsperre für Windows – Vitrine',
-    description: 'Durchsichtige Bildschirmsperre für Windows: Tastatur und Maus gesperrt, der Monitor bleibt sichtbar, Programme laufen weiter – für Labor, Produktion und Leitstand.',
+    description: 'Durchsichtige Bildschirmsperre für Windows: sperrt Tastatur und Maus, der Monitor bleibt sichtbar, Programme laufen weiter – für Labor und Leitstand.',
     lead: 'Vitrine ist eine transparente (durchsichtige) Bildschirmsperre für Windows 10 und 11: Tastatur und Maus sind gesperrt, der Monitor bleibt sichtbar und alle Programme laufen weiter. Entsperrt wird mit dem Windows-Kennwort oder Windows Hello, elektronische Signaturen gehen auch mit Microsoft Entra ID – für Labore, Produktionslinien und Leitstände, {lizenz}.',
     sections: [
       {
@@ -85,7 +85,7 @@ const page: ProductPage = {
         title: 'Bildschirm sperren – Monitor bleibt sichtbar: wofür eine durchsichtige Bildschirmsperre?',
         blocks: [
           { type: 'p', text: 'Die normale Windows-Sperre mit Win+L zeigt den Sperrbildschirm – vom Arbeitsplatz ist dann nichts mehr zu sehen. Im Labor, an der Produktionslinie oder im Leitstand muss ein Prozess aber sichtbar bleiben: Eine Messung läuft, ein Anlagenbild oder ein Dashboard wird beobachtet, nur bedienen soll niemand.' },
-          { type: 'p', text: 'Vitrine sperrt deshalb nur die Eingabe. Tastatur und Maus werden systemweit abgefangen, die Programme bleiben sichtbar und laufen weiter – ansehen, nicht anfassen. Wer entsperren darf, legen Sie fest: die angemeldete Person, Administratoren, Gruppen und Entra-App-Rollen, einzelne Konten oder jedes gültige Konto, auf Wunsch auf Domänen eingeschränkt.' },
+          { type: 'p', text: 'Vitrine ist deshalb eine reine Eingabesperre: Tastatur und Maus werden systemweit abgefangen, die Programme bleiben sichtbar und laufen weiter – ansehen, nicht anfassen. Wer entsperren darf, legen Sie fest: die angemeldete Person, Administratoren, Gruppen und Entra-App-Rollen, einzelne Konten oder jedes gültige Konto, auf Wunsch auf Domänen eingeschränkt.' },
         ],
       },
       {
@@ -95,7 +95,7 @@ const page: ProductPage = {
           {
             type: 'items',
             items: [
-              { title: 'Durchsichtig oder verdeckt sperren', text: 'Standard ist durchsichtig mit leichter Abdunkelung (8 %). Für vertrauliche Inhalte gibt es den verdeckten Modus mit großer Uhr und Datum – die Programme laufen auch dann weiter.' },
+              { title: 'Durchsichtig oder verdeckt sperren', text: 'Standard ist ein transparenter Sperrbildschirm mit leichter Abdunkelung (8 %). Für vertrauliche Inhalte gibt es den verdeckten Modus mit großer Uhr und Datum – die Programme laufen auch dann weiter.' },
               { title: 'Bereiche abdecken, Programme freigeben', text: 'Einzelne Rechtecke bleiben während der Sperre verdeckt, etwa der Teil eines LIMS-Fensters mit Patientennamen. Oder alles ist verdeckt außer den Fenstern ausgewählter Programme.' },
               { title: 'Entsperren mit Windows, signieren mit Microsoft Entra ID', text: 'Entsperrt wird mit dem Windows-Kennwort – auf Entra-gebundenen Geräten auch mit dem Entra-Konto – oder mit Windows Hello. Signaturen und Administratorbestätigungen gehen zusätzlich mit Microsoft Entra ID und allen Verfahren, die der Mandant erlaubt: Passkeys und FIDO2-Schlüssel, Authenticator, MFA und Conditional Access.' },
               { title: 'Viele Wege zu sperren', text: 'Strg+Alt+L, Infobereich, nach Leerlaufzeit, nach Zeitplan, beim Start, als Bildschirmschoner, mit `Vitrine.exe --lock` oder über die lokale Schnittstelle.' },
@@ -114,7 +114,7 @@ const page: ProductPage = {
         title: 'Einsatz im Leitstand, im Labor und an der Produktionslinie',
         blocks: [
           { type: 'p', text: 'Typische Arbeitsplätze sind Messrechner im Labor, Bedienrechner an Produktionslinien und Leitstand-PCs, auf denen Anlagenbilder sichtbar bleiben müssen. Vitrine legt ein Overlay pro Monitor, passend zur Skalierung jedes Monitors, und zeigt auf Wunsch einen Hinweis wie „Messung läuft – bitte nicht berühren“. Während der Sperre bleibt der Bildschirm an: kein Bildschirmschoner, kein Energiesparmodus.' },
-          { type: 'p', text: 'Für Leitstände und Messrechner kann Vitrine schon beim Start gesperrt sein. Windows-Taste, Alt+Tab, Alt+Esc, Alt+F4 und Strg+Esc bleiben während der Sperre ohne Wirkung, der Mauszeiger steht still.' },
+          { type: 'p', text: 'Für Leitstände und Messrechner kann Vitrine schon beim Start gesperrt sein. Die Tastatur- und Maussperre erfasst auch die Windows-Taste, Alt+Tab, Alt+Esc, Alt+F4 und Strg+Esc, der Mauszeiger steht still.' },
         ],
       },
       {
@@ -145,7 +145,7 @@ const page: ProductPage = {
     ],
     faq: [
       { q: 'Wie sperre ich Tastatur und Maus, sodass der Bildschirm sichtbar bleibt?', a: 'Mit einer durchsichtigen Bildschirmsperre wie Vitrine: Strg+Alt+L oder ein Klick im Infobereich sperrt Tastatur und Maus, der Monitor bleibt sichtbar und alle Programme laufen weiter. Die Windows-Sperre mit Win+L zeigt dagegen den Sperrbildschirm, und vom Arbeitsplatz ist nichts mehr zu sehen.' },
-      { q: 'Läuft eine Messung unter der Sperre weiter?', a: 'Ja. Vitrine sperrt nur die Eingabe; Programme laufen weiter und bleiben sichtbar, auf Wunsch mit einem Hinweis wie „Messung läuft – bitte nicht berühren“. Der Bildschirm bleibt an, ohne Bildschirmschoner und Energiesparmodus.' },
+      { q: 'Läuft eine Messung unter der Sperre weiter?', a: 'Ja. Vitrine wirkt nur als Bediensperre: Programme laufen weiter und bleiben sichtbar, auf Wunsch mit einem Hinweis wie „Messung läuft – bitte nicht berühren“. Der Bildschirm bleibt an, ohne Bildschirmschoner und Energiesparmodus.' },
       { q: 'Kann ich die Bildschirmsperre mit Microsoft Entra ID (früher Azure AD) entsperren?', a: 'Mit den Release-Paketen nicht über die Microsoft-Anmeldung: Ihnen fehlt der Windows-Kontobroker, dessen Weitergabe Microsofts Lizenzbedingungen nicht erlauben. Entsperrt wird mit dem Windows-Kennwort – auf Entra-gebundenen Geräten auch mit dem Entra-Konto – oder mit Windows Hello. Elektronische Signaturen und Administratorbestätigungen laufen über Entra ID mit MFA, Passkeys und Conditional Access. Wer mit Microsoft entsperren muss, baut Vitrine selbst mit Broker.' },
       { q: 'Wer darf entsperren?', a: 'Das legen Sie fest: die angemeldete Person, Administratoren, Gruppen und Entra-App-Rollen, einzelne Konten oder jedes gültige Konto – kombinierbar und auf Domänen einschränkbar.' },
       { q: 'Lässt sich Strg+Alt+Entf blockieren?', a: 'Nein, das kann keine Anwendung. Vitrine blendet während der Sperre Task-Manager, Abmelden und Kennwort ändern aus; Sperren und Benutzer wechseln bleiben verfügbar.' },
@@ -153,14 +153,14 @@ const page: ProductPage = {
       { q: 'Erfüllt Vitrine 21 CFR Part 11 oder EU GMP Annex 11?', a: 'Vitrine liefert Bausteine dafür – Zugriffskontrolle, Audit-Trail, Signatur mit Bedeutung, automatisches Sperren –, ist aber kein validiertes Produkt. ICT Baden macht keine Konformitätszusage; Validierung und Risikobewertung liegen beim Betreiber.' },
       { q: 'Ist Vitrine kostenlos? Sendet es Daten?', a: 'Vitrine ist {lizenz}. Die Software sendet keine Daten an ICT Baden: keine Telemetrie, keine Absturzberichte, keine Update-Prüfung. Anmeldungen mit Entra ID laufen zwischen Windows und Microsoft.{download}' },
     ],
-    aka: ['durchsichtige Bildschirmsperre', 'transparenter Sperrbildschirm', 'Tastatur- und Maussperre', 'Eingabesperre', 'Bediensperre', 'Bildschirmsperre mit sichtbarem Desktop'],
+    aka: ['durchsichtige Bildschirmsperre', 'transparenter Sperrbildschirm', 'Tastatur und Maus sperren', 'Tastatur- und Maussperre', 'Eingabesperre', 'Bediensperre'],
     trademarks: 'Microsoft, Windows, Entra, Intune und Windows Hello sind Marken der Microsoft-Unternehmensgruppe. Sie werden nur genannt, um die Kompatibilität zu beschreiben.',
   },
   en: {
     operatingSystem: 'Windows 10 (version 1809 or later), Windows 11',
     softwareRequirements: 'Windows 10 version 1809 (build 17763) or later, 64-bit',
     title: 'Transparent lock screen for Windows – Vitrine',
-    description: 'Transparent lock screen for Windows: Vitrine locks keyboard and mouse, the screen stays visible and programs keep running – for labs, production and control rooms.',
+    description: 'Transparent lock screen for Windows: lock keyboard and mouse while the screen stays visible and programs keep running – for labs and control rooms.',
     kind: 'Transparent screen lock for Windows',
     tagline: 'Look, don’t touch.',
     lead: 'Vitrine is a transparent lock screen for Windows 10 and 11: keyboard and mouse are blocked while every program stays visible and keeps running. Unlock with the Windows password or Windows Hello; electronic signatures also work with Microsoft Entra ID – for laboratories, production lines and control rooms, {lizenz}.',
@@ -169,7 +169,7 @@ const page: ProductPage = {
         id: 'why',
         title: 'Why a transparent lock screen? Lock the PC, keep the screen visible',
         blocks: [
-          { type: 'p', text: 'The normal Windows lock (Win+L) shows the lock screen, and nothing of the workstation stays visible. In a laboratory, on a production line or in a control room, a process must be watched but not touched: a measurement is running, a plant display or a dashboard is being monitored.' },
+          { type: 'p', text: 'The normal Windows lock (Win+L) shows the lock screen, and nothing of the workstation stays visible. In a laboratory, on a production line or in a control room, you need to lock the PC but keep the screen visible: a measurement is running, a plant display or a dashboard is being monitored.' },
           { type: 'p', text: 'Vitrine therefore locks only the input. Keyboard and mouse are intercepted system-wide, the programs stay visible and keep running – look, don’t touch. You decide who may unlock: the signed-in person, administrators, groups and Entra app roles, single accounts or any valid account, restrictable to domains.' },
         ],
       },
@@ -199,7 +199,7 @@ const page: ProductPage = {
         title: 'Where it is used: labs, production, control rooms',
         blocks: [
           { type: 'p', text: 'Typical workstations are measurement PCs in laboratories, operator PCs on production lines and control-room PCs whose displays must stay visible. Vitrine places one overlay per monitor, matched to each monitor’s scaling, and optionally shows a notice such as “Measurement running – please do not touch”. While locked, the screen stays on: no screen saver, no sleep.' },
-          { type: 'p', text: 'For control rooms and measurement PCs, Vitrine can lock at startup. The Windows key, Alt+Tab, Alt+Esc, Alt+F4 and Ctrl+Esc have no effect while locked, and the mouse pointer is held.' },
+          { type: 'p', text: 'For control rooms and measurement PCs, Vitrine can lock at startup. The keyboard and mouse lock also covers the Windows key, Alt+Tab, Alt+Esc, Alt+F4 and Ctrl+Esc, and the mouse pointer is held.' },
         ],
       },
       {
@@ -229,8 +229,8 @@ const page: ProductPage = {
       'Spanish, French and Chinese are machine translations and not yet reviewed by native speakers.',
     ],
     faq: [
-      { q: 'How do I lock keyboard and mouse while the screen stays visible?', a: 'With a transparent, see-through lock screen such as Vitrine: Ctrl+Alt+L or a click in the notification area blocks keyboard and mouse, while the screen stays visible and every program keeps running. The Windows lock (Win+L) shows the lock screen instead, and nothing of the workstation stays visible.' },
-      { q: 'Does a running measurement continue while locked?', a: 'Yes. Vitrine only locks the input; programs keep running and stay visible, optionally with a notice such as “Measurement running – please do not touch”. The screen stays on, without screen saver or sleep.' },
+      { q: 'How do I lock keyboard and mouse while the screen stays visible?', a: 'With a see-through screen lock such as Vitrine: Ctrl+Alt+L or a click in the notification area blocks keyboard and mouse, while the screen stays visible and every program keeps running. The Windows lock (Win+L) shows the lock screen instead, and nothing of the workstation stays visible.' },
+      { q: 'Does a running measurement continue while locked?', a: 'Yes. Vitrine acts only as an input lock: programs keep running and stay visible, optionally with a notice such as “Measurement running – please do not touch”. The screen stays on, without screen saver or sleep.' },
       { q: 'Does Vitrine work as an Entra ID lock screen (formerly Azure AD)?', a: 'Not with the Microsoft sign-in in the release packages: they lack the Windows account broker, which Microsoft’s licence terms do not allow to be redistributed. Unlock with the Windows password – on Entra-joined devices also with the Entra account – or with Windows Hello. Electronic signatures and administrator confirmations use Entra ID with MFA, passkeys and Conditional Access. If you must unlock with Microsoft, build Vitrine yourself with the broker.' },
       { q: 'Who may unlock?', a: 'You decide: the signed-in person, administrators, groups and Entra app roles, single accounts or any valid account – combinable and restrictable to domains.' },
       { q: 'Can Ctrl+Alt+Del be blocked?', a: 'No application can do that. While locked, Vitrine hides Task Manager, Sign out and Change a password; Lock and Switch user remain available.' },
@@ -238,7 +238,7 @@ const page: ProductPage = {
       { q: 'Is Vitrine compliant with 21 CFR Part 11 or EU GMP Annex 11?', a: 'Vitrine provides building blocks – access control, audit trail, signatures with a meaning, automatic locking – but it is not a validated product. ICT Baden makes no compliance claim; validation and risk assessment are up to the operator.' },
       { q: 'Is Vitrine free? Does it send data?', a: 'Vitrine is {lizenz}. It sends no data to ICT Baden: no telemetry, no crash reports, no update check. Entra ID sign-ins run between Windows and Microsoft.{download}' },
     ],
-    aka: ['see-through screen lock', 'transparent lock screen', 'keyboard and mouse lock', 'input lock', 'lock the PC but keep the screen visible', 'screen lock with visible desktop'],
+    aka: ['transparent lock screen', 'see-through screen lock', 'lock keyboard and mouse', 'keyboard and mouse lock', 'input lock', 'lock the PC but keep the screen visible'],
     facts: [
       ['Platform', 'Windows 10 (version 1809 or later) and Windows 11, 64-bit'],
       ['Sign-in', 'unlock with Windows password or Windows Hello; signatures also with Microsoft Entra ID'],
