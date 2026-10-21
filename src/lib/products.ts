@@ -112,7 +112,8 @@ export const colorClasses = (p: Product) => [`art--${p.linie}`, `pc--${p.slug}`]
 export const productUrl = (p: Product) => `/produkte/${p.slug}/`;
 /** Hochformat (Telefon-Bildschirmfotos der Android-Apps). */
 export const isPortrait = (s: Shot) => s.light.height > s.light.width;
-export const lineAnchor = (_id: string) => '/#produkte';
+/** Produktlinie auf der deutschen Produktübersicht (englisch: lineAnchorFor in src/lib/produktseiten.ts). */
+export const lineAnchor = (id: string) => `/produkte/#linie-${id}`;
 
 /** Reihenfolge der großen Karten auf der Startseite: alle veröffentlichten Produkte, die erste Karte breit. */
 const FEATURED = ['vitrine', 'lupe', 'zutritt', 'riegel', 'pforte', 'industrial-keyboard', 'plakette'];

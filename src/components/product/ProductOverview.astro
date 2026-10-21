@@ -1,0 +1,152 @@
+---
+// Produktübersicht (deutsch /produkte/, englisch /en/products/): alle veröffentlichten Produkte als Karten, nach
+// Produktlinien gruppiert – mit CollectionPage, ItemList und BreadcrumbList im JSON-LD und hreflang de/en/x-default.
+// Die Produktseiten verlinken sie als zweite Ebene der Brotkrumen; die Startseite zeigt die Produkte zusätzlich im
+// Abschnitt #produkte bzw. #products.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import ContactBand from '../ContactBand.astro';
+import ProductCard from './ProductCard.astro';
+import { lineGlyph } from '../../lib/art';
+import { linien, plural, products, productsOfLine, statusSummary } from '../../lib/products';
+import { LINE_EN, lineIdFor, pageFor, productsUrlFor, productUrlFor, statusLabelFor, type Lang } from '../../lib/produktseiten';
+import { breadcrumbs, organization, productList, webPage, website } from '../../lib/seo';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const de = lang === 'de';
+const path = productsUrlFor(lang);
+const n = products.length;
+
+const T = de
+  ? {
+      title: 'Software-Produkte für Industrie, Labor und IT – ICT Baden',
+      description: `${n} Software-Produkte für Industrie, Labor und IT – von der transparenten Bildschirmsperre bis zum Etiketten-Designer, alle kostenlos unter der MIT-Lizenz.`,
+      eyebrow: 'Eigene Produkte',
+      h1: 'Software-Produkte für Industrie, Labor und IT',
+      lead: `${plural(n, 'Produkt', 'Produkte')} in ${linien.length} Produktlinien, alle kostenlos unter der MIT-Lizenz: ${statusSummary(products)}. Support gibt es auf Wunsch per Supportvertrag; zu jedem Produkt beraten wir Sie persönlich.`,
+      crumb: 'Produkte',
+      home: 'Start',
+      count: (k: number) => plural(k, 'Produkt', 'Produkte'),
+      listName: 'Software-Produkte von ICT Baden',
+      contactTitle: 'Interesse an einem Produkt?',
+      contactText: 'Schreiben Sie uns, welches Produkt Sie interessiert und wofür Sie es einsetzen möchten – wir melden uns persönlich.',
+      subject: 'Anfrage zu den Produkten',
+    }
+  : {
+      title: 'Software products for industry, labs and IT – ICT Baden',
+      description: `${n} software products for industry, labs and IT – from a transparent lock screen to a label designer, all free of charge under the MIT licence.`,
+      eyebrow: 'Own products',
+      h1: 'Software products for industry, labs and IT',
+      lead: `${n} products in ${linien.length} product lines, all free of charge under the MIT licence. Support is available with a support contract, and we are happy to advise you personally on every product.`,
+      crumb: 'Products',
+      home: 'ICT Baden',
+      count: (k: number) => `${k} ${k === 1 ? 'product' : 'products'}`,
+      listName: 'Software products by ICT Baden',
+      contactTitle: 'Interested in one of our products?',
+      contactText: 'Tell us which product you are interested in and what you would like to use it for – we will get back to you personally.',
+      subject: 'Enquiry about your products',
+    };
+
+const lineText = (id: string, fallback: { name: string; text: string }) => (de ? fallback : LINE_EN[id] ?? fallback);
+const jsonLd = [
+  organization(lang),
+  website(),
+  webPage(path, T.title, T.description, lang, undefined, undefined, 'CollectionPage'),
+  productList(products, lang, T.listName),
+  breadcrumbs([{ name: T.home, url: de ? '/' : '/en/' }, { name: T.crumb, url: path }]),
+];
+---
+<Base
+  title={T.title}
+  bareTitle
+  description={T.description}
+  lang={lang}
+  alternates={[{ lang: 'de', href: productsUrlFor('de') }, { lang: 'en', href: productsUrlFor('en') }]}
+  jsonLd={jsonLd}
+>
+  <PageHero eyebrow={T.eyebrow} title={T.h1} lead={T.lead} crumbs={[{ label: T.crumb }]} lang={lang} />
+
+  <div class="container catalog">
+    {linien.map((l) => {
+      const list = productsOfLine(l.id);
+      const line = lineText(l.id, l);
+      return (
+        <section class="pline" id={lineIdFor(l.id, lang)} aria-labelledby={`h-${l.id}`}>
+          <header class="pline-head">
+            <span class="pline-icon" set:html={lineGlyph(l.id)} />
+            <div>
+              <h2 id={`h-${l.id}`}>{line.name}</h2>
+              <p>{line.text}</p>
+            </div>
+            <span class="pline-n">{T.count(list.length)}</span>
+          </header>
+          <ul class="pgrid" role="list" data-n={list.length} data-r3={list.length % 3} data-odd={list.length % 2 === 1 ? '' : undefined}>
+            {list.map((p, i) => (
+              <li class:list={['reveal', i === list.length - 1 && 'is-last']}>
+                <ProductCard
+                  product={p}
+                  uid={`-ov-${lang}`}
+                  lang={lang}
+                  href={productUrlFor(p, lang)}
+                  kind={de ? p.kind : pageFor(p).en.kind ?? p.kind}
+                  text={de ? p.text : pageFor(p).en.description}
+                  statusLabel={statusLabelFor(p, lang)}
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
+      );
+    })}
+  </div>
+
+  <ContactBand lang={lang} title={T.contactTitle} text={T.contactText} subject={T.subject} />
+</Base>
+
+<style>
+  .catalog { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); }
+  .pline { scroll-margin-top: 96px; }
+  .pline-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--s-4);
+    margin-bottom: var(--s-5);
+    padding-bottom: var(--s-4);
+    border-bottom: 1px solid var(--line);
+  }
+  .pline-icon { display: block; width: 52px; height: 52px; }
+  .pline-icon :global(svg) { width: 100%; height: 100%; }
+  .pline-head h2 { font-size: var(--fs-xl); }
+  .pline-head p { color: var(--ink-2); font-size: var(--fs-sm); }
+  .pline-n { color: var(--ink-3); font-size: var(--fs-sm); font-weight: 560; white-space: nowrap; }
+  .pgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); padding: 0; margin: 0; list-style: none; }
+  .pgrid > li { display: grid; }
+  /* Keine leeren Zellen: das Raster richtet sich nach der Zahl der Karten (data-n, data-r3 = n mod 3, data-odd,
+     .is-last). Bleibt eine Karte allein in ihrer Zeile, wird sie zur breiten Karte mit Bild links und Text rechts. */
+  .pgrid[data-n='2'] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pgrid[data-n='1'] { grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 1061px) {
+    .pgrid[data-r3='1'] > li.is-last { grid-column: 1 / -1; }
+    .pgrid[data-r3='1'] > li.is-last :global(.pcard) { flex-direction: row; }
+    .pgrid[data-r3='1'] > li.is-last :global(.pcover) { flex: none; width: 56%; }
+    .pgrid[data-r3='1'] > li.is-last :global(.pcard-body) { justify-content: center; padding: var(--s-6) clamp(1.5rem, 1rem + 1.5vw, 2.5rem); }
+    .pgrid[data-r3='1'] > li.is-last :global(.pcard-top) { margin-top: 0; }
+    .pgrid[data-r3='1'] > li.is-last :global(.pcard-more) { margin-top: var(--s-2); }
+  }
+  @media (max-width: 1060px) { .pgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 641px) and (max-width: 1060px) {
+    .pgrid[data-odd] > li.is-last { grid-column: 1 / -1; }
+    .pgrid[data-odd] > li.is-last :global(.pcard) { flex-direction: row; }
+    .pgrid[data-odd] > li.is-last :global(.pcover) { flex: none; width: 52%; }
+    .pgrid[data-odd] > li.is-last :global(.pcard-body) { justify-content: center; padding: var(--s-5) var(--s-5); }
+    .pgrid[data-odd] > li.is-last :global(.pcard-top) { margin-top: 0; }
+    .pgrid[data-odd] > li.is-last :global(.pcard-more) { margin-top: var(--s-2); }
+  }
+  @media (max-width: 640px) {
+    .pgrid, .pgrid[data-n='2'] { grid-template-columns: minmax(0, 1fr); }
+    .pline-head { grid-template-columns: auto 1fr; }
+    .pline-n { grid-column: 2; }
+  }
+</style>

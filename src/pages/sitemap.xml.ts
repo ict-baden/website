@@ -5,7 +5,7 @@
 import type { APIRoute } from 'astro';
 import { SITE_URL } from '../config';
 import { products } from '../lib/products';
-import { pageModified, productUrlFor } from '../lib/produktseiten';
+import { pageModified, productsUrlFor, productUrlFor } from '../lib/produktseiten';
 import { appPrivacyPages } from '../lib/app-privacy';
 
 const STATIC = ['/werkzeuge/pulswertigkeit/', '/impressum/', '/datenschutz/'];
@@ -26,6 +26,9 @@ export const GET: APIRoute = async () => {
     ...STATIC.map((loc) => ({ loc })),
     { loc: '/', lastmod: latest, alternates: pair('/', '/en/') },
     { loc: '/en/', lastmod: latest, alternates: pair('/', '/en/') },
+    // Produktübersicht (src/components/product/ProductOverview.astro): Stand wie die neueste Produktseite
+    { loc: productsUrlFor('de'), lastmod: latest, alternates: pair(productsUrlFor('de'), productsUrlFor('en')) },
+    { loc: productsUrlFor('en'), lastmod: latest, alternates: pair(productsUrlFor('de'), productsUrlFor('en')) },
     ...products.flatMap((p) => {
       const alts = pair(productUrlFor(p, 'de'), productUrlFor(p, 'en'));
       return [
