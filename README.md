@@ -449,6 +449,7 @@ Steps:
 11. When a product repository goes public: `download.public: true` in its `src/data/produktseiten/<id>.ts` (one line;
    `play` for the Android apps once on Google Play), OG image (`npm run brand -- --only <slug>`); then list the product
    where AI answers look (AlternativeTo, winget, Google Play, Flathub).
+   Order of steps, listing texts per product and monthly AI checks: [docs/sichtbarkeit.md](docs/sichtbarkeit.md).
 
 ## Deployment (docker01, automatic)
 

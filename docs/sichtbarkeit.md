@@ -1,0 +1,1094 @@
+# Sichtbarkeit der sieben Produkte – Plan und fertige Texte
+
+Stand 2026-10-21. Für Jo und Till: die Schritte mit eigenem Konto, die anstehen, sobald die neue Website auf
+ict-baden.de live ist und die Produkt-Repos öffentlich sind. Claude hat hier nur geplant und geschrieben – nichts ist
+eingereicht, angemeldet, gepostet oder verschickt.
+
+- **Grundlage:** Recherche „Auffindbarkeit der 7 Produkte“ vom 2026-10-21 (Suchbegriffe, Trefferlisten, Listen,
+  Kanäle, KI-Suche); Produktfakten nur aus den Produkt-Repos (`origin/main` vom 2026-10-21: Vitrine `main` ohne
+  Tag-Release, Lupe v0.1.0, Zutritt v0.1.0, Riegel v0.1.2, Plakette v0.2.0, Pforte v0.6.0, Industrial Keyboard
+  v2.1.0); die „Nicht behaupten“-Regeln in den Kopfkommentaren von `src/data/produktseiten/*.ts`.
+- **Adressen** am 2026-10-21 geprüft. Ausnahmen sind markiert: AlternativeTo, Softpedia und SourceForge sperren
+  einfache Abrufe (403), dort wurde über einen Lesedienst geprüft oder es steht dabei; die Produktseiten auf
+  ict-baden.de und die GitHub-Repos antworten erst nach Livegang bzw. Veröffentlichung.
+- **Ist-Stand:** ict-baden.de zeigt noch die alte Seite (DNS bei GoDaddy, `ns35`/`ns36.domaincontrol.com`), die neue
+  Seite läuft als `noindex`-Vorschau hinter Cloudflare, alle Produkt-Repos sind privat (0 Sterne), Releases gibt es
+  nur dort. Ein `google-site-verification`-TXT-Eintrag existiert, Search Console ist also vermutlich eingerichtet.
+
+> [!IMPORTANT]
+> **Regeln für jeden Text in diesem Dokument**
+> - Erst verwenden, wenn das Repo öffentlich ist und `download.public: true` gesetzt ist – vorher sind „Open Source“
+>   und jeder Download-Link falsch.
+> - Vor dem Absenden mit README und „Limits, honestly“ des Produkts abgleichen: Version, Teststand, Signatur.
+> - Keine Superlative, kein „besser als“, Fremdprodukte nur beschreibend („an alternative to X“). Nichts aus den
+>   Abschnitten „Nicht schreiben“.
+> - In Foren und auf Reddit immer offenlegen: „Disclosure: I work for ICT Baden, which makes this free open-source
+>   tool.“ Ein Beitrag pro Thread, keine Zweitkonten, niemanden um Stimmen bitten.
+> - Die Entwürfe sind Vorlagen. Mehrere Listen und Foren lehnen KI-geschriebene Beiträge ab – in eigene Worte bringen
+>   und selbst abschicken.
+
+## 1 Kurzfassung
+
+- **Was gewinnt:** Problem- und Alternativ-Suchen mit schwachen Trefferlisten (Webcam als Barcodescanner, ZebraDesigner
+  unter Linux, F13–F24 auf Android, Windows-Härtung offline prüfen, verwaiste SIDs, „open source alternative to …“)
+  und die Drittseiten, aus denen KI-Antworten schöpfen: AlternativeTo, Softpedia, Snapfiles, GitHub, winget, Foren.
+- **Was nicht gewinnt:** Kopfbegriffe wie „barcode scanner for pc“, „android kiosk browser“ oder „NTFS permissions
+  report“ – dort stehen in sechs Monaten weiter Händler, MDM-Anbieter und Herstellerseiten.
+- **Reihenfolge:** ① Livegang indexierbar und für Crawler offen → ② Search Console, Bing, Brave → ③ Repos öffentlich,
+  `download.public`, Code-Signing beantragen → ④ AlternativeTo am ersten Tag, winget, Scoop → ⑤ Portale, Stores,
+  Listen, Foren, Show HN im Wochentakt → ⑥ monatlich messen.
+- **Warten bei:** Vitrine (kein Tag-Release mit versionierten Dateien), Pforte (Releases ohne APK), Plakette (nur gegen
+  den virtuellen Drucker geprüft).
+
+## 2 Reihenfolge für Menschen
+
+Die Schritte 1–8 der README („Going live – checklist“) bleiben gültig; diese Liste ordnet sie mit den Schritten zur
+Sichtbarkeit. **Mensch** = braucht ein Konto oder eine Entscheidung, **Claude** = kann vorbereiten oder automatisieren.
+
+1. **Vorher (README Schritte 1–3):** rechtliche Prüfung, Repository-Variablen (`INDEXNOW_KEY`), Live-Container auf
+   docker01. – Mensch · hängt an der Anwaltsprüfung.
+2. **DNS-Zone zu Cloudflare umziehen** – Mensch (GoDaddy- und Cloudflare-Zugang) · 1–2 Std. plus bis zu 24 Std.
+   Wartezeit · hängt an 1.
+   - Zone `ict-baden.de` in Cloudflare anlegen („Full setup“,
+     [Anleitung](https://developers.cloudflare.com/dns/zone-setups/full-setup/)). Die Onboarding-Frage nach
+     KI-Crawlern mit **„erlauben“** beantworten (Cloudflare fragt seit 01.07.2025 und schlägt „blockieren“ vor).
+   - Vor dem Umschalten der Nameserver alle Einträge der GoDaddy-Zone übernehmen und vergleichen, vor allem: **MX**
+     (heute Google Workspace `aspmx.l.google.com` mit `alt1`–`alt4` und `mail.ict-baden.de` mit Priorität 50), den
+     **A-Eintrag** von `mail.ict-baden.de`, **beide TXT-Einträge** (`MS=…` und `google-site-verification=…` – ohne
+     diesen verliert Search Console die Bestätigung) und alle weiteren Subdomains aus dem Zonen-Export. Mail-Einträge
+     auf „DNS only“ (graue Wolke). Ein SPF- oder DMARC-Eintrag existiert heute nicht – nicht nebenbei erfinden, mit
+     der Person klären, die die Mail betreut.
+   - Dann bei GoDaddy die beiden Cloudflare-Nameserver eintragen; danach Tunnel und Hostnamen wie in README Schritt 4.
+   - Claude: nach dem Umzug alte und neue Einträge per `dig` vergleichen.
+3. **Cloudflare für Such- und KI-Crawler öffnen** – Mensch · 30 Min. · hängt an 2. Einstellungen laut Recherche und
+   [Cloudflare-Doku](https://developers.cloudflare.com/bots/additional-configurations/block-ai-bots/) (Bezeichnungen
+   im Dashboard können leicht abweichen):
+   - Security → Settings → „Configure AI bot policies“: **Search = Allow, Agent = Allow, Training = Allow**. Neue
+     Zonen sperren seit 15.09.2026 Training und Agent auf Seiten mit Werbung; Crawler, die suchen und trainieren,
+     fallen unter jede Trainingssperre.
+   - Legacy-Schalter „Block AI bots“ **aus**,
+     [Managed robots.txt](https://developers.cloudflare.com/bots/additional-configurations/managed-robots-txt/)
+     **aus** (sonst stellt Cloudflare `Disallow` für GPTBot, ClaudeBot, Google-Extended und andere vor unsere eigene
+     robots.txt), [Crawler Hints](https://developers.cloudflare.com/cache/advanced-configuration/crawler-hints/)
+     **an** (meldet Änderungen per IndexNow, auch im Free-Plan), Bot Fight Mode darf verifizierte Bots nicht
+     herausfordern.
+   - **Entscheidung Training (Jo und Till):** Empfehlung **erlauben** – dann kennen Sprachmodelle die Tools auch ohne
+     Websuche, und eine Trainingssperre kann über Mischcrawler auch Suche kosten. Gegenargument: Seiteninhalte gehen
+     ohne Gegenleistung in Trainingsdaten; die Seite enthält aber nur öffentliche Produktinfos. Entscheidung in
+     `offen.md` im Projekt-Repo festhalten.
+   - Danach in [AI Crawl Control](https://developers.cloudflare.com/ai-crawl-control/) bzw. Analytics prüfen, dass
+     Googlebot, Bingbot, OAI-SearchBot, PerplexityBot und Claude-SearchBot mit 200 durchkommen. Googlebot nie sperren:
+     Brave hat keinen eigenen User-Agent und crawlt nur, was Googlebot darf.
+   - Claude: Prüfungen von außen wie in README Schritt 5 (`curl` auf `X-Robots-Tag`, robots.txt, Weiterleitungen, 410).
+4. **Google Search Console** – Mensch (Google-Konto) · 30 Min., Daten nach einigen Tagen · hängt an 3.
+   [Search Console](https://search.google.com/search-console): prüfen, ob die bestehende Property eine Domain-Property
+   ist und wer Zugriff hat; Sitemap `https://ict-baden.de/sitemap.xml` einreichen; Indexierung der 14 Produktseiten (de
+   und en) und der Startseite anfordern. Unter Einstellungen → **„Search generative AI“** prüfen, dass „einbeziehen“
+   gesetzt ist (Standard, weltweit seit 31.08.2026; „ausschließen“ nimmt die Seite aus AI Overviews, AI Mode und
+   Discover, [Hilfe](https://support.google.com/webmasters/answer/16908024)). Für AI Overviews genügt eine indexierte
+   Seite mit Snippet ([Google](https://developers.google.com/search/docs/appearance/ai-features)).
+5. **Bing Webmaster Tools** – Mensch (Microsoft-Konto) · 20 Min. · hängt an 4.
+   [Bing Webmaster Tools](https://www.bing.com/webmasters): aus Search Console importieren, Sitemap einreichen,
+   [IndexNow](https://www.indexnow.org/) läuft über `INDEXNOW_KEY` und `deploy/deploy.sh` (dazu Crawler Hints). Den
+   Bericht **„AI Performance“** beobachten (Vorschau seit 02/2026: Zitate in Copilot und Bing-KI-Antworten, zitierte
+   Seiten, „grounding queries“,
+   [Bericht](https://www.searchenginejournal.com/bing-webmaster-tools-adds-ai-citation-performance-data/566874/)). Bing
+   speist Copilot und Teile von ChatGPT Search.
+6. **Brave Search** – Mensch · 10 Min. · hängt an 3. Startseite und die 14 Produktseiten einzeln unter
+   [search.brave.com/submit-url](https://search.brave.com/submit-url) melden. Claude nutzt Brave Search für die
+   Websuche; laut Profound (06/2026) kommen rund 79 % der Claude-Zitate aus den Brave-Top-10.
+7. **Repos öffentlich und `download.public`** – Jo und Till entscheiden je Produkt · 15–30 Min. je Produkt · unabhängig
+   vom Livegang, aber vor jedem Eintrag in Abschnitt 3.
+   - Vorher je Repo: README, `docs/` und Kommentare auf interne Hinweise prüfen (Beispiel: am Ende der Plakette-README
+     steht ein interner HTML-Kommentar zum Impressum), Secrets-Scan, Homepage-Feld auf die Produktseite (Plakette
+     zeigt heute auf `https://ict-baden.de` statt auf `/produkte/plakette/`). Topics sind gesetzt.
+   - Release-Stand: Vitrine braucht ein Tag-Release `v0.1.0` mit versionierten Dateinamen (heute nur das rollende
+     `latest`); Pforte-Releases enthalten bis zum Signaturschlüssel für `de.ictbaden.pforte` keine APK.
+   - Website: je Produkt eine Zeile `download.public: true` und danach `npm run brand -- --only <slug>`:
+     `vitrine.ts`, `qr-scanner.ts` (Lupe), `freigaben-berechtigungen.ts` (Zutritt), `haertungs-check.ts` (Riegel),
+     `labeldesigner.ts` (Plakette), `enterprisebrowser.ts` (Pforte), `industrialkeyboard.ts` (Industrial Keyboard),
+     alle in `src/data/produktseiten/`. – Claude: als PR, sobald ein Repo öffentlich ist.
+8. **Code-Signing** – Mensch mit Firmenunterlagen und Ausweis · Antrag 1 Std., Prüfung 1–20 Werktage · parallel zu 7.
+   - Empfehlung Windows: [Azure Artifact Signing](https://learn.microsoft.com/en-us/azure/artifact-signing/) (für eine
+     Firma in Deutschland möglich, ab 9,99 $/Monat, Zertifikat auf ICT Baden; die Zutritt-README plant es bereits).
+     Alternative: [SignPath Foundation](https://signpath.org/) – kostenlos für Open Source, Zertifikat lautet auf
+     SignPath; Bedingungen ([Terms](https://signpath.org/terms)): nachprüfbare Reputation für Programme,
+     Code-Signing-Richtlinie auf der Projektseite, MFA für alle Beteiligten, Freigabe jedes Releases; „hacking or
+     vulnerability scanning tools“ sind ausgeschlossen – für Riegel und Zutritt vorher klären.
+   - [Apple Developer Program](https://developer.apple.com/programs/) (99 $/Jahr) für Lupe auf dem Mac
+     (Notarisierung, Voraussetzung für Homebrew Cask).
+   - Ohne Signatur: SmartScreen-Warnung, kein Win32-Paket im Microsoft Store, kein Homebrew Cask, schlechter erster
+     Eindruck in Foren; Riegel-README: kein Kundenpilot auf OT-Rechnern mit unsigniertem Sammler.
+   - Claude: Signierschritt in die Release-Workflows, sobald die Zugangsdaten als Secrets hinterlegt sind.
+9. **AlternativeTo** – Mensch (Konto mit bestätigter Firmen-Mail) · 3 Std. plus Warteschlange · hängt an 7, am ersten
+   Tag starten. Texte in Abschnitt 3.
+   - Eigene Apps eintragen ist erlaubt („Suggest new application“). Jede neue App geht durch eine Warteschlange mit
+     mehreren tausend Einträgen; eine bezahlte Prioritätsprüfung (meist 1–2 Werktage) ändert nichts an Freigabe oder
+     Rang ([FAQ](https://alternativeto.net/faq/), [Terms](https://alternativeto.net/about/terms/)).
+   - In Beschreibungen keine Links und Kontaktdaten, am Website-Link keine UTM-Parameter. Verboten ist jede
+     Manipulation von Likes, Stimmen oder Bewertungen.
+   - Typische Ablehnungsgründe laut FAQ: nicht englische Apps, unveröffentlichte oder Beta-Produkte. Unsere Apps sind
+     englisch; die Versionsangabe ehrlich lassen und eine Ablehnung als „Beta“ in Kauf nehmen – dann nach der nächsten
+     Version erneut einreichen. Industrial Keyboard (2.1.0) zuerst.
+   - „Als Alternative zu …“ nur dort vorschlagen, wo die Hauptaufgabe übereinstimmt; die Seiten stehen je Produkt.
+     Unsere Namen sind auf AlternativeTo frei (alle sieben Slugs 404).
+10. **Paketquellen und Stores** – Claude bereitet vor, Mensch reicht unter eigenem Konto ein · Vorbereitung 1 Tag,
+    Prüfzeiten Tage bis Wochen · hängt an 7 (Store und Homebrew auch an 8).
+    - **winget** (Vitrine, Lupe, Zutritt, Riegel, Plakette): versionierte HTTPS-URL direkt vom Herausgeber (GitHub-Release),
+      stille Installation (`msiexec … /qn`), Signatur nicht Pflicht
+      ([Microsoft Learn](https://learn.microsoft.com/en-us/windows/package-manager/package/repository),
+      [winget-pkgs](https://github.com/microsoft/winget-pkgs)). Claude: Manifeste mit
+      [wingetcreate](https://github.com/microsoft/winget-create) und später ein Release-Job, der den PR öffnet (braucht
+      einen Token eines Menschenkontos als Secret).
+    - **Scoop:** eigener Bucket (z. B. `ict-baden/scoop-bucket`) sofort, mit Autoupdate – Claude; der Bucket „Extras“
+      später ([Buckets](https://github.com/ScoopInstaller/Scoop/wiki/Buckets),
+      [Extras](https://github.com/ScoopInstaller/Extras)).
+    - **Chocolatey:** Konto, jede Version wird von Menschen moderiert (Tage bis Wochen,
+      [Moderation](https://docs.chocolatey.org/en-us/community-repository/moderation/)) – Mensch; Claude schreibt die
+      `.nuspec`. Niedrige Priorität.
+    - **Microsoft Store** (Lupe zuerst – Store-Apps ranken bei „barcode scanner for pc“): Firmenkonto über
+      [storedeveloper.microsoft.com](https://storedeveloper.microsoft.com/) ohne Gebühr, D-U-N-S oder Registerauszug
+      und Mail auf der Firmendomain; Win32-MSI/EXE nur signiert und mit versionierter URL, MSIX signiert der Store
+      selbst. – Mensch; Claude: Store-Texte, MSIX-Paket.
+    - **Flathub** (Lupe, Plakette): Build aus dem Quellcode ohne Netz, AppStream-Metainfo, App-IDs `de.ict_baden.Lupe`
+      und `de.ict_baden.Plakette`, Domain-Nachweis für den Haken
+      ([Einreichung](https://docs.flathub.org/docs/for-app-authors/submission),
+      [Anforderungen](https://docs.flathub.org/docs/for-app-authors/requirements)). Claude: Manifest mit
+      NuGet-Quellen und Metainfo; Mensch: PR und Domain-Nachweis.
+    - **AUR** (Lupe, Plakette): Claude schreibt `PKGBUILD`; Mensch mit [AUR](https://aur.archlinux.org/)-Konto pusht.
+    - **Homebrew:** offizieller Cask erst ab 75 Sternen oder 30 Forks/Watchern (bei Selbsteinreichung das Dreifache,
+      Repo mindestens 30 Tage alt) und mit Notarisierung
+      ([Acceptable Casks](https://docs.brew.sh/Acceptable-Casks)); bis dahin eigener Tap `ict-baden/homebrew-tap` –
+      Claude.
+    - **IzzyOnDroid** (Industrial Keyboard sofort, Pforte nach der APK): Open-Source-Lizenz, APK an getaggten
+      GitHub-Releases, signiert mit Release-Schlüssel, höchstens etwa 30 MB, keine Tracker, für „end users“ gedacht
+      (gemeint: keine Bibliotheken oder Demos; Firmen-Apps sind nicht ausgeschlossen)
+      ([Regeln](https://izzyondroid.org/docs/general/AppInclusionPolicy/)). Anfrage als Issue unter
+      [codeberg.org/IzzyOnDroid/repodata](https://codeberg.org/IzzyOnDroid/repodata/issues). Claude: Anfragetext;
+      Mensch: Codeberg-Konto, abschicken.
+    - **F-Droid** (später): Build aus dem Quellcode, keine proprietären Bibliotheken (beide Apps nutzen nur AndroidX und
+      Material; DataWedge und Honeywell laufen über Intents), Fastlane-Metadaten liegen in beiden Repos
+      ([Inclusion Policy](https://f-droid.org/docs/Inclusion_Policy/),
+      [Quick Start](https://f-droid.org/docs/Submitting_to_F-Droid_Quick_Start_Guide/)). Claude: Metadaten für
+      `fdroiddata`; Mensch: Merge Request mit GitLab-Konto.
+    - **Google Play** (Pforte, Industrial Keyboard; für Managed Google Play mit Intune oder SOTI nötig):
+      Organisationskonto mit D-U-N-S (25 $), dort kein Test mit 12 Testern; ab 2027 gilt die Developer Verification
+      weltweit auch fürs Sideloading. Store-Texte stehen in `docs/play-store.md` beider Repos. – Mensch.
+11. **Portale** – Mensch · 3 Std. plus Wochen Prüfzeit · hängt an 7, besser nach 8.
+    - **Softpedia** (Windows, Linux, macOS, Android): Formular „Submit Program“ auf softpedia.com, nur für
+      Rechteinhaber. Softpedia sperrt automatische Abrufe (403) – im Browser öffnen.
+    - **Snapfiles** (nur Windows): neue Entwicklerkonten werden zurzeit nicht angelegt; Vorschläge per Mail an die
+      Adresse im [Developer Center](https://www.snapfiles.com/dev/).
+    - **heise Download** (deutsch): Entwicklerkonto über
+      [heise.de/download/developer/join](https://www.heise.de/download/developer/join), danach Formular; die Redaktion
+      prüft (Wochen).
+    - **SourceForge:** Spiegel per
+      [GitHub Importer](https://sourceforge.net/p/forge/documentation/GitHub%20Importer/), neue Releases auf Wunsch
+      automatisch. Chip: kein offizieller Weg gefunden – auslassen.
+    - Optional nach dem Livegang je eine kurze, sachliche Mail an Redaktionen, die zu den Themen ranken (heise-Tipps,
+      WindowsPro, giga) – nur Fakten und Link, kein Nachfassen.
+12. **Listen, Foren, Show HN** – Mensch · 1–2 Std. pro Woche über 4–8 Wochen · hängt an 7. Je Produkt in Abschnitt 3.
+    Höchstens ein Show HN alle zwei bis vier Wochen, jeweils nur, wenn man den Tag über antworten kann
+    ([Regeln](https://news.ycombinator.com/showhn.html): ausprobierbar ohne Anmeldung, keine Landingpage, Macher antwortet
+    selbst, nicht um Stimmen bitten, Titel beginnt mit „Show HN“).
+13. **Messen** – Mensch · 1 Std. im Monat · ab vier Wochen nach dem Livegang. Abschnitt 4.
+
+**Übersicht: Kanäle je Produkt** (✓ = sobald das Repo öffentlich ist)
+
+| Kanal | Vitrine | Lupe | Zutritt | Riegel | Plakette | Pforte | Industrial Keyboard |
+|---|---|---|---|---|---|---|---|
+| AlternativeTo | ✓ | ✓ | ✓ | ✓ | ✓ mit Vermerk | nach APK | ✓ zuerst |
+| winget, Scoop | nach Tag-Release | ✓ | ✓ | ✓ Auswerte-App | ✓ | – | – |
+| Chocolatey | später | später | später | später | später | – | – |
+| Microsoft Store | nach Signatur | zuerst, nach Signatur | nach Signatur | – | nach Signatur | – | – |
+| Flathub, AUR | – | ✓ | – | – | ✓ | – | – |
+| Homebrew | – | eigener Tap; Cask nach Notarisierung | – | – | – | – | – |
+| IzzyOnDroid, F-Droid | – | – | – | – | – | nach APK | ✓ |
+| Google Play | – | – | – | – | – | nach APK | ✓ |
+| Softpedia, heise Download | ✓ | ✓ | ✓ | ✓ | ✓ | nach APK | ✓ |
+| Snapfiles (nur Windows) | ✓ | ✓ | ✓ | ✓ | ✓ | – | – |
+| Awesome-Listen | – | 3 Listen | ab 10/2027 | 2 Listen | 1 Liste | ab 04/2027 | ab 04/2027 |
+| Show HN | ✓ | ✓ | ✓ | ✓ | nach Hardware-Abnahme | nach APK | ✓ |
+
+## 3 Je Produkt
+
+Gleicher Aufbau je Produkt: belegte Fakten, „Nicht schreiben“, Zielsuchen, Orte, dann die Texte. Chancen aus der
+Recherche (Top 3 in sechs Monaten, mit öffentlichem Download; ohne Download eine Stufe tiefer). Website-Adressen gelten
+ab dem Livegang, GitHub-Adressen ab der Veröffentlichung.
+
+### 3.1 Vitrine – transparente Bildschirmsperre für Windows
+
+- **Belegt** (README, `docs/`, Stand `main` 2026-10-21): sperrt Tastatur und Maus, Bildschirm bleibt sichtbar,
+  Programme laufen weiter; Sperren per Strg+Alt+L, Infobereich, Leerlaufzeit, Zeitplan, beim Start, als
+  Bildschirmschoner; entsperren mit Windows-Kennwort oder Windows Hello; verdeckter Modus, verdeckte Bereiche,
+  Hinweistext; elektronische Signaturen für Fachanwendungen (auch mit Microsoft Entra ID); manipulationserkennendes
+  Protokoll mit SHA-256-Hash-Kette; MSI (`/qn`), 52 Richtlinien (ADMX/ADML) für Gruppenrichtlinie und Intune; fünf
+  Sprachen (es, fr, zh maschinell); keine Telemetrie, keine Update-Prüfung. Windows 10 ab 1809 und 11, x64.
+  Vorabversion 0.1.0, nicht signiert, noch nicht auf echten Geräten durchgetestet.
+- **Nicht schreiben:** Entsperren mit Entra ID in den Release-Paketen (fehlt dort, nur Signaturen und
+  Administratorbestätigung), „manipulationssicher“ (nur manipulationserkennend), Konformität mit Part 11 oder Annex 11,
+  Remotedesktop oder mehrere Monitore getestet, Chipkarten-Anbindung.
+- **Seiten:** `https://ict-baden.de/produkte/vitrine/`, `https://ict-baden.de/en/products/vitrine/`,
+  `https://github.com/ict-baden/vitrine`. Download erst nach einem Tag-Release mit versionierten Dateien in
+  winget eintragen.
+
+| Zielsuche (EN / DE) | Chance |
+|---|---|
+| transparent screen lock alternative, free, open source | hoch über AlternativeTo und GitHub, Seite mittel |
+| PC sperren, Bildschirm bleibt sichtbar / lock computer but keep screen visible | DE hoch, EN mittel |
+| transparente Bildschirmsperre / transparent screen lock | DE hoch, EN niedrig |
+| Leitstand-PC sperren, Dashboard-PC sperren / dashboard PC lock, HMI view only | DE hoch, EN mittel |
+| Tastatur und Maus sperren ohne Bildschirmsperre / lock keyboard and mouse without locking screen | DE mittel, EN niedrig |
+| Messrechner sperren, GxP / lock instrument PC during run, 21 CFR Part 11 screen lock | mittel (nur „Bausteine“, keine Konformität) |
+| PC sperren, während ein KI-Agent oder Build läuft / lock screen while AI agent runs | mittel |
+
+**Wo eintragen**
+
+- AlternativeTo, neu eintragen und als Alternative vorschlagen bei:
+  [Transparent Screen Lock](https://alternativeto.net/software/transparent-screen-lock/about/) (e-motional, 5
+  Alternativen, keine davon Open Source für Windows),
+  [Transparent Lock Screen](https://alternativeto.net/software/transparent-lock-screen/about/) (Softros, ebenso),
+  [BlueLife KeyFreeze](https://alternativeto.net/software/bluelife-keyfreeze/about/),
+  [LiteLockr](https://alternativeto.net/software/litelockr/about/) (Open Source, Repo seit 10/2024 archiviert). Auf
+  der Funktionsseite [Screen lock](https://alternativeto.net/feature/screen-locker/) stehen für Windows nur zwei
+  Open-Source-Apps.
+- Portale: Softpedia und Snapfiles zuerst (führen bei „transparent screen lock“), dann heise Download.
+- Paketquellen: winget (Softros ist dort), Scoop, Chocolatey; Microsoft Store nach dem Code-Signing.
+- Awesome-Listen: keine passende. [awesome-windows](https://github.com/0PandaDEV/awesome-windows) lehnt KI-erstellte
+  Beiträge ausdrücklich ab und will keine „vibecoded“ Tools; unsere Repos enthalten `CLAUDE.md`. Empfehlung: dort
+  nicht einreichen.
+- GitHub-Topics: gesetzt (u. a. `screen-lock`, `transparent-screen-lock`, `keyboard-lock`, `21-cfr-part-11`).
+
+**AlternativeTo – Name**
+
+```text
+Vitrine
+```
+
+**AlternativeTo – Kurzbeschreibung** (1 Satz)
+
+```text
+Transparent screen lock for Windows: keyboard and mouse are locked while programs stay visible and keep running.
+```
+
+**AlternativeTo – Beschreibung** (600–900 Zeichen, ohne Links)
+
+```text
+Vitrine locks keyboard and mouse on a Windows 10 or 11 PC while the screen stays visible and every program keeps running – for lab instrument PCs, production lines, control rooms and dashboards that must be watched but not operated. Lock with Ctrl+Alt+L, from the notification area, after idle time, on a schedule or at startup; unlock with the Windows password or Windows Hello. A covered mode hides the screen, and single areas can stay covered. Line-of-business applications can request electronic signatures through a local interface, also with Microsoft Entra ID. Every lock, unlock and signature goes into a tamper-evident audit log with a SHA-256 hash chain. MSI for silent deployment, 52 policies for Group Policy and Intune. No telemetry. Pre-release 0.1.0, not code-signed yet. Free and open source (MIT).
+```
+
+**AlternativeTo – Felder**
+
+```text
+Platforms: Windows
+License: Open Source (MIT), Free
+Tags/Features (vorhandene wählen): Screen lock, Keyboard lock, Mouse lock, Group Policy, Audit log, Portable, Ad-free, No tracking
+Alternative to: Transparent Screen Lock, Transparent Lock Screen (Softros), BlueLife KeyFreeze, LiteLockr
+Website: https://ict-baden.de/en/products/vitrine/
+```
+
+**Portal EN kurz** (≤ 160 Zeichen)
+
+```text
+Transparent screen lock for Windows: locks keyboard and mouse, the screen stays visible and programs keep running. Free and open source (MIT).
+```
+
+**Portal EN lang** (rund 800 Zeichen)
+
+```text
+Vitrine is a transparent screen lock for 64-bit Windows 10 (1809 or later) and Windows 11. It blocks keyboard and mouse input while the desktop stays visible and every program keeps running, so a measurement, a plant display or a dashboard can be watched but not operated. Lock with Ctrl+Alt+L, from the notification area, after idle time, on a schedule, at startup or as a screen saver; unlock with the Windows password or Windows Hello. Optional: a covered mode, covered screen areas, a notice text, electronic signatures for line-of-business applications and a tamper-evident audit log. Administrators install the MSI silently and manage it through 52 policies for Group Policy or Intune. No telemetry, no update check. Pre-release 0.1.0, not code-signed yet. Free and open source software (MIT licence) by ICT Baden.
+```
+
+**Portal DE kurz** (≤ 160 Zeichen)
+
+```text
+Durchsichtige Bildschirmsperre für Windows: Tastatur und Maus gesperrt, Bildschirm sichtbar, Programme laufen weiter. Kostenlos, Open Source (MIT).
+```
+
+**Portal DE lang** (rund 800 Zeichen)
+
+```text
+Vitrine ist eine transparente Bildschirmsperre für Windows 10 (ab 1809) und Windows 11, 64 Bit. Sie sperrt Tastatur und Maus, während der Bildschirm sichtbar bleibt und alle Programme weiterlaufen – für Messrechner im Labor, Bedienrechner an der Linie und Leitstände, an denen ein Prozess beobachtet, aber nicht bedient werden soll. Gesperrt wird mit Strg+Alt+L, über den Infobereich, nach Leerlaufzeit, nach Zeitplan oder beim Start; entsperrt mit dem Windows-Kennwort oder Windows Hello. Dazu kommen ein verdeckter Modus, verdeckte Bereiche, elektronische Signaturen für Fachanwendungen und ein manipulationserkennendes Protokoll. Verteilung als MSI, Verwaltung über 52 Richtlinien für Gruppenrichtlinie und Intune. Keine Telemetrie. Vorabversion 0.1.0, noch nicht signiert. Kostenlose Open-Source-Software (MIT) von ICT Baden.
+```
+
+<!-- FOREN-VITRINE -->
+
+**Show HN – Titel**
+
+```text
+Show HN: Vitrine – open-source transparent screen lock for Windows
+```
+
+**Show HN – Text** (URL: das GitHub-Repo)
+
+```text
+Vitrine locks keyboard and mouse on a Windows PC while the screen stays visible and programs keep running. We built it for lab instrument PCs and control-room PCs where a run must be watched but not touched; Win+L hides everything. It unlocks with the Windows password or Windows Hello, writes a hash-chained audit log and is deployed as an MSI with ADMX templates for Group Policy and Intune. It is a 0.1 pre-release, not code-signed yet and not yet tested end to end on real devices – reports from Remote Desktop and multi-monitor setups would help most. MIT licence, no telemetry.
+```
+
+### 3.2 Lupe – QR-Code- und Barcode-Leser für den PC
+
+- **Belegt** (README, `docs/`, Tag v0.1.0): liest Codes per Webcam, aus jedem Bildschirmausschnitt (Win+Umschalt+Q,
+  alle Monitore, auch bei geschlossenem Fenster; macOS ⌘+⌥+Q), aus Bilddateien und der Zwischenablage; findet alle
+  Codes im Bild; kopieren, eintippen (Unicode, unabhängig vom Tastaturlayout; von der Kamera wie ein Handscanner) oder
+  per Link-Regel öffnen (nur http/https); 22 Formate über zxing-cpp; Verlauf mit CSV-Export; Befehlszeile mit
+  Exitcodes; offline, keine Telemetrie, keine Update-Prüfung. Windows 10 ab 1809 und 11 (x64), Linux x64/arm64 (X11 und
+  Wayland, glibc 2.31), macOS ab 12 (nicht notarisiert). Oberfläche Avalonia. Vorabversion 0.1.0, nicht signiert.
+- **Nicht schreiben:** „tippt in jede Anwendung“ (nicht in Programme, die als Administrator laufen), mit echter Webcam
+  oder echtem Mac getestet (Kamera bisher nur gegen eine simulierte Quelle, macOS-Build noch nicht auf einem Mac),
+  Alleinstellung („es gibt keinen guten …“, barcodrod.io ist ein direkter Open-Source-Gegner), QR-Codes erzeugen.
+- **Seiten:** `https://ict-baden.de/produkte/lupe/`, `https://ict-baden.de/en/products/lupe/`,
+  `https://github.com/ict-baden/lupe`.
+
+| Zielsuche (EN / DE) | Chance |
+|---|---|
+| Webcam als Barcodescanner, Barcode mit Laptop-Kamera scannen / webcam as barcode scanner | DE hoch, EN mittel |
+| Data-Matrix-Code am PC lesen (Frankierung, GS1, UDI) / read data matrix on pc | DE hoch, EN mittel |
+| CodeTwo QR Code Desktop Reader alternative | mittel–hoch |
+| QR-Code aus Screenshot, PDF oder Videocall auslesen / read qr code from screen, hotkey | mittel |
+| Tastatur-Emulation Barcode ohne Handscanner / keyboard wedge software | mittel |
+| QR-Code scannen Mac ohne iPhone / qr code scanner mac, linux | mittel |
+| QR-Code-Scanner PC kostenlos, barcode scanner for pc | niedrig (Store-Apps, Händler, Listicles) |
+
+**Wo eintragen**
+
+- AlternativeTo, als Alternative vorschlagen bei:
+  [CodeTwo QR Code Desktop Reader](https://alternativeto.net/software/codetwo-qr-code-desktop-reader/about/)
+  (eingestellt, rankt trotzdem), [bcWebCam](https://alternativeto.net/software/bcwebcam/about/) (Webcam als Scanner
+  unter Windows), [ZBar bar code reader](https://alternativeto.net/software/zbar-bar-code-reader/about/),
+  [CoBang](https://alternativeto.net/software/cobang/about/) (Linux),
+  [Barcode to PC](https://alternativeto.net/software/barcode-to-pc-wi-fi-scanner/about/) (gleiche Aufgabe mit dem
+  Handy). NormCap nicht – Hauptaufgabe ist dort Texterkennung. Als Open-Source-Alternativen für Windows stehen dort
+  schon ZBar, Barcode to PC und Barcodrod.io.
+- Weitere Vergleichsseite:
+  [SaaSHub – CodeTwo-Alternativen](https://www.saashub.com/codetwo-qr-code-desktop-reader-alternatives), Eintrag mit
+  Konto über [Submit a Product](https://www.saashub.com/services/submit).
+- Portale: Softpedia, Snapfiles, heise Download, SourceForge-Spiegel.
+- Paketquellen und Stores: Microsoft Store (wichtigster Kanal), winget, Scoop, Chocolatey, Flathub, AUR, eigener
+  Homebrew-Tap.
+- Awesome-Listen: awesome-avalonia, awesome-qr-code, open-source-mac-os-apps (erst nach Test auf einem echten Mac).
+  Nicht awesome-windows (siehe Vitrine).
+- GitHub-Topics: gesetzt (u. a. `qr-code-scanner`, `barcode-reader`, `keyboard-wedge`, `webcam`, `data-matrix`).
+
+**AlternativeTo – Name**
+
+```text
+Lupe
+```
+
+**AlternativeTo – Kurzbeschreibung** (1 Satz)
+
+```text
+QR code and barcode reader for Windows, Linux and macOS that reads codes from the screen, a webcam, image files and the clipboard.
+```
+
+**AlternativeTo – Beschreibung** (600–900 Zeichen, ohne Links)
+
+```text
+Lupe reads QR codes and barcodes on the PC: press Win+Shift+Q and drag a rectangle around a code anywhere on the screen, across all monitors, hold a code in front of the webcam, open an image file or paste a screenshot. The result is copied, typed into the window you came from (from the camera like a hand scanner) or opened as a link through your own link rules. 22 formats via zxing-cpp, including QR Code, Micro QR, Data Matrix, Aztec, PDF417, Code 128/GS1-128, EAN/UPC and GS1 DataBar. Searchable history with CSV export and a command line for scripts. Lupe reads codes only, it does not create them. Works offline: no cloud recognition, no telemetry, no update check. Windows 10 (1809+) and 11, Linux x64/arm64, macOS 12+. Pre-release 0.1.0: the camera is so far tested with a simulated source only, Linux and macOS less than Windows. Free and open source (MIT).
+```
+
+**AlternativeTo – Felder**
+
+```text
+Platforms: Windows, Linux, Mac
+License: Open Source (MIT), Free
+Tags/Features (vorhandene wählen): QR code reader, Barcode scanner, Screen capture, Webcam, Keyboard wedge, Offline, Portable, No tracking
+Alternative to: CodeTwo QR Code Desktop Reader, bcWebCam, ZBar bar code reader, CoBang, Barcode to PC
+Website: https://ict-baden.de/en/products/lupe/
+```
+
+**Portal EN kurz** (≤ 160 Zeichen)
+
+```text
+Reads QR codes and barcodes on Windows, Linux and macOS – from the screen by hotkey, a webcam, image files or the clipboard. Offline, MIT licence.
+```
+
+**Portal EN lang** (rund 800 Zeichen)
+
+```text
+Lupe is a QR code and barcode reader for the PC. Press Win+Shift+Q in any program and drag a rectangle around a code – in a PDF, an e-mail, a web page or a video call, across all monitors. Lupe also reads codes from a webcam, image files and the clipboard and finds every code in a picture. The content is copied, typed into the window you were working in (independent of the keyboard layout) or opened as a link through your own rules. It reads 22 formats, among them QR Code, Data Matrix, Aztec, PDF417, Code 128, EAN-13 and GS1 DataBar; it reads codes only and does not create them. History with CSV export and a command line are included. Lupe works offline, without telemetry. Windows 10 (1809+) and 11, Linux (x64, arm64), macOS 12+. Pre-release 0.1.0, not code-signed. Free and open source (MIT) by ICT Baden.
+```
+
+**Portal DE kurz** (≤ 160 Zeichen)
+
+```text
+Liest QR-Codes und Barcodes unter Windows, Linux und macOS – vom Bildschirm per Tastenkürzel, per Webcam, aus Bildern und der Zwischenablage. Offline.
+```
+
+**Portal DE lang** (rund 800 Zeichen)
+
+```text
+Lupe ist ein QR-Code- und Barcode-Leser für den PC. In jedem Programm Win+Umschalt+Q drücken und ein Rechteck um den Code ziehen – in einer PDF, einer E-Mail, auf einer Webseite oder im Videocall, über alle Monitore. Lupe liest Codes außerdem per Webcam, aus Bilddateien und aus der Zwischenablage und findet jeden Code im Bild. Das Ergebnis wird kopiert, in das vorherige Programm eingetippt (unabhängig vom Tastaturlayout) oder per Link-Regel geöffnet. 22 Formate, darunter QR Code, Data Matrix, Aztec, PDF417, Code 128, EAN-13 und GS1 DataBar; Lupe liest nur und erzeugt keine Codes. Mit Verlauf, CSV-Export und Befehlszeile. Arbeitet offline, ohne Telemetrie. Für Windows 10 (ab 1809) und 11, Linux (x64, arm64) und macOS ab 12. Vorabversion 0.1.0, nicht signiert. Kostenlos und Open Source (MIT), von ICT Baden.
+```
+
+**awesome-avalonia** – Abschnitt „Samples and Projects › Productivity“, alphabetisch
+([Regeln](https://github.com/AvaloniaCommunity/awesome-avalonia/blob/master/CONTRIBUTING.md): `[Name](link) - Description.`)
+
+```text
+- [Lupe](https://github.com/ict-baden/lupe) - Cross-platform QR code and barcode reader that reads codes from the screen, a webcam, image files and the clipboard.
+```
+
+**awesome-qr-code** – Abschnitt „Apps › Readers“
+([Regeln](https://github.com/make-github-pseudonymous-again/awesome-qr-code/blob/main/CONTRIBUTING.md): „QR code“ nicht
+in der Beschreibung, Begründung im PR; Merge ab 5 Daumen – **nicht** um Stimmen bitten; Liste wenig aktiv)
+
+```text
+- [Lupe](https://github.com/ict-baden/lupe) - Desktop reader for Windows, Linux and macOS that scans the screen, a webcam, image files and the clipboard.
+```
+
+**open-source-mac-os-apps** – Eintrag in `applications.json`, erst nach Test auf einem echten Mac und Notarisierung
+([Regeln](https://github.com/serhii-londar/open-source-mac-os-apps/blob/master/CONTRIBUTING.md))
+
+```json
+{
+  "short_description": "QR code and barcode reader that reads codes from the screen, a webcam, image files and the clipboard.",
+  "categories": ["utilities"],
+  "repo_url": "https://github.com/ict-baden/lupe",
+  "title": "Lupe",
+  "icon_url": "",
+  "screenshots": [],
+  "official_site": "https://ict-baden.de/en/products/lupe/",
+  "languages": ["c_sharp"]
+}
+```
+
+<!-- FOREN-LUPE -->
+
+**Show HN – Titel**
+
+```text
+Show HN: Lupe – read QR codes and barcodes from your screen or webcam
+```
+
+**Show HN – Text** (URL: das GitHub-Repo)
+
+```text
+Lupe reads QR codes and barcodes on the desktop: press Win+Shift+Q and drag a box around a code in a PDF, an e-mail or a video call, or hold it in front of the webcam. The result is copied, typed into the previous window like a hand scanner, or opened through a link rule. It runs on Windows, Linux and macOS (.NET 10, Avalonia, zxing-cpp with 22 formats), works offline and has no telemetry. This is 0.1.0: the camera path has only been tested against a simulated source and the macOS build has not run on a real Mac yet, so reports from real webcams and Macs would help most. MIT licence.
+```
+
+### 3.3 Zutritt – Berechtigungsbericht für Windows-Dateifreigaben
+
+- **Belegt** (README, `docs/`, Tag v0.1.0): liest Freigabe- (SMB) und NTFS-Berechtigungen einer Freigabe, eines
+  Servers, lokaler Ordner oder aller Freigaben des PCs; effektive Rechte wie Windows (gespeicherte Reihenfolge,
+  Verweigern, Vererbung, Freigabe mit NTFS), gegen die Zugriffsprüfung von Windows getestet; Gruppen bis zur Person
+  (lokale Konten und Gruppen, Active Directory der eigenen Domäne); 15 Prüfregeln; Vergleich mit dem letzten Lauf;
+  Excel und PDF mit Block zum Abzeichnen; Befehlszeile mit Exitcodes; nur lesend, kein Server, kein Agent, kein
+  Dienst; keine Telemetrie; `Zutritt.exe --demo`. Windows 10 ab 1809 und 11, x64. Vorabversion 0.1.0, nicht signiert.
+- **Nicht schreiben:** NAS-Unterstützung, Dauer-Monitoring, Rechte ändern, in einer echten Domäne getestet (AD bisher
+  nur gegen ein simuliertes Verzeichnis), Compliance-Zusage. Nicht „Alternative zu 8MAN/SolarWinds ARM“ – das sind
+  Suiten, die Rechte ändern; Zutritt liest nur.
+- **Seiten:** `https://ict-baden.de/produkte/zutritt/`, `https://ict-baden.de/en/products/zutritt/`,
+  `https://github.com/ict-baden/zutritt`.
+
+| Zielsuche (EN / DE) | Chance |
+|---|---|
+| NTFS Permissions Reporter / AccessEnum alternative open source | hoch |
+| verwaiste SIDs finden, „Jeder“-Rechte, Vererbung unterbrochen / find orphaned SIDs | DE hoch, EN mittel |
+| Berechtigungsreport ISO 27001, TISAX, NIS2, Rezertifizierung / file server access review | DE hoch, EN mittel |
+| Berechtigungsanalyse Fileserver kostenlos / free folder permissions report tool | mittel |
+| wer hat Zugriff auf Ordner, effektive Berechtigungen / who has access to this folder | DE mittel, EN niedrig |
+| NTFS-Berechtigungen auslesen, nach Excel exportieren / NTFS permissions report, export to Excel | DE mittel, EN niedrig |
+
+**Wo eintragen**
+
+- AlternativeTo, als Alternative vorschlagen bei:
+  [NTFS Permissions Reporter](https://alternativeto.net/software/ntfs-permissions-reporter/about/) (4 Alternativen,
+  alle proprietär), [Permissions Reporter](https://alternativeto.net/software/permissions-reporter/about/),
+  [NTFS Permissions Auditor](https://alternativeto.net/software/ntfs-permissions-auditor/about/). Die Funktionsseite
+  [NTFS permissions](https://alternativeto.net/feature/ntfs-permissions/) führt sechs Apps, keine Open Source.
+  AccessEnum hat keine eigene Seite (nur in der Sysinternals Suite).
+- Portale: heise Download (Thema ist im Deutschen stark), Softpedia, Snapfiles.
+- Paketquellen: winget (der NTFS Permissions Reporter ist dort), Scoop, Chocolatey.
+- Awesome-Listen: [awesome-sysadmin](https://github.com/awesome-foss/awesome-sysadmin) passt fachlich, aber nicht vor
+  10/2027: Einträge nur über [awesome-sysadmin-data](https://github.com/awesome-foss/awesome-sysadmin-data), erste
+  Veröffentlichung muss über 12 Monate zurückliegen, eigene Software nur mit gesunder Gemeinschaft mehrerer
+  Beitragender, nicht regelkonforme LLM-Beiträge führen zum Bann. Am besten trägt dort später ein Nutzer ein.
+- Redaktion: WindowsPro hat den NTFS Permissions Reporter vorgestellt – nach dem Release eine kurze Mail.
+- GitHub-Topics: gesetzt (u. a. `ntfs-permissions`, `access-review`, `effective-permissions`, `share-permissions`).
+
+**AlternativeTo – Name**
+
+```text
+Zutritt
+```
+
+**AlternativeTo – Kurzbeschreibung** (1 Satz)
+
+```text
+Shows who can access which folder on Windows file shares: NTFS and share permissions, groups resolved down to people, Excel or PDF report.
+```
+
+**AlternativeTo – Beschreibung** (600–900 Zeichen, ohne Links)
+
+```text
+Zutritt reads SMB share permissions and NTFS ACLs of a share, a whole server or local folders and shows who can access what – and through which group. It computes effective permissions like Windows (stored entry order, deny entries, inheritance, share and NTFS combined), resolves local groups and the Active Directory of the scanning PC's domain down to individual people, and flags risky permissions with 15 rules, such as broad groups that can write, orphaned SIDs or moved folders with old rights. A comparison with the previous run shows what changed. Reports: a filterable Excel workbook and a PDF with a sign-off block for access reviews. Read-only; no server, agent or service; command line with exit codes for scheduled tasks. Windows 10 (1809+) and 11, x64. No telemetry. Pre-release 0.1.0, Active Directory tested against a simulated directory so far. Free and open source (MIT).
+```
+
+**AlternativeTo – Felder**
+
+```text
+Platforms: Windows
+License: Open Source (MIT), Free
+Tags/Features (vorhandene wählen): NTFS permissions, File server, Active Directory, Access review, Audit, Reporting, Portable, No tracking
+Alternative to: NTFS Permissions Reporter, Permissions Reporter, NTFS Permissions Auditor
+Website: https://ict-baden.de/en/products/zutritt/
+```
+
+**Portal EN kurz** (≤ 160 Zeichen)
+
+```text
+Who can access what on Windows file shares? Reads NTFS and share permissions, resolves groups to people and writes an Excel or PDF report. MIT.
+```
+
+**Portal EN lang** (rund 800 Zeichen)
+
+```text
+Zutritt answers a recurring audit question for Windows file servers: who can access which folder, and through which group? It reads SMB share permissions and NTFS ACLs of a share, a whole server or local folders, computes effective permissions like Windows and resolves local groups and the Active Directory of the scanning PC's domain down to individual people. 15 rules flag risky permissions – broad groups that can write, orphaned SIDs, rights given to individuals, moved folders – each with an explanation and a recommendation. A comparison with the previous run shows new and resolved findings. Results go into a filterable Excel workbook and a PDF with a sign-off block. Zutritt only reads: no server, no agent, no service, no telemetry; a command line serves scheduled tasks. Windows 10 (1809+) and 11, x64. Pre-release 0.1.0. Free and open source (MIT) by ICT Baden.
+```
+
+**Portal DE kurz** (≤ 160 Zeichen)
+
+```text
+Wer darf worauf zugreifen? Liest Freigabe- und NTFS-Berechtigungen, löst Gruppen bis zur Person auf, Bericht als Excel oder PDF. Kostenlos, MIT.
+```
+
+**Portal DE lang** (rund 800 Zeichen)
+
+```text
+Zutritt beantwortet die Frage jeder Berechtigungsprüfung: Wer darf auf welchen Ordner des Fileservers zugreifen – und über welche Gruppe? Es liest Freigabe- und NTFS-Berechtigungen einer Freigabe, eines ganzen Servers oder lokaler Ordner, rechnet die effektiven Rechte wie Windows und löst lokale Gruppen und das Active Directory der eigenen Domäne bis zur einzelnen Person auf. 15 Prüfregeln melden riskante Rechte – breite Gruppen mit Schreibrecht, verwaiste SIDs, Rechte direkt an Personen, verschobene Ordner –, jeweils mit Erklärung und Empfehlung. Der Vergleich mit dem letzten Lauf zeigt, was sich geändert hat. Ergebnis: filterbare Excel-Arbeitsmappe und PDF zum Abzeichnen. Zutritt liest nur, braucht keinen Server, keinen Agenten und keinen Dienst und hat keine Telemetrie. Für Windows 10 (ab 1809) und 11. Vorabversion 0.1.0. Kostenlos und Open Source (MIT).
+```
+
+<!-- FOREN-ZUTRITT -->
+
+**Show HN – Titel**
+
+```text
+Show HN: Zutritt – who can access what on Windows file shares
+```
+
+**Show HN – Text** (URL: das GitHub-Repo)
+
+```text
+Zutritt reads share and NTFS permissions, computes effective access like Windows does (stored ACE order, deny entries, inheritance, share and NTFS combined) and resolves groups down to people. It flags 15 kinds of risky permissions, compares with the last run and writes an Excel workbook and a PDF to sign for access reviews. It only reads and needs no server or agent; `Zutritt.exe --demo` opens two sample runs without a file server. This is 0.1.0, and the Active Directory resolution has only been tested against a simulated directory so far – results from real domains would help most. MIT licence.
+```
+
+### 3.4 Riegel – Windows-Härtung offline prüfen
+
+- **Belegt** (README, `docs/`, Tag v0.1.2): portabler Sammler (rund 130 KB), ausgelegt für Windows 7 SP1 bis 11 und
+  Server 2008 R2 bis 2025 (.NET Framework 3.5.1 oder 4.x), installiert nichts, ändert keine Konfiguration, öffnet keine
+  Netzwerkverbindung; Auswerte-App für Windows 10 ab 1809 und Server 2019; Linux-Befehlszeile zum Nachrechnen; 153
+  Regeln (Regelwerk 2026.10.1, belegt durch ACSC, Microsoft-Dokumentation, DISA STIGs); begründete und freigegebene
+  Ausnahmen mit Ablauf; Vergleich mit dem freigegebenen Stand; PDF zum Abzeichnen, Excel, CSV, Nachweispaket mit
+  `verify`; Abhilfe nur als Dateien; Nagios-Exitcodes; `Riegel.exe --demo`. Getestet auf CI-Rechnern (Server 2022,
+  2025, Windows 11 Arm64) und einem Windows-11-Arbeitsplatz. Vorabversion 0.1, nicht signiert.
+- **Nicht schreiben:** prüft CIS-Benchmarks oder BSI SiSyPHuS (enthält keine Inhalte davon), „erfüllt NIS2/IEC 62443“
+  (nur „unterstützt Nachweise“), signiert, auf echten Altsystemen getestet. „Härtung“ nie ohne „Windows“, „IT“ oder
+  „OT“. Die MSI ist nicht für OT-Rechner – dort nur der Sammler.
+- **Seiten:** `https://ict-baden.de/produkte/riegel/`, `https://ict-baden.de/en/products/riegel/`,
+  `https://github.com/ict-baden/riegel`.
+
+| Zielsuche (EN / DE) | Chance |
+|---|---|
+| HardeningKitty alternative | hoch (nur Aggregatoren) |
+| Windows Härtung OT, Leitstand / harden HMI, engineering workstation | DE hoch, EN mittel |
+| Lynis for Windows / Lynis Windows Alternative | mittel |
+| Härtung offline prüfen ohne Agent / check security baseline offline, air-gapped | mittel |
+| IEC 62443 Windows-Härtung Checkliste / IEC 62443 windows hardening checklist | mittel (nur „unterstützt Nachweise“) |
+| CIS-CAT alternative | mittel (ausdrücklich: keine CIS-Inhalte) |
+| Windows Härtung prüfen / windows hardening check tool | DE mittel, EN niedrig |
+| CIS benchmark check windows free | niedrig – nicht ansteuern, Riegel prüft keine CIS-Benchmarks |
+
+**Wo eintragen**
+
+- AlternativeTo, als Alternative vorschlagen bei: [Lynis](https://alternativeto.net/software/lynis/about/) (Linux,
+  macOS, BSD; die Seite rankt für „Lynis for Windows“), [OpenSCAP](https://alternativeto.net/software/openscap/about/),
+  [Apotrope](https://alternativeto.net/software/apotrope/about/) (MIT, offline, rund 55 Prüfungen – ein direkter
+  Open-Source-Gegner, auf beiden Seiten schon die Windows-Alternative Nr. 1). Nicht bei PingCastle (prüft Active
+  Directory) und Hardentools (setzt Härtung). HardeningKitty, CIS-CAT und der Policy Analyzer haben keine Seite;
+  anlegen nur mit sachlichen Angaben von der Herstellerseite – optional.
+- Portale: heise Download, Softpedia, Snapfiles.
+- Paketquellen: winget, Scoop, Chocolatey – für die Auswerte-App; in der Paketbeschreibung sagen, dass auf
+  Anlagen-PCs der Sammler aus dem Tag-Release läuft.
+- Awesome-Listen: awesome-security-hardening, awesome-industrial-control-system-security; awesome-sysadmin erst ab
+  10/2027 (siehe Zutritt).
+- GitHub-Topics: gesetzt (u. a. `windows-hardening`, `security-baseline`, `ot-security`, `iec-62443`). Bewusst ohne
+  `cis-benchmark` und `stig`.
+
+**AlternativeTo – Name**
+
+```text
+Riegel
+```
+
+**AlternativeTo – Kurzbeschreibung** (1 Satz)
+
+```text
+Offline, read-only hardening check for Windows PCs in plants, labs and control rooms, with 153 rules, justified exceptions and a report to sign.
+```
+
+**AlternativeTo – Beschreibung** (600–900 Zeichen, ohne Links)
+
+```text
+Riegel checks the security configuration of Windows machines that nobody manages centrally: plant PCs, HMIs, lab and control-room computers. A portable collector of about 130 KB, designed for Windows 7 SP1 to 11 and Server 2008 R2 to 2025, installs nothing, changes no configuration and opens no network connection. Another PC evaluates the snapshot against 153 rules (network, credentials, Defender, firewall, audit, RDP, TLS and more). Settings that must stay open are recorded as justified, approved exceptions with an expiry date. Riegel compares with the approved state and writes a PDF report to sign, Excel and CSV, and an evidence pack that auditors can re-check. Remediation comes as files only; Riegel never applies settings. Contains no CIS Benchmark or BSI SiSyPHuS content. Pre-release 0.1, not code-signed, not yet tested on real Windows 7 machines. Free and open source (MIT).
+```
+
+**AlternativeTo – Felder**
+
+```text
+Platforms: Windows
+License: Open Source (MIT), Free
+Tags/Features (vorhandene wählen): Security audit, Hardening, Compliance, Offline, Portable, Reporting, No tracking
+Alternative to: Lynis, OpenSCAP, Apotrope
+Website: https://ict-baden.de/en/products/riegel/
+```
+
+**Portal EN kurz** (≤ 160 Zeichen)
+
+```text
+Offline, read-only Windows hardening check for plant, lab and control-room PCs: 153 rules, justified exceptions and a PDF report to sign. MIT.
+```
+
+**Portal EN lang** (rund 800 Zeichen)
+
+```text
+Riegel produces evidence of hardening for Windows machines outside central IT: plant PCs, HMIs, lab and control-room computers, some of them without a network. A portable collector of about 130 KB runs from a USB stick, installs nothing, changes no configuration and opens no network connection; it is designed for Windows 7 SP1 to 11 and Server 2008 R2 to 2025. An analysis PC (Windows 10 1809+ or Server 2019+) evaluates the snapshot against 153 rules backed by ACSC, Microsoft documentation and DISA STIGs. Deliberately open settings become justified, approved exceptions with expiry. Riegel compares with the approved state and writes a plant report to sign, Excel and CSV, and an evidence pack that auditors re-check, also on Linux. Remediation is delivered as files only. Pre-release 0.1, not code-signed. Free and open source (MIT) by ICT Baden.
+```
+
+**Portal DE kurz** (≤ 160 Zeichen)
+
+```text
+Windows-Härtung offline prüfen: nur lesend, nichts auf dem Anlagen-PC installiert, 153 Regeln, begründete Ausnahmen, Bericht zum Abzeichnen. MIT.
+```
+
+**Portal DE lang** (rund 800 Zeichen)
+
+```text
+Riegel liefert den Härtungsnachweis für Windows-Rechner außerhalb der zentralen IT: Anlagen-PCs, Bedienrechner (HMI), Labor- und Leitstandsrechner, manche ohne Netz. Ein portabler Sammler (rund 130 KB) läuft vom USB-Stick, installiert nichts, ändert keine Konfiguration und öffnet keine Netzwerkverbindung; ausgelegt ist er für Windows 7 SP1 bis 11 und Server 2008 R2 bis 2025. Ein Auswerte-PC prüft die Erhebung gegen 153 Regeln, belegt durch ACSC, Microsoft-Dokumentation und DISA STIGs. Bewusst Offenes wird als begründete, freigegebene Ausnahme mit Ablaufdatum festgehalten. Riegel vergleicht mit dem freigegebenen Stand und schreibt einen Bericht zum Abzeichnen, Excel und CSV sowie ein Nachweispaket für Prüfer. Abhilfe gibt es nur als Dateien. Keine Inhalte von CIS oder BSI SiSyPHuS. Vorabversion 0.1, nicht signiert. Kostenlos und Open Source (MIT).
+```
+
+**awesome-security-hardening** – Abschnitt „Tools › Tools to check security hardening › Windows“
+([Liste](https://github.com/decalage2/awesome-security-hardening), Vorschläge als Issue oder PR; 2026 wurden mehrere
+Selbsteinreichungen ungemergt geschlossen, Tool-Ergänzungen kommen selten durch – Eigenentwicklung im PR offenlegen)
+
+```text
+- [Riegel](https://github.com/ict-baden/riegel) - offline, read-only hardening check for Windows 7 SP1 to 11 and Server 2008 R2 to 2025 (153 rules, justified exceptions, report to sign), aimed at plant, lab and control-room PCs
+```
+
+**awesome-industrial-control-system-security** – Abschnitt „Tools“, Tabellenzeile im vorhandenen HTML-Format
+([Liste](https://github.com/hslatman/awesome-industrial-control-system-security), ein PR je Vorschlag, letzte
+Änderung 10/2025)
+
+```html
+    <tr>
+        <td>
+            <a href="https://github.com/ict-baden/riegel" target="_blank">Riegel</a>
+        </td>
+        <td>
+            Offline, read-only hardening check for Windows plant PCs and HMIs: a portable collector reads the configuration without installing anything, another PC evaluates 153 rules, records justified exceptions and writes a report to sign.
+        </td> 
+    </tr>
+```
+
+<!-- FOREN-RIEGEL -->
+
+**Show HN – Titel**
+
+```text
+Show HN: Riegel – offline, read-only Windows hardening check for plant PCs
+```
+
+**Show HN – Text** (URL: das GitHub-Repo)
+
+```text
+Riegel checks Windows machines that can't take an agent or an install – HMIs, lab PCs, control-room boxes, some without a network. A collector of about 130 KB reads the configuration from a USB stick without changing anything; another PC evaluates 153 rules (sources: ACSC, Microsoft docs, DISA STIGs), records justified exceptions with an approving role and an expiry date, and writes a report to sign plus an evidence pack auditors can re-verify. It never applies settings; remediation comes as files for the plant vendor. `Riegel.exe --demo` opens a sample plant. This is 0.1: tested on CI runners and a Windows 11 workstation, not yet on real Windows 7 or 2008 R2 machines. MIT licence.
+```
+
+### 3.5 Plakette – Etiketten-Designer für Zebra-Drucker (ZPL)
+
+- **Belegt** (README, `docs/`, Tag v0.2.0): Desktop-App für Windows 11 und 10 22H2 (x64) und Linux x64/arm64 (X11
+  oder XWayland), kein macOS; Zeichenfläche in Druckerpunkten; Druckerschriften und TrueType, Barcodes (Code 128,
+  GS1-128, SSCC, EAN/UPC, ITF-14, Code 39, QR Code, Data Matrix, PDF417 mit GS1-Prüfung); Variablen, Zähler ohne
+  Wiederholung, Daten aus CSV, Excel ohne Office, ODBC, SQLite; Druck ohne Treiber über TCP 9100, TLS 9143,
+  Windows-Spooler (RAW) oder Datei; ZPL-Import (Druck in Datei, gespeicherte Formate); Befehlszeile, Druckstation,
+  `--demo` mit virtuellen Druckern; keine Telemetrie, keine Update-Prüfung, kein Lizenzserver; Oberfläche Avalonia.
+  Vorabversion, Ausgabe nur gegen den virtuellen Drucker geprüft, nicht signiert.
+- **Nicht schreiben:** Funktionsgleichheit oder vollständiger Ersatz eines Fremdprodukts (Ziel, nicht Stand),
+  Abnahmebericht der Migrationswerkbank, ADMX-Vorlagen, Tests an echten Druckern, macOS. ZPL nur beschreibend
+  („prints ZPL“), nie als Namensbestandteil; Plakette ist nicht mit Zebra verbunden.
+- **Seiten:** `https://ict-baden.de/produkte/plakette/`, `https://ict-baden.de/en/products/plakette/`,
+  `https://github.com/ict-baden/plakette`.
+- **Zeitpunkt:** AlternativeTo und Portale gehen mit dem Vermerk „verified against a virtual printer only“; Show HN
+  und Foren erst nach der Hardware-Abnahme an echten Druckern.
+
+| Zielsuche (EN / DE) | Chance |
+|---|---|
+| Zebra-Etiketten unter Linux / zebra designer linux, zebra label software linux | mittel, mit Download hoch |
+| Etiketten aus Excel, fortlaufende Nummern / print labels from excel zebra | DE mittel–hoch, EN mittel |
+| ZPL unter Linux drucken / print zpl from linux, „zebra prints code instead of label“ | mittel |
+| SSCC-Etikett, GS1-128, Laborröhrchen / SSCC label, cryo tube labels | DE mittel |
+| ZebraDesigner Alternative / zebra designer alternative | DE mittel, EN niedrig (über AlternativeTo leichter) |
+| ZPL Editor kostenlos / ZPL designer, editor | niedrig–mittel |
+| BarTender oder NiceLabel Alternative kostenlos | niedrig, über Verzeichnisse mittel |
+
+**Wo eintragen**
+
+- AlternativeTo, als Alternative vorschlagen bei:
+  [ZebraDesigner](https://alternativeto.net/software/zebradesigner/about/) (22 Alternativen, Open Source nur gLabels,
+  QZ Tray, ZPLab), [NiceLabel](https://alternativeto.net/software/nicelabel/about/),
+  [gLabels](https://alternativeto.net/software/glabels/about/), [ZPLab](https://alternativeto.net/software/zplab/about/)
+  (MIT, Browser und Desktop – direkter Gegner). [Seagull BarTender](https://alternativeto.net/software/seagull-bartender/about/)
+  erst, wenn die Pilotfunktionen stehen.
+- Portale: Softpedia (Windows und Linux), heise Download, Snapfiles.
+- Paketquellen: winget, Scoop, Chocolatey, Flathub, AUR; deb-Pakete gibt es schon.
+- Awesome-Listen: awesome-avalonia. Awesome-Linux-Software ist archiviert.
+- GitHub: Homepage-Feld auf die Produktseite setzen; Topics gesetzt (u. a. `zpl`, `label-designer`, `zebra-printer`,
+  `sscc`).
+
+**AlternativeTo – Name**
+
+```text
+Plakette
+```
+
+**AlternativeTo – Kurzbeschreibung** (1 Satz)
+
+```text
+Label designer for Zebra and compatible printers: design labels on Windows or Linux and print ZPL directly, without a printer driver.
+```
+
+**AlternativeTo – Beschreibung** (600–900 Zeichen, ohne Links)
+
+```text
+Plakette is a desktop label designer for Zebra and compatible label printers. The canvas shows the label at the printer's dots: text in printer fonts or TrueType, barcodes (Code 128, GS1-128/SSCC, EAN/UPC, ITF-14, Code 39, QR Code, Data Matrix, PDF417 with GS1 validation), pictures and shapes. Variables, counters that never repeat and data from CSV, Excel (without Office), ODBC or SQLite. Plakette sends ZPL straight to the printer over TCP 9100, TLS, the Windows spooler (RAW) or to a file – no printer driver, no licence server, no admin rights. Existing labels can be imported from ZPL (print to file or stored formats). Command line for scripts and a print-station mode. Windows 10 22H2 and 11 (x64), Linux x64/arm64; no macOS. No telemetry. Pre-release: output verified against a virtual printer only so far. Free and open source (MIT).
+```
+
+**AlternativeTo – Felder**
+
+```text
+Platforms: Windows, Linux
+License: Open Source (MIT), Free
+Tags/Features (vorhandene wählen): Label printing, Label designer, Barcode, ZPL, Zebra printers, Command line, No tracking
+Alternative to: ZebraDesigner, NiceLabel, gLabels, ZPLab
+Website: https://ict-baden.de/en/products/plakette/
+```
+
+**Portal EN kurz** (≤ 160 Zeichen)
+
+```text
+Label designer for Zebra and compatible printers on Windows and Linux: design labels and print ZPL directly – no driver, no licence server. MIT.
+```
+
+**Portal EN lang** (rund 800 Zeichen)
+
+```text
+Plakette designs labels for Zebra and compatible label printers and sends them as ZPL straight to the printer – over the network (port 9100 or TLS), through the Windows spooler as RAW or to a file. No printer driver, licence server or administrator rights are needed. The desktop app shows the label at the printer's dots and supports printer fonts and TrueType, common barcodes with GS1 validation, variables, non-repeating counters and data from CSV, Excel, ODBC or SQLite. Existing labels come in through ZPL import. A command line prints from scripts, and a print-station mode limits a PC to approved templates. Windows 10 22H2 and 11 (x64), Linux (x64, arm64). No telemetry. Pre-release: printing is verified against a virtual printer so far, not yet on real printers. Free and open source (MIT) by ICT Baden.
+```
+
+**Portal DE kurz** (≤ 160 Zeichen)
+
+```text
+Etiketten-Designer für Zebra- und kompatible Drucker unter Windows und Linux: gestalten und ZPL direkt drucken – ohne Treiber und Lizenzserver. MIT.
+```
+
+**Portal DE lang** (rund 800 Zeichen)
+
+```text
+Plakette gestaltet Etiketten für Zebra- und kompatible Etikettendrucker und schickt sie als ZPL direkt an den Drucker – über das Netzwerk (Port 9100 oder TLS), über den Windows-Spooler als RAW oder in eine Datei. Druckertreiber, Lizenzserver oder Administratorrechte sind nicht nötig. Die Desktop-App zeigt das Etikett in den Punkten des Druckers und kennt Druckerschriften und TrueType, gängige Barcodes mit GS1-Prüfung, Variablen, Zähler ohne Wiederholung und Daten aus CSV, Excel, ODBC oder SQLite. Vorhandene Etiketten kommen per ZPL-Import herüber. Eine Befehlszeile druckt aus Skripten, der Druckstationsmodus beschränkt einen PC auf freigegebene Vorlagen. Für Windows 10 22H2 und 11 (x64) und Linux (x64, arm64). Keine Telemetrie. Vorabversion: Druckausgabe bisher nur gegen einen virtuellen Drucker geprüft. Kostenlos und Open Source (MIT).
+```
+
+**awesome-avalonia** – Abschnitt „Samples and Projects › Productivity“, alphabetisch
+
+```text
+- [Plakette](https://github.com/ict-baden/plakette) - Label designer for Zebra and compatible printers that prints ZPL directly, on Windows and Linux.
+```
+
+<!-- FOREN-PLAKETTE -->
+
+**Show HN – Titel** (erst nach der Hardware-Abnahme)
+
+```text
+Show HN: Plakette – a label designer for Zebra printers on Windows and Linux
+```
+
+**Show HN – Text** (URL: das GitHub-Repo)
+
+```text
+Plakette designs labels and sends ZPL straight to Zebra and compatible printers – over port 9100, TLS, the Windows spooler or to a file – without a printer driver, licence server or admin rights. The canvas works in printer dots, barcodes come with GS1 validation, data comes from CSV, Excel, ODBC or SQLite, and existing labels can be imported from ZPL. It runs on Windows and Linux (.NET 10, Avalonia), has a command line for scripts and `--demo` with virtual printers. It is a pre-release; we would like to hear which labels and printers you would test it with. MIT licence.
+```
+
+### 3.6 Pforte – Kiosk-Browser für Android-MDE-Geräte
+
+- **Belegt** (README, `docs/`, Tag v0.6.0): Kiosk-Browser auf Basis von Android WebView; Scans von Zebra DataWedge,
+  Honeywell oder jeder Scanner-App per Intent als Tastatureingabe ins aktive Feld (Tab/Enter) und als Ereignis
+  `pforte:scan`; Web-Apps ohne Änderung; Profile, Kioskmodus, URL-Allowlist (Navigationen und Formular-POSTs im
+  Hauptfenster), Lock Task als Device Owner, Meta-Tags, JavaScript-API, eigenes CSS/JS, Tastenbelegung; Konfiguration
+  per Managed Configuration aus jedem Android-Enterprise-EMM, Datei, StageNow oder QR-Code; kein Konto, keine Werbung,
+  keine Telemetrie; Android 8.0+; auf echter Hardware getestet: Zebra HC20 (mit 0.5.0). Früher „EnterpriseBrowser“.
+- **Nicht schreiben:** Kompatibilität mit den APIs oder der Konfiguration des Zebra Enterprise Browser,
+  Terminal-Emulation (Telnet, 5250, 3270, VT), Offline-Modus, Honeywell-Gerätetest, Test anderer Zebra-Modelle,
+  SAP-Zertifizierung, dass die Allowlist Skripte, Bilder, iframes oder XHR blockiert. „EnterpriseBrowser“ nur als
+  früherer Name, nie als Gattung.
+- **Seiten:** `https://ict-baden.de/produkte/pforte/`, `https://ict-baden.de/en/products/pforte/`,
+  `https://github.com/ict-baden/pforte`.
+- **Zeitpunkt:** erst eintragen, wenn ein Release eine signierte APK enthält (heute nur SBOM und Prüfsummen).
+
+| Zielsuche (EN / DE) | Chance |
+|---|---|
+| open source enterprise browser zebra honeywell; Fully Kiosk / SureFox alternative open source | hoch über AlternativeTo |
+| Browser für MDE-Geräte, Webbrowser Handscanner Lager / browser for handheld scanner | mittel–hoch |
+| Alternative zu Zebra Enterprise Browser, EB-Lizenzkosten / zebra enterprise browser alternative | mittel |
+| Kiosk-Browser mit Barcodescanner / kiosk browser barcode scanner android | mittel |
+| „Scanner schreibt nicht in Browser“ / datawedge web app javascript | mittel |
+| Intune / SOTI / StageNow kiosk browser | mittel |
+| ivanti velocity alternative | mittel – nur für Web-Apps, keine Terminal-Emulation |
+| Kiosk-Browser Android / android kiosk browser | niedrig (MDM-Anbieter) |
+
+**Wo eintragen**
+
+- AlternativeTo, als Alternative vorschlagen bei: [Fully kiosk](https://alternativeto.net/software/fully-kiosk/about/)
+  (0 Alternativen – Pforte wäre die erste), [SureFox](https://alternativeto.net/software/surefox/about/) (8
+  Alternativen, alle proprietär). Auf der Funktionsseite
+  [Kiosk browser](https://alternativeto.net/feature/kiosk-browser/) steht kein Open-Source-Kiosk-Browser für Android.
+  Zebra Enterprise Browser und Ivanti Velocity haben keine Seite (anlegen optional, nur sachlich).
+- Stores: Google Play (für Managed Google Play), IzzyOnDroid, später F-Droid; Softpedia (Android) und heise Download.
+- Awesome-Listen: [android-foss](https://github.com/offa/android-foss), Rubrik „Browser“, frühestens ab 04/2027 (mindestens
+  sechs Monate aktive Entwicklung; nur Links auf das Repo, F-Droid oder IzzyOnDroid, keine Play-Links). Dort steht
+  schon „Webview Kiosk“ als Open-Source-Kiosk-Browser – also nicht „der einzige“ schreiben.
+- GitHub-Topics: gesetzt (u. a. `kiosk-browser`, `datawedge`, `industrial-browser`, `android-kiosk`).
+
+**AlternativeTo – Name**
+
+```text
+Pforte
+```
+
+**AlternativeTo – Kurzbeschreibung** (1 Satz)
+
+```text
+Kiosk browser for rugged Android devices: barcode scans from DataWedge, Honeywell or intents go straight into web forms, configured by MDM.
+```
+
+**AlternativeTo – Beschreibung** (600–900 Zeichen, ohne Links)
+
+```text
+Pforte runs web apps on rugged Android handhelds in warehouses, production and logistics. Scans from Zebra DataWedge, Honeywell scanners or any scanner app that sends an intent are typed into the focused field like keyboard input, optionally followed by Tab or Enter, and are also reported as a JavaScript event, so existing web apps work without changes. Kiosk mode hides toolbar and system bars and can password-protect the exit; with a URL allow list, navigation to other hosts is stopped; lock task mode on device-owner devices. Profiles for several web apps, custom CSS and JavaScript, key remapping and macros. Configuration as JSON via managed configuration from any Android Enterprise EMM, as a file, via StageNow or a QR code. No account, no ads, no telemetry. Android 8.0+. A web browser, not a terminal emulator. Version 0.6, tested on a Zebra HC20. Free and open source (MIT).
+```
+
+**AlternativeTo – Felder**
+
+```text
+Platforms: Android
+License: Open Source (MIT), Free
+Tags/Features (vorhandene wählen): Kiosk browser, Kiosk mode, Barcode scanner, MDM, Android Enterprise, Ad-free, No tracking
+Alternative to: Fully Kiosk Browser, SureFox
+Website: https://ict-baden.de/en/products/pforte/
+```
+
+**Portal EN kurz** (≤ 160 Zeichen)
+
+```text
+Kiosk browser for rugged Android devices (Zebra, Honeywell): scans go straight into web forms, kiosk mode, URL allow list, MDM. MIT.
+```
+
+**Portal EN lang** (rund 800 Zeichen)
+
+```text
+Pforte is a kiosk browser for rugged Android devices, for example from Zebra and Honeywell. It opens your web apps for goods receipt, picking or shipping and types barcode scans from Zebra DataWedge, Honeywell scanners or any scanner app that sends an intent straight into the focused input field, optionally followed by Tab or Enter. Existing web apps work without changes; web developers can also use a scan event, meta tags and a JavaScript API. Kiosk mode hides the toolbar and system bars and protects the exit, a URL allow list stops navigation to other hosts, and profiles hold several web apps on one device. The configuration comes as JSON from your MDM, as a file, via StageNow or a QR code. No account, no ads, no telemetry. Android 8.0 or later. A web browser, not a terminal emulator. Version 0.6, tested on a Zebra HC20. Free and open source (MIT) by ICT Baden.
+```
+
+**Portal DE kurz** (≤ 160 Zeichen)
+
+```text
+Kiosk-Browser für robuste Android-Geräte (Zebra, Honeywell): Scans direkt ins Webformular, Kioskmodus, URL-Allowlist, Konfiguration per MDM. MIT.
+```
+
+**Portal DE lang** (rund 800 Zeichen)
+
+```text
+Pforte ist ein Kiosk-Browser für robuste Android-Geräte, zum Beispiel von Zebra und Honeywell. Er öffnet Ihre Web-Apps und schreibt Barcode-Scans von Zebra DataWedge, von Honeywell-Scannern oder von jeder Scanner-App per Intent direkt in das aktive Eingabefeld, auf Wunsch mit Tab oder Enter danach. Vorhandene Web-Apps funktionieren ohne Änderung; dazu gibt es ein Scan-Ereignis, Meta-Tags und eine JavaScript-API. Der Kioskmodus blendet Werkzeug- und Systemleisten aus und schützt das Beenden, eine URL-Allowlist stoppt Navigationen zu anderen Hosts, Profile bündeln mehrere Web-Apps auf einem Gerät. Die Konfiguration kommt als JSON aus dem MDM, als Datei, per StageNow oder QR-Code. Kein Konto, keine Werbung, keine Telemetrie. Ab Android 8.0. Ein Webbrowser, keine Terminal-Emulation. Version 0.6, getestet auf einem Zebra HC20. Kostenlos und Open Source (MIT).
+```
+
+**android-foss** – Rubrik „Browser“, alphabetisch, frühestens 04/2027 und erst mit IzzyOnDroid- oder F-Droid-Eintrag
+([Kriterien](https://github.com/offa/android-foss/blob/master/CONTRIBUTING.md))
+
+```text
+* [**Pforte**](https://github.com/ict-baden/pforte) <sup>**[[IzzyOnDroid](https://apt.izzysoft.de/packages/de.ictbaden.pforte)]**</sup>
+```
+
+<!-- FOREN-PFORTE -->
+
+**Show HN – Titel** (erst mit APK im Release)
+
+```text
+Show HN: Pforte – open-source kiosk browser for rugged Android scanners
+```
+
+**Show HN – Text** (URL: das GitHub-Repo)
+
+```text
+Pforte is a kiosk browser for rugged Android handhelds. Barcode scans from Zebra DataWedge, Honeywell or any scanner app that sends an intent are typed into the focused field of your web app, with optional Tab or Enter, so existing web apps need no changes; a scan event and a small JavaScript API are there for more control. Kiosk mode, a URL allow list and per-profile branding come from one JSON file that your MDM pushes as managed configuration. It is a web browser, not a terminal emulator, and so far tested on one Zebra HC20 – reports from other Zebra models and Honeywell devices would help most. MIT licence, no telemetry.
+```
+
+### 3.7 Industrial Keyboard – Android-Tastatur mit F1–F24 für MDE-Geräte
+
+- **Belegt** (README, `docs/`, Tag v2.1.0): Android-Eingabemethode; Tastenhöhe 70–160 % (120–140 % für Handschuhe),
+  Vorschau über dem Finger, kontrastreiches Design; Fn-Reiter mit F1–F12, Esc, Einfg, Entf, Pos1, Ende, Bild auf/ab,
+  Pfeiltasten, mit Umschalt F13–F24 (gesendet als Umschalt+F1…F12, wie 5250-Emulatoren es erwarten); Scan-Reiter mit
+  Software-Auslöser für Zebra DataWedge, Honeywell und andere Scanner-Apps per Intent; passende Ziffernblöcke je Feld;
+  eigene Layouts und Makros in JSON; QWERTY, QWERTZ, AZERTY, Nordisch, Spanisch; Konfiguration per Managed
+  Configuration, Datei oder StageNow, Admin-Kennwort; keine Internetberechtigung, kein Wörterbuch, nichts Getipptes
+  gespeichert; Android 8.0+; getestet auf einem Zebra HC20, Honeywell-Auslöser nur nach Herstellerdoku. APK 6,2 MB im
+  Tag-Release.
+- **Nicht schreiben:** RDP, SAP, Honeywell auf Hardware getestet, dass die feste Reihe mehr als F1–F12 zeigt (Esc,
+  Einfg, Entf, Pos1/Ende, Bild auf/ab und Pfeile gibt es nur auf dem Fn-Reiter), Übernahme der Konfiguration anderer
+  Tastatur-Apps. Den Zusatz „for RDP & SAP“ aus der Recherche nicht verwenden.
+- **Name:** „Industrial Keyboard“ ist ein Hardware-Begriff – in Titeln immer mit Zusatz, z. B. „Industrial Keyboard –
+  Android keyboard with F1–F24 for rugged devices“.
+- **Seiten:** `https://ict-baden.de/produkte/industrial-keyboard/`, `https://ict-baden.de/en/products/industrial-keyboard/`,
+  `https://github.com/ict-baden/industrialkeyboard`.
+
+| Zielsuche (EN / DE) | Chance |
+|---|---|
+| Tastatur F13 bis F24 Android / android keyboard F13–F24 | hoch (keine Bildschirmtastatur im Index, wenig Nachfrage) |
+| Zebra Enterprise Keyboard alternative, Honeywell keyboard F keys | mittel–hoch |
+| Terminal-Emulation Tastatur, 5250, Ziffernblock-Enter, Einfg-Taste Android / terminal emulator keyboard | mittel bis hoch |
+| Android Tastatur mit F-Tasten / android keyboard with function keys F1–F12 | DE mittel, EN niedrig |
+| Hacker's Keyboard alternative | niedrig, über AlternativeTo mittel |
+| keyboard with F keys for RDP android; SAP F keys Zebra scanner | nicht ansteuern, solange RDP und SAP nicht getestet sind |
+
+**Wo eintragen**
+
+- AlternativeTo, als Alternative vorschlagen bei:
+  [Hacker's Keyboard](https://alternativeto.net/software/hackerand-39-s-keyboard/about/) (eingestellt, 48
+  Alternativen), [Unexpected Keyboard](https://alternativeto.net/software/unexpected-keyboard/about/). Zebra Enterprise
+  Keyboard hat keine Seite. Erster Kandidat für AlternativeTo, weil Version 2.1.0.
+- Stores: IzzyOnDroid sofort nach Veröffentlichung (APK im Tag-Release, 6,2 MB), Google Play, später F-Droid;
+  Softpedia (Android).
+- Awesome-Listen: android-foss, Rubrik „Keyboard“, frühestens 04/2027 (wie Pforte).
+- GitHub-Topics: gesetzt (u. a. `android-keyboard`, `function-keys`, `terminal-emulation`); `android-ime` fehlt noch.
+
+**AlternativeTo – Name**
+
+```text
+Industrial Keyboard
+```
+
+**AlternativeTo – Kurzbeschreibung** (1 Satz)
+
+```text
+On-screen keyboard for rugged Android devices with F1–F24, big keys for gloves, a scan key and configuration through your MDM.
+```
+
+**AlternativeTo – Beschreibung** (600–900 Zeichen, ohne Links)
+
+```text
+Industrial Keyboard is an Android input method for warehouse, production and logistics handhelds. The Fn tab holds F1–F12, Esc, Ins, Del, Home/End, PgUp/PgDn and arrows; Shift turns the function keys into F13–F24, sent as Shift+F1…F12, the mapping 5250 terminal emulators use. Key height 70–160 % for gloves, a scan tab that pulls the soft trigger of Zebra DataWedge, Honeywell or other scanner apps, number fields that open the matching numeric pad, custom layouts and macros in JSON, and QWERTY, QWERTZ, AZERTY, Nordic and Spanish layouts. The whole keyboard is configured from any EMM through managed configuration, a file or StageNow, protected by an admin password. No internet permission, no dictionary, nothing typed is stored. Android 8.0+, tested on a Zebra HC20; the Honeywell trigger follows the vendor documentation. Free and open source (MIT).
+```
+
+**AlternativeTo – Felder**
+
+```text
+Platforms: Android
+License: Open Source (MIT), Free
+Tags/Features (vorhandene wählen): Keyboard, Function keys, On-screen keyboard, Barcode scanner, MDM, Privacy focused, Ad-free, No tracking
+Alternative to: Hacker's Keyboard, Unexpected Keyboard
+Website: https://ict-baden.de/en/products/industrial-keyboard/
+```
+
+**Portal EN kurz** (≤ 160 Zeichen)
+
+```text
+On-screen keyboard for rugged Android devices: F1–F24, glove-sized keys, a scan key, configured by MDM, no internet permission. MIT licence.
+```
+
+**Portal EN lang** (rund 800 Zeichen)
+
+```text
+Industrial Keyboard is an on-screen keyboard for rugged Android devices in warehouses, production and logistics, for example from Zebra and Honeywell. Big keys for gloves (key height 70–160 %), a scan tab with a large trigger area for Zebra DataWedge, Honeywell or any scanner app via intent, and a Fn tab with F1–F12, Esc, Ins, Del, Home, End, page and arrow keys – Shift adds F13–F24 for terminal emulation. Number fields open the matching numeric pad. Custom layouts such as OK / Skip / Damaged and macros are defined in JSON without an app update. The keyboard is configured centrally through managed configuration from any EMM, a configuration file or StageNow, protected by an admin password. No internet permission, no dictionary, nothing typed is stored. Android 8.0 or later, tested on a Zebra HC20. Free and open source (MIT) by ICT Baden.
+```
+
+**Portal DE kurz** (≤ 160 Zeichen)
+
+```text
+Bildschirmtastatur für robuste Android-Geräte: F1–F24, große Tasten für Handschuhe, Scan-Taste, per MDM konfigurierbar, ohne Internet. MIT.
+```
+
+**Portal DE lang** (rund 800 Zeichen)
+
+```text
+Industrial Keyboard ist eine Bildschirmtastatur für robuste Android-Geräte in Lager, Logistik und Produktion, zum Beispiel von Zebra und Honeywell. Große Tasten für Handschuhe (Tastenhöhe 70–160 %), ein Scan-Reiter für Zebra DataWedge, Honeywell oder jede Scanner-App per Intent und ein Fn-Reiter mit F1–F12, Esc, Einfg, Entf, Pos1, Ende, Bild- und Pfeiltasten – mit Umschalt kommen F13–F24 für Terminal-Emulationen dazu. Zahlenfelder öffnen den passenden Ziffernblock. Eigene Layouts wie OK / Überspringen / Beschädigt und Makros werden in JSON festgelegt, ohne App-Update. Konfiguriert wird zentral per Managed Configuration aus jedem EMM, als Datei oder per StageNow, geschützt durch ein Admin-Kennwort. Keine Internetberechtigung, kein Wörterbuch, nichts Getipptes wird gespeichert. Ab Android 8.0, getestet auf einem Zebra HC20. Kostenlos und Open Source (MIT).
+```
+
+**android-foss** – Rubrik „Keyboard“, alphabetisch, frühestens 04/2027 und erst mit IzzyOnDroid- oder F-Droid-Eintrag
+
+```text
+* [**Industrial Keyboard**](https://github.com/ict-baden/industrialkeyboard) <sup>**[[IzzyOnDroid](https://apt.izzysoft.de/packages/de.ictbaden.industrialkeyboard)]**</sup>
+```
+
+<!-- FOREN-KEYBOARD -->
+
+**Show HN – Titel**
+
+```text
+Show HN: Industrial Keyboard – Android keyboard with F1–F24 for rugged devices
+```
+
+**Show HN – Text** (URL: das GitHub-Repo)
+
+```text
+Industrial Keyboard is an Android input method for warehouse handhelds: big keys for gloves, a scan tab that pulls the scanner's soft trigger, number pads that match the field, and a Fn tab with F1–F12 plus F13–F24 on Shift. Android has no key codes above F12, so F13–F24 go out as Shift+F1…F12, the mapping 5250 terminal emulators use. Layouts, macros and settings come from one JSON file that an MDM can push. It has no internet permission and no dictionary, and nothing typed is stored. Tested on a Zebra HC20 so far; the Honeywell trigger is built from the vendor documentation, so reports from Honeywell devices would help most. MIT licence.
+```
+
+## 4 KI-Sichtbarkeit messen
+
+Einmal im Monat, ab vier Wochen nach dem Livegang, dieselben Fragen an **ChatGPT** (mit Websuche), **Perplexity**,
+**Microsoft Copilot**, **Google AI Mode** und **Claude** (mit Websuche) stellen – jeweils in einer neuen Sitzung ohne
+Verlauf, wortgleich, Datum und Dienst notieren. Ergebnis in einer Tabelle festhalten:
+Datum · Dienst · Frage · genannt (ja/nein) · zitiert (welche URL) · Fakten richtig · Fehler · zitierte Fremdquellen.
+
+**Was prüfen**
+
+- **Genannt?** Taucht das Produkt in der Antwort auf, und an welcher Stelle?
+- **Zitiert?** Verlinkt die Antwort ict-baden.de, das GitHub-Repo oder eine Drittseite (AlternativeTo, Portal, Forum)?
+  Zitierte Drittseiten, auf denen wir fehlen, sind die nächsten Einträge.
+- **Richtig?** Plattform, Lizenz (MIT, kostenlos), Version und die Grenzen aus „Nicht schreiben“. Typische Fehler,
+  die wir korrigieren wollen: Vitrine „entsperrt mit Entra ID“, Riegel „prüft CIS-Benchmarks“, Pforte „kann
+  Terminal-Emulation (5250, VT)“, Lupe „erzeugt QR-Codes“, Industrial Keyboard „für RDP/SAP getestet“. Bei Fehlern die Quelle
+  suchen, aus der die Antwort schöpft, und dort korrigieren – nicht die Website umschreiben.
+
+**Testfragen**
+
+| Produkt | Fragen |
+|---|---|
+| Vitrine | How can I lock keyboard and mouse on a Windows PC but keep the screen visible? · Is there a free open-source alternative to Transparent Screen Lock? · Wie sperre ich einen Leitstand-PC, ohne dass der Bildschirm verschwindet? · Transparente Bildschirmsperre für Windows kostenlos |
+| Lupe | How can I use my laptop webcam as a barcode scanner that types into Excel? · What can replace CodeTwo QR Code Desktop Reader? · Wie lese ich einen QR-Code vom Bildschirm am PC aus? · Data-Matrix-Code am PC lesen ohne Handscanner · QR code reader for the Linux desktop |
+| Zutritt | Free tool to report NTFS and share permissions of a file server to Excel · How do I find orphaned SIDs in folder permissions? · Wie sehe ich, wer auf welchen Ordner unseres Fileservers zugreifen darf? · Berechtigungsbericht Fileserver für ISO-27001-Audit kostenlos |
+| Riegel | How can I check Windows hardening on an air-gapped HMI without installing software? · Open-source alternative to HardeningKitty with a report for auditors · Windows-Härtung offline prüfen ohne Agent · Härtungsnachweis für Anlagen-PCs nach IEC 62443 |
+| Plakette | Is there a ZebraDesigner alternative that runs on Linux? · How do I print ZPL labels from Linux without a driver? · Zebra-Etiketten aus Excel mit fortlaufender Nummer drucken, kostenlos · ZPL-Editor kostenlos |
+| Pforte | Open-source kiosk browser for Zebra devices with DataWedge scanning · My scanner beeps but nothing arrives in the web app on a Zebra handheld – which browser helps? · Kiosk-Browser für MDE-Geräte mit Scanner, kostenlos · Alternative zum Zebra Enterprise Browser für Web-Apps |
+| Industrial Keyboard | Android keyboard with F13–F24 keys · Alternative to Zebra Enterprise Keyboard that also runs on Honeywell devices · Android-Tastatur mit F-Tasten für MDE-Geräte · Bildschirmtastatur für Handschuhe unter Android |
+
+**Wo die Daten stehen**
+
+- **Google Search Console** → Leistung → Suchergebnisse: Suchanfragen und Seiten je Produktseite. AI Overviews und
+  AI Mode sind dort in den Web-Zahlen enthalten, nicht getrennt
+  ([Google](https://developers.google.com/search/docs/appearance/ai-features)).
+- **Bing Webmaster Tools** → „AI Performance“: Zitate in Copilot und Bing-KI-Antworten, zitierte Seiten, „grounding
+  queries“ (Stichprobe).
+- **Cloudflare AI Crawl Control:** welche Such- und KI-Crawler die Seite abrufen und mit welchem Status – fällt ein
+  Crawler auf 403, ist eine Einstellung aus Schritt 3 zurückgesprungen.
+- **GitHub** → Insights → Traffic je Repo: verweisende Seiten (z. B. chatgpt.com, perplexity.ai), Klone, Besuche – nur
+  für Admins sichtbar, 14 Tage rückwirkend, also monatlich abschreiben.
+
+## 5 Was wir bewusst nicht tun
+
+- Kein Keyword-Stuffing, kein versteckter Text, keine Massen-Seiten aus KI-Texten, keine Doorway-Seiten je Suchbegriff.
+- Kein Linkkauf, keine Linktausch-Netzwerke, keine Gastartikel nur für Links.
+- Keine Fake-Bewertungen, keine Zweit- oder Sockenkonten, niemanden um Likes, Daumen, Upvotes oder Sterne bitten
+  (AlternativeTo, Hacker News und awesome-qr-code verbieten es ausdrücklich).
+- Kein automatisches Posten, keine Bots in Foren oder auf Reddit, keine KI-geschriebenen PRs an Listen, die das
+  ablehnen.
+- Keine Antworten in archivierten oder jahrealten Threads, keine Beiträge ohne Offenlegung, keine Werbung als
+  Antwort auf eine Frage, die das Tool nicht löst.
+- Keine Aussagen über Fremdprodukte außer der beschreibenden Nennung, keine Behauptung über das hinaus, was README und
+  „Limits, honestly“ belegen.
