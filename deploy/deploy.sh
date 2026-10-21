@@ -46,13 +46,16 @@ case "$MODE:$TAG" in
   preview:live*) echo "Die Vorschau darf nicht das Live-Image $TAG bekommen" >&2; exit 2 ;;
 esac
 EXPECT_STAGING=$([ "$MODE" = live ] && echo 0 || echo 1)
+# Host-Kopf für die Prüfung auf docker01: Das Live-Image leitet jede andere Adresse auf https://ict-baden.de um
+# (deploy/nginx.conf), /version.txt käme über 192.168.4.6 sonst als Weiterleitung zurück
+SITE_HOST="${SITE_URL#https://}"
 
 echo "==> $MODE: docker-compose.yml nach $HOST:$DIR"
 ssh "$HOST" mkdir -p "$DIR"
 scp -q "$COMPOSE" "$HOST:$DIR/docker-compose.yml"
 
 echo "==> Image $TAG ziehen und starten"
-ssh "$HOST" bash -s -- "$DIR" "$TAG" "$DEFAULT_TAG" "$PORT" "$EXPECT_STAGING" <<'REMOTE'
+ssh "$HOST" bash -s -- "$DIR" "$TAG" "$DEFAULT_TAG" "$PORT" "$EXPECT_STAGING" "$SITE_HOST" <<'REMOTE'
 set -euo pipefail
 cd "$1"
 # Erst ziehen und prüfen, dann umschalten: das Label de.ict-baden.staging (deploy/Dockerfile) muss zum Modus passen
@@ -65,7 +68,7 @@ if [ "$2" = "$3" ]; then rm -f .env; else echo "IMAGE_TAG=$2" > .env; fi
 docker compose pull -q
 docker compose up -d --remove-orphans
 for _ in $(seq 1 30); do
-  curl -fsS -o /dev/null "http://192.168.4.6:$4/health" 2>/dev/null && { echo "läuft: $(curl -fsS "http://192.168.4.6:$4/version.txt")"; exit 0; }
+  curl -fsS -o /dev/null "http://192.168.4.6:$4/health" 2>/dev/null && { echo "läuft: $(curl -fsS -H "Host: $6" "http://192.168.4.6:$4/version.txt")"; exit 0; }
   sleep 1
 done
 echo "Gesundheitsprüfung fehlgeschlagen" >&2

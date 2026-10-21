@@ -5,7 +5,8 @@
 #   docker build -f deploy/Dockerfile --build-arg SITE_STAGING=0 --build-arg DIST=dist-live .   # Livegang
 #
 # Erwartet die gebaute Seite in dist/ (npm run build) bzw. dist-live/. Mit SITE_STAGING=0 (Livegang) entfallen die mit
-# "# STAGING" markierten Zeilen der nginx-Konfiguration.
+# "# STAGING" markierten Zeilen der nginx-Konfiguration, in der Vorschau die mit "# LIVE" markierten (Weiterleitung
+# fremder Hosts auf https://ict-baden.de).
 FROM nginx:1.27-alpine
 
 ARG REV=lokal
@@ -17,8 +18,8 @@ ARG DIST=dist
 RUN if [ "$DIST" = dist-live ] && [ "$SITE_STAGING" != 0 ]; then echo 'DIST=dist-live braucht SITE_STAGING=0' >&2; exit 1; fi; \
     if [ "$DIST" = dist ] && [ "$SITE_STAGING" = 0 ]; then echo 'SITE_STAGING=0 braucht DIST=dist-live' >&2; exit 1; fi
 COPY deploy/nginx.conf /tmp/default.conf
-RUN if [ "$SITE_STAGING" = "0" ]; then grep -v '# STAGING' /tmp/default.conf > /etc/nginx/conf.d/default.conf; \
-    else cp /tmp/default.conf /etc/nginx/conf.d/default.conf; fi \
+RUN if [ "$SITE_STAGING" = "0" ]; then grep -v '# STAGING[[:space:]]*$' /tmp/default.conf > /etc/nginx/conf.d/default.conf; \
+    else grep -v '# LIVE[[:space:]]*$' /tmp/default.conf > /etc/nginx/conf.d/default.conf; fi \
  && rm /tmp/default.conf
 
 COPY ${DIST}/ /usr/share/nginx/html/current/
