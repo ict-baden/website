@@ -13,6 +13,9 @@ ARG SITE_STAGING=1
 # Ordner mit der gebauten Seite: dist (Vorschau) oder dist-live (Livegang, SITE_STAGING=0 SITE_URL=https://ict-baden.de)
 ARG DIST=dist
 
+# Schutz gegen vertauschte Argumente: die Livegang-Seite nie mit der noindex-Konfiguration und umgekehrt
+RUN if [ "$DIST" = dist-live ] && [ "$SITE_STAGING" != 0 ]; then echo 'DIST=dist-live braucht SITE_STAGING=0' >&2; exit 1; fi; \
+    if [ "$DIST" = dist ] && [ "$SITE_STAGING" = 0 ]; then echo 'SITE_STAGING=0 braucht DIST=dist-live' >&2; exit 1; fi
 COPY deploy/nginx.conf /tmp/default.conf
 RUN if [ "$SITE_STAGING" = "0" ]; then grep -v '# STAGING' /tmp/default.conf > /etc/nginx/conf.d/default.conf; \
     else cp /tmp/default.conf /etc/nginx/conf.d/default.conf; fi \

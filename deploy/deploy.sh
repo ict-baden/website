@@ -39,15 +39,27 @@ elif [ "$MODE" = preview ]; then
 else
   echo "SITE_MODE muss preview oder live sein" >&2; exit 2
 fi
+# Nie das Vorschau-Image (noindex, canonical auf netgetvpn) auf ict-baden.de und nie das Live-Image auf die Vorschau
+case "$MODE:$TAG" in
+  live:live|live:live-*) ;;
+  live:*) echo "SITE_MODE=live braucht IMAGE_TAG=live oder live-<commit> (nicht $TAG)" >&2; exit 2 ;;
+  preview:live*) echo "Die Vorschau darf nicht das Live-Image $TAG bekommen" >&2; exit 2 ;;
+esac
+EXPECT_STAGING=$([ "$MODE" = live ] && echo 0 || echo 1)
 
 echo "==> $MODE: docker-compose.yml nach $HOST:$DIR"
 ssh "$HOST" mkdir -p "$DIR"
 scp -q "$COMPOSE" "$HOST:$DIR/docker-compose.yml"
 
 echo "==> Image $TAG ziehen und starten"
-ssh "$HOST" bash -s -- "$DIR" "$TAG" "$DEFAULT_TAG" "$PORT" <<'REMOTE'
+ssh "$HOST" bash -s -- "$DIR" "$TAG" "$DEFAULT_TAG" "$PORT" "$EXPECT_STAGING" <<'REMOTE'
 set -euo pipefail
 cd "$1"
+# Erst ziehen und prüfen, dann umschalten: das Label de.ict-baden.staging (deploy/Dockerfile) muss zum Modus passen
+docker pull -q "ghcr.io/ict-baden/website:$2" >/dev/null
+got="$(docker image inspect --format '{{ index .Config.Labels "de.ict-baden.staging" }}' "ghcr.io/ict-baden/website:$2")"
+# Ältere Images (vor dem Label) sind alle Vorschau-Images
+if [ "$got" != "$5" ] && ! { [ "$5" = 1 ] && [ -z "$got" ]; }; then echo "Image $2 hat staging=$got, erwartet $5 – nichts umgeschaltet" >&2; exit 1; fi
 # Der Tag bleibt in .env stehen, damit auch ein späteres "docker compose up" denselben Stand nimmt
 if [ "$2" = "$3" ]; then rm -f .env; else echo "IMAGE_TAG=$2" > .env; fi
 docker compose pull -q
@@ -67,6 +79,7 @@ if [ "$MODE" = live ]; then
   if curl -fsS "$SITE_URL/robots.txt" | grep -q '^Disallow: */ *$'; then echo "FEHLER: robots.txt sperrt" >&2; exit 1; fi
   curl -fsS "$SITE_URL/" | grep -q "<link rel=\"canonical\" href=\"$SITE_URL/\"" || { echo "FEHLER: canonical nicht $SITE_URL" >&2; exit 1; }
   [ "$(curl -s -o /dev/null -w '%{http_code}' "$SITE_URL/produkte/enterprisebrowser/")" = 301 ] || { echo "FEHLER: Weiterleitungen fehlen" >&2; exit 1; }
+  # IndexNow einmal beim Livegang (oder nach großen Änderungen): nur mit INDEXNOW_KEY in der Umgebung
   if [ -n "${INDEXNOW_KEY:-}" ]; then
     echo "==> IndexNow: Adressen der Sitemap melden"
     curl -fsS "$SITE_URL/$INDEXNOW_KEY.txt" >/dev/null || { echo "FEHLER: $SITE_URL/$INDEXNOW_KEY.txt fehlt (Repo-Variable INDEXNOW_KEY gesetzt?)" >&2; exit 1; }

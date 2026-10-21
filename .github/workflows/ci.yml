@@ -23,6 +23,9 @@ jobs:
       SITE_URL: https://ictbaden.netgetvpn.de
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Voller Verlauf: lastmod der Sitemap und dateModified kommen aus dem letzten Commit je Produktseite
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
