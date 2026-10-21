@@ -1,98 +1,40 @@
 ---
-// Datenschutzerklärungen der Android-Apps. Google Play verlangt pro App eine öffentliche Adresse;
-// Inhalt nach docs/data-and-privacy.md im jeweiligen App-Repo. Deutsch und Englisch, weil die Apps weltweit laufen.
+// Datenschutzerklärungen der Apps unter /datenschutz/<slug>/ – die Apps verlinken diese Adressen, Google Play verlangt
+// sie für die Android-Apps. Inhalte: src/data/app-datenschutz.ts (nach docs/data-and-privacy.md im jeweiligen Repo).
+// Deutsch und Englisch auf einer Seite, weil die Apps weltweit laufen.
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import { COMPANY } from '../../config';
+import apps, { type AppPrivacy } from '../../data/app-datenschutz';
+import { pageById } from '../../lib/produktseiten';
+import { products } from '../../lib/products';
 
 export function getStaticPaths() {
-  return [
-    {
-      params: { app: 'enterprisebrowser' },
-      props: {
-        name: 'EnterpriseBrowser',
-        pkg: 'de.ictbaden.enterprisebrowser',
-        repo: 'https://github.com/ict-baden/enterprisebrowser',
-        de: {
-          summary: 'EnterpriseBrowser sendet keine Daten an ICT Baden. Es gibt keine Telemetrie, keine Absturzberichte, keine Update-Prüfung, kein Benutzerkonto, keine Werbung und kein Tracking. Der Browser verbindet sich nur mit den Web-Anwendungen, die der Betreiber der Geräte konfiguriert (Startadressen und erlaubte Hosts).',
-          operator: 'Für die Daten in diesen Web-Anwendungen ist der Betreiber der Geräte bzw. der jeweiligen Web-Anwendung verantwortlich (in der Regel Ihr Arbeitgeber). ICT Baden verarbeitet keine dieser Daten.',
-          stored: [
-            'Die Konfiguration (Profile, Startadressen, Design). Passwörter nur als gesalzener Hash (PBKDF2).',
-            'Cookies, Cache und Web-Speicher der konfigurierten Web-Anwendungen, wie bei jedem Browser.',
-            'Dateien, die aus den Web-Anwendungen heruntergeladen werden, nur wenn Downloads erlaubt sind.',
-          ],
-          backup: 'Konfiguration und Browserdaten sind von der Android-Sicherung und der Geräteübertragung ausgenommen.',
-          permissions: [
-            ['Internet, Netzwerkstatus', 'Laden der konfigurierten Web-Anwendungen, Fehlerseite ohne Netz.'],
-            ['Kamera', 'Nur wenn eine Seite eines erlaubten Hosts die Kamera anfordert (z. B. Barcode-Scan per Kamera in der Web-Anwendung). Sie werden vorher gefragt. Das Bild geht an diese Web-Anwendung, nicht an ICT Baden.'],
-            ['Vibration', 'Rückmeldung nach einem Scan.'],
-          ],
-        },
-        en: {
-          summary: 'EnterpriseBrowser sends no data to ICT Baden. There is no telemetry, no crash reporting, no update check, no account, no ads and no tracking. The browser only connects to the web applications configured by the operator of the devices (start addresses and allowed hosts).',
-          operator: 'The operator of the devices or of the respective web application (usually your employer) is responsible for the data in those web applications. ICT Baden processes none of it.',
-          stored: [
-            'The configuration (profiles, start addresses, design). Passwords only as salted hashes (PBKDF2).',
-            'Cookies, cache and web storage of the configured web applications, like any browser.',
-            'Files downloaded from the web applications, only if downloads are allowed.',
-          ],
-          backup: 'Configuration and browser data are excluded from Android backup and device transfer.',
-          permissions: [
-            ['Internet, network state', 'Loading the configured web applications, error page without network.'],
-            ['Camera', 'Only when a page of an allowed host asks for the camera (e.g. a camera barcode scan in the web application). You are asked first. The image goes to that web application, not to ICT Baden.'],
-            ['Vibration', 'Feedback after a scan.'],
-          ],
-        },
-      },
-    },
-    {
-      params: { app: 'industrialkeyboard' },
-      props: {
-        name: 'Industrial Keyboard',
-        pkg: 'de.ictbaden.industrialkeyboard',
-        repo: 'https://github.com/ict-baden/industrialkeyboard',
-        de: {
-          summary: 'Industrial Keyboard hat keine Internetberechtigung und kann deshalb keine Daten vom Gerät senden – weder an ICT Baden noch an andere. Es gibt kein Benutzerkonto, keine Werbung und kein Tracking.',
-          operator: 'Was Sie tippen, wird nicht gespeichert und nicht gelernt: Die Tastatur hat kein Wörterbuch und keine Wortvorschläge. Sie liest nur die Art des aktiven Eingabefelds (Zahl, E-Mail, Passwort …), um die passenden Tasten zu zeigen.',
-          stored: [
-            'Die Konfiguration (Layout, Design, eigene Tasten). Das Admin-Passwort nur als gesalzener Hash (PBKDF2).',
-            'Welche Konfigurationsquellen bereits angewendet wurden und der letzte Fehler dabei.',
-          ],
-          backup: 'Die Konfiguration ist von der Android-Sicherung und der Geräteübertragung ausgenommen.',
-          permissions: [
-            ['Vibration', 'Rückmeldung bei Tastendruck und Scan.'],
-            ['Eingabemethode', 'Vom System vergeben, wenn Sie die Tastatur in den Einstellungen aktivieren.'],
-          ],
-        },
-        en: {
-          summary: 'Industrial Keyboard has no internet permission and therefore cannot send any data off the device – neither to ICT Baden nor to anyone else. There is no account, no ads and no tracking.',
-          operator: 'What you type is neither stored nor learned: the keyboard has no dictionary and no word suggestions. It only reads the type of the focused input field (number, e-mail, password …) to show the matching keys.',
-          stored: [
-            'The configuration (layout, design, custom keys). The admin password only as a salted hash (PBKDF2).',
-            'Which configuration sources were applied already, and the last error doing so.',
-          ],
-          backup: 'The configuration is excluded from Android backup and device transfer.',
-          permissions: [
-            ['Vibration', 'Feedback on key presses and scans.'],
-            ['Input method', 'Granted by the system when you enable the keyboard in the settings.'],
-          ],
-        },
-      },
-    },
-  ];
+  return apps.map((a) => ({ params: { app: a.slug }, props: { name: a.name } }));
 }
 
-const { name, pkg, repo, de, en } = Astro.props;
+const app = apps.find((a) => a.slug === Astro.params.app) as AppPrivacy;
+const { name, pkg, de, en } = app;
+const android = app.platform === 'android';
+const page = pageById(app.productId);
+// Quellcode-Link nur, wenn das Repo öffentlich ist (derselbe Schalter wie auf der Produktseite: download.public)
+const repo = page?.download.public ? page.download.source ?? null : null;
+const product = products.find((p) => p.id === app.productId);
+const productUrl = product ? `/produkte/${product.slug}/` : null;
+const productUrlEn = product ? `/en/products/${product.slug}/` : null;
+const kindDe = android ? 'Android-App' : 'Software';
 ---
-<Base title={`Datenschutz ${name}`} description={`Datenschutzerklärung der Android-App ${name} von ICT Baden – privacy policy of the Android app ${name}.`}>
+<Base title={`Datenschutz ${name}`} description={`Datenschutzerklärung der ${kindDe} ${name} von ICT Baden: was gespeichert wird, welche Verbindungen es gibt – privacy policy of ${name}.`}>
   <PageHero eyebrow="Rechtliches" title={`Datenschutz­erklärung ${name}`} crumbs={[{ label: 'Datenschutz', href: '/datenschutz/' }, { label: name }]} narrow />
 
   <div class="container container--narrow">
     <div class="prose privacy">
       <p class="lang-switch"><a href="#deutsch">Deutsch</a> · <a href="#english">English</a></p>
 
-      <h2 id="deutsch">Datenschutzerklärung für die App {name}</h2>
-      <p>Gilt für die Android-App {name} (Paket <code>{pkg}</code>), wie sie über Google Play und über GitHub verteilt wird.</p>
+      <h2 id="deutsch">Datenschutzerklärung für {android ? 'die App' : ''} {name}</h2>
+      {android
+        ? <p>Gilt für die Android-App {name} (Paket <code>{pkg}</code>), wie sie über GitHub und – sobald veröffentlicht – über Google Play verteilt wird.</p>
+        : <p>Gilt für die Software {name} von ICT Baden in allen Lieferformen (Installationspaket, portable Fassung, Befehlszeile).</p>}
 
       <h3>Verantwortlich</h3>
       <p>
@@ -104,27 +46,31 @@ const { name, pkg, repo, de, en } = Astro.props;
       <p>{de.summary}</p>
       <p>{de.operator}</p>
 
-      <h3>Was auf dem Gerät gespeichert wird</h3>
-      <p>Nur im privaten Speicher der App, andere Apps können ihn nicht lesen:</p>
+      <h3>{android ? 'Was auf dem Gerät gespeichert wird' : 'Was auf dem Rechner gespeichert wird'}</h3>
+      {android && <p>Nur im privaten Speicher der App, andere Apps können ihn nicht lesen:</p>}
       <ul>{de.stored.map((s) => <li>{s}</li>)}</ul>
-      <p>{de.backup}</p>
+      {de.storedNote && <p>{de.storedNote}</p>}
 
-      <h3>Berechtigungen</h3>
-      <ul>{de.permissions.map(([p, why]) => <li><strong>{p}:</strong> {why}</li>)}</ul>
+      {de.permissions && (<><h3>Berechtigungen</h3><ul>{de.permissions.map(([p, why]) => <li><strong>{p}:</strong> {why}</li>)}</ul></>)}
+      {de.connections && (<><h3>Netzwerkverbindungen</h3><ul>{de.connections.map(([p, why]) => <li><strong>{p}:</strong> {why}</li>)}</ul></>)}
 
       <h3>Löschen</h3>
-      <p>Android-Einstellungen → Apps → {name} → Speicher → Speicher löschen, oder die App deinstallieren, entfernt alle Daten der App. Bei ICT Baden liegen keine Daten, die gelöscht werden müssten.</p>
+      <p>{de.deletion}</p>
 
       <h3>Ihre Rechte</h3>
       <p>
         Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung sowie ein Beschwerderecht bei
         einer Aufsichtsbehörde. Fragen richten Sie an die oben genannte Adresse. Allgemeine Angaben zu unserer Website:
-        <a href="/datenschutz/">Datenschutzerklärung der Website</a>. Quellcode: <a href={repo} rel="noopener">GitHub</a>.
+        <a href="/datenschutz/">Datenschutzerklärung der Website</a>.
+        {productUrl && <> Mehr zum Produkt: <a href={productUrl}>{name}</a>.</>}
+        {repo && <> Quellcode: <a href={repo} rel="noopener">GitHub</a>.</>}
       </p>
 
-      <h2 id="english" lang="en">Privacy policy for the app {name}</h2>
+      <h2 id="english" lang="en">Privacy policy for {android ? 'the app' : ''} {name}</h2>
       <div lang="en">
-        <p>Applies to the Android app {name} (package <code>{pkg}</code>) as distributed through Google Play and GitHub.</p>
+        {android
+          ? <p>Applies to the Android app {name} (package <code>{pkg}</code>) as distributed through GitHub and – once published – Google Play.</p>
+          : <p>Applies to the software {name} by ICT Baden in every form of delivery (installer, portable version, command line).</p>}
 
         <h3>Controller</h3>
         <p>
@@ -136,21 +82,23 @@ const { name, pkg, repo, de, en } = Astro.props;
         <p>{en.summary}</p>
         <p>{en.operator}</p>
 
-        <h3>What is stored on the device</h3>
-        <p>Only in the app's private storage, which other apps cannot read:</p>
+        <h3>{android ? 'What is stored on the device' : 'What is stored on the computer'}</h3>
+        {android && <p>Only in the app's private storage, which other apps cannot read:</p>}
         <ul>{en.stored.map((s) => <li>{s}</li>)}</ul>
-        <p>{en.backup}</p>
+        {en.storedNote && <p>{en.storedNote}</p>}
 
-        <h3>Permissions</h3>
-        <ul>{en.permissions.map(([p, why]) => <li><strong>{p}:</strong> {why}</li>)}</ul>
+        {en.permissions && (<><h3>Permissions</h3><ul>{en.permissions.map(([p, why]) => <li><strong>{p}:</strong> {why}</li>)}</ul></>)}
+        {en.connections && (<><h3>Network connections</h3><ul>{en.connections.map(([p, why]) => <li><strong>{p}:</strong> {why}</li>)}</ul></>)}
 
         <h3>Deletion</h3>
-        <p>Android Settings → Apps → {name} → Storage → Clear storage, or uninstalling the app, removes all of the app's data. ICT Baden holds no data that would need to be deleted.</p>
+        <p>{en.deletion}</p>
 
         <h3>Your rights</h3>
         <p>
           You have the right of access, rectification, erasure and restriction of processing, and the right to lodge a complaint
-          with a supervisory authority. Please send questions to the address above. Source code: <a href={repo} rel="noopener">GitHub</a>.
+          with a supervisory authority. Please send questions to the address above.
+          {productUrlEn && <> More about the product: <a href={productUrlEn} hreflang="en">{name}</a>.</>}
+          {repo && <> Source code: <a href={repo} rel="noopener">GitHub</a>.</>}
         </p>
       </div>
     </div>
