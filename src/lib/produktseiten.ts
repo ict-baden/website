@@ -21,6 +21,24 @@ export interface Section {
 }
 export interface Faq { q: string; a: string }
 
+/**
+ * Sachlicher Vergleich mit benannten Fremdprodukten („Umstieg von … / Alternative zu …“). Zulässig als vergleichende
+ * Werbung (§ 6 UWG: objektiv, nachprüfbar, nicht herabsetzend) und beschreibende Markennennung (§ 23 MarkenG): nur
+ * Fakten (Lizenz, Preis, offline, Plattformen, Funktionen), kein „besser als“, keine Logos, keine Aussagen über
+ * Preise oder Qualität der Fremdprodukte, die wir nicht belegen können. Fremdnamen stehen NUR hier (Abschnitt + eigene
+ * FAQ-Fragen), nie in Titel, H1, Beschreibung, aka oder keywords – scripts/check-seo.mjs prüft das.
+ */
+export interface Comparison {
+  /** H2 des Abschnitts, z. B. „Umstieg von Transparent Screen Lock oder Softros: Vitrine als Alternative“ */
+  title: string;
+  /** Nur Absätze, Listen und Punkte (keine Tabellen – die Prüfung erkennt den Abschnitt am schließenden </section>) */
+  blocks: Exclude<Block, { type: 'table' }>[];
+  /** Zusätzliche Fragen; erscheinen am Ende der FAQ (und im FAQPage-JSON-LD) */
+  faq: Faq[];
+  /** Pflicht: nennt JEDEN Fremdnamen des Abschnitts mit Inhaber und „keine Verbindung“ */
+  trademark: string;
+}
+
 export interface PageCopy {
   /** <title> ohne Marke; " | ICT Baden" wird angehängt, wenn es in 65 Zeichen passt */
   title: string;
@@ -62,19 +80,23 @@ export interface ProductPage {
   /** Sprachen der Oberfläche (BCP 47) */
   uiLanguages: string[];
   /**
-   * Download und Quellcode. public: false, solange das Repo privat ist – dann zeigt die Seite „Download folgt“,
-   * nennt „Open Source“ nicht und setzt kein downloadUrl/sameAs. Beim Veröffentlichen auf true setzen.
+   * Download und Quellcode – DER Schalter je Produkt. public: false, solange das Repo privat ist: Status
+   * „Vorabversion … – Veröffentlichung in Kürze“, kein Download-/Quellcode-Link, kein „Open Source“, im JSON-LD kein
+   * offers/downloadUrl/codeRepository/softwareVersion. public: true (eine Zeile) schaltet all das ein und zeigt den
+   * Status aus products.json („Verfügbar“). url = Tag-Release „Latest“ (…/releases/latest), nicht der rollierende
+   * CI-Build „latest“.
    */
   download: { public: boolean; url?: string; source?: string; play?: string };
   /** Verwandte Produkte (ids) mit beschreibendem Linktext */
   related: string[];
-  /** Slug der App-Datenschutzseite /datenschutz/<app>/ (PR #1), wird nur verlinkt, wenn die Seite existiert */
+  /** Veraltet: die Datenschutzseite der App kommt aus src/data/app-datenschutz.ts (productId) */
   privacyApp?: string;
   /**
-   * Abschnitt „Alternative zu …“: wird NUR angezeigt, wenn approved = true (nach rechtlicher Prüfung,
-   * wie "ersetzt" in scripts/public-overrides.json). Sachlich und nominativ, nie im Titel oder in der H1.
+   * Abschnitt „Umstieg von … / Alternative zu …“ (siehe Comparison). Angezeigt, wenn approved = true. Entscheidung
+   * 2026-10-21: sachliche, nennende Vergleiche sind an (§ 6 UWG, § 23 MarkenG); die anwaltliche Prüfung steht noch aus
+   * (README, „Going live“). names = alle genannten Fremdprodukte (jedes muss im trademark-Text vorkommen).
    */
-  alternatives?: { approved: boolean; names: string[]; de: string; en: string };
+  alternatives?: { approved: boolean; names: string[]; de: Comparison; en: Comparison };
   de: PageCopy;
   en: PageCopy;
 }
@@ -136,6 +158,9 @@ export const plain = (text: string) => text.replace(/`([^`]+)`/g, '$1');
 const modules = import.meta.glob('../data/produktseiten/*.ts', { eager: true }) as Record<string, { default: ProductPage }>;
 const pages = new Map(Object.values(modules).map((m) => [m.default.id, m.default]));
 
+/** Produktseite zu einer Projekt-id (oder undefined). */
+export const pageById = (id: string): ProductPage | undefined => pages.get(id);
+
 export function pageFor(p: Product): ProductPage {
   const page = pages.get(p.id);
   if (!page) throw new Error(`Keine Produktseite für ${p.id} in src/data/produktseiten/`);
@@ -161,12 +186,12 @@ export const UI = {
     statusHelp: {
       verfuegbar: 'fertig entwickelt und erhältlich',
       bereit: 'fertig entwickelt, Download folgt mit der Veröffentlichung',
-      vorabversion: 'funktionsfähige Version vor dem Release 1.0',
+      vorabversion: 'funktionsfähige Vorabversion, Veröffentlichung in Kürze',
       'in-entwicklung': 'wird zurzeit gebaut',
       geplant: 'Konzept, Entwicklung noch nicht begonnen',
     },
     download: 'Download',
-    downloadSoon: 'Download folgt',
+    downloadSoon: 'Veröffentlichung in Kürze',
     downloadSoonHelp: 'Download und Quellcode werden mit der Veröffentlichung freigegeben.',
     inDevelopmentHelp: 'Noch nicht veröffentlicht – schreiben Sie uns, wenn Sie informiert werden möchten.',
     source: 'Quellcode',
@@ -189,7 +214,6 @@ export const UI = {
     galleryOpen: (t: string) => `${t}: Bild in voller Größe öffnen`,
     related: 'Passende Produkte',
     privacy: 'Datenschutzerklärung der App',
-    alternatives: 'Alternative zu …',
     askTitle: 'Fragen zum Einsatz?',
     askText: (n: string) => `Fragen zu ${n}, Einsatz oder Support? Schreiben Sie uns – wir melden uns persönlich.`,
     write: 'E-Mail schreiben',
@@ -208,12 +232,12 @@ export const UI = {
     statusHelp: {
       verfuegbar: 'fully developed and available',
       bereit: 'fully developed, download follows with the public release',
-      vorabversion: 'working version before release 1.0',
+      vorabversion: 'working pre-release, public release coming soon',
       'in-entwicklung': 'currently being built',
       geplant: 'concept, development not started',
     },
     download: 'Download',
-    downloadSoon: 'Download to follow',
+    downloadSoon: 'Public release coming soon',
     downloadSoonHelp: 'Download and source code will be published with the public release.',
     inDevelopmentHelp: 'Not released yet – write to us if you would like to be informed.',
     source: 'Source code',
@@ -236,7 +260,6 @@ export const UI = {
     galleryOpen: (t: string) => `${t}: open full-size image`,
     related: 'Related products',
     privacy: 'App privacy policy',
-    alternatives: 'An alternative to …',
     askTitle: 'Questions?',
     askText: (n: string) => `Questions about ${n}, deployment or support? Write to us – we will get back to you personally.`,
     write: 'Write an e-mail',
