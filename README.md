@@ -339,13 +339,15 @@ The live image `ghcr.io/ict-baden/website:live` is built and probed by the CI on
 `https://ict-baden.de`, all redirects and 410s). Nothing runs on ict-baden.de until someone starts it.
 
 **State of the domain today** (checked 2026-10-21 with `dig` and `curl`): the zone `ict-baden.de` is **not** on
-Cloudflare but at GoDaddy (nameservers `ns35.domaincontrol.com`, `ns36.domaincontrol.com`). The old site runs on a
-GoDaddy Apache at `92.205.238.62`; `www.ict-baden.de` is a CNAME to the apex, and `https://www.ict-baden.de` fails
-(the certificate has no `www`). http is not redirected to https, there is no HSTS. Mail: MX for Google Workspace
-(`aspmx.l.google.com` priority 1, `alt1`/`alt2.aspmx.l.google.com` 5, `alt3`/`alt4.aspmx.l.google.com` 10) plus
-`mail.ict-baden.de` (priority 50, A `46.163.106.222`). TXT: `MS=…` and `google-site-verification=…`; no SPF, no DMARC.
-The alias domains `ict-baden.com`, `ictbaden.de`, `it-baden.de`, `itbaden.de` and `itbaden.org` (also at GoDaddy, some
-with their own MX) serve the old site with 200.
+Cloudflare but at GoDaddy (nameservers `ns35.domaincontrol.com`, `ns36.domaincontrol.com`; the TXT record
+`_domainconnect` → `domainconnect.hosteurope.de` suggests it is managed through Host Europe, a GoDaddy brand; no
+DNSSEC). The old site runs on a GoDaddy Apache at `92.205.238.62` (also `ftp.ict-baden.de`); `www.ict-baden.de` is a
+CNAME to the apex, and `https://www.ict-baden.de` fails (the certificate has no `www`). http is not redirected to
+https, there is no HSTS. Mail: MX for Google Workspace (`aspmx.l.google.com` priority 1,
+`alt1`/`alt2.aspmx.l.google.com` 5, `alt3`/`alt4.aspmx.l.google.com` 10) plus `mail.ict-baden.de` (priority 50, A
+`46.163.106.222`). TXT: `MS=…` and `google-site-verification=…`; no SPF, no DMARC. The alias domains `ict-baden.com`,
+`ictbaden.de`, `it-baden.de`, `itbaden.de` and `itbaden.org` (also at GoDaddy, some with their own MX) serve the old
+site with 200.
 
 Steps:
 
@@ -356,45 +358,52 @@ Steps:
 2. **Repository variables** (optional, not secret): `INDEXNOW_KEY` (e.g. `uuidgen | tr -d -`), and – only if Search
    Console/Bing are verified by meta tag instead of DNS – `GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION`. Then
    re-run the CI on `main` so that `:live` contains them.
-3. **Start the live container on docker01:** `SITE_MODE=live deploy/deploy.sh` (copies
+3. **Start the live container on docker01:** `SKIP_OUTSIDE=1 SITE_MODE=live deploy/deploy.sh` (copies
    `deploy/docker-compose.live.yml` to `/srv/docker/ict-baden.de`, starts `ictbaden-live` on 192.168.4.6:8018 with
-   the tunnel label `cf.tunnel.hostname=ict-baden.de`). The preview keeps running (`ictbaden-web`, noindex); after
-   the go-live put it behind Cloudflare Access (`cf.tunnel.access`) or stop it, so that no externally linked preview
-   URL shows up as „indexed, though blocked by robots.txt“. `deploy.sh` refuses to put a preview image on ict-baden.de
-   or the live image on the preview (tag and image label are checked before switching).
+   the tunnel label `cf.tunnel.hostname=ict-baden.de`; `SKIP_OUTSIDE=1` skips the check from outside, which would
+   still reach the old site now – it runs in step 7). The preview keeps running (`ictbaden-web`, noindex); after the
+   go-live put it behind Cloudflare Access (`cf.tunnel.access`) or stop it, so that no externally linked preview URL
+   shows up as „indexed, though blocked by robots.txt“. `deploy.sh` refuses to put a preview image on ict-baden.de or
+   the live image on the preview (tag and image label are checked before switching).
 4. **Move the zone to Cloudflare (owner of the domain), before anything points to the tunnel:** export the zone file
-   from GoDaddy (DNS › Export) as a reference. Add the site `ict-baden.de` to Cloudflare and re-create **all** records
-   that the import misses – the apex A record (still `92.205.238.62` until step 5), `www`, all six MX records with
-   their priorities, `mail.ict-baden.de` (A, **DNS only**, never proxied), both TXT records (`MS=…`,
-   `google-site-verification=…`) and every other record in the export (SRV, CNAMEs such as `autodiscover`). Compare
-   the two zones line by line, then switch the nameservers at the registrar (GoDaddy › Domain › Nameservers) to the two
-   Cloudflare nameservers and wait until Cloudflare shows the zone as active (only then can the tunnel label from step
-   3 route `ict-baden.de`; if the hostname was not created by itself, add it in step 5). **Check mail right afterwards:**
-   `dig MX ict-baden.de @1.1.1.1` shows the same six entries, a test mail from outside reaches the Google Workspace
-   mailbox and one to an address on `mail.ict-baden.de` arrives, the Search Console property is still verified.
+   from GoDaddy (DNS › Export) as a reference. Add the site `ict-baden.de` to Cloudflare and re-create **all**
+   records that the import misses – the apex A record (still `92.205.238.62` until step 5) and `www`, both **DNS
+   only** for now, so that nothing changes for visitors yet; all six MX records with their priorities,
+   `mail.ict-baden.de` (A, **DNS only**, never proxied), both TXT records (`MS=…`, `google-site-verification=…`) and
+   every other record in the export (`ftp`, `_domainconnect`, SRV, CNAMEs such as `autodiscover`). Compare the two
+   zones line by line, then switch the nameservers wherever the domain is managed (GoDaddy or Host Europe account,
+   „Nameserver“ setting; no DNSSEC to switch off first) to the two Cloudflare nameservers and wait until Cloudflare
+   shows the zone as active (only then can the tunnel label from step 3 route `ict-baden.de`; if the hostname was not
+   created by itself, add it in step 5). **Check mail right afterwards:** `dig MX ict-baden.de @1.1.1.1` shows the
+   same six entries, `dig mail.ict-baden.de @1.1.1.1` still gives `46.163.106.222` (the fallback MX, priority 50), a
+   test mail from outside reaches the Google Workspace mailbox, and the Search Console property is still verified.
    (SPF/DMARC do not exist today; adding them is a separate decision for whoever runs the mail.) If the zone has to
    stay at GoDaddy, Cloudflare can only front the site through a partial (CNAME) setup, which needs the Business plan
    and cannot cover the apex `ict-baden.de` from GoDaddy DNS – so moving the zone is the way.
 5. **Cloudflare / DNS (now on Cloudflare):** point `ict-baden.de` and `www.ict-baden.de` to the tunnel (the label
-   above, or a public hostname in the tunnel config → `http://192.168.4.6:8018`); SSL/TLS „Full“, **„Always Use
-   HTTPS“ on** (http → https 301 – behind the tunnel nginx only sees http and cannot do it); `www` → apex 301 (Redirect
-   Rule; nginx does it as well). HSTS comes from nginx (`max-age=31536000`, no `includeSubDomains`; leave Cloudflare's
-   own HSTS setting off). **Security › Bots:** „Block AI bots“ off, AI Crawl Control „allow“, „Manage robots.txt“ off
-   (the site has its own), Bot Fight Mode must not challenge verified bots. Keep the Cloudflare paragraph in the
-   privacy policy (shown because `SITE_CDN=cloudflare`).
+   above, or a public hostname in the tunnel config → `http://192.168.4.6:8018`) and keep the original `Host` header
+   (no `httpHostHeader` override – nginx answers every host other than `ict-baden.de` with a 301, an override would
+   loop); SSL/TLS „Full“, **„Always Use HTTPS“ on** (http → https 301 – behind the tunnel nginx only sees http and
+   cannot do it); `www` → apex 301 (Redirect Rule; nginx does it as well). HSTS comes from nginx (`max-age=31536000`,
+   no `includeSubDomains`; leave Cloudflare's own HSTS setting off). **Security › Bots:** „Block AI bots“ off, AI
+   Crawl Control „allow“, „Manage robots.txt“ off (the site has its own), Bot Fight Mode must not challenge verified
+   bots. Keep the Cloudflare paragraph in the privacy policy (shown because `SITE_CDN=cloudflare`).
 6. **Alias domains → 301 to `https://ict-baden.de/`:** `ict-baden.com`, `ictbaden.de`, `it-baden.de`, `itbaden.de`,
-   `itbaden.org` each redirect permanently, with path, to the main address – either at their DNS host (GoDaddy
-   forwarding: permanent 301 to `https://ict-baden.de/`) or, if a domain is moved to Cloudflare as well, with a
-   Redirect Rule (or Bulk Redirects) `301 → https://ict-baden.de${path}`. Their MX records stay untouched. A hostname
-   that is routed to the tunnel instead gets the same 301 from nginx (every host other than `ict-baden.de`).
+   `itbaden.org` each redirect permanently to the main address – either at their DNS host (GoDaddy forwarding:
+   permanent 301 to `https://ict-baden.de/`; whether it keeps the path and answers on https as well has to be tested)
+   or, if a domain is moved to Cloudflare as well, with a Redirect Rule (or Bulk Redirects) `301 →
+   https://ict-baden.de${path}`, which keeps path and https. Their MX records stay untouched. A hostname that is
+   routed to the tunnel instead gets the same 301 from nginx (every host other than `ict-baden.de`).
 7. **Check from outside**, then submit to IndexNow: `SITE_MODE=live INDEXNOW_KEY=<key> deploy/deploy.sh` again (it
-   checks `X-Robots-Tag`, `robots.txt`, canonical and a redirect, then submits all sitemap URLs). By hand:
-   `curl -sI https://ict-baden.de/` (no `X-Robots-Tag`, `strict-transport-security: max-age=31536000`),
-   `curl -sI http://ict-baden.de/` (301 → `https://ict-baden.de/`), `curl https://ict-baden.de/robots.txt` (no
-   `Disallow: /`), `curl -sI https://www.ict-baden.de/` (301 → `https://ict-baden.de/`, valid certificate),
-   `curl -sI https://ict-baden.de/produkte/enterprisebrowser/` (301 → `/produkte/pforte/`),
-   `curl -sI https://ict-baden.de/produkte/hausmeister/` (410), `curl -sI http://ictbaden.de/` and the other alias
-   domains (301 → `https://ict-baden.de/`), and the mail check from step 4 once more.
+   checks `X-Robots-Tag`, `robots.txt`, canonical, 200 on the home page and a redirect, then submits all sitemap
+   URLs). By hand: `curl -sI
+   https://ict-baden.de/` (200 – not 301 –, no `X-Robots-Tag`, `strict-transport-security: max-age=31536000`), `curl
+   -sI http://ict-baden.de/` (301 → `https://ict-baden.de/`), `curl https://ict-baden.de/robots.txt` (no `Disallow:
+   /`), `curl -sI https://www.ict-baden.de/` (301 → `https://ict-baden.de/`, valid certificate), `curl -sI
+   https://ict-baden.de/produkte/enterprisebrowser/` (301 → `/produkte/pforte/`), `curl -sI
+   https://ict-baden.de/produkte/hausmeister/` (410), `curl -sI http://ictbaden.de/` and `curl -sI
+   https://ictbaden.de/produkte/` for every alias domain (301 → `https://ict-baden.de/…`), and the mail check from
+   step 4 once more.
 8. **Google Search Console:** domain property `ict-baden.de` (DNS TXT, preferred), submit
    `https://ict-baden.de/sitemap.xml`, request indexing of the 14 product pages (de and en) and the home page.
 9. **Bing Webmaster Tools** (also feeds ChatGPT search and Copilot): import from Search Console, submit the sitemap.

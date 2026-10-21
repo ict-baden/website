@@ -63,4 +63,4 @@ if (problems.length) {
   console.error(`Livegang-Fassung: ${problems.length} Problem(e)\n  ` + problems.join('\n  '));
   process.exit(1);
 }
-console.log(`Livegang-Fassung in Ordnung: ${pages} Seiten indexierbar, alles auf ${LIVE}, ${REQUIRED.length} Pflichtseiten da, keine von ${routes.length} Weiterleitungen in nginx verdeckt eine Seite.`);
+console.log(`Livegang-Fassung in Ordnung: ${pages} Seiten indexierbar, alles auf ${LIVE}, ${REQUIRED.length} Pflichtseiten da, keine der ${routes.length} Weiterleitungen und 410-Regeln in nginx verdeckt eine Seite.`);

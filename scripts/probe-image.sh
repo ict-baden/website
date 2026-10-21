@@ -19,6 +19,8 @@ for _ in $(seq 1 30); do curl -fsS "$B/health" >/dev/null 2>&1 && break; sleep 1
 # Das Live-Image bedient nur ict-baden.de; alle Prüfungen der Seite laufen deshalb mit diesem Host-Kopf
 if [ "$MODE" = live ]; then H=(-H 'Host: ict-baden.de'); else H=(-H 'Host: ictbaden.netgetvpn.de'); fi
 fail() { echo "FEHLER ($MODE): $*" >&2; exit 1; }
+# Antworten immer erst ganz lesen und dann durchsuchen (grep … <<<"$(curl …)"): „curl … | grep -q“ scheitert unter
+# pipefail sporadisch, wenn grep früh fündig wird und curl beim Weiterschreiben SIGPIPE bekommt
 get() { curl -fsS "${H[@]}" "$B$1"; }
 code() { curl -s -o /dev/null -w '%{http_code}' "${H[@]}" "$B$1"; }
 loc() { curl -s -o /dev/null -w '%{redirect_url}' "${H[@]}" "$B$1" | sed "s#^$B##"; }
@@ -58,7 +60,7 @@ expect /produkte/s7-explorer 410
 expect /en/products/lotse/ 410
 expect /gibt-es-nicht/ 404
 expect /en/gibt-es-nicht/ 404
-curl -s "${H[@]}" "$B/en/gibt-es-nicht/" | grep -q 'Page not found' || fail "404-Seite ohne englischen Text"
+grep -q 'Page not found' <<<"$(curl -s "${H[@]}" "$B/en/gibt-es-nicht/")" || fail "404-Seite ohne englischen Text"
 # www → Hauptadresse (beide Fassungen)
 hostredirect www.ict-baden.de /produkte/vitrine/ https://ict-baden.de/produkte/vitrine/
 
@@ -87,8 +89,9 @@ else
   grep -q '<link rel="canonical" href="https://ict-baden.de/produkte/vitrine/"' <<<"$PRODUCT" || fail "canonical nicht auf ict-baden.de"
   grep -q 'hreflang="en" href="https://ict-baden.de/en/products/vitrine/"' <<<"$PRODUCT" || fail "hreflang nicht auf ict-baden.de"
   grep -q 'netgetvpn' <<<"$HOMEPAGE$PRODUCT$ROBOTS$(get /sitemap.xml)" && fail "Vorschau-Adresse in der Livegang-Fassung"
-  get /sitemap.xml | grep -q '<loc>https://ict-baden.de/produkte/pforte/</loc>' || fail "Sitemap nicht auf ict-baden.de"
-  get /sitemap.xml | grep -q '<loc>https://ict-baden.de/en/products/</loc>' || fail "Produktübersicht nicht in der Sitemap"
+  SITEMAP="$(get /sitemap.xml)"
+  grep -q '<loc>https://ict-baden.de/produkte/pforte/</loc>' <<<"$SITEMAP" || fail "Sitemap nicht auf ict-baden.de"
+  grep -q '<loc>https://ict-baden.de/en/products/</loc>' <<<"$SITEMAP" || fail "Produktübersicht nicht in der Sitemap"
   # Jeder andere Host → https://ict-baden.de mit Pfad und Abfrage; auch die Weiterleitung trägt HSTS
   for h in ict-baden.com ictbaden.de it-baden.de itbaden.de itbaden.org preview.example 192.168.4.6; do
     hostredirect "$h" '/produkte/vitrine/?ref=alt' 'https://ict-baden.de/produkte/vitrine/?ref=alt'
