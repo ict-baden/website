@@ -231,7 +231,6 @@ const updated = p.updated ? t.date(p.updated) : null;
         <h2 id="s-limits">{t.limits}</h2>
         <ul class="blk-ul">{copy.limits.map((x) => <li set:html={inline(f(x))} />)}</ul>
       </section>
-
     </div>
 
     <aside class="daside" aria-label={`${p.name}: ${t.glance}`}>
@@ -239,7 +238,7 @@ const updated = p.updated ? t.date(p.updated) : null;
         <p class="daside-title">{t.glance}</p>
         <dl>
           <div><dt>{t.line}</dt><dd>{lineName}</dd></div>
-          <div><dt>Status</dt><dd>{statusLabel}<span class="dd-help">{page.download.public ? t.statusHelp[p.statusKey] : released ? t.downloadSoon : t.statusHelp[p.statusKey]}</span></dd></div>
+          <div><dt>Status</dt><dd>{statusLabel}<span class="visually-hidden"> – </span><span class="dd-help">{page.download.public ? t.statusHelp[p.statusKey] : released ? t.downloadSoon : t.statusHelp[p.statusKey]}</span></dd></div>
           {released && p.version && <div><dt>{t.version}</dt><dd>{p.version}</dd></div>}
           {updated && <div><dt>{t.updated}</dt><dd><time datetime={p.updated}>{updated}</time></dd></div>}
           <div><dt>{t.licence}</dt><dd>{t.licenceValue(page.download.public)}</dd></div>

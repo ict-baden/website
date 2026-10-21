@@ -26,10 +26,23 @@ const titleWidth = (t) => [...t].reduce((sum, ch) => sum + (SERP.arial20[ch] ?? 
 const { min: DESC_MIN, max: DESC_MAX } = SERP.description;
 // Für den Vergleich mit Suchbegriffen: klein, ohne weiche Trennstriche, Bindestrich-Varianten vereinheitlicht
 const normWords = (t) => t.toLowerCase().replace(/&shy;|[\u00ad\u200b]/g, '').replace(/[\u2010\u2011\u2012]/g, '-').replace(/\s+/g, ' ');
-// Zwei Wörter ohne Leerraum an der Grenze zweier Inline-Elemente: Crawler lesen „<span>Plakette</span><span>Etiketten…“
-// als „PlaketteEtiketten…“ (visually-hidden-Trenner wie „ – “ beginnen mit einem Leerzeichen und fallen nicht darunter)
+// Zwei Wörter ohne Leerraum an einer Elementgrenze: Crawler lesen „<span>Plakette</span><span>Etiketten…“ als
+// „PlaketteEtiketten…“ (visually-hidden-Trenner wie „ – “ beginnen mit einem Leerzeichen und fallen nicht darunter).
+// Drei Fälle: Ende eines Inline-Elements direkt vor dem nächsten, Text direkt vor einem Inline-Element
+// („0.2.0<span>Veröffentlichung“) und Text direkt nach einem Inline-Element („</strong>Etiketten“).
 const INLINE = 'span|strong|em|b|i|code|small|a|time|abbr';
-const GLUED = new RegExp(`([\\p{L}\\p{N}.:!?)])</(?:${INLINE})>((?:</?(?:${INLINE})\\b[^>]*>)*)<(?:${INLINE})\\b[^>]*>((?:<(?:${INLINE})\\b[^>]*>)*)([\\p{L}\\p{N}(])`, 'gu');
+const W_BEFORE = '([\\p{L}\\p{N}.:!?)])';
+const W_AFTER = '([\\p{L}\\p{N}(])';
+const OPEN = `<(?:${INLINE})\\b[^>]*>`;
+const CLOSE = `</(?:${INLINE})>`;
+const GLUED = [
+  new RegExp(`${W_BEFORE}${CLOSE}(?:</?(?:${INLINE})\\b[^>]*>)*${OPEN}(?:${OPEN})*${W_AFTER}`, 'gu'),
+  new RegExp(`${W_BEFORE}${OPEN}(?:${OPEN})*${W_AFTER}`, 'gu'),
+  new RegExp(`${W_BEFORE}${CLOSE}(?:${CLOSE})*${W_AFTER}`, 'gu'),
+];
+// Blockgrenzen für die Suche nach Suchbegriffen: ein Begriff zählt nur, wenn er innerhalb eines Absatzes, einer
+// Überschrift, eines Listenpunkts usw. steht – nicht über H2 und folgende H3 hinweg
+const BLOCK_END = /<\/(?:h[1-6]|p|li|dt|dd|td|th|figcaption|caption|div|section|header|footer|nav|summary|blockquote)>/gi;
 // Alle genannten Fremdnamen eines Texts (ohne vergleichende Formulierungen wie „Alternative zu“, die keine Namen sind)
 const PHRASES = /^(?:alternative (?:zu|to)|nachbau|klon|clone of|feature parity|funktionsgleich)$/i;
 const allCompetitorNames = (text) => [...new Set(COMPETITOR_PATTERNS.flatMap((re) => [...text.matchAll(new RegExp(re.source, re.flags.includes('g') ? re.flags : re.flags + 'g'))].map((m) => m[0])))].filter((n) => !PHRASES.test(n));
@@ -70,6 +83,7 @@ const REQUIRED = {
   Organization: ['name', 'url', 'logo', 'address'],
   WebSite: ['name', 'url'],
   WebPage: ['url', 'name', 'inLanguage'],
+  CollectionPage: ['url', 'name', 'inLanguage'],
   SoftwareApplication: ['name', 'description', 'url', 'applicationCategory', 'operatingSystem', 'publisher', 'license'],
   FAQPage: ['mainEntity'],
   BreadcrumbList: ['itemListElement'],
@@ -87,11 +101,16 @@ for (const [page, html] of pages) {
   else if (titleWidth(title) > SERP.title.maxPx) fail(page, `Titel zu breit (${titleWidth(title)} px, höchstens ${SERP.title.maxPx}): ${title}`);
   if (!desc) fail(page, 'keine Meta-Beschreibung');
   else if (!is404 && (desc.length < DESC_MIN || desc.length > DESC_MAX)) fail(page, `Meta-Beschreibung ${desc.length} Zeichen (${DESC_MIN}–${DESC_MAX}): ${desc}`);
-  // Zusammengezogene Wörter an Elementgrenzen (Linktexte, Überschriften, Bildunterschriften …)
+  // Zusammengezogene Wörter an Elementgrenzen (Linktexte, Überschriften, Bildunterschriften, Statusangaben …)
   const body = html.slice(html.indexOf('<body')).replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ');
-  for (const m of body.matchAll(GLUED)) fail(page, `Wörter ohne Trenner zusammengezogen: „${textOf(body.slice(Math.max(0, m.index - 40), m.index + m[0].length + 30)).slice(0, 90)}“ (${m[1]}|${m[4]})`);
-  // Nummern gehören nicht in den Text der H2 (sonst lesen Suchmaschinen „01 QR-Code am PC scannen“) – CSS-Zähler nutzen
-  for (const h of html.matchAll(/<h2\b[^>]*>([\s\S]*?)<\/h2>/g)) if (/^\d+\s/.test(textOf(h[1]))) fail(page, `H2 beginnt mit einer Nummer: ${textOf(h[1])}`);
+  // Ausschnitt um eine Fundstelle als Text, ohne angeschnittene Tags am Rand
+  const around = (i, len) => textOf(body.slice(Math.max(0, i - 60), i + len + 40).replace(/^[^<]*>/, '').replace(/<[^>]*$/, '')).slice(0, 100);
+  for (const re of GLUED) for (const m of body.matchAll(re)) fail(page, `Wörter ohne Trenner zusammengezogen: „${around(m.index, m[0].length)}“ (${m[1]}|${m[2]})`);
+  // Laufende Nummern gehören nicht in den Text der H2 (sonst lesen Suchmaschinen „01 QR-Code am PC scannen“) – dafür
+  // gibt es den CSS-Zähler. Erkannt werden führende Nummern wie „01 “ und eine Nummer in einem eigenen Element am Anfang.
+  for (const h of html.matchAll(/<h2\b[^>]*>([\s\S]*?)<\/h2>/g)) {
+    if (/^0\d\s/.test(textOf(h[1])) || /^\s*<span\b[^>]*>\s*\d+\s*<\/span>/.test(h[1])) fail(page, `H2 beginnt mit einer Nummer: ${textOf(h[1])}`);
+  }
   const h1 = html.match(/<h1[\s>]/g)?.length ?? 0;
   if (h1 !== 1) fail(page, `${h1} H1-Überschriften`);
   if (!is404) {
@@ -199,7 +218,7 @@ for (const [page, html] of pages) {
     // Suchbegriffe (keywords = aka) stehen nicht als Liste auf der Seite, sondern jeder mindestens einmal im Text
     // (Hauptinhalt ohne die verlinkten verwandten Produkte)
     const main = html.slice(html.indexOf('<main'), html.indexOf('</main>')).replace(/<section[^>]*\bdrelated\b[\s\S]*?<\/section>/, ' ');
-    const mainText = normWords(textOf(main));
+    const mainText = normWords(textOf(main.replace(BLOCK_END, ' ¶ ')));
     for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
       let data;
       try { data = JSON.parse(m[1]); } catch { continue; }
