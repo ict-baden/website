@@ -8,9 +8,11 @@ eingereicht, angemeldet, gepostet oder verschickt.
   Kanäle, KI-Suche); Produktfakten nur aus den Produkt-Repos (`origin/main` vom 2026-10-21: Vitrine `main` ohne
   Tag-Release, Lupe v0.1.0, Zutritt v0.1.0, Riegel v0.1.2, Plakette v0.2.0, Pforte v0.6.0, Industrial Keyboard
   v2.1.0); die „Nicht behaupten“-Regeln in den Kopfkommentaren von `src/data/produktseiten/*.ts`.
-- **Adressen** am 2026-10-21 geprüft. Ausnahmen sind markiert: AlternativeTo, Softpedia und SourceForge sperren
-  einfache Abrufe (403), dort wurde über einen Lesedienst geprüft oder es steht dabei; die Produktseiten auf
-  ict-baden.de und die GitHub-Repos antworten erst nach Livegang bzw. Veröffentlichung.
+- **Adressen** am 2026-10-21 geprüft. AlternativeTo, Softpedia, SourceForge, Reddit, ComputerBase, deskmodder, die
+  DATEV-Community, developer.zebra.com und Neowin sperren automatische Abrufe zumindest zeitweise (403 oder
+  Verbindungsabbruch); dort wurde über einen Lesedienst, eine Schnittstelle oder das Webarchiv geprüft, bei Softpedia
+  gar nicht (im Browser öffnen). Die Produktseiten auf ict-baden.de und die GitHub-Repos antworten erst nach Livegang
+  bzw. Veröffentlichung.
 - **Ist-Stand:** ict-baden.de zeigt noch die alte Seite (DNS bei GoDaddy, `ns35`/`ns36.domaincontrol.com`), die neue
   Seite läuft als `noindex`-Vorschau hinter Cloudflare, alle Produkt-Repos sind privat (0 Sterne), Releases gibt es
   nur dort. Ein `google-site-verification`-TXT-Eintrag existiert, Search Console ist also vermutlich eingerichtet.
@@ -25,7 +27,9 @@ eingereicht, angemeldet, gepostet oder verschickt.
 > - In Foren und auf Reddit immer offenlegen: „Disclosure: I work for ICT Baden, which makes this free open-source
 >   tool.“ Ein Beitrag pro Thread, keine Zweitkonten, niemanden um Stimmen bitten.
 > - Die Entwürfe sind Vorlagen. Mehrere Listen und Foren lehnen KI-geschriebene Beiträge ab – in eigene Worte bringen
->   und selbst abschicken.
+>   und selbst abschicken. Ganz verboten ist generierter Text bei Hacker News, in r/sysadmin und r/Intune;
+>   administrator.de verlangt eine Kennzeichnung mit Modellnamen. Dafür gibt es hier nur Stichpunkte.
+> - administrator.de und ComputerBase verlangen ein als Firma gekennzeichnetes Konto.
 
 ## 1 Kurzfassung
 
@@ -191,7 +195,10 @@ Sichtbarkeit. **Mensch** = braucht ein Konto oder eine Entscheidung, **Claude** 
     Höchstens ein Show HN alle zwei bis vier Wochen, die Windows-Tools erst nach dem Code-Signing, jeweils nur, wenn
     man den Tag über antworten kann
     ([Regeln](https://news.ycombinator.com/showhn.html): ausprobierbar ohne Anmeldung, keine Landingpage, Macher antwortet
-    selbst, nicht um Stimmen bitten, Titel beginnt mit „Show HN“).
+    selbst, nicht um Stimmen bitten, Titel beginnt mit „Show HN“; laut
+    [Guidelines](https://news.ycombinator.com/newsguidelines.html) kein generierter oder KI-bearbeiteter Text). Von den
+    Foren- und Reddit-Threads der Recherche lohnt nur noch einer eine Antwort (Industrial Keyboard, nach einem
+    RDP-Test); die übrigen sind archiviert, geschlossen, gelöst oder passen nicht.
 13. **Messen** – Mensch · 1 Std. im Monat · ab vier Wochen nach dem Livegang. Abschnitt 4.
 
 **Übersicht: Kanäle je Produkt** (✓ = sobald das Repo öffentlich ist)
@@ -213,7 +220,8 @@ Sichtbarkeit. **Mensch** = braucht ein Konto oder eine Entscheidung, **Claude** 
 
 ## 3 Je Produkt
 
-Gleicher Aufbau je Produkt: belegte Fakten, „Nicht schreiben“, Zielsuchen, Orte, dann die Texte. Chancen aus der
+Gleicher Aufbau je Produkt: belegte Fakten, „Nicht schreiben“, Zielsuchen, Orte, dann die Texte für AlternativeTo,
+Portale und Listen, die geprüften Foren-Threads und ein Gerüst für Show HN. Chancen aus der
 Recherche (Top 3 in sechs Monaten, mit öffentlichem Download; ohne Download eine Stufe tiefer). Website-Adressen gelten
 ab dem Livegang, GitHub-Adressen ab der Veröffentlichung.
 
@@ -312,19 +320,38 @@ Durchsichtige Bildschirmsperre für Windows: Tastatur und Maus gesperrt, Bildsch
 Vitrine ist eine transparente Bildschirmsperre für Windows 10 (ab 1809) und Windows 11, 64 Bit. Sie sperrt Tastatur und Maus, während der Bildschirm sichtbar bleibt und alle Programme weiterlaufen – für Messrechner im Labor, Bedienrechner an der Linie und Leitstände, an denen ein Prozess beobachtet, aber nicht bedient werden soll. Gesperrt wird mit Strg+Alt+L, über den Infobereich, nach Leerlaufzeit, nach Zeitplan oder beim Start; entsperrt mit dem Windows-Kennwort oder Windows Hello. Dazu kommen ein verdeckter Modus, verdeckte Bereiche, elektronische Signaturen für Fachanwendungen und ein manipulationserkennendes Protokoll. Verteilung als MSI, Verwaltung über 52 Richtlinien für Gruppenrichtlinie und Intune. Keine Telemetrie. Vorabversion 0.1.0, noch nicht signiert. Kostenlose Open-Source-Software (MIT) von ICT Baden.
 ```
 
-<!-- FOREN-VITRINE -->
+**Foren und Reddit** – Threads aus der Recherche, geprüft am 2026-10-21 (Reddit sperrt Abrufe aus diesem Netz; Stand und Daten aus dem Archiv, Archivierung je Subreddit anhand der Kommentare geschätzt.)
 
-**Show HN – Titel**
+| Thread | Stand | Entscheidung |
+|---|---|---|
+| [r/sysadmin „Transparent screen lock recs“](https://www.reddit.com/r/sysadmin/comments/1rgqvqp/) | 02/2026, seit etwa 08/2026 archiviert | nicht antworten – genau die Frage, aber geschlossen |
+| [r/Windows10: transparente Sperre für einen Dashboard-PC](https://www.reddit.com/r/Windows10/comments/c91jpk/) | 2019, archiviert | nicht antworten |
+| [r/PLC „View only various scadas/hmis“](https://www.reddit.com/r/PLC/comments/1faiqwa/view_only_various_scadashmis/) | 2024, offen | nicht antworten – gesucht ist Fernzugriff nur zum Ansehen, und r/PLC verbietet Produktangebote |
+| [administrator.de „Tastatur und Maus Sperren“](https://administrator.de/forum/tastatur-und-maus-sperren-27507.html) | 2006–2009 | nicht antworten – Moderatoren werten Herstellerantworten in alten Threads als „Nekro-SEO“ |
+
+Neue Threads zur transparenten Sperre kommen in r/sysadmin immer wieder. Dort dürfen Hersteller in bestehenden
+Diskussionen mit Offenlegung antworten, KI-Text ist verboten – also selbst schreiben. Stichpunkte:
+
+- Erst die Frage beantworten: Win+L zeigt den Sperrbildschirm; gesucht ist eine transparente Sperre, die nur die
+  Eingabe sperrt.
+- Offenlegung, dann Vitrine: Tastatur und Maus gesperrt, Bildschirm sichtbar, Entsperren mit Windows-Kennwort oder
+  Windows Hello, MSI und 52 Richtlinien für GPO und Intune, MIT.
+- Grenzen: Vorabversion 0.1.0, nicht auf echten Geräten durchgetestet, Strg+Alt+Entf lässt sich nicht abfangen, kein
+  Entsperren mit Entra ID in den Release-Paketen.
+
+**Show HN – Titel** (Vorschlag)
 
 ```text
 Show HN: Vitrine – open-source transparent screen lock for Windows
 ```
 
-**Show HN – Text** (URL: das GitHub-Repo)
+**Show HN – Gerüst** (3–5 Sätze **selbst** schreiben: HN verbietet generierten und KI-bearbeiteten Text in Posts; URL: das GitHub-Repo)
 
-```text
-Vitrine locks keyboard and mouse on a Windows PC while the screen stays visible and programs keep running. We built it for lab instrument PCs and control-room PCs where a run must be watched but not touched; Win+L hides everything. It unlocks with the Windows password or Windows Hello, writes a hash-chained audit log and is deployed as an MSI with ADMX templates for Group Policy and Intune. It is a 0.1 pre-release and not yet tested end to end on real devices – reports from Remote Desktop and multi-monitor setups would help most. MIT licence, no telemetry.
-```
+- What: locks keyboard and mouse on Windows 10/11; the screen stays visible, programs keep running.
+- Why: lab instrument and control-room PCs that must be watched but not touched; Win+L hides everything.
+- How: unlock with Windows password or Windows Hello; hash-chained audit log; MSI plus ADMX for Group Policy and Intune.
+- Status: 0.1 pre-release, not yet tested end to end on real devices.
+- Ask: reports from Remote Desktop and multi-monitor setups. MIT, no telemetry.
 
 ### 3.2 Lupe – QR-Code- und Barcode-Leser für den PC
 
@@ -453,19 +480,39 @@ in der Beschreibung, Begründung im PR; Merge ab 5 Daumen – **nicht** um Stimm
 }
 ```
 
-<!-- FOREN-LUPE -->
+**Foren und Reddit** – Threads aus der Recherche, geprüft am 2026-10-21 (Reddit sperrt Abrufe aus diesem Netz; Stand und Daten aus dem Archiv, Archivierung je Subreddit anhand der Kommentare geschätzt.)
 
-**Show HN – Titel**
+| Thread | Stand | Entscheidung |
+|---|---|---|
+| [r/software „Use webcam as barcode scanner? Not QR code.“](https://www.reddit.com/r/software/comments/1k545kt/) | 04/2025, archiviert | nicht antworten – genau die Frage, aber geschlossen |
+| [r/mildlyinfuriating „My PC webcam can't scan a QR code“](https://www.reddit.com/r/mildlyinfuriating/comments/1whc6s9/my_pc_webcam_cant_scan_a_qr_code/) | 09/2026, offen | nicht antworten – Frust-Subreddit, ein Produkthinweis wirkt dort wie Spam |
+| [deskmodder „QR-Code am Desktop auslesen“](https://www.deskmodder.de/phpBB3/viewtopic.php?p=443803) | 05/2025, offen | nicht antworten – der Fragesteller nutzt ShareX und ist zufrieden; das Forum verbietet Werbung |
+| [DATEV-Community: Data Matrix der Post-Frankierung](https://www.datev-community.de/t5/Freie-Themen/l%C3%A4sst-sich-der-Datamatrixcode-Deutsche-Post-Frankierung-von/td-p/326872) | 2022, gelöst (Seite sperrt Abrufe, per Schnittstelle gelesen) | nicht antworten |
+| [Microsoft Q&A 1103269](https://learn.microsoft.com/en-gb/answers/questions/1103269/is-there-any-free-or-open-source-library-for-barco) | 2022, offen | nicht antworten – gesucht ist eine Bibliothek, Lupe ist eine App |
+
+Statt alter Threads: r/software lässt laut seinen Regeln Release-Beiträge für neue kostenlose, möglichst quelloffene
+Programme zu – einmal, nach dem Code-Signing, selbst geschrieben. Stichpunkte für neue Fragen („QR-Code am PC
+scannen“, „Webcam als Barcodescanner“):
+
+- Erst die Bordmittel: Die Windows-Kamera-App liest QR-Codes und Barcodes im Modus „Barcode“
+  ([Microsoft](https://support.microsoft.com/en-us/windows/hardware/camera/how-to-use-the-windows-camera-app)).
+- Offenlegung, dann Lupe: Bildschirmscan per Tastenkürzel, Eintippen in das Programm im Vordergrund, Linux und macOS,
+  offline, MIT.
+- Grenzen: Kamera bisher nur gegen eine simulierte Quelle getestet, Vorabversion 0.1.0.
+
+**Show HN – Titel** (Vorschlag)
 
 ```text
 Show HN: Lupe – read QR codes and barcodes from your screen or webcam
 ```
 
-**Show HN – Text** (URL: das GitHub-Repo)
+**Show HN – Gerüst** (3–5 Sätze **selbst** schreiben: HN verbietet generierten und KI-bearbeiteten Text in Posts; URL: das GitHub-Repo)
 
-```text
-Lupe reads QR codes and barcodes on the desktop: press Win+Shift+Q and drag a box around a code in a PDF, an e-mail or a video call, or hold it in front of the webcam. The result is copied, typed into the window you were working in, or opened through a link rule; with the webcam it works like a hand scanner. It runs on Windows, Linux and macOS (.NET 10, Avalonia, zxing-cpp with 22 formats), works offline and has no telemetry. This is 0.1.0: the camera path has only been tested against a simulated source and the macOS build has not run on a real Mac yet, so reports from real webcams and Macs would help most. MIT licence.
-```
+- What: reads QR codes and barcodes from the screen (Win+Shift+Q, drag a box), a webcam, image files and the clipboard.
+- Result: copied, typed into the window you were working in, or opened through a link rule; webcam works like a hand scanner.
+- Tech: Windows, Linux, macOS; .NET 10, Avalonia, zxing-cpp (22 formats); offline, no telemetry.
+- Status: 0.1.0; camera only tested against a simulated source, macOS build not yet run on a real Mac.
+- Ask: reports from real webcams and Macs. MIT.
 
 ### 3.3 Zutritt – Berechtigungsbericht für Windows-Dateifreigaben
 
@@ -559,19 +606,40 @@ Wer darf worauf zugreifen? Liest Freigabe- und NTFS-Berechtigungen, löst Gruppe
 Zutritt beantwortet die Frage jeder Berechtigungsprüfung: Wer darf auf welchen Ordner des Fileservers zugreifen – und über welche Gruppe? Es liest Freigabe- und NTFS-Berechtigungen einer Freigabe, eines ganzen Servers oder lokaler Ordner, rechnet die effektiven Rechte wie Windows und löst lokale Gruppen und das Active Directory der eigenen Domäne bis zur einzelnen Person auf. 15 Prüfregeln melden riskante Rechte – breite Gruppen mit Schreibrecht, verwaiste SIDs, Rechte direkt an Personen, verschobene Ordner –, jeweils mit Erklärung und Empfehlung. Der Vergleich mit dem letzten Lauf zeigt, was sich geändert hat. Ergebnis: filterbare Excel-Arbeitsmappe und PDF zum Abzeichnen. Zutritt liest nur, braucht keinen Server, keinen Agenten und keinen Dienst und hat keine Telemetrie. Für Windows 10 (ab 1809) und 11. Vorabversion 0.1.0. Kostenlos und Open Source (MIT).
 ```
 
-<!-- FOREN-ZUTRITT -->
+**Foren** – Threads aus der Recherche, geprüft am 2026-10-21
 
-**Show HN – Titel**
+| Thread | Stand | Entscheidung |
+|---|---|---|
+| [administrator.de Tutorial „Benutzerrechte anzeigen über alle Verzeichnisse hinweg“](https://administrator.de/tutorial/howto-benutzerrechte-anzeigen-ueber-alle-verzeichnisse-hinweg-6775.html) | 2005–2011, Anleitung | nicht antworten – dort rügt ein Moderator Herstellerbeiträge in alten Threads als „Nekro-SEO“ |
+| [administrator.de „Suche Berechtigungsmanagement Tool“](https://administrator.de/forum/suche-berechtigungsmanagement-tool-287303.html) | 2015–2016 | nicht antworten – gesucht ist Rechteverwaltung, Zutritt liest nur |
+| [ComputerBase „NTFS-Berechtigungen auslesen“](https://www.computerbase.de/forum/threads/ntfs-berechtigungen-auslesen.876997/) | 2011–2012 | nicht antworten – 14 Jahre alt |
+| [PowerShell.org: verwaiste SIDs entfernen](https://forums.powershell.org/t/resolved-removing-orphaned-sids-from-directories/10701) | 2018, geschlossen | nicht antworten |
+
+Für neue Fragen: administrator.de ([Regeln](https://administrator.de/help/8)) und ComputerBase
+([Regeln](https://www.computerbase.de/forum/help/terms/)) verbieten Werbung und verlangen ein als Firma
+gekennzeichnetes Konto; administrator.de verlangt außerdem, KI-erstellte Texte mit Modellnamen zu kennzeichnen – also
+selbst schreiben. Stichpunkte:
+
+- Erst den Weg mit Bordmitteln nennen (icacls, Get-Acl) und wo er endet: Freigaberechte, verschachtelte Gruppen,
+  Nachweis für das Audit.
+- Offenlegung, dann Zutritt: Freigabe- und NTFS-Rechte, Gruppen bis zur Person, 15 Regeln, Excel und PDF, nur lesend,
+  MIT.
+- Grenzen: Active Directory nur der eigenen Domäne und bisher nur gegen ein simuliertes Verzeichnis getestet,
+  Vorabversion 0.1.0.
+
+**Show HN – Titel** (Vorschlag)
 
 ```text
 Show HN: Zutritt – who can access what on Windows file shares
 ```
 
-**Show HN – Text** (URL: das GitHub-Repo)
+**Show HN – Gerüst** (3–5 Sätze **selbst** schreiben: HN verbietet generierten und KI-bearbeiteten Text in Posts; URL: das GitHub-Repo)
 
-```text
-Zutritt reads share and NTFS permissions, computes effective access like Windows does (stored ACE order, deny entries, inheritance, share and NTFS combined) and resolves groups down to people. It flags 15 kinds of risky permissions, compares with the last run and writes an Excel workbook and a PDF to sign for access reviews. It only reads and needs no server or agent; `Zutritt.exe --demo` opens two sample runs without a file server. This is 0.1.0, and the Active Directory resolution has only been tested against a simulated directory so far – results from real domains would help most. MIT licence.
-```
+- What: reads share and NTFS permissions, computes effective access like Windows (ACE order, deny, inheritance, share and NTFS).
+- Output: groups resolved down to people, 15 rules, comparison with the last run, Excel workbook and PDF to sign.
+- Try: read-only, no server or agent; `Zutritt.exe --demo` opens two sample runs without a file server.
+- Status: 0.1.0; Active Directory resolution so far tested against a simulated directory only.
+- Ask: results from real domains. MIT.
 
 ### 3.4 Riegel – Windows-Härtung offline prüfen
 
@@ -690,19 +758,33 @@ Selbsteinreichungen ungemergt geschlossen, Tool-Ergänzungen kommen selten durch
     </tr>
 ```
 
-<!-- FOREN-RIEGEL -->
+**Foren und Reddit** – Threads aus der Recherche, geprüft am 2026-10-21 (Reddit sperrt Abrufe aus diesem Netz; Stand und Daten aus dem Archiv, Archivierung je Subreddit anhand der Kommentare geschätzt.)
 
-**Show HN – Titel**
+| Thread | Stand | Entscheidung |
+|---|---|---|
+| [r/sysadmin „Windows security audit tool recommendations?“](https://www.reddit.com/r/sysadmin/comments/1i9rh9n/) | 01/2025, vom Spamfilter entfernt und archiviert | nicht antworten |
+
+Für neue Fragen (r/sysadmin: Offenlegung Pflicht, kein KI-Text) – Stichpunkte, selbst formulieren:
+
+- Erst klären, was geprüft werden soll: Konfiguration (Härtung) oder Schwachstellen; die Bordmittel `secedit`,
+  `auditpol` und `reg` reichen für einzelne Werte.
+- Offenlegung, dann Riegel: offline und nur lesend, portabler Sammler, 153 Regeln, begründete Ausnahmen, Bericht zum
+  Abzeichnen, MIT.
+- Grenzen: keine Inhalte von CIS oder BSI SiSyPHuS, keine Compliance-Aussage, Vorabversion, nicht signiert.
+
+**Show HN – Titel** (Vorschlag)
 
 ```text
 Show HN: Riegel – offline, read-only Windows hardening check for plant PCs
 ```
 
-**Show HN – Text** (URL: das GitHub-Repo)
+**Show HN – Gerüst** (3–5 Sätze **selbst** schreiben: HN verbietet generierten und KI-bearbeiteten Text in Posts; URL: das GitHub-Repo)
 
-```text
-Riegel checks Windows machines that can't take an agent or an install – HMIs, lab PCs, control-room boxes, some without a network. A collector of about 130 KB reads the configuration from a USB stick without changing anything; another PC evaluates 153 rules (sources: ACSC, Microsoft docs, DISA STIGs), records justified exceptions with an approving role and an expiry date, and writes a report to sign plus an evidence pack auditors can re-verify. It never applies settings; remediation comes as files for the plant vendor. `Riegel.exe --demo` opens a sample plant. This is 0.1: tested on CI runners and a Windows 11 workstation, not yet on real Windows 7 or 2008 R2 machines. MIT licence.
-```
+- What: hardening check for Windows machines that can't take an agent or an install (HMIs, lab and control-room PCs).
+- How: ~130 KB collector from a USB stick, changes nothing; another PC evaluates 153 rules (ACSC, Microsoft docs, DISA STIGs).
+- Output: justified exceptions with approving role and expiry, report to sign, evidence pack auditors re-verify; remediation only as files.
+- Try: `Riegel.exe --demo` opens a sample plant.
+- Status: 0.1; tested on CI runners and a Windows 11 workstation, not yet on real Windows 7/2008 R2 machines. MIT.
 
 ### 3.5 Plakette – Etiketten-Designer für Zebra-Drucker (ZPL)
 
@@ -803,19 +885,32 @@ Plakette gestaltet Etiketten für Zebra- und kompatible Etikettendrucker und sch
 - [Plakette](https://github.com/ict-baden/plakette) - Label designer for Zebra and compatible printers that prints ZPL directly, on Windows and Linux.
 ```
 
-<!-- FOREN-PLAKETTE -->
+**Foren** – Threads aus der Recherche, geprüft am 2026-10-21
 
-**Show HN – Titel** (erst nach der Hardware-Abnahme)
+| Thread | Stand | Entscheidung |
+|---|---|---|
+| developer.zebra.com, Thread 32115 (Etiketten aus Excel) | 2016, Seite gelöscht (404) | – |
+| [administrator.de „Software Lizenz Zebra Drucker“](https://administrator.de/forum/software-lizenz-zebra-drucker-311481.html) | 2016, gelöst | nicht antworten – anderes Thema (Druckerverwaltung) |
+
+Neue Fragen erst nach der Hardware-Abnahme beantworten. Stichpunkte, etwa zu „ZPL unter Linux drucken“:
+
+- Erst den Weg ohne Zusatzprogramm nennen: ZPL als Rohdaten an Port 9100 oder über eine Raw-Warteschlange.
+- Offenlegung, dann Plakette: gestalten und ZPL direkt drucken, Windows und Linux, Befehlszeile, MIT.
+- Grenzen: Vorabversion, Ergebnis der Hardware-Abnahme nennen.
+
+**Show HN – Titel** (Vorschlag, erst nach der Hardware-Abnahme)
 
 ```text
 Show HN: Plakette – a label designer for Zebra printers on Windows and Linux
 ```
 
-**Show HN – Text** (URL: das GitHub-Repo)
+**Show HN – Gerüst** (3–5 Sätze **selbst** schreiben: HN verbietet generierten und KI-bearbeiteten Text in Posts; URL: das GitHub-Repo)
 
-```text
-Plakette designs labels and sends ZPL straight to Zebra and compatible printers – over port 9100, TLS, the Windows spooler or to a file – without a printer driver, licence server or admin rights. The canvas works in printer dots, barcodes come with GS1 validation, data comes from CSV, Excel, ODBC or SQLite, and existing labels can be imported from ZPL. It runs on Windows and Linux (.NET 10, Avalonia), has a command line for scripts and `--demo` with virtual printers. It is a pre-release; we would like to hear which labels and printers you would test it with. MIT licence.
-```
+- What: label designer that sends ZPL straight to Zebra and compatible printers (port 9100, TLS, Windows spooler, file).
+- No printer driver, licence server or admin rights; canvas in printer dots; barcodes with GS1 validation.
+- Data from CSV, Excel, ODBC, SQLite; ZPL import of existing labels; command line; `--demo` with virtual printers.
+- Status: name the result of the hardware acceptance test (until then: verified against a virtual printer only).
+- Ask: which labels and printers people would test it with. Windows and Linux, MIT.
 
 ### 3.6 Pforte – Kiosk-Browser für Android-MDE-Geräte
 
@@ -916,19 +1011,36 @@ Pforte ist ein Kiosk-Browser für robuste Android-Geräte, zum Beispiel von Zebr
 * [**Pforte**](https://github.com/ict-baden/pforte) <sup>**[[IzzyOnDroid](https://apt.izzysoft.de/packages/de.ictbaden.pforte)]**</sup>
 ```
 
-<!-- FOREN-PFORTE -->
+**Foren und Reddit** – Threads aus der Recherche, geprüft am 2026-10-21 (Reddit sperrt Abrufe aus diesem Netz; Stand und Daten aus dem Archiv, Archivierung je Subreddit anhand der Kommentare geschätzt.)
 
-**Show HN – Titel** (erst mit APK im Release)
+| Thread | Stand | Entscheidung |
+|---|---|---|
+| [r/sysadmin „Zebra MC930B is going to get me fired“](https://www.reddit.com/r/sysadmin/comments/1jw3h72/) | 04/2025, archiviert | nicht antworten |
+| [r/honeywell „Enterprise Brower“](https://www.reddit.com/r/honeywell/comments/z8xl0z/enterprise_brower/) | 2022, offen | nicht antworten – die Geräte des Fragestellers (CT50, Android 6.0.1) liegen unter Pfortes Mindestversion Android 8.0, und die Enterprise-Browser-APIs unterstützt Pforte nicht |
+| [r/Intune „Deploy files to Android Devices“](https://www.reddit.com/r/Intune/comments/1fpaqrc/deploy_files_to_android_devices/) | 2024, offen | nicht antworten – es geht um das Verteilen eines DataWedge-Profils für eine eigene App; r/Intune verbietet KI-Kommentare |
+| developer.zebra.com, Thread 35251 | Blogbeitrag von Zebra, keine Frage | – |
+
+Für neue Fragen (etwa „Scan kommt in der Web-App nicht an“) – Stichpunkte, selbst formulieren:
+
+- Erst bei der eigentlichen Frage helfen (DataWedge-Profil und Ausgabe der App), soweit möglich.
+- Offenlegung, dann Pforte: Kiosk-Browser, Scans ins aktive Feld, legt ein eigenes DataWedge-Profil an,
+  Konfiguration per MDM, MIT.
+- Grenzen: Webbrowser, keine Terminal-Emulation, keine Enterprise-Browser-APIs, Android 8.0 oder neuer, bisher nur
+  auf einem Zebra HC20 getestet.
+
+**Show HN – Titel** (Vorschlag, erst mit APK im Release)
 
 ```text
 Show HN: Pforte – open-source kiosk browser for rugged Android scanners
 ```
 
-**Show HN – Text** (URL: das GitHub-Repo)
+**Show HN – Gerüst** (3–5 Sätze **selbst** schreiben: HN verbietet generierten und KI-bearbeiteten Text in Posts; URL: das GitHub-Repo)
 
-```text
-Pforte is a kiosk browser for rugged Android handhelds. Barcode scans from Zebra DataWedge, Honeywell or any scanner app that sends an intent are typed into the focused field of your web app, with optional Tab or Enter, so existing web apps need no changes; a scan event and a small JavaScript API are there for more control. Kiosk mode, a URL allow list and per-profile branding come from one JSON file that your MDM pushes as managed configuration. It is a web browser, not a terminal emulator, and so far tested on one Zebra HC20 – reports from other Zebra models and Honeywell devices would help most. MIT licence, no telemetry.
-```
+- What: kiosk browser for rugged Android handhelds; scans from DataWedge, Honeywell or intents go into the focused web field.
+- Existing web apps need no changes; scan event and a small JavaScript API for more control.
+- Kiosk mode, URL allow list, profiles; one JSON pushed by the MDM as managed configuration.
+- Limits: web browser, not a terminal emulator; so far tested on one Zebra HC20.
+- Ask: reports from other Zebra models and Honeywell devices. MIT, no telemetry.
 
 ### 3.7 Industrial Keyboard – Android-Tastatur mit F1–F24 für MDE-Geräte
 
@@ -1026,19 +1138,37 @@ Industrial Keyboard ist eine Bildschirmtastatur für robuste Android-Geräte in 
 * [**Industrial Keyboard**](https://github.com/ict-baden/industrialkeyboard) <sup>**[[IzzyOnDroid](https://apt.izzysoft.de/packages/de.ictbaden.industrialkeyboard)]**</sup>
 ```
 
-<!-- FOREN-KEYBOARD -->
+**Foren** – Threads aus der Recherche, geprüft am 2026-10-21
 
-**Show HN – Titel**
+| Thread | Stand | Entscheidung |
+|---|---|---|
+| [developer.zebra.com „MC3300 keyboard“](https://developer.zebra.com/content/mc3300-keyboard) | 11/2024, offen, eine Expertenantwort ohne Lösung | **erst nach einem RDP-Test** antworten (Entwurf unten) |
+| [Devolutions-Forum „FN key in Devolutions Mobile on Android“](https://forum.devolutions.net/topics/33259) | 2020, vom Hersteller gelöst | nicht antworten |
+| [Neowin „Looking for alternative to Hacker's Keyboard“](https://www.neowin.net/forum/topic/1386436-looking-for-alternative-to-hackers-keyboard/) | 2019, geschlossen (Seite sperrt Abrufe, Stand aus dem Webarchiv) | nicht antworten |
+
+**developer.zebra.com „MC3300 keyboard“** – nur posten, wenn ein Test mit einem RDP-Client auf einem Gerät zeigt, dass
+die Tasten in der Sitzung ankommen; Platzhalter in eckigen Klammern ersetzen, sonst nicht antworten. Zebras
+Nutzungsbedingungen verbieten unaufgeforderte Werbung – sachlich bleiben.
+
+```text
+Disclosure: I work for ICT Baden, which makes this free open-source tool.
+
+One option when the hardware keys don't reach the session is an on-screen keyboard with function keys. Industrial Keyboard is an Android input method (MIT licence) with an Fn tab for F1–F12, Esc, Ins, Del, Home/End and the arrows; Shift sends F13–F24 as Shift+F1…F12. We tested it with [RDP client and version] on [device and Android version]: [result]. It needs Android 8.0 or later; so far we have tested it on [devices, e.g. Zebra HC20]. The configuration can be pushed from an EMM as managed configuration. https://github.com/ict-baden/industrialkeyboard
+```
+
+**Show HN – Titel** (Vorschlag)
 
 ```text
 Show HN: Industrial Keyboard – Android keyboard with F1–F24 for rugged devices
 ```
 
-**Show HN – Text** (URL: das GitHub-Repo)
+**Show HN – Gerüst** (3–5 Sätze **selbst** schreiben: HN verbietet generierten und KI-bearbeiteten Text in Posts; URL: das GitHub-Repo)
 
-```text
-Industrial Keyboard is an Android input method for warehouse handhelds: big keys for gloves, a scan tab that pulls the scanner's soft trigger, number pads that match the field, and a Fn tab with F1–F12 plus F13–F24 on Shift. Android has no key codes above F12, so F13–F24 go out as Shift+F1…F12, the mapping 5250 terminal emulators use. Layouts, macros and settings come from one JSON file that an MDM can push. It has no internet permission and no dictionary, and nothing typed is stored. Tested on a Zebra HC20 so far; the Honeywell trigger is built from the vendor documentation, so reports from Honeywell devices would help most. MIT licence.
-```
+- What: Android input method for warehouse handhelds: big keys for gloves, scan tab with soft trigger, matching number pads.
+- Fn tab with F1–F12; Shift gives F13–F24, sent as Shift+F1…F12 (no Android key codes above F12; the 5250 mapping).
+- Layouts, macros and settings from one JSON an MDM can push; no internet permission, no dictionary, nothing typed is stored.
+- Status: tested on a Zebra HC20; Honeywell trigger built from the vendor documentation.
+- Ask: reports from Honeywell devices. MIT.
 
 ## 4 KI-Sichtbarkeit messen
 
@@ -1087,8 +1217,9 @@ Datum · Dienst · Frage · genannt (ja/nein) · zitiert (welche URL) · Fakten 
 - Kein Linkkauf, keine Linktausch-Netzwerke, keine Gastartikel nur für Links.
 - Keine Fake-Bewertungen, keine Zweit- oder Sockenkonten, niemanden um Likes, Daumen, Upvotes oder Sterne bitten
   (AlternativeTo, Hacker News und awesome-qr-code verbieten es ausdrücklich).
-- Kein automatisches Posten, keine Bots in Foren oder auf Reddit, keine KI-geschriebenen PRs an Listen, die das
-  ablehnen.
+- Kein automatisches Posten, keine Bots in Foren oder auf Reddit, kein KI-Text dort, wo er verboten ist (Hacker News,
+  r/sysadmin, r/Intune, awesome-windows, awesome-sysadmin), und keine Beiträge ohne Kennzeichnung, wo sie verlangt wird
+  (administrator.de).
 - Keine Antworten in archivierten oder jahrealten Threads, keine Beiträge ohne Offenlegung, keine Werbung als
   Antwort auf eine Frage, die das Tool nicht löst.
 - Keine Aussagen über Fremdprodukte außer der beschreibenden Nennung, keine Behauptung über das hinaus, was README und
