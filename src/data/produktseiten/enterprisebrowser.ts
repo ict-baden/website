@@ -80,7 +80,7 @@ const page: ProductPage = {
     },
   },
   de: {
-    title: 'Pforte – Kiosk-Browser für Zebra- und Android-MDE-Geräte',
+    title: 'Pforte – Kiosk-Browser für Android-MDE-Geräte wie Zebra',
     description: 'Pforte ist ein Kiosk- und Industriebrowser für robuste Android-Geräte von Zebra und Honeywell: Scans direkt ins Webformular, URL-Allowlist, Kioskmodus, MDM.',
     lead: 'Pforte (früher EnterpriseBrowser) ist ein Kiosk-Browser für robuste Android-Geräte (MDE-Geräte), zum Beispiel von Zebra und Honeywell: Er öffnet Ihre Web-Apps, schreibt Barcode-Scans direkt in das aktive Eingabefeld und lässt sich per MDM zentral konfigurieren. Für Android 8.0 oder neuer, {lizenz}.',
     independence: 'Pforte ist ein eigenständiges Produkt von ICT Baden und nicht mit Zebra Technologies oder Honeywell verbunden.',

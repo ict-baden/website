@@ -319,13 +319,18 @@ The live image `ghcr.io/ict-baden/website:live` is built and probed by the CI on
 `https://ict-baden.de`, all redirects and 410s). Nothing runs on ict-baden.de until someone starts it:
 
 1. **People first:** legal review of the privacy policies (website and the seven apps), the imprint (company name
-   „ICT Baden GmbH“), the comparison sections and the product names; then remove the IMPORTANT note at the top.
+   „ICT Baden GmbH“), the comparison sections with their trademark notices (incl. the factual claim about CodeTwo on
+   the Lupe page and the use of the generic terms „transparent screen lock“/„transparent lock screen“, which
+   e-motional and Softros use as product names) and the product names; then remove the IMPORTANT note at the top.
 2. **Repository variables** (optional, not secret): `INDEXNOW_KEY` (e.g. `uuidgen | tr -d -`), and – only if Search
    Console/Bing are verified by meta tag instead of DNS – `GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION`. Then
    re-run the CI on `main` so that `:live` contains them.
 3. **Start the live container on docker01:** `SITE_MODE=live deploy/deploy.sh` (copies
    `deploy/docker-compose.live.yml` to `/srv/docker/ict-baden.de`, starts `ictbaden-live` on 192.168.4.6:8018 with
-   the tunnel label `cf.tunnel.hostname=ict-baden.de`). The preview stays as it is (`ictbaden-web`, noindex).
+   the tunnel label `cf.tunnel.hostname=ict-baden.de`). The preview keeps running (`ictbaden-web`, noindex); after
+   the go-live put it behind Cloudflare Access (`cf.tunnel.access`) or stop it, so that no externally linked preview
+   URL shows up as „indexed, though blocked by robots.txt“. `deploy.sh` refuses to put a preview image on ict-baden.de
+   or the live image on the preview (tag and image label are checked before switching).
 4. **Cloudflare / DNS (owner of the zone):** point `ict-baden.de` and `www.ict-baden.de` to the tunnel (the label
    above, or a public hostname in the tunnel config → `http://192.168.4.6:8018`); SSL/TLS „Full“, „Always Use HTTPS“
    on (http → https 301); `www` → apex 301 (Redirect Rule; nginx does it as well). **Security › Bots:** „Block AI
@@ -340,7 +345,9 @@ The live image `ghcr.io/ict-baden/website:live` is built and probed by the CI on
    `https://ict-baden.de/sitemap.xml`, request indexing of the 14 product pages (de and en) and the home page.
 7. **Bing Webmaster Tools** (also feeds ChatGPT search and Copilot): import from Search Console, submit the sitemap.
 8. Rich Results Test and validator.schema.org for one product page per language and the home page (LocalBusiness,
-   VideoObject); PageSpeed Insights for the home page.
+   VideoObject); PageSpeed Insights for the home page. Expected: LocalBusiness warns about missing opening hours and
+   coordinates (add them to `src/lib/seo.ts` once someone confirms them); SoftwareApplication shows no software rich
+   result while there are no ratings and no public download (`offers` appears with `download.public`).
 9. When a product repository goes public: `download.public: true` in its `src/data/produktseiten/<id>.ts` (one line;
    `play` for the Android apps once on Google Play), OG image (`npm run brand -- --only <slug>`); then list the product
    where AI answers look (AlternativeTo, winget, Google Play, Flathub).

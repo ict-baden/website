@@ -31,7 +31,7 @@ export function llmsTxt(): string {
   for (const p of products) {
     const page = pageFor(p);
     const independence = page.de.independence ? ` ${page.de.independence}` : '';
-    lines.push(`- [${p.name} – ${p.kind}](${url(productUrlFor(p, 'de'))}): ${plain(fill(page.de.lead, page, p, 'de'))}${independence} Status: ${status(p)}. ${download(p)}. English: ${url(productUrlFor(p, 'en'))}`);
+    lines.push(`- [${p.name} – ${p.kind}](${url(productUrlFor(p, 'de'))}): ${plain(fill(page.de.lead, page, p, 'de'))}${independence} Status: ${status(p)}. ${download(p)}. English: ${url(productUrlFor(p, 'en'))} (${page.en.kind ?? p.kind}; ${page.en.aka.join(', ')})`);
   }
   lines.push(
     '',
@@ -59,7 +59,7 @@ export function llmsFullTxt(): string {
     const c = page.de;
     const f = (s: string) => plain(fill(s, page, p, 'de'));
     lines.push(`## ${p.name} – ${p.kind}`, '');
-    lines.push(`Seite: ${url(productUrlFor(p, 'de'))} · English: ${url(productUrlFor(p, 'en'))}`);
+    lines.push(`Seite: ${url(productUrlFor(p, 'de'))} · English: ${url(productUrlFor(p, 'en'))} (${page.en.kind ?? p.kind}; ${page.en.aka.join(', ')})`);
     lines.push(`Produktlinie: ${lineById(p.linie).name} · Status: ${status(p)}${p.updated ? ` · Stand: ${p.updated}` : ''} · Lizenz: MIT, kostenlos`);
     lines.push(`${download(p)}.`);
     lines.push('', f(c.lead), '');
@@ -87,7 +87,7 @@ export function llmsFullTxt(): string {
     lines.push('### Grenzen', '', ...c.limits.map((x) => `- ${f(x)}`), '');
     lines.push('### Häufige Fragen', '');
     for (const q of [...c.faq, ...(cmp?.faq ?? [])]) lines.push(`**${f(q.q)}**`, f(q.a), '');
-    lines.push(`Auch bekannt als: ${c.aka.join(', ')}`, '');
+    lines.push(`Verwandte Begriffe: ${c.aka.join(', ')}`, `English: ${page.en.kind ?? p.kind} – ${page.en.aka.join(', ')}`, '');
     if (c.trademarks) lines.push(`Marken: ${c.trademarks}`, '');
   }
   return lines.join('\n');

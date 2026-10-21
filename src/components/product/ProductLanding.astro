@@ -41,6 +41,8 @@ const phones = Boolean(hero && isPortrait(hero));
 const heroPhones = phones ? m.screenshots.slice(0, 3) : [];
 const gallery = m.demo || phones ? m.screenshots : m.screenshots.slice(1);
 const shotKind = (x: Shot) => (isPortrait(x) ? 'phone' : x.light.width / x.light.height >= 2.4 ? 'wide' : x.light.width <= 1100 ? 'small' : 'normal');
+/** Alternativtext und Bildunterschrift der Demo-Animation in der Sprache der Seite */
+const demoText = m.demo ? (lang === 'en' && m.demo.en ? m.demo.en : { alt: m.demo.alt, caption: m.demo.caption }) : null;
 const galleryNote = lang === 'en' ? m.galleryNoteEn ?? null : m.galleryNote;
 
 const related = page.related.map((id) => products.find((x) => x.id === id)).filter((x): x is Product => Boolean(x));
@@ -59,7 +61,7 @@ const description = plain(f(copy.description));
 const h1Text = kind ? `${p.name} – ${kind}` : p.name;
 const crumbs = lang === 'de'
   ? [{ name: t.home, url: '/' }, { name: t.products, url: '/#produkte' }, { name: p.name, url }]
-  : [{ name: t.home, url: '/' }, { name: t.products, url: '/en/' }, { name: p.name, url }];
+  : [{ name: t.home, url: '/en/' }, { name: t.products, url: '/en/#products' }, { name: p.name, url }];
 const software = softwareApplication(p, page, lang, kind);
 const jsonLd = [
   organization(),
@@ -139,10 +141,10 @@ const updated = p.updated ? t.date(p.updated) : null;
             <div class="dvis-frame dvis-frame--demo">
               <picture>
                 <source media="(prefers-reduced-motion: reduce)" srcset={m.demo.still} />
-                <img src={m.demo.src} width={m.demo.width} height={m.demo.height} alt={m.demo.alt} fetchpriority="high" />
+                <img src={m.demo.src} width={m.demo.width} height={m.demo.height} alt={demoText!.alt} fetchpriority="high" />
               </picture>
             </div>
-            {m.demo.caption && <figcaption>{m.demo.caption}</figcaption>}
+            {demoText?.caption && <figcaption>{demoText.caption}</figcaption>}
           </figure>
         ) : phones ? (
           <figure class="dvis dvis--phones">

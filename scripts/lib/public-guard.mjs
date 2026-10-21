@@ -78,6 +78,7 @@ export const COMPETITOR_PATTERNS = [
   /ZebraDesigner|Zebra Designer|BarTender|NiceLabel|Loftware|CODESOFT|ZPLab|gLabels|Labelary/i,
   /HardeningKitty|CIS-CAT|Policy Analyzer|Nessus|OpenVAS|HardeningLens/i,
   /CodeTwo|barcodrod|bcWebCam|BarcodeCam|ShareX/i,
+  /NTFS Permissions Reporter|Cjwdev|HID Global|\bIvanti\b/i,
   /Enterprise Keyboard|Hacker'?s Keyboard|Fully Kiosk|SureFox|SOTI Surf|Ivanti Velocity|StayLinked|Zebra Enterprise Browser|Honeywell Enterprise Browser/i,
   /WinCC-Alternative|PCS[- ]?7-Alternative|Ziath|DataPaq|UaExpert|iReasoning|YABE|OPSWAT/i,
   // Produktname in Großschreibung ("Kiosk Browser Lockdown" u. a.); die Gattung schreibt sich "Kiosk-Browser" bzw. "kiosk browser"

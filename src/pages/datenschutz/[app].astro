@@ -33,7 +33,7 @@ const kindDe = android ? 'Android-App' : 'Software';
 
       <h2 id="deutsch">Datenschutzerklärung für {android ? 'die App' : ''} {name}</h2>
       {android
-        ? <p>Gilt für die Android-App {name} (Paket <code>{pkg}</code>), wie sie über GitHub und – sobald veröffentlicht – über Google Play verteilt wird.</p>
+        ? <p>Gilt für die Android-App {name} (Paket <code>{pkg}</code>), in allen Vertriebswegen (direkt als APK, über ein MDM und – sobald veröffentlicht – über Google Play).</p>
         : <p>Gilt für die Software {name} von ICT Baden in allen Lieferformen (Installationspaket, portable Fassung, Befehlszeile).</p>}
 
       <h3>Verantwortlich</h3>
@@ -69,7 +69,7 @@ const kindDe = android ? 'Android-App' : 'Software';
       <h2 id="english" lang="en">Privacy policy for {android ? 'the app' : ''} {name}</h2>
       <div lang="en">
         {android
-          ? <p>Applies to the Android app {name} (package <code>{pkg}</code>) as distributed through GitHub and – once published – Google Play.</p>
+          ? <p>Applies to the Android app {name} (package <code>{pkg}</code>) in every form of distribution (APK, via an MDM and – once published – Google Play).</p>
           : <p>Applies to the software {name} by ICT Baden in every form of delivery (installer, portable version, command line).</p>}
 
         <h3>Controller</h3>

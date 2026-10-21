@@ -78,7 +78,7 @@ const page: ProductPage = {
   de: {
     title: 'Transparente Bildschirmsperre für Windows – Vitrine',
     description: 'Durchsichtige Bildschirmsperre für Windows: Tastatur und Maus gesperrt, der Monitor bleibt sichtbar, Programme laufen weiter – für Labor, Produktion und Leitstand.',
-    lead: 'Vitrine ist eine transparente, durchsichtige Bildschirmsperre für Windows 10 und 11: Tastatur und Maus sind gesperrt, der Monitor bleibt sichtbar und alle Programme laufen weiter. Entsperrt wird mit dem Windows-Kennwort oder Windows Hello, elektronische Signaturen gehen auch mit Microsoft Entra ID – für Labore, Produktionslinien und Leitstände, {lizenz}.',
+    lead: 'Vitrine ist eine transparente (durchsichtige) Bildschirmsperre für Windows 10 und 11: Tastatur und Maus sind gesperrt, der Monitor bleibt sichtbar und alle Programme laufen weiter. Entsperrt wird mit dem Windows-Kennwort oder Windows Hello, elektronische Signaturen gehen auch mit Microsoft Entra ID – für Labore, Produktionslinien und Leitstände, {lizenz}.',
     sections: [
       {
         id: 'wofuer',
@@ -153,17 +153,17 @@ const page: ProductPage = {
       { q: 'Erfüllt Vitrine 21 CFR Part 11 oder EU GMP Annex 11?', a: 'Vitrine liefert Bausteine dafür – Zugriffskontrolle, Audit-Trail, Signatur mit Bedeutung, automatisches Sperren –, ist aber kein validiertes Produkt. ICT Baden macht keine Konformitätszusage; Validierung und Risikobewertung liegen beim Betreiber.' },
       { q: 'Ist Vitrine kostenlos? Sendet es Daten?', a: 'Vitrine ist {lizenz}. Die Software sendet keine Daten an ICT Baden: keine Telemetrie, keine Absturzberichte, keine Update-Prüfung. Anmeldungen mit Entra ID laufen zwischen Windows und Microsoft.{download}' },
     ],
-    aka: ['durchsichtige Bildschirmsperre', 'Bildschirmsperre durchsichtig', 'transparenter Sperrbildschirm', 'Tastatur- und Maussperre', 'Eingabesperre', 'Bediensperre', 'Bildschirmsperre mit sichtbarem Desktop'],
+    aka: ['durchsichtige Bildschirmsperre', 'transparenter Sperrbildschirm', 'Tastatur- und Maussperre', 'Eingabesperre', 'Bediensperre', 'Bildschirmsperre mit sichtbarem Desktop'],
     trademarks: 'Microsoft, Windows, Entra, Intune und Windows Hello sind Marken der Microsoft-Unternehmensgruppe. Sie werden nur genannt, um die Kompatibilität zu beschreiben.',
   },
   en: {
     operatingSystem: 'Windows 10 (version 1809 or later), Windows 11',
     softwareRequirements: 'Windows 10 version 1809 (build 17763) or later, 64-bit',
-    title: 'Vitrine – transparent screen lock for Windows',
+    title: 'Transparent lock screen for Windows – Vitrine',
     description: 'Transparent lock screen for Windows: Vitrine locks keyboard and mouse, the screen stays visible and programs keep running – for labs, production and control rooms.',
     kind: 'Transparent screen lock for Windows',
     tagline: 'Look, don’t touch.',
-    lead: 'Vitrine is a transparent screen lock for Windows 10 and 11: keyboard and mouse are blocked while every program stays visible and keeps running. Unlock with the Windows password or Windows Hello; electronic signatures also work with Microsoft Entra ID – for laboratories, production lines and control rooms, {lizenz}.',
+    lead: 'Vitrine is a transparent lock screen for Windows 10 and 11: keyboard and mouse are blocked while every program stays visible and keeps running. Unlock with the Windows password or Windows Hello; electronic signatures also work with Microsoft Entra ID – for laboratories, production lines and control rooms, {lizenz}.',
     sections: [
       {
         id: 'why',
@@ -238,7 +238,7 @@ const page: ProductPage = {
       { q: 'Is Vitrine compliant with 21 CFR Part 11 or EU GMP Annex 11?', a: 'Vitrine provides building blocks – access control, audit trail, signatures with a meaning, automatic locking – but it is not a validated product. ICT Baden makes no compliance claim; validation and risk assessment are up to the operator.' },
       { q: 'Is Vitrine free? Does it send data?', a: 'Vitrine is {lizenz}. It sends no data to ICT Baden: no telemetry, no crash reports, no update check. Entra ID sign-ins run between Windows and Microsoft.{download}' },
     ],
-    aka: ['see-through screen lock', 'see-through lock screen', 'transparent lock screen', 'keyboard and mouse lock', 'input lock', 'lock the PC but keep the screen visible', 'screen lock with visible desktop'],
+    aka: ['see-through screen lock', 'transparent lock screen', 'keyboard and mouse lock', 'input lock', 'lock the PC but keep the screen visible', 'screen lock with visible desktop'],
     facts: [
       ['Platform', 'Windows 10 (version 1809 or later) and Windows 11, 64-bit'],
       ['Sign-in', 'unlock with Windows password or Windows Hello; signatures also with Microsoft Entra ID'],

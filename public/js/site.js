@@ -93,7 +93,7 @@
 
   // Sprache: Wer selbst umschaltet, dessen Wahl gilt künftig (localStorage „lang“). Keine automatische Umleitung –
   // geteilte Links und Suchmaschinen behalten immer die aufgerufene Sprache. Stattdessen zeigt eine deutsche Seite bei
-  // nicht-deutscher Browsersprache einen schmalen Hinweis „English version →“ (auf die englische Fassung dieser Seite,
+  // nicht-deutscher Browsersprache unten einen schmalen Hinweis „English version →“ (auf die englische Fassung dieser Seite,
   // sonst /en/). Schließen merkt sich die Seite („lang-hint“).
   function language() {
     document.querySelectorAll('[data-lang-switch]').forEach(function (a) {
@@ -115,7 +115,7 @@
     var link = document.createElement('a');
     link.href = href;
     link.hreflang = 'en';
-    link.textContent = 'This page is also available in English →';
+    link.textContent = alt ? 'This page is also available in English →' : 'English version of this site →';
     link.addEventListener('click', function () { try { localStorage.setItem('lang', 'en'); } catch (e) {} });
     var close = document.createElement('button');
     close.type = 'button';
@@ -128,7 +128,9 @@
     });
     bar.appendChild(link);
     bar.appendChild(close);
-    document.body.insertBefore(bar, document.body.firstChild);
+    // Unten fixiert: verschiebt beim Einblenden nichts (kein Layout-Sprung); nach dem Sprunglink im DOM
+    var skip = document.querySelector('.skip-link');
+    document.body.insertBefore(bar, skip ? skip.nextSibling : document.body.firstChild);
   }
 
   function start() { language(); init(); spy(); }
