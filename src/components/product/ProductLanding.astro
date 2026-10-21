@@ -10,7 +10,7 @@ import ContactBand from '../ContactBand.astro';
 import ProductIcon from './ProductIcon.astro';
 import { coverArt } from '../../lib/art';
 import { colorClasses, isPortrait, lineById, nameHtml, nameSize, products, type Product, type Shot } from '../../lib/products';
-import { fill, inline, isReleased, LINE_EN, pageFor, plain, productUrlFor, seoTitle, statusLabelFor, UI, type Lang } from '../../lib/produktseiten';
+import { fill, inline, isReleased, LINE_EN, lineAnchorFor, pageFor, plain, productsUrlFor, productUrlFor, seoTitle, statusLabelFor, UI, type Lang } from '../../lib/produktseiten';
 import { breadcrumbs, faqPage, organization, productOgImage, softwareApplication, webPage, website } from '../../lib/seo';
 import privacyPages from '../../data/app-datenschutz';
 import { mailto } from '../../config';
@@ -59,12 +59,11 @@ const subject = t.enquirySubject(p.name);
 const og = productOgImage(p, lang);
 const description = plain(f(copy.description));
 const h1Text = kind ? `${p.name} – ${kind}` : p.name;
-const crumbs = lang === 'de'
-  ? [{ name: t.home, url: '/' }, { name: t.products, url: '/#produkte' }, { name: p.name, url }]
-  : [{ name: t.home, url: '/en/' }, { name: t.products, url: '/en/#products' }, { name: p.name, url }];
+// Ebene 2 ist die Produktübersicht (/produkte/ bzw. /en/products/), nicht der Abschnitt der Startseite
+const crumbs = [{ name: t.home, url: lang === 'de' ? '/' : '/en/' }, { name: t.products, url: productsUrlFor(lang) }, { name: p.name, url }];
 const software = softwareApplication(p, page, lang, kind);
 const jsonLd = [
-  organization(),
+  organization(lang),
   website(),
   webPage(url, seoTitle(copy.title), description, lang, software['@id'] as string, og),
   software,
@@ -79,7 +78,7 @@ const updated = p.updated ? t.date(p.updated) : null;
   description={description}
   lang={lang}
   alternates={[{ lang: 'de', href: productUrlFor(p, 'de') }, { lang: 'en', href: productUrlFor(p, 'en') }]}
-  ogType="article"
+  ogType="website"
   ogImage={og}
   ogImageAlt={h1Text}
   jsonLd={jsonLd}
@@ -109,7 +108,7 @@ const updated = p.updated ? t.date(p.updated) : null;
         {copy.independence && <p class="dindep">{copy.independence}</p>}
         <div class="dmeta">
           <StatusBadge product={p} label={statusLabel} />
-          <a class="tag" href={lang === 'de' ? '/#produkte' : '/en/#products'}>{lineName}</a>
+          <a class="tag" href={lineAnchorFor(line.id, lang)}>{lineName}</a>
           {updated && <span class="dupdated">{t.updated}: <time datetime={p.updated}>{updated}</time></span>}
         </div>
         {lang === 'de' && p.highlights.length > 0 && (
@@ -172,9 +171,9 @@ const updated = p.updated ? t.date(p.updated) : null;
 
   <div class="container dbody">
     <div class="dmain">
-      {copy.sections.map((s, i) => (
+      {copy.sections.map((s) => (
         <section class="dsec reveal" id={s.id} aria-labelledby={`s-${s.id}`}>
-          <h2 id={`s-${s.id}`}><span class="dsec-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span> {s.title}</h2>
+          <h2 id={`s-${s.id}`}>{s.title}</h2>
           {s.blocks.map((b) =>
             b.type === 'p' ? <p class="blk-p" set:html={inline(f(b.text))} />
             : b.type === 'list' ? <ul class="blk-ul">{b.items.map((x) => <li set:html={inline(f(x))} />)}</ul>
@@ -202,7 +201,7 @@ const updated = p.updated ? t.date(p.updated) : null;
 
       {comparison && (
         <section class="dsec reveal" id={lang === 'de' ? 'alternative' : 'alternative-to'} aria-labelledby="s-alternativen" data-vergleich>
-          <h2 id="s-alternativen"><span class="dsec-n" aria-hidden="true">{String(copy.sections.length + 1).padStart(2, '0')}</span> {comparison.title}</h2>
+          <h2 id="s-alternativen">{comparison.title}</h2>
           {comparison.blocks.map((b) =>
             b.type === 'p' ? <p class="blk-p" set:html={inline(f(b.text))} />
             : b.type === 'list' ? <ul class="blk-ul">{b.items.map((x) => <li set:html={inline(f(x))} />)}</ul>
@@ -222,18 +221,17 @@ const updated = p.updated ? t.date(p.updated) : null;
       )}
 
       <section class="dsec reveal" id={lang === 'de' ? 'voraussetzungen' : 'requirements'} aria-labelledby="s-req">
-        <h2 id="s-req"><span class="dsec-n" aria-hidden="true">{String(copy.sections.length + (comparison ? 2 : 1)).padStart(2, '0')}</span> {t.requirements}</h2>
+        <h2 id="s-req">{t.requirements}</h2>
         <dl class="req">
           {copy.requirements.map(([k, v]) => <div><dt>{k}</dt><dd set:html={inline(f(v))} /></div>)}
         </dl>
       </section>
 
       <section class="dsec reveal" id={lang === 'de' ? 'grenzen' : 'limits'} aria-labelledby="s-limits">
-        <h2 id="s-limits"><span class="dsec-n" aria-hidden="true">{String(copy.sections.length + (comparison ? 3 : 2)).padStart(2, '0')}</span> {t.limits}</h2>
+        <h2 id="s-limits">{t.limits}</h2>
         <ul class="blk-ul">{copy.limits.map((x) => <li set:html={inline(f(x))} />)}</ul>
       </section>
 
-      <p class="daka"><strong>{t.aka}:</strong> {copy.aka.join(' · ')}</p>
     </div>
 
     <aside class="daside" aria-label={`${p.name}: ${t.glance}`}>
@@ -270,7 +268,7 @@ const updated = p.updated ? t.date(p.updated) : null;
               <a class:list={['shot', 'shot-link', shotKind(s) === 'phone' && 'shot--bare']} href={s.light.src} aria-label={t.galleryOpen(txt(s).title)}>
                 <ThemeImage light={s.light} dark={s.dark} alt={txt(s).alt} sizes={shotKind(s) === 'wide' ? '(min-width: 1300px) 1240px, 94vw' : shotKind(s) === 'phone' ? '(min-width: 1100px) 260px, 44vw' : '(min-width: 1100px) 600px, (min-width: 720px) 46vw, 92vw'} />
               </a>
-              <figcaption><strong>{txt(s).title}</strong>{txt(s).caption && <span>{txt(s).caption}</span>}</figcaption>
+              <figcaption><strong>{txt(s).title}</strong>{txt(s).caption && <> <span>{txt(s).caption}</span></>}</figcaption>
             </figure>
           </li>
         ))}
@@ -298,7 +296,7 @@ const updated = p.updated ? t.date(p.updated) : null;
           <li>
             <a class:list={['ritem', ...colorClasses(r)]} href={productUrlFor(r, lang)}>
               <ProductIcon product={r} size={44} uid="-rel" />
-              <span class="rtext"><span class="rname">{r.name}</span><span class="rkind">{relatedKind(r)}</span></span>
+              <span class="rtext"><span class="rname">{r.name}</span>{relatedKind(r) && <><span class="visually-hidden"> – </span><span class="rkind">{relatedKind(r)}</span></>}</span>
               <Icon name="arrow-right" />
             </a>
           </li>
@@ -398,10 +396,21 @@ const updated = p.updated ? t.date(p.updated) : null;
 
   .dbody { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
   /* minmax(0, 1fr): sonst wächst die Spalte auf die Mindestbreite breiter Tabellen und alles läuft rechts hinaus */
-  .dmain { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); min-width: 0; }
-  .dsec { scroll-margin-top: 96px; }
+  .dmain { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); min-width: 0; counter-reset: dsec; }
+  .dsec { scroll-margin-top: 96px; counter-increment: dsec; }
   .dsec h2 { display: flex; align-items: baseline; gap: 0.6em; margin-bottom: var(--s-4); font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); overflow-wrap: anywhere; hyphens: auto; }
-  .dsec-n { font-size: var(--fs-sm); font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: 0; }
+  /* Laufende Nummer nur als Gestaltung: per CSS-Zähler, damit sie nicht im Text der Überschrift steht (Suchmaschinen
+     läsen sonst „01 QR-Code am PC scannen“); „/ ''“ hält sie auch aus der Sprachausgabe heraus */
+  .dsec h2::before {
+    content: counter(dsec, decimal-leading-zero);
+    content: counter(dsec, decimal-leading-zero) / '';
+    flex: none;
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+  }
   .blk-p { color: var(--ink-2); max-width: 68ch; }
   .blk-p + .blk-p, .blk-p + .blk-ul, .blk-ul + .blk-p, .table-wrap + .blk-p { margin-top: var(--s-4); }
   .blk-ul { display: grid; gap: 0.55rem; padding-left: 1.2rem; color: var(--ink-2); max-width: 70ch; }
@@ -443,8 +452,6 @@ const updated = p.updated ? t.date(p.updated) : null;
   .req > div:last-child { border-bottom: 0; }
   .req dt { color: var(--ink); font-weight: 620; font-size: var(--fs-sm); }
   .req dd { margin: 0; color: var(--ink-2); font-size: var(--fs-sm); }
-  .daka { color: var(--ink-3); font-size: var(--fs-sm); max-width: 70ch; }
-  .daka strong { color: var(--ink-2); }
 
   .daside { position: sticky; top: 96px; display: grid; gap: var(--s-4); }
   .daside-title { margin-bottom: var(--s-4); font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
