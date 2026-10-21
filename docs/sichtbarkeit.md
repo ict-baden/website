@@ -6,16 +6,17 @@ eingereicht, angemeldet, gepostet oder verschickt.
 
 - **Grundlage:** Recherche „Auffindbarkeit der 7 Produkte“ vom 2026-10-21 (Suchbegriffe, Trefferlisten, Listen,
   Kanäle, KI-Suche); Produktfakten nur aus den Produkt-Repos (`origin/main` vom 2026-10-21 abends: Vitrine 0.1.0 noch
-  ohne fertiges Tag-Release, Lupe v0.1.0, Zutritt v0.1.0, Riegel v0.1.2, Plakette v0.2.0, Pforte v0.6.1, Industrial
+  ohne Tag-Release, Lupe v0.1.1, Zutritt v0.1.0, Riegel v0.1.2, Plakette v0.2.0, Pforte v0.6.1, Industrial
   Keyboard v2.1.1); die „Nicht behaupten“-Regeln in den Kopfkommentaren von `src/data/produktseiten/*.ts`.
 - **Adressen** am 2026-10-21 geprüft. AlternativeTo, Softpedia, SourceForge, Reddit, ComputerBase, deskmodder, die
   DATEV-Community, developer.zebra.com und Neowin sperren automatische Abrufe zumindest zeitweise (403 oder
   Verbindungsabbruch); dort wurde über einen Lesedienst, eine Schnittstelle oder das Webarchiv geprüft, bei Softpedia
   gar nicht (im Browser öffnen). Die Produktseiten auf ict-baden.de und die GitHub-Repos antworten erst nach Livegang
   bzw. Veröffentlichung.
-- **Ist-Stand:** ict-baden.de zeigt noch die alte Seite (DNS bei GoDaddy, `ns35`/`ns36.domaincontrol.com`), die neue
-  Seite läuft als `noindex`-Vorschau hinter Cloudflare, alle Produkt-Repos sind privat (0 Sterne), Releases gibt es
-  nur dort. Ein `google-site-verification`-TXT-Eintrag existiert, Search Console ist also vermutlich eingerichtet.
+- **Ist-Stand:** ict-baden.de zeigt noch die alte Seite (Zone bei GoDaddy, Einzelheiten in der README unter „State of
+  the domain today“), die neue Seite läuft als `noindex`-Vorschau hinter Cloudflare, alle Produkt-Repos sind privat
+  (0 Sterne), Releases gibt es nur dort. Ein `google-site-verification`-TXT-Eintrag existiert, Search Console ist also
+  vermutlich eingerichtet.
 
 > [!IMPORTANT]
 > **Regeln für jeden Text in diesem Dokument**
@@ -51,27 +52,23 @@ eingereicht, angemeldet, gepostet oder verschickt.
 
 ## 2 Reihenfolge für Menschen
 
-Die Schritte 1–8 der README („Going live – checklist“) bleiben gültig; diese Liste ordnet sie mit den Schritten zur
-Sichtbarkeit. **Mensch** = braucht ein Konto oder eine Entscheidung, **Claude** = kann vorbereiten oder automatisieren.
+Den Livegang selbst beschreibt die README („Going live – checklist“, Schritte 1–11); dort stehen die Einzelheiten,
+hier nur, was für die Sichtbarkeit dazukommt. **Mensch** = braucht ein Konto oder eine Entscheidung, **Claude** = kann
+vorbereiten oder automatisieren.
 
-1. **Vorher (README Schritte 1–3):** rechtliche Prüfung, Repository-Variablen (`INDEXNOW_KEY`), Live-Container auf
-   docker01. – Mensch · hängt an der Anwaltsprüfung.
-2. **DNS-Zone zu Cloudflare umziehen** – Mensch (GoDaddy- und Cloudflare-Zugang) · 1–2 Std. plus bis zu 24 Std.
-   Wartezeit · hängt an 1.
-   - Zone `ict-baden.de` in Cloudflare anlegen („Full setup“,
-     [Anleitung](https://developers.cloudflare.com/dns/zone-setups/full-setup/)). Die Onboarding-Frage nach
-     KI-Crawlern mit **„erlauben“** beantworten (Cloudflare fragt seit 01.07.2025 und schlägt „blockieren“ vor).
-   - Vor dem Umschalten der Nameserver alle Einträge der GoDaddy-Zone übernehmen und vergleichen, vor allem: **MX**
-     (heute Google Workspace `aspmx.l.google.com` mit `alt1`–`alt4` und `mail.ict-baden.de` mit Priorität 50), den
-     **A-Eintrag** von `mail.ict-baden.de`, **beide TXT-Einträge** (`MS=…` und `google-site-verification=…`; ohne
-     den zweiten verliert Search Console die Bestätigung) und alle weiteren Subdomains aus dem Zonen-Export. Mail-Einträge
-     auf „DNS only“ (graue Wolke). Ein SPF- oder DMARC-Eintrag existiert heute nicht – nicht nebenbei erfinden, mit
-     der Person klären, die die Mail betreut.
-   - Dann bei GoDaddy die beiden Cloudflare-Nameserver eintragen; danach Tunnel und Hostnamen wie in README Schritt 4.
-   - Claude: nach dem Umzug alte und neue Einträge per `dig` vergleichen.
-3. **Cloudflare für Such- und KI-Crawler öffnen** – Mensch · 30 Min. · hängt an 2. Einstellungen laut Recherche und
+1. **Livegang nach README, Schritte 1–7** – Mensch (Anwalt, docker01, Domainverwaltung, Cloudflare) · hängt an der
+   Anwaltsprüfung. Die README regelt rechtliche Prüfung, `INDEXNOW_KEY`, Live-Container, den Umzug der Zone von GoDaddy
+   zu Cloudflare mit allen MX- und TXT-Einträgen und der Mail-Prüfung, Tunnel, HTTPS und HSTS, die 301-Weiterleitung
+   der Alias-Domains und die Prüfung von außen mit IndexNow. Für die Sichtbarkeit zählt dabei vor allem: Der TXT-Eintrag
+   `google-site-verification=…` muss den Umzug überstehen (sonst verliert Search Console die Bestätigung), und die
+   Alias-Domains antworten mit 301 statt mit eigenem Inhalt. – Claude: Zonenvergleich per `dig` und die Prüfungen aus
+   README Schritt 7.
+2. **Cloudflare für Such- und KI-Crawler öffnen** – Mensch · 30 Min. · gehört zu README Schritt 4 (Zone anlegen) und
+   Schritt 5 (Security › Bots); die README nennt die Schalter, hier die Einzelheiten laut Recherche und
    [Cloudflare-Doku](https://developers.cloudflare.com/bots/additional-configurations/block-ai-bots/) (Bezeichnungen
    im Dashboard können leicht abweichen):
+   - Beim Anlegen der Zone die Onboarding-Frage nach KI-Crawlern mit **„erlauben“** beantworten (Cloudflare fragt
+     seit 01.07.2025 und schlägt „blockieren“ vor).
    - Security → Settings → „Configure AI bot policies“: **Search = Allow, Agent = Allow, Training = Allow**. Neue
      Zonen sperren seit 15.09.2026 Training und Agent auf Seiten mit Werbung; Crawler, die suchen und trainieren,
      fallen unter jede Trainingssperre.
@@ -88,42 +85,43 @@ Sichtbarkeit. **Mensch** = braucht ein Konto oder eine Entscheidung, **Claude** 
    - Danach in [AI Crawl Control](https://developers.cloudflare.com/ai-crawl-control/) bzw. Analytics prüfen, dass
      Googlebot, Bingbot, OAI-SearchBot, PerplexityBot und Claude-SearchBot mit 200 durchkommen. Googlebot nie sperren:
      Brave hat keinen eigenen User-Agent und crawlt nur, was Googlebot darf.
-   - Claude: Prüfungen von außen wie in README Schritt 5 (`curl` auf `X-Robots-Tag`, robots.txt, Weiterleitungen, 410).
-4. **Google Search Console** – Mensch (Google-Konto) · 30 Min., Daten nach einigen Tagen · hängt an 3.
-   [Search Console](https://search.google.com/search-console): prüfen, ob die bestehende Property eine Domain-Property
-   ist und wer Zugriff hat; Sitemap `https://ict-baden.de/sitemap.xml` einreichen; Indexierung der 14 Produktseiten (de
-   und en) und der Startseite anfordern. Unter Einstellungen → **„Search generative AI“** prüfen, dass „einbeziehen“
-   gesetzt ist (Standard, weltweit seit 31.08.2026; „ausschließen“ nimmt die Seite aus AI Overviews, AI Mode und den
-   KI-Funktionen in Discover, [Hilfe](https://support.google.com/webmasters/answer/16908024)). Seit demselben Tag zeigt
-   der Bericht „Generative AI performance“ die Impressionen aus AI Overviews und AI Mode
-   ([Hilfe](https://support.google.com/webmasters/answer/16984139)). Für AI Overviews genügt eine indexierte
-   Seite mit Snippet ([Google](https://developers.google.com/search/docs/appearance/ai-features)).
-5. **Bing Webmaster Tools** – Mensch (Microsoft-Konto) · 20 Min. · hängt an 4.
+3. **Google Search Console (README Schritt 8)** – Mensch (Google-Konto) · 30 Min., Daten nach einigen Tagen · hängt
+   an 1. [Search Console](https://search.google.com/search-console): prüfen, ob die bestehende Property eine
+   Domain-Property ist und wer Zugriff hat; Sitemap `https://ict-baden.de/sitemap.xml` einreichen; Indexierung der
+   Startseite, der beiden Produktübersichten `/produkte/` und `/en/products/` und der 14 Produktseiten (de und en)
+   anfordern. Unter Einstellungen → **„Search generative AI“** prüfen, dass „einbeziehen“ gesetzt ist (Standard,
+   weltweit seit 31.08.2026; „ausschließen“ nimmt die Seite aus AI Overviews, AI Mode und den KI-Funktionen in
+   Discover, [Hilfe](https://support.google.com/webmasters/answer/16908024)). Seit demselben Tag zeigt der Bericht
+   „Generative AI performance“ die Impressionen aus AI Overviews und AI Mode
+   ([Hilfe](https://support.google.com/webmasters/answer/16984139)). Für AI Overviews genügt eine indexierte Seite mit
+   Snippet ([Google](https://developers.google.com/search/docs/appearance/ai-features)).
+4. **Bing Webmaster Tools (README Schritt 9)** – Mensch (Microsoft-Konto) · 20 Min. · hängt an 3.
    [Bing Webmaster Tools](https://www.bing.com/webmasters): aus Search Console importieren, Sitemap einreichen,
    [IndexNow](https://www.indexnow.org/) läuft über `INDEXNOW_KEY` und `deploy/deploy.sh` (dazu Crawler Hints). Den
    Bericht **„AI Performance“** beobachten (Vorschau seit 02/2026: Zitate in Copilot und Bing-KI-Antworten, zitierte
    Seiten, „grounding queries“,
    [Bericht](https://www.searchenginejournal.com/bing-webmaster-tools-adds-ai-citation-performance-data/566874/)). Bing
    speist Copilot und Teile von ChatGPT Search.
-6. **Brave Search** – Mensch · 10 Min. · hängt an 3. Startseite und die 14 Produktseiten einzeln unter
-   [search.brave.com/submit-url](https://search.brave.com/submit-url) melden. Claude nutzt Brave Search für die
-   Websuche; laut Profound (06/2026) kommen rund 79 % der Claude-Zitate aus den Brave-Top-10.
-7. **Repos öffentlich und `download.public`** – Jo und Till entscheiden je Produkt · 15–30 Min. je Produkt · unabhängig
-   vom Livegang, aber vor jedem Eintrag in Abschnitt 3.
+5. **Brave Search** – Mensch · 10 Min. · hängt an 1. Startseite, die beiden Produktübersichten und die 14
+   Produktseiten einzeln unter [search.brave.com/submit-url](https://search.brave.com/submit-url) melden. Claude nutzt
+   Brave Search für die Websuche; laut Profound (06/2026) kommen rund 79 % der Claude-Zitate aus den Brave-Top-10.
+6. **Repos öffentlich und `download.public` (README Schritt 11)** – Jo und Till entscheiden je Produkt · 15–30 Min.
+   je Produkt · unabhängig vom Livegang, aber vor jedem Eintrag in Abschnitt 3.
    - Vorher je Repo: README, `docs/` und Kommentare auf interne Hinweise prüfen (Beispiel: am Ende der Plakette-README
      steht ein interner HTML-Kommentar zum Impressum), Secrets-Scan. Homepage-Feld und Topics sind gesetzt.
-   - **Markenprüfung vor jedem Eintrag:** README Schritt 1 lässt Produktnamen und Vergleiche vom Anwalt prüfen. Laut
-     `docs/limitations.md` der Repos offen: die Namen Vitrine und Riegel (dort ausdrücklich auch gegen „RIEGL“) und die
-     Beschreibung von Vitrine als Alternative zu anderen transparenten Sperren. Vorher nichts unter diesen Namen und
-     keine „Alternative zu …“-Einträge.
-   - Release-Stand: Für Vitrine fehlt ein fertiges Tag-Release mit versionierten Dateinamen (der Release-Lauf zum Tag
-     `v0.1.0` schlug am 2026-10-21 mittags fehl und lief abends neu – vor winget nachsehen); Pforte-Releases (auch
+   - **Markenprüfung vor jedem Eintrag:** README Schritt 1 lässt Produktnamen, Vergleiche und den Gebrauch der
+     Gattungsbegriffe „transparent screen lock“/„transparent lock screen“ (Produktnamen von e-motional und Softros)
+     vom Anwalt prüfen. Laut `docs/limitations.md` der Repos offen: die Namen Vitrine und Riegel (dort ausdrücklich auch
+     gegen „RIEGL“) und die Beschreibung von Vitrine als Alternative zu anderen transparenten Sperren. Vorher nichts
+     unter diesen Namen und keine „Alternative zu …“-Einträge; Ausweichformulierungen für Vitrine stehen in 3.1.
+   - Release-Stand: Für Vitrine fehlt ein Tag-Release mit versionierten Dateinamen (der Release-Lauf zum Tag `v0.1.0`
+     schlug am 2026-10-21 zweimal fehl, eine Korrektur war in Arbeit – vor winget nachsehen); Pforte-Releases (auch
      0.6.1) enthalten bis zum Signaturschlüssel für `de.ictbaden.pforte` keine APK.
    - Website: je Produkt eine Zeile `download.public: true` und danach `npm run brand -- --only <slug>`:
      `vitrine.ts`, `qr-scanner.ts` (Lupe), `freigaben-berechtigungen.ts` (Zutritt), `haertungs-check.ts` (Riegel),
      `labeldesigner.ts` (Plakette), `enterprisebrowser.ts` (Pforte), `industrialkeyboard.ts` (Industrial Keyboard),
      alle in `src/data/produktseiten/`. – Claude: als PR, sobald ein Repo öffentlich ist.
-8. **Code-Signing** – Mensch mit Firmenunterlagen und Ausweis · Antrag 1 Std., Prüfung 1–20 Werktage · parallel zu 7.
+7. **Code-Signing** – Mensch mit Firmenunterlagen und Ausweis · Antrag 1 Std., Prüfung 1–20 Werktage · parallel zu 6.
    - Empfehlung Windows: [Azure Artifact Signing](https://learn.microsoft.com/en-us/azure/artifact-signing/) (für eine
      Firma in Deutschland möglich, ab 9,99 $/Monat, Zertifikat auf ICT Baden; die Zutritt-README plant es bereits).
      Alternative: [SignPath Foundation](https://signpath.org/) – kostenlos für Open Source, Zertifikat lautet auf
@@ -135,7 +133,7 @@ Sichtbarkeit. **Mensch** = braucht ein Konto oder eine Entscheidung, **Claude** 
    - Ohne Signatur: SmartScreen-Warnung, kein Win32-Paket im Microsoft Store, kein Homebrew Cask, schlechter erster
      Eindruck in Foren; Riegel-README: kein Kundenpilot auf OT-Rechnern mit unsigniertem Sammler.
    - Claude: Signierschritt in die Release-Workflows, sobald die Zugangsdaten als Secrets hinterlegt sind.
-9. **AlternativeTo** – Mensch (Konto mit bestätigter Mail-Adresse) · 3 Std. plus Warteschlange · hängt an 7, am ersten
+8. **AlternativeTo** – Mensch (Konto mit bestätigter Mail-Adresse) · 3 Std. plus Warteschlange · hängt an 6, am ersten
    Tag starten. Texte in Abschnitt 3.
    - Eigene Apps eintragen ist erlaubt („Suggest new application“). Jede neue App geht durch eine Warteschlange mit
      mehreren tausend Einträgen; eine bezahlte Prioritätsprüfung (meist 1–2 Werktage) ändert nichts an Freigabe oder
@@ -149,8 +147,8 @@ Sichtbarkeit. **Mensch** = braucht ein Konto oder eine Entscheidung, **Claude** 
    - Keine Fremdseiten anlegen, nur um ein eigenes Produkt daranzuhängen.
    - „Als Alternative zu …“ nur dort vorschlagen, wo die Hauptaufgabe übereinstimmt; die Seiten stehen je Produkt.
      Unsere Namen sind auf AlternativeTo frei (alle sieben Slugs 404).
-10. **Paketquellen und Stores** – Claude bereitet vor, Mensch reicht unter eigenem Konto ein · Vorbereitung 1 Tag,
-    Prüfzeiten Tage bis Wochen · hängt an 7 (Store und Homebrew auch an 8).
+9. **Paketquellen und Stores** – Claude bereitet vor, Mensch reicht unter eigenem Konto ein · Vorbereitung 1 Tag,
+   Prüfzeiten Tage bis Wochen · hängt an 6 (Store und Homebrew auch an 7).
     - **winget** (Vitrine, Lupe, Zutritt, Riegel, Plakette): versionierte HTTPS-URL direkt vom Herausgeber (GitHub-Release),
       stille Installation (`msiexec … /qn`), Signatur nicht Pflicht
       ([Microsoft Learn](https://learn.microsoft.com/en-us/windows/package-manager/package/repository),
@@ -194,7 +192,7 @@ Sichtbarkeit. **Mensch** = braucht ein Konto oder eine Entscheidung, **Claude** 
       weltweit auch fürs Sideloading. Store-Texte stehen in `docs/play-store.md` beider Repos. Die APK nicht vorab als private App in Managed Google Play
       hochladen – das belegt den Paketnamen in ganz Google Play (Industrial-Keyboard-Doku `docs/deployment.md`). –
       Mensch.
-11. **Portale** – Mensch · 3 Std. plus Wochen Prüfzeit · hängt an 7, besser nach 8.
+10. **Portale** – Mensch · 3 Std. plus Wochen Prüfzeit · hängt an 6, besser nach 7.
     - **Softpedia** (Windows, Linux, macOS, Android): Formular „Submit Program“ auf softpedia.com, nur für
       Rechteinhaber. Softpedia sperrt automatische Abrufe (403) – im Browser öffnen.
     - **Snapfiles** (nur Windows): neue Entwicklerkonten werden zurzeit nicht angelegt; Vorschläge per Mail an die
@@ -207,16 +205,16 @@ Sichtbarkeit. **Mensch** = braucht ein Konto oder eine Entscheidung, **Claude** 
       automatisch. Chip: kein offizieller Weg gefunden – auslassen.
     - Optional nach dem Livegang je eine kurze, sachliche Mail an Redaktionen, die zu den Themen ranken (heise-Tipps,
       WindowsPro, giga) – nur Fakten und Link, kein Nachfassen.
-12. **Listen, Foren, Show HN** – Mensch · 1–2 Std. pro Woche über 4–8 Wochen · hängt an 7. Je Produkt in Abschnitt 3.
+11. **Listen, Foren, Show HN** – Mensch · 1–2 Std. pro Woche über 4–8 Wochen · hängt an 6. Je Produkt in Abschnitt 3.
     Insgesamt höchstens ein bis zwei Show HN (Kandidaten: Lupe, danach Riegel), erst nach dem Code-Signing und
     erster echter Nutzung, von Konten mit normaler HN-Historie und nur, wenn man den Tag über antworten kann – HN soll
     nicht vorwiegend der Werbung dienen
     ([Regeln](https://news.ycombinator.com/showhn.html): ausprobierbar ohne Anmeldung, keine Landingpage, Macher antwortet
     selbst, nicht um Stimmen bitten, Titel beginnt mit „Show HN“; laut
     [Guidelines](https://news.ycombinator.com/newsguidelines.html) kein generierter oder KI-bearbeiteter Text). Von den
-    Foren- und Reddit-Threads der Recherche lohnt nur noch einer eine Antwort (Industrial Keyboard, nach einem
-    RDP-Test); die übrigen sind archiviert, geschlossen, gelöst oder passen nicht.
-13. **Messen** – Mensch · 1 Std. im Monat · ab vier Wochen nach dem Livegang. Abschnitt 4.
+    23 Foren- und Reddit-Threads der Recherche lohnt keiner mehr eine Antwort: archiviert, geschlossen, gelöst,
+    jahrealt oder unpassend. Antworten nur auf neue Fragen, nach den Stichpunkten je Produkt.
+12. **Messen** – Mensch · 1 Std. im Monat · ab vier Wochen nach dem Livegang. Abschnitt 4.
 
 **Übersicht: Kanäle je Produkt** (✓ = sobald das Repo öffentlich ist)
 
@@ -242,7 +240,9 @@ Sichtbarkeit. **Mensch** = braucht ein Konto oder eine Entscheidung, **Claude** 
 Gleicher Aufbau je Produkt: belegte Fakten, „Nicht schreiben“, Zielsuchen, Orte, dann die Texte für AlternativeTo,
 Portale und Listen, die geprüften Foren-Threads und ein Gerüst für Show HN. Chancen aus der
 Recherche (Top 3 in sechs Monaten, mit öffentlichem Download; ohne Download eine Stufe tiefer). Website-Adressen gelten
-ab dem Livegang, GitHub-Adressen ab der Veröffentlichung.
+ab dem Livegang, GitHub-Adressen ab der Veröffentlichung. Alle Produkte stehen außerdem auf den Übersichten
+`https://ict-baden.de/produkte/` und `https://ict-baden.de/en/products/` – passend als Firmen-Link, wo ein Portal nach
+einer Herstellerseite fragt.
 
 ### 3.1 Vitrine – transparente Bildschirmsperre für Windows
 
@@ -256,6 +256,9 @@ ab dem Livegang, GitHub-Adressen ab der Veröffentlichung.
 - **Nicht schreiben:** Entsperren mit Entra ID in den Release-Paketen (fehlt dort, nur Signaturen und
   Administratorbestätigung), „manipulationssicher“ (nur manipulationserkennend), Konformität mit Part 11 oder Annex 11,
   Remotedesktop oder mehrere Monitore getestet, Chipkarten-Anbindung.
+- **Ausweichformulierung**, falls die Anwaltsprüfung den Gattungsbegriff „transparent screen lock“ nicht freigibt:
+  EN „see-through screen lock“ oder „screen lock that keeps programs visible“, DE „durchsichtige Bildschirmsperre“;
+  dann auch Kurztexte, Show-HN-Titel und das Topic `transparent-screen-lock` anpassen.
 - **Seiten:** `https://ict-baden.de/produkte/vitrine/`, `https://ict-baden.de/en/products/vitrine/`,
   `https://github.com/ict-baden/vitrine`. In winget erst eintragen, wenn es ein Tag-Release mit versionierten
   Dateinamen gibt.
@@ -339,7 +342,7 @@ Durchsichtige Bildschirmsperre für Windows: Tastatur und Maus gesperrt, Bildsch
 Vitrine ist eine transparente Bildschirmsperre für Windows 10 (ab 1809) und Windows 11, 64 Bit. Sie sperrt Tastatur und Maus, während der Bildschirm sichtbar bleibt und alle Programme weiterlaufen – für Messrechner im Labor, Bedienrechner an der Linie und Leitstände, an denen ein Prozess beobachtet, aber nicht bedient werden soll. Gesperrt wird mit Strg+Alt+L, über den Infobereich, nach Leerlaufzeit, nach Zeitplan oder beim Start; entsperrt mit dem Windows-Kennwort oder Windows Hello. Dazu kommen ein verdeckter Modus, verdeckte Bereiche, elektronische Signaturen für Fachanwendungen und ein manipulationserkennendes Protokoll. Verteilung als MSI, Verwaltung über 52 Richtlinien für Gruppenrichtlinie und Intune. Keine Telemetrie. Vorabversion 0.1.0, noch nicht signiert. Kostenlose Open-Source-Software (MIT) von ICT Baden.
 ```
 
-**Foren und Reddit** – Threads aus der Recherche, geprüft am 2026-10-21 (Reddit sperrt Abrufe aus diesem Netz; Stand und Daten aus dem Archiv, Archivierung je Subreddit anhand der Kommentare geschätzt.)
+**Foren und Reddit** – Threads aus der Recherche, geprüft am 2026-10-21 (Reddit sperrte automatische Abrufe zeitweise; Stand und Daten aus dem Archiv, die Archivierung je Subreddit anhand der Kommentare geschätzt.)
 
 | Thread | Stand | Entscheidung |
 |---|---|---|
@@ -372,21 +375,22 @@ Show HN: Vitrine – open-source transparent screen lock for Windows
 - Status: 0.1 pre-release, not yet tested end to end on real devices.
 - Ask: reports from Remote Desktop and multi-monitor setups. MIT, no telemetry.
 
-### 3.2 Lupe – QR-Code- und Barcode-Leser für den PC
+### 3.2 Lupe – QR-Code- und Barcode-Scanner für den PC
 
-- **Belegt** (README, `docs/`, Tag v0.1.0): liest Codes per Webcam, aus jedem Bildschirmausschnitt (Win+Umschalt+Q,
+- **Belegt** (README, `docs/`, Tag v0.1.1): liest Codes per Webcam, aus jedem Bildschirmausschnitt (Win+Umschalt+Q,
   alle Monitore, auch bei geschlossenem Fenster; macOS ⌘+⌥+Q), aus Bilddateien und der Zwischenablage; findet alle
   Codes im Bild; kopieren, eintippen (Unicode, unabhängig vom Tastaturlayout; von der Kamera wie ein Handscanner) oder
   per Link-Regel öffnen (nur http/https); 22 Formate über zxing-cpp; Verlauf mit CSV-Export; Befehlszeile mit
   Exitcodes; offline, keine Telemetrie, keine Update-Prüfung. Windows 10 ab 1809 und 11 (x64), Linux x64/arm64 (X11 und
-  Wayland, glibc 2.31), macOS ab 12 (nicht notarisiert). Oberfläche Avalonia. Vorabversion 0.1.0, nicht signiert; Linux
+  Wayland, glibc 2.31), macOS ab 12 (nicht notarisiert). Oberfläche Avalonia. Vorabversion 0.1.1, nicht signiert; Linux
   bisher nur in Containern getestet, auf einem echten Mac nur gestartet (Fenster, Demo-Kamera, Befehlszeile).
 - **Nicht schreiben:** „tippt in jede Anwendung“ (nicht in Programme, die als Administrator laufen), mit echter Webcam
   oder echtem Mac getestet (Kamera bisher nur gegen eine simulierte Quelle; Bildschirmscan, Eintippen und Tastenkürzel auf dem Mac noch nicht
   ausprobiert),
   Alleinstellung („es gibt keinen guten …“, barcodrod.io ist ein direkter Open-Source-Gegner), QR-Codes erzeugen.
 - **Seiten:** `https://ict-baden.de/produkte/lupe/`, `https://ict-baden.de/en/products/lupe/`,
-  `https://github.com/ict-baden/lupe`.
+  `https://github.com/ict-baden/lupe`. Auf der Website heißt Lupe „QR-Code- und Barcode-Scanner für den PC“ bzw.
+  „QR code & barcode scanner for PC“ – diese Bezeichnung in den Texten beibehalten.
 
 | Zielsuche (EN / DE) | Chance |
 |---|---|
@@ -413,7 +417,7 @@ Show HN: Vitrine – open-source transparent screen lock for Windows
   Konto über [Submit a Product](https://www.saashub.com/services/submit).
 - Portale: Softpedia, Snapfiles, heise Download, SourceForge-Spiegel.
 - Paketquellen und Stores: Microsoft Store (wichtigster Kanal), winget, Scoop, Chocolatey, AUR, eigener
-  Homebrew-Tap; Flathub erst nach einigen Monaten Nutzung (Schritt 10).
+  Homebrew-Tap; Flathub erst nach einigen Monaten Nutzung (Schritt 9).
 - Awesome-Listen: awesome-avalonia, awesome-qr-code; open-source-mac-os-apps erst nach Test auf einem echten Mac und
   ab 5 Sternen (der Maintainer schließt PRs darunter, ein Workflow prüft alle Links). Nicht awesome-windows (siehe
   Vitrine).
@@ -428,13 +432,13 @@ Lupe
 **AlternativeTo – Kurzbeschreibung** (1 Satz)
 
 ```text
-QR code and barcode reader for Windows, Linux and macOS that reads codes from the screen, a webcam, image files and the clipboard.
+QR code and barcode scanner for PC: reads codes on Windows, Linux and macOS from the screen, a webcam, image files and the clipboard.
 ```
 
 **AlternativeTo – Beschreibung** (600–900 Zeichen, ohne Links)
 
 ```text
-Lupe reads QR codes and barcodes on the PC: press Win+Shift+Q and drag a rectangle around a code anywhere on the screen, across all monitors, hold a code in front of the webcam, open an image file or paste a screenshot. The result is copied, typed into the program you are working in (from the camera like a hand scanner) or opened as a link through your own link rules. 22 formats via zxing-cpp, including QR Code, Micro QR, Data Matrix, Aztec, PDF417, Code 128/GS1-128, EAN/UPC and GS1 DataBar. History with CSV export and a command line. Lupe reads codes only, it does not create them. Works offline, no telemetry. Windows 10 (1809+) and 11, Linux x64/arm64, macOS 12+. Pre-release 0.1.0: the camera is so far tested with a simulated source only, Linux only in containers, and on a real Mac only the window, demo camera and command line. Free and open source (MIT).
+Lupe is a QR code and barcode scanner for the PC: press Win+Shift+Q and drag a rectangle around a code anywhere on the screen, across all monitors, hold a code in front of the webcam, open an image file or paste a screenshot. The result is copied, typed into the program you are working in (from the camera like a hand scanner) or opened as a link through your own link rules. 22 formats via zxing-cpp, including QR Code, Micro QR, Data Matrix, Aztec, PDF417, Code 128/GS1-128, EAN/UPC and GS1 DataBar. History with CSV export and a command line. Lupe reads codes only, it does not create them. Works offline, no telemetry. Windows 10 (1809+) and 11, Linux x64/arm64, macOS 12+. Pre-release 0.1.1: the camera is so far tested with a simulated source only, Linux only in containers, and on a real Mac only the window, demo camera and command line. Free and open source (MIT).
 ```
 
 **AlternativeTo – Felder**
@@ -450,25 +454,25 @@ Website: https://ict-baden.de/en/products/lupe/
 **Portal EN kurz** (≤ 160 Zeichen)
 
 ```text
-Reads QR codes and barcodes on Windows, Linux and macOS – from the screen by hotkey, a webcam, image files or the clipboard. Offline, MIT licence.
+QR code and barcode scanner for PC (Windows, Linux, macOS): reads codes from the screen by hotkey, a webcam, image files or the clipboard. Offline, MIT.
 ```
 
 **Portal EN lang** (rund 800 Zeichen)
 
 ```text
-Lupe is a QR code and barcode reader for the PC. Press Win+Shift+Q in any program and drag a rectangle around a code – in a PDF, an e-mail, a web page or a video call, across all monitors. Lupe also reads codes from a webcam, image files and the clipboard and finds every code in a picture. The content is copied, typed into the window you were working in (independent of the keyboard layout) or opened as a link through your own rules. It reads 22 formats, among them QR Code, Data Matrix, Aztec, PDF417, Code 128, EAN-13 and GS1 DataBar; it reads codes only and does not create them. History with CSV export and a command line are included. Lupe works offline, without telemetry. Windows 10 (1809+) and 11, Linux (x64, arm64), macOS 12+; Linux and macOS are less tested. Pre-release 0.1.0, not code-signed. Free and open source (MIT) by ICT Baden.
+Lupe is a QR code and barcode scanner for the PC. Press Win+Shift+Q in any program and drag a rectangle around a code – in a PDF, an e-mail, a web page or a video call, across all monitors. Lupe also reads codes from a webcam, image files and the clipboard and finds every code in a picture. The content is copied, typed into the window you were working in (independent of the keyboard layout) or opened as a link through your own rules. It reads 22 formats, among them QR Code, Data Matrix, Aztec, PDF417, Code 128, EAN-13 and GS1 DataBar; it reads codes only and does not create them. History with CSV export and a command line are included. Lupe works offline, without telemetry. Windows 10 (1809+) and 11, Linux (x64, arm64), macOS 12+; Linux and macOS are less tested. Pre-release 0.1.1, not code-signed. Free and open source (MIT) by ICT Baden.
 ```
 
 **Portal DE kurz** (≤ 160 Zeichen)
 
 ```text
-Liest QR-Codes und Barcodes unter Windows, Linux und macOS – vom Bildschirm per Tastenkürzel, per Webcam, aus Bildern und der Zwischenablage. Offline.
+QR-Code- und Barcode-Scanner für den PC (Windows, Linux, macOS): liest Codes vom Bildschirm per Tastenkürzel, per Webcam, aus Bildern. Offline, MIT.
 ```
 
 **Portal DE lang** (rund 800 Zeichen)
 
 ```text
-Lupe ist ein QR-Code- und Barcode-Leser für den PC. In jedem Programm Win+Umschalt+Q drücken und ein Rechteck um den Code ziehen – in einer PDF, einer E-Mail, auf einer Webseite oder im Videocall, über alle Monitore. Lupe liest Codes außerdem per Webcam, aus Bilddateien und aus der Zwischenablage und findet jeden Code im Bild. Das Ergebnis wird kopiert, in das vorherige Programm eingetippt (unabhängig vom Tastaturlayout) oder per Link-Regel geöffnet. 22 Formate, darunter QR Code, Data Matrix, Aztec, PDF417, Code 128, EAN-13 und GS1 DataBar; Lupe liest nur und erzeugt keine Codes. Mit Verlauf, CSV-Export und Befehlszeile. Arbeitet offline, ohne Telemetrie. Für Windows 10 (ab 1809) und 11, Linux (x64, arm64) und macOS ab 12; Linux und macOS sind weniger getestet. Vorabversion 0.1.0, nicht signiert. Kostenlos und Open Source (MIT), von ICT Baden.
+Lupe ist ein QR-Code- und Barcode-Scanner für den PC. In jedem Programm Win+Umschalt+Q drücken und ein Rechteck um den Code ziehen – in einer PDF, einer E-Mail, auf einer Webseite oder im Videocall, über alle Monitore. Lupe liest Codes außerdem per Webcam, aus Bilddateien und aus der Zwischenablage und findet jeden Code im Bild. Das Ergebnis wird kopiert, in das vorherige Programm eingetippt (unabhängig vom Tastaturlayout) oder per Link-Regel geöffnet. 22 Formate, darunter QR Code, Data Matrix, Aztec, PDF417, Code 128, EAN-13 und GS1 DataBar; Lupe liest nur und erzeugt keine Codes. Mit Verlauf, CSV-Export und Befehlszeile. Arbeitet offline, ohne Telemetrie. Für Windows 10 (ab 1809) und 11, Linux (x64, arm64) und macOS ab 12; Linux und macOS sind weniger getestet. Vorabversion 0.1.1, nicht signiert. Kostenlos und Open Source (MIT), von ICT Baden.
 ```
 
 **awesome-avalonia** – Abschnitt „Samples and Projects › Productivity“, alphabetisch
@@ -476,7 +480,7 @@ Lupe ist ein QR-Code- und Barcode-Leser für den PC. In jedem Programm Win+Umsch
 Beschreibung unter 100 Zeichen mit Punkt)
 
 ```text
-- [Lupe](https://github.com/ict-baden/lupe) - Cross-platform QR code and barcode reader for the screen, webcam, image files and clipboard.
+- [Lupe](https://github.com/ict-baden/lupe) - Cross-platform QR code and barcode scanner for the screen, webcam, image files and clipboard.
 ```
 
 **awesome-qr-code** – Abschnitt „Apps › Readers“
@@ -494,7 +498,7 @@ bitten trotzdem niemanden darum; Liste wenig aktiv)
 
 ```json
 {
-  "short_description": "QR code and barcode reader that reads codes from the screen, a webcam, image files and the clipboard.",
+  "short_description": "QR code and barcode scanner that reads codes from the screen, a webcam, image files and the clipboard.",
   "categories": ["utilities"],
   "repo_url": "https://github.com/ict-baden/lupe",
   "title": "Lupe",
@@ -505,7 +509,7 @@ bitten trotzdem niemanden darum; Liste wenig aktiv)
 }
 ```
 
-**Foren und Reddit** – Threads aus der Recherche, geprüft am 2026-10-21 (Reddit sperrt Abrufe aus diesem Netz; Stand und Daten aus dem Archiv, Archivierung je Subreddit anhand der Kommentare geschätzt.)
+**Foren und Reddit** – Threads aus der Recherche, geprüft am 2026-10-21 (Reddit sperrte automatische Abrufe zeitweise; Stand und Daten aus dem Archiv, die Archivierung je Subreddit anhand der Kommentare geschätzt.)
 
 | Thread | Stand | Entscheidung |
 |---|---|---|
@@ -516,14 +520,16 @@ bitten trotzdem niemanden darum; Liste wenig aktiv)
 | [Microsoft Q&A 1103269](https://learn.microsoft.com/en-gb/answers/questions/1103269/is-there-any-free-or-open-source-library-for-barco) | 2022, offen | nicht antworten – gesucht ist eine Bibliothek, Lupe ist eine App |
 
 Statt alter Threads: r/software lässt laut seinen Regeln Release-Beiträge für neue kostenlose, möglichst quelloffene
-Programme zu – einmal, nach dem Code-Signing, selbst geschrieben. Stichpunkte für neue Fragen („QR-Code am PC
+Programme zu – einmal, nach dem Code-Signing, selbst geschrieben, mit Offenlegung und von einem etablierten
+persönlichen Konto (der AutoModerator entfernt Beiträge unter einer nicht genannten Karma-Schwelle). Stichpunkte für neue Fragen („QR-Code am PC
 scannen“, „Webcam als Barcodescanner“):
 
 - Erst die Bordmittel: Die Windows-Kamera-App liest QR-Codes und Barcodes im Modus „Barcode“
   ([Microsoft](https://support.microsoft.com/en-us/windows/hardware/camera/how-to-use-the-windows-camera-app)).
 - Offenlegung, dann Lupe: Bildschirmscan per Tastenkürzel, Eintippen in das Programm im Vordergrund, Linux und macOS,
   offline, MIT.
-- Grenzen: Kamera bisher nur gegen eine simulierte Quelle getestet, Vorabversion 0.1.0.
+- Grenzen: Kamera bisher nur gegen eine simulierte Quelle getestet, Linux nur in Containern, auf dem Mac nur
+  gestartet; Vorabversion 0.1.1.
 
 **Show HN – Titel** (Vorschlag, Kandidat 1)
 
@@ -536,7 +542,7 @@ Show HN: Lupe – read QR codes and barcodes from your screen or webcam
 - What: reads QR codes and barcodes from the screen (Win+Shift+Q, drag a box), a webcam, image files and the clipboard.
 - Result: copied, typed into the window you were working in, or opened through a link rule; webcam works like a hand scanner.
 - Tech: Windows, Linux, macOS; .NET 10, Avalonia, zxing-cpp (22 formats); offline, no telemetry.
-- Status: 0.1.0; camera only tested against a simulated source, Linux only in containers, on a real Mac only started.
+- Status: 0.1.1; camera only tested against a simulated source, Linux only in containers, on a real Mac only started.
 - Ask: reports from real webcams and Macs. MIT.
 
 ### 3.3 Zutritt – Berechtigungsbericht für Windows-Dateifreigaben
@@ -640,10 +646,12 @@ Zutritt beantwortet die Frage jeder Berechtigungsprüfung: Wer darf auf welchen 
 | [ComputerBase „NTFS-Berechtigungen auslesen“](https://www.computerbase.de/forum/threads/ntfs-berechtigungen-auslesen.876997/) | 2011–2012 | nicht antworten – 14 Jahre alt |
 | [PowerShell.org: verwaiste SIDs entfernen](https://forums.powershell.org/t/resolved-removing-orphaned-sids-from-directories/10701) | 2018, geschlossen | nicht antworten |
 
-Für neue Fragen: administrator.de ([Regeln](https://administrator.de/help/8)) und ComputerBase
-([Regeln](https://www.computerbase.de/forum/help/terms/)) verbieten Werbung und verlangen ein als Firma
-gekennzeichnetes Konto; administrator.de verlangt außerdem, KI-erstellte Texte mit Modellnamen zu kennzeichnen – also
-selbst schreiben. Stichpunkte:
+Für neue Fragen: Auf administrator.de ([Regeln](https://administrator.de/help/8),
+[Leitfaden für Unternehmen](https://administrator.de/help/73)) helfen, ohne das eigene Produkt zu nennen oder zu
+verlinken – Produkte gehören dort in den Showcase-Bereich, das Konto soll ein Business Account sein; vollständig
+KI-erzeugte Texte müssen mit Modellnamen gekennzeichnet werden. ComputerBase
+([Regeln](https://www.computerbase.de/forum/help/terms/)) will keine Werbung; wer für eine Firma spricht, legt das
+offen und bekommt die Firma als Benutzertitel. Stichpunkte für Foren, in denen eine offengelegte Nennung erlaubt ist:
 
 - Erst den Weg mit Bordmitteln nennen (icacls, Get-Acl) und wo er endet: Freigaberechte, verschachtelte Gruppen,
   Nachweis für das Audit.
@@ -689,7 +697,7 @@ Show HN: Zutritt – who can access what on Windows file shares
 | Lynis for Windows / Lynis Windows Alternative | mittel |
 | Härtung offline prüfen ohne Agent / check security baseline offline, air-gapped | mittel |
 | IEC 62443 Windows-Härtung Checkliste / IEC 62443 windows hardening checklist | mittel (nur „unterstützt Nachweise“) |
-| CIS-CAT alternative | mittel (ausdrücklich: keine CIS-Inhalte) |
+| CIS-CAT alternative | mittel – nur mit Abgrenzung wie auf der Produktseite (keine CIS-Inhalte), nicht über AlternativeTo |
 | Windows Härtung prüfen / windows hardening check tool | DE mittel, EN niedrig |
 | CIS benchmark check windows free | niedrig – nicht ansteuern, Riegel prüft keine CIS-Benchmarks |
 
@@ -785,7 +793,7 @@ durch Dritte einreichen, Eigenentwicklung und KI-Anteil im PR offenlegen)
     </tr>
 ```
 
-**Foren und Reddit** – Threads aus der Recherche, geprüft am 2026-10-21 (Reddit sperrt Abrufe aus diesem Netz; Stand und Daten aus dem Archiv, Archivierung je Subreddit anhand der Kommentare geschätzt.)
+**Foren und Reddit** – Threads aus der Recherche, geprüft am 2026-10-21 (Reddit sperrte automatische Abrufe zeitweise; Stand und Daten aus dem Archiv, die Archivierung je Subreddit anhand der Kommentare geschätzt.)
 
 | Thread | Stand | Entscheidung |
 |---|---|---|
@@ -850,7 +858,7 @@ Show HN: Riegel – offline, read-only Windows hardening check for plant PCs
   (MIT, Browser und Desktop – direkter Gegner). [Seagull BarTender](https://alternativeto.net/software/seagull-bartender/about/)
   erst, wenn die Pilotfunktionen stehen.
 - Portale: Softpedia (Windows und Linux), heise Download, Snapfiles.
-- Paketquellen: winget, Scoop, Chocolatey, AUR; Flathub erst nach einigen Monaten Nutzung (Schritt 10); deb-Pakete
+- Paketquellen: winget, Scoop, Chocolatey, AUR; Flathub erst nach einigen Monaten Nutzung (Schritt 9); deb-Pakete
   gibt es schon.
 - Awesome-Listen: awesome-avalonia. Awesome-Linux-Software ist archiviert.
 - GitHub-Topics: gesetzt (u. a. `zpl`, `label-designer`, `zebra-printer`, `sscc`).
@@ -964,7 +972,7 @@ Show HN: Plakette – a label designer for Zebra printers on Windows and Linux
 | Kiosk-Browser mit Barcodescanner / kiosk browser barcode scanner android | mittel |
 | „Scanner schreibt nicht in Browser“ / datawedge web app javascript | mittel |
 | Intune / SOTI / StageNow kiosk browser | mittel |
-| ivanti velocity alternative | mittel – nur für Web-Apps, keine Terminal-Emulation |
+| ivanti velocity alternative | mittel – nur mit Abgrenzung wie auf der Produktseite (nur Web-Apps, keine Terminal-Emulation), nicht über AlternativeTo |
 | Kiosk-Browser Android / android kiosk browser | niedrig (MDM-Anbieter) |
 
 **Wo eintragen**
@@ -975,7 +983,7 @@ Show HN: Plakette – a label designer for Zebra printers on Windows and Linux
   [Kiosk browser](https://alternativeto.net/feature/kiosk-browser/) steht kein Open-Source-Kiosk-Browser für Android.
   Zebra Enterprise Browser und Ivanti Velocity haben keine Seite – keine anlegen (Velocity ist vor allem
   Terminal-Emulation).
-- Stores: Google Play (für Managed Google Play), F-Droid; nicht IzzyOnDroid (KI-Regel, Schritt 10); Softpedia (Android)
+- Stores: Google Play (für Managed Google Play), F-Droid; nicht IzzyOnDroid (KI-Regel, Schritt 9); Softpedia (Android)
   und heise Download.
 - Awesome-Listen: [android-foss](https://github.com/offa/android-foss), Rubrik „Browser“, frühestens ab 04/2027 (mindestens
   sechs Monate aktive Entwicklung; nur Links auf das Repo, F-Droid oder IzzyOnDroid, keine Play-Links). Dort steht
@@ -1042,7 +1050,7 @@ Pforte ist ein Kiosk-Browser für robuste Android-Geräte, zum Beispiel von Zebr
 * [**Pforte**](https://github.com/ict-baden/pforte)
 ```
 
-**Foren und Reddit** – Threads aus der Recherche, geprüft am 2026-10-21 (Reddit sperrt Abrufe aus diesem Netz; Stand und Daten aus dem Archiv, Archivierung je Subreddit anhand der Kommentare geschätzt.)
+**Foren und Reddit** – Threads aus der Recherche, geprüft am 2026-10-21 (Reddit sperrte automatische Abrufe zeitweise; Stand und Daten aus dem Archiv, die Archivierung je Subreddit anhand der Kommentare geschätzt.)
 
 | Thread | Stand | Entscheidung |
 |---|---|---|
@@ -1057,7 +1065,7 @@ Für neue Fragen (etwa „Scan kommt in der Web-App nicht an“) – Stichpunkte
 - Offenlegung, dann Pforte: Kiosk-Browser, Scans ins aktive Feld, legt ein eigenes DataWedge-Profil an,
   Konfiguration per MDM, MIT.
 - Grenzen: Webbrowser, keine Terminal-Emulation, keine Enterprise-Browser-APIs, Android 8.0 oder neuer, bisher nur
-  auf einem Zebra HC20 getestet.
+  auf einem Zebra HC20 getestet (mit 0.5).
 
 **Show HN – Titel** (Vorschlag, nur falls statt Lupe oder Riegel, erst mit APK im Release)
 
@@ -1106,7 +1114,7 @@ Show HN: Pforte – open-source kiosk browser for rugged Android scanners
   [Hacker's Keyboard](https://alternativeto.net/software/hackerand-39-s-keyboard/about/) (eingestellt, 48
   Alternativen), [Unexpected Keyboard](https://alternativeto.net/software/unexpected-keyboard/about/). Zebra Enterprise
   Keyboard hat keine Seite. Erster Kandidat für AlternativeTo: Release mit APK, kein Sperrpunkt.
-- Stores: Google Play, F-Droid; nicht IzzyOnDroid (KI-Regel, Schritt 10); Softpedia (Android). Die APK (6,2 MB)
+- Stores: Google Play, F-Droid; nicht IzzyOnDroid (KI-Regel, Schritt 9); Softpedia (Android). Die APK (6,2 MB)
   liegt im Tag-Release.
 - Awesome-Listen: android-foss, Rubrik „Keyboard“, frühestens 04/2027 (wie Pforte).
 - GitHub-Topics: gesetzt (u. a. `android-keyboard`, `function-keys`, `terminal-emulation`); `android-ime` fehlt noch.
@@ -1173,19 +1181,13 @@ Industrial Keyboard ist eine Bildschirmtastatur für robuste Android-Geräte in 
 
 | Thread | Stand | Entscheidung |
 |---|---|---|
-| [developer.zebra.com „MC3300 keyboard“](https://developer.zebra.com/content/mc3300-keyboard) | 11/2024, offen, eine Expertenantwort ohne Lösung | **erst nach einem RDP-Test** antworten (Entwurf unten) |
+| [developer.zebra.com „MC3300 keyboard“](https://developer.zebra.com/content/mc3300-keyboard) | 11/2024, offen; die einzige Antwort schlägt schon die Bildschirmtastatur des RDP-Clients oder eine Tastenumbelegung vor | nicht antworten – fast zwei Jahre alt, und RDP ist bei uns ungetestet |
 | [Devolutions-Forum „FN key in Devolutions Mobile on Android“](https://forum.devolutions.net/topics/33259) | 2020, vom Hersteller gelöst | nicht antworten |
 | [Neowin „Looking for alternative to Hacker's Keyboard“](https://www.neowin.net/forum/topic/1386436-looking-for-alternative-to-hackers-keyboard/) | 2019, geschlossen (Seite sperrt Abrufe, Stand aus dem Webarchiv) | nicht antworten |
 
-**developer.zebra.com „MC3300 keyboard“** – nur posten, wenn ein Test mit einem RDP-Client auf einem Gerät zeigt, dass
-die Tasten in der Sitzung ankommen; Platzhalter in eckigen Klammern ersetzen, sonst nicht antworten. Zebras
-Nutzungsbedingungen verbieten unaufgeforderte Werbung – sachlich bleiben.
-
-```text
-Disclosure: I work for ICT Baden, which makes this free open-source tool.
-
-One option when the hardware keys don't reach the session is an on-screen keyboard with function keys. Industrial Keyboard is an Android input method (MIT licence) with an Fn tab for F1–F12, Esc, Ins, Del, Home/End and the arrows; Shift sends F13–F24 as Shift+F1…F12. We tested it with [RDP client and version] on [device and Android version]: [result]. It needs Android 8.0 or later; so far we have tested it on [devices, e.g. Zebra HC20]. The configuration can be pushed from an EMM as managed configuration. https://github.com/ict-baden/industrialkeyboard
-```
+Für neue Fragen nach F-Tasten in RDP- oder SAP-Sitzungen gilt: Erst wenn ein Test mit einem RDP-Client auf einem
+Gerät bestanden ist, das Ergebnis in `docs/limitations.md` des Repos eintragen, dann die Regel „Nicht behaupten: RDP“
+in `src/data/produktseiten/industrialkeyboard.ts` anpassen – und erst danach in Foren erwähnen, mit Offenlegung.
 
 **Show HN – Titel** (Vorschlag, nur falls statt Lupe oder Riegel)
 
@@ -1239,7 +1241,7 @@ Datum · Dienst · Frage · genannt (ja/nein) · zitiert (welche URL) · Fakten 
 - **Bing Webmaster Tools** → „AI Performance“: Zitate in Copilot und Bing-KI-Antworten, zitierte Seiten, „grounding
   queries“ (Stichprobe).
 - **Cloudflare AI Crawl Control:** welche Such- und KI-Crawler die Seite abrufen und mit welchem Status – fällt ein
-  Crawler auf 403, ist eine Einstellung aus Schritt 3 zurückgesprungen.
+  Crawler auf 403, ist eine Einstellung aus Schritt 2 zurückgesprungen.
 - **GitHub** → Insights → Traffic je Repo: verweisende Seiten (z. B. chatgpt.com, perplexity.ai), Klone, Besuche – sichtbar
   für alle mit Schreibrechten, nur 14 Tage rückwirkend, also monatlich abschreiben.
 
@@ -1248,7 +1250,7 @@ Datum · Dienst · Frage · genannt (ja/nein) · zitiert (welche URL) · Fakten 
 - Kein Keyword-Stuffing, kein versteckter Text, keine Massen-Seiten aus KI-Texten, keine Doorway-Seiten je Suchbegriff.
 - Kein Linkkauf, keine Linktausch-Netzwerke, keine Gastartikel nur für Links.
 - Keine Fake-Bewertungen, keine Zweit- oder Sockenkonten, niemanden um Likes, Daumen, Upvotes oder Sterne bitten
-  (AlternativeTo, Hacker News und awesome-qr-code verbieten es ausdrücklich).
+  (AlternativeTo und Hacker News verbieten es ausdrücklich).
 - Kein automatisches Posten, keine Bots in Foren oder auf Reddit, kein KI-Text dort, wo er verboten ist (Hacker News,
   r/sysadmin, r/Intune, awesome-windows, awesome-sysadmin), und keine Beiträge ohne Kennzeichnung, wo sie verlangt wird
   (administrator.de).
