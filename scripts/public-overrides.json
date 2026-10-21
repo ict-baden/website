@@ -188,8 +188,8 @@
       "status": "fast-fertig",
       "linie": "codes",
       "text": "Etiketten-Designer für Zebra- und kompatible Etikettendrucker: gestaltet Etiketten am Rechner und druckt ZPL direkt auf den Drucker – ohne Druckertreiber, Lizenzserver oder Administratorrechte, unter Windows und Linux.",
-      "reason": "projekte.json ist veraltet (repo leer, Linie Android, „im Browser gestalten“). README von Plakette: Name Plakette, Vorabversion (Tag v0.1.0 als Pre-release), Windows und Linux, Ausgabe bisher nur gegen den virtuellen Drucker geprüft.",
-      "version": "0.1.0",
+      "reason": "projekte.json ist veraltet (repo leer, Linie Android, „im Browser gestalten“). README von Plakette: Name Plakette, Vorabversion (0.x), Windows und Linux, Ausgabe bisher nur gegen den virtuellen Drucker geprüft. Version: Tag-Release v0.2.0 vom 2026-10-21 (CHANGELOG [0.2.0] „Vorabversion für Pilotkunden“).",
+      "version": "0.2.0",
       "problem": false,
       "umfang": false
     }

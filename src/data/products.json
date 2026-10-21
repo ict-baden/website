@@ -1162,8 +1162,8 @@
       "linie": "codes",
       "status": "fast-fertig",
       "statusKey": "vorabversion",
-      "statusLabel": "Vorabversion 0.1.0",
-      "version": "0.1.0",
+      "statusLabel": "Vorabversion 0.2.0",
+      "version": "0.2.0",
       "updated": "2026-10-21",
       "text": "Etiketten-Designer für Zebra- und kompatible Etikettendrucker: gestaltet Etiketten am Rechner und druckt ZPL direkt auf den Drucker – ohne Druckertreiber, Lizenzserver oder Administratorrechte, unter Windows und Linux.",
       "sections": {
