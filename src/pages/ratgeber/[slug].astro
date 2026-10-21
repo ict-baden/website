@@ -1,0 +1,13 @@
+---
+// Deutsche Ratgeber-Seite (/ratgeber/<slug>/) – Inhalt und Aufbau in src/components/guide/GuideLanding.astro.
+import GuideLanding from '../../components/guide/GuideLanding.astro';
+import { guides, type Guide } from '../../lib/ratgeber';
+
+export function getStaticPaths() {
+  return guides.map((g) => ({ params: { slug: g.de.slug }, props: { guide: g } }));
+}
+
+interface Props { guide: Guide }
+const { guide } = Astro.props;
+---
+<GuideLanding guide={guide} lang="de" />

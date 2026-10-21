@@ -4,6 +4,7 @@
 import { COMPANY, SITE_URL } from '../config';
 import { lineById, products, type Product } from './products';
 import { fill, isReleased, LINE_EN, pageFor, plain, productsUrlFor, productUrlFor, statusLabelFor, type Lang } from './produktseiten';
+import { guidesLlms, guidesLlmsFull } from './ratgeber';
 
 const url = (path: string) => `${SITE_URL}${path}`;
 /** Text einer Produktseite ohne Code-Markierung und ohne den Satz „Der Download folgt …“: den Download-Stand nennt
@@ -54,6 +55,7 @@ export function llmsTxt(): string {
     const independence = page.en.independence ? ` ${page.en.independence}` : '';
     lines.push(`- [${p.name} – ${kindOf(p, 'en')}](${url(productUrlFor(p, 'en'))}): ${text(page.en.lead, p, 'en')}${independence} Status: ${status(p, 'en')}. ${download(p, 'en')}.`);
   }
+  lines.push(...guidesLlms());
   lines.push(
     '',
     '## Website',
@@ -126,5 +128,6 @@ export function llmsFullTxt(): string {
     if (cmpEn) lines.push(cmpEn.trademark, '');
     if (e.trademarks) lines.push(`Trademarks: ${e.trademarks}`, '');
   }
+  lines.push(...guidesLlmsFull());
   return lines.join('\n');
 }

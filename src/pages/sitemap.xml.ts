@@ -7,6 +7,7 @@ import { SITE_URL } from '../config';
 import { products } from '../lib/products';
 import { pageModified, productsUrlFor, productUrlFor } from '../lib/produktseiten';
 import { appPrivacyPages } from '../lib/app-privacy';
+import { guideSitemapEntries } from '../lib/ratgeber';
 
 const STATIC = ['/werkzeuge/pulswertigkeit/', '/impressum/', '/datenschutz/'];
 
@@ -37,6 +38,8 @@ export const GET: APIRoute = async () => {
       ];
     }),
     ...(await appPrivacyPages()).map((app) => ({ loc: `/datenschutz/${app}/` })),
+    // Ratgeber und ihre Übersicht (src/lib/ratgeber.ts): lastmod = letzte Änderung am Ratgeber
+    ...guideSitemapEntries(),
   ];
   const body =
     '<?xml version="1.0" encoding="UTF-8"?>\n' +
