@@ -9,11 +9,12 @@
 import { execFileSync } from 'node:child_process';
 import { SITE_URL } from '../config';
 import { products, type Product } from './products';
-import { fill, pageFor, productUrlFor, UI, type Faq, type Item, type Lang, type ProductPage } from './produktseiten';
+import { fill, pageFor, pageModified, productUrlFor, UI, type Faq, type Item, type Lang, type ProductPage } from './produktseiten';
 import { breadcrumbs, faqPage, ORG_ID, organization, productOgImage, softwareId, WEBSITE_ID, website } from './seo';
 
 // organization() und softwareId() nehmen in neueren Fassungen von seo.ts die Sprache der Seite (Texte der Organisation,
 // @id des SoftwareApplication je Sprachfassung); ältere Fassungen ignorieren das Argument. So stimmen beide Stände.
+// Sobald seo.ts überall die Sprache nimmt, die Wrapper durch direkte Aufrufe ersetzen (dann prüft TypeScript wieder mit).
 const organizationIn = organization as (lang?: Lang) => ReturnType<typeof organization>;
 const softwareIdIn = softwareId as (p: Product, lang?: Lang) => string;
 
@@ -70,6 +71,9 @@ export interface Guide {
 
 const modules = import.meta.glob('../data/ratgeber/*.ts', { eager: true }) as Record<string, { default: Guide }>;
 
+/** Anker, die Seite und Layout schon belegen (Hauptinhalt, FAQ, weitere Ratgeber, Kontaktband) */
+const RESERVED_IDS = new Set(['inhalt', 'fragen', 'faq', 'h-faq', 'h-more', 'cband-titel']);
+
 /** Prüft beim Build, was sonst erst in der SEO-Prüfung auffiele (Längen, Fragen ohne Formatierung, eindeutige Anker). */
 function check(g: Guide, file: string): Guide {
   const problems: string[] = [];
@@ -82,6 +86,7 @@ function check(g: Guide, file: string): Guide {
     if (c.description.length < 110 || c.description.length > 155) problems.push(`${lang}: Beschreibung ${c.description.length} Zeichen`);
     const ids = c.sections.map((s) => s.id);
     if (new Set(ids).size !== ids.length) problems.push(`${lang}: doppelte Abschnitts-id`);
+    for (const id of ids) if (RESERVED_IDS.has(id) || RESERVED_IDS.has(`h-${id}`)) problems.push(`${lang}: Abschnitts-id „${id}“ ist schon belegt`);
     for (const f of c.faq) if (/[`[\]]/.test(f.q)) problems.push(`${lang}: Frage mit Formatierung: ${f.q}`);
   }
   if (problems.length) throw new Error(`Ratgeber ${file}: ${problems.join('; ')}`);
@@ -109,16 +114,17 @@ export function productOf(g: Guide): { p: Product; page: ProductPage } {
   return { p, page: pageFor(p) };
 }
 
-/** Platzhalter {lizenz} und {download} wie auf der Produktseite (Open Source erst mit öffentlichem Quellcode). */
+/** Platzhalter {lizenz} und {download} wie auf der Produktseite (Open Source erst mit öffentlichem Quellcode), dazu
+ *  {version}: die Version aus products.json – dieselbe, die Produktseite und Status zeigen. */
 export function filler(g: Guide, lang: Lang) {
   const { p, page } = productOf(g);
-  return (text: string) => fill(text, page, p, lang);
+  return (text: string) => fill(text, page, p, lang).replaceAll('{version}', p.version ?? '');
 }
 
 const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const codeHtml = (s: string) => s.replace(/`([^`]+)`/g, '<code>$1</code>');
 /** [Text](/pfad/) oder [Text](#anker): nur interne Ziele */
-const LINK = /\[([^\]]+)\]\((\/[^)\s]*|#[^)\s]+)\)/g;
+const LINK = /\[([^\]]+)\]\((\/(?!\/)[^)\s]*|#[^)\s]+)\)/g;
 
 /** Text als HTML: `Code` und interne Links [Text](/pfad/), sonst nur Text. */
 export function rich(text: string): string {
@@ -140,7 +146,8 @@ const markdown = (text: string) => text.replace(LINK, (_m, label: string, href: 
 
 /**
  * Letzte inhaltliche Änderung (Sitemap lastmod, JSON-LD dateModified, „Stand“ auf der Seite): letzter Commit der Datei in
- * src/data/ratgeber/, nie vor der Erstveröffentlichung. Ohne Git-Verlauf (flacher Klon) gilt die Erstveröffentlichung.
+ * src/data/ratgeber/ oder der Produktseite (Status, Version und Lizenz des Produkts stehen im Ratgeber), nie vor der
+ * Erstveröffentlichung. Ohne Git-Verlauf (flacher Klon) zählen Erstveröffentlichung und Stand der Produktseite.
  */
 const modifiedDates = new Map<string, string>();
 let gitHistory: boolean | null = null;
@@ -156,7 +163,8 @@ export function guideModified(g: Guide): string {
   } catch {
     gitHistory = false;
   }
-  const result = date && date > g.published ? date : g.published;
+  const product = pageModified(productOf(g).p);
+  const result = [g.published, date, product].filter((d): d is string => Boolean(d)).sort().at(-1)!;
   modifiedDates.set(g.id, result);
   return result;
 }
@@ -166,6 +174,7 @@ export const GUIDE_UI = {
   de: {
     eyebrow: 'Ratgeber',
     toc: 'Inhalt',
+    tocLabel: 'Inhaltsverzeichnis',
     updated: 'Stand',
     by: 'ICT Baden',
     faq: 'Häufige Fragen',
@@ -177,29 +186,34 @@ export const GUIDE_UI = {
     contactText: 'Schreiben Sie uns, wofür Sie eine Lösung suchen – wir melden uns persönlich.',
     contactSubject: (s: string) => `Frage zum Ratgeber: ${s}`,
     hubTitle: 'Ratgeber für Labor, Produktion und IT | ICT Baden',
-    hubDescription: 'Ratgeber von ICT Baden: Barcodes und QR-Codes am PC lesen, Windows sperren und die Anzeige sichtbar lassen – jeweils alle Lösungswege im Vergleich.',
+    hubDescription: 'Ratgeber von ICT Baden: Barcodes und QR-Codes am PC lesen, Windows sperren und die Anzeige sichtbar lassen – die gängigen Lösungswege im Vergleich.',
     hubH1: 'Ratgeber',
-    hubLead: 'Antworten auf Fragen aus Labor, Produktion, Lager und IT – mit allen Lösungswegen im Vergleich, nicht nur mit unseren eigenen Produkten.',
+    hubLead: 'Antworten auf Fragen aus Labor, Produktion, Lager und IT – mit den gängigen Lösungswegen im Vergleich, nicht nur mit unseren eigenen Produkten.',
+    hubSubject: 'Frage zu den Ratgebern',
+    hubTrademarks: 'QR Code ist eine eingetragene Marke der DENSO WAVE INCORPORATED; Windows ist eine Marke der Microsoft-Unternehmensgruppe. Sie werden nur genannt, um Funktionen und Kompatibilität zu beschreiben.',
     hubProduct: 'Mit unserem Produkt',
     read: 'Ratgeber lesen',
   },
   en: {
     eyebrow: 'Guide',
     toc: 'Contents',
+    tocLabel: 'Table of contents',
     updated: 'Last updated',
     by: 'ICT Baden',
     faq: 'Frequently asked questions',
     more: 'More guides',
     ours: 'Our product',
     productCta: (n: string) => `More about ${n}`,
-    teaser: 'Guide',
+    teaser: 'Guides',
     contactTitle: 'Questions about your setup?',
     contactText: 'Tell us what you are looking for – we will get back to you personally.',
     contactSubject: (s: string) => `Question about the guide: ${s}`,
     hubTitle: 'Guides for labs, production and IT | ICT Baden',
-    hubDescription: 'Guides by ICT Baden: reading barcodes and QR codes on a PC, locking Windows while the screen stays visible – every option compared, not just ours.',
+    hubDescription: 'Guides by ICT Baden: reading barcodes and QR codes on a PC, locking Windows while the screen stays visible – the common options compared.',
     hubH1: 'Guides',
-    hubLead: 'Answers to questions from labs, production, warehouses and IT – with every option compared, not just our own products.',
+    hubLead: 'Answers to questions from labs, production, warehouses and IT – with the common options compared, not just our own products.',
+    hubSubject: 'Question about the guides',
+    hubTrademarks: 'QR Code is a registered trademark of DENSO WAVE INCORPORATED; Windows is a trademark of the Microsoft group of companies. They are named only to describe features and compatibility.',
     hubProduct: 'With our product',
     read: 'Read the guide',
   },
@@ -218,7 +232,10 @@ export function guideCrumbs(g: Guide | null, lang: Lang) {
 export function guideImage(g: Guide, lang: Lang): { src: string; alt: string } {
   const { p, page } = productOf(g);
   const kind = lang === 'de' ? p.kind : page.en.kind ?? p.kind;
-  return { src: productOgImage(p, lang) ?? '/og/ict-baden.png', alt: kind ? `${p.name} – ${kind}` : p.name };
+  const src = productOgImage(p, lang);
+  // Ohne Produktbild das Bild der Website – mit dessen Alternativtext (wie in Base.astro)
+  if (!src) return { src: '/og/ict-baden.png', alt: 'ICT Baden – Getting Things Done. Softwareentwicklung in Karlsruhe-Durlach' };
+  return { src, alt: kind ? `${p.name} – ${kind}` : p.name };
 }
 
 /**

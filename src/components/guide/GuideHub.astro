@@ -38,8 +38,8 @@ const cards = guides.map((g) => {
             <li><span aria-current="page">{HUB[lang].label}</span></li>
           </ol>
         </nav>
-        <a class="hlang" href={HUB[other].url} hreflang={other} lang={other} title={ui.otherLangLabel}>
-          <Icon name="globe" /> {ui.otherLang}
+        <a class="hlang" href={HUB[other].url} hreflang={other} title={ui.otherLangLabel}>
+          <Icon name="globe" /> <span lang={other}>{ui.otherLang}</span>
         </a>
       </div>
       <h1>{t.hubH1}</h1>
@@ -65,9 +65,10 @@ const cards = guides.map((g) => {
         </li>
       ))}
     </ul>
+    <p class="htm">{t.hubTrademarks}</p>
   </div>
 
-  <ContactBand lang={lang} title={t.contactTitle} subject={t.contactSubject(HUB[lang].label)} text={t.contactText} />
+  <ContactBand lang={lang} title={t.contactTitle} subject={t.hubSubject} text={t.contactText} />
 </Base>
 
 <style>
@@ -129,6 +130,8 @@ const cards = guides.map((g) => {
   .hcard-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-4); margin-top: auto; padding-top: var(--s-2); color: var(--ink-3); font-size: var(--fs-xs); font-weight: 560; }
   .hcard-more { display: inline-flex; align-items: center; gap: 0.35em; color: var(--ink); font-size: var(--fs-sm); font-weight: 620; }
   .hcard-more :global(.icon) { width: 1.05em; height: 1.05em; color: var(--red-ink); }
+
+  .htm { margin-top: var(--s-7); color: var(--ink-3); font-size: var(--fs-xs); max-width: 90ch; }
 
   @media (max-width: 720px) {
     .hcards { grid-template-columns: minmax(0, 1fr); }

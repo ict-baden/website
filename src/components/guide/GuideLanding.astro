@@ -51,8 +51,8 @@ const more = guides.filter((x) => x.id !== g.id);
             <li><span aria-current="page">{c.short}</span></li>
           </ol>
         </nav>
-        <a class="glang" href={guideUrl(g, other)} hreflang={other} lang={other} title={ui.otherLangLabel}>
-          <Icon name="globe" /> {ui.otherLang}
+        <a class="glang" href={guideUrl(g, other)} hreflang={other} title={ui.otherLangLabel}>
+          <Icon name="globe" /> <span lang={other}>{ui.otherLang}</span>
         </a>
       </div>
       <p class="eyebrow">{t.eyebrow}</p>
@@ -63,7 +63,7 @@ const more = guides.filter((x) => x.id !== g.id);
   </section>
 
   <div class="container gbody">
-    <nav class="gtoc" aria-label={t.toc}>
+    <nav class="gtoc" aria-label={t.tocLabel}>
       <p class="gtoc-title">{t.toc}</p>
       <ol>
         {c.sections.map((s) => <li><a href={`#${s.id}`}>{s.toc ?? s.title}</a></li>)}
@@ -75,7 +75,7 @@ const more = guides.filter((x) => x.id !== g.id);
       {c.sections.map((s) => (
         <section class="gsec reveal" id={s.id} aria-labelledby={`h-${s.id}`}>
           <h2 id={`h-${s.id}`}>{s.title}</h2>
-          {s.blocks.map((b) =>
+          {s.blocks.map((b, bi) =>
             b.type === 'p' ? <p class="gp" set:html={html(b.text)} />
             : b.type === 'list' ? <ul class="gul">{b.items.map((x) => <li set:html={html(x)} />)}</ul>
             : b.type === 'items' ? (
@@ -95,9 +95,9 @@ const more = guides.filter((x) => x.id !== g.id);
             )
             : b.type === 'table' ? (
               <>
-                <section class="table-wrap gtable" tabindex="0" aria-label={b.caption}>
+                <section class="table-wrap gtable" tabindex="0" aria-labelledby={`${s.id}-tabelle-${bi}`}>
                   <table class="table">
-                    <caption>{b.caption}</caption>
+                    <caption id={`${s.id}-tabelle-${bi}`}>{b.caption}</caption>
                     <thead><tr>{b.head.map((h) => <th scope="col">{h}</th>)}</tr></thead>
                     <tbody>
                       {b.rows.map((r, j) => (
