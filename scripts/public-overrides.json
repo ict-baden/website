@@ -158,8 +158,8 @@
       "text": "Liest QR-Codes und Barcodes unter Windows, Linux und macOS – per Webcam, aus jedem Bildschirmausschnitt, aus Bilddateien und der Zwischenablage. Das Ergebnis wird kopiert, eingetippt oder als Link geöffnet.",
       "problem": false,
       "umfang": false,
-      "reason": "README von Lupe: Windows, Linux und macOS, Oberfläche Englisch und Deutsch, Vorabversion 0.1.0 (projekte.json: 'fertig', Text 'für Windows' veraltet). Ausgangslage der Notiz enthält eine nicht belegbare Alleinstellungsbehauptung. Status: laut Till 2026-10-20 derzeit verfügbar.",
-      "version": "0.1.0"
+      "reason": "README von Lupe: Windows, Linux und macOS, Oberfläche Englisch und Deutsch, Vorabversion (Tag-Release v0.1.1 vom 2026-10-21; projekte.json: 'fertig', Text 'für Windows' veraltet). Ausgangslage der Notiz enthält eine nicht belegbare Alleinstellungsbehauptung. Status: laut Till 2026-10-20 derzeit verfügbar.",
+      "version": "0.1.1"
     },
     "enterprisebrowser": {
       "status": "fertig",

@@ -1,7 +1,8 @@
 // Lupe – QR-Code- und Barcode-Scanner für Windows, Linux und macOS.
-// Quellen (ict-baden/lupe, Stand Tag v0.1.0 vom 2026-10-21): README.md (Funktionen, „And also“, Quick start, Downloads –
+// Quellen (ict-baden/lupe, Stand Tag v0.1.1 vom 2026-10-21): README.md (Funktionen, „And also“, Quick start, Downloads –
 // .deb nur für x64, glibc 2.31, 22 Formate, nicht unterstützte Formate, fünf Sprachen, „Limits, honestly“ mit
-// „Pre-release 0.1.0, not code-signed“, MIT), CHANGELOG.md ([0.1.0] – 2026-10-21: erste Version mit Tag, englische
+// „Not code-signed yet“, auf einem echten Mac bisher nur gestartet, MIT), CHANGELOG.md ([0.1.1]: Befehlszeile und MSI
+// englisch, Kamera-Schleife; [0.1.0] – 2026-10-21: erste Version mit Tag, englische
 // Befehlsnamen `read`, Sprachen es/fr/zh-Hans maschinell übersetzt), docs/command-line.md (`lesen`/`read`, Exitcodes
 // 0/1/3, `lupe` unter Linux), docs/installation.md (Windows 10 1809 / 11, Bildformate unter Windows, macOS nicht
 // notarisiert), docs/platform-linux.md und docs/architecture-platforms.md (Bildformate unter Linux und macOS),
@@ -138,9 +139,9 @@ const page: ProductPage = {
       ['Sprache', 'Deutsch und Englisch; Spanisch, Französisch und Chinesisch (vereinfacht) maschinell übersetzt, noch nicht gegengelesen – folgt der Systemsprache, umschaltbar'],
     ],
     limits: [
-      'Vorabversion 0.1.0, nicht signiert und unter macOS nicht notarisiert: SmartScreen und Gatekeeper warnen beim ersten Start.',
+      'Vorabversion 0.1.1, nicht signiert und unter macOS nicht notarisiert: SmartScreen und Gatekeeper warnen beim ersten Start.',
       'Die Kamera ist bisher nur gegen eine simulierte Bildquelle getestet, nicht mit einer echten Webcam.',
-      'Linux und macOS sind neu und weniger getestet als Windows; der macOS-Build lief noch nicht auf einem echten Mac. Unter Wayland laufen Bildschirmscan, Eintippen und Tastenkürzel über die Desktop-Portale, die nicht jeder Desktop anbietet.',
+      'Linux und macOS sind neu und weniger getestet als Windows; auf einem echten Mac ist Lupe bisher nur gestartet (Fenster, Demokamera, Befehlszeile) – Bildschirmscan, Eintippen, Tastenkürzel und eine echte Kamera sind dort noch nicht ausprobiert. Unter Wayland laufen Bildschirmscan, Eintippen und Tastenkürzel über die Desktop-Portale, die nicht jeder Desktop anbietet.',
       'In Programme, die als Administrator laufen, kann Lupe nicht tippen – es erkennt das und sagt es.',
       'Steuerzeichen werden nicht getippt, etwa das Gruppentrennzeichen in GS1-Codes. Zusatzcodes von EAN und UPC sind nicht Teil des Ergebnisses; Intelligent Mail, MSI, Pharmacode und Plessey werden nicht gelesen.',
     ],
@@ -230,9 +231,9 @@ const page: ProductPage = {
       ['Language', 'English and German; Spanish, French and Chinese (simplified) machine-translated, not yet reviewed – follows the system language, can be switched'],
     ],
     limits: [
-      'Pre-release 0.1.0, not code-signed and not notarised on macOS: SmartScreen and Gatekeeper warn on first start.',
+      'Pre-release 0.1.1, not code-signed and not notarised on macOS: SmartScreen and Gatekeeper warn on first start.',
       'The camera path is tested against a simulated frame source only, not with a real webcam.',
-      'Linux and macOS are new and less tested than Windows; the macOS build has not run on a real Mac yet. On Wayland, the screen scan, typing and the shortcut go through the desktop portals, which not every desktop offers.',
+      'Linux and macOS are new and less tested than Windows; on a real Mac, Lupe has so far only been started (window, demo camera, command line) – the screen scan, typing, the shortcut and a real camera are untested there. On Wayland, the screen scan, typing and the shortcut go through the desktop portals, which not every desktop offers.',
       'Lupe cannot type into a program that runs as administrator – it detects this and says so.',
       'Control characters are not typed, e.g. the group separator in GS1 codes. EAN/UPC add-ons are not part of the result; Intelligent Mail, MSI, Pharmacode and Plessey are not supported.',
     ],

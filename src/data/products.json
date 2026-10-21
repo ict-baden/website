@@ -964,7 +964,7 @@
       "status": "fertig",
       "statusKey": "verfuegbar",
       "statusLabel": "Verfügbar",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "updated": "2026-10-21",
       "text": "Liest QR-Codes und Barcodes unter Windows, Linux und macOS – per Webcam, aus jedem Bildschirmausschnitt, aus Bilddateien und der Zwischenablage. Das Ergebnis wird kopiert, eingetippt oder als Link geöffnet.",
       "sections": {
