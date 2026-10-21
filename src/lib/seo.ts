@@ -14,12 +14,15 @@ export const MIT_LICENSE = 'https://opensource.org/license/mit';
 const abs = (path: string) => (path.startsWith('http') ? path : `${SITE_URL}${path}`);
 /** Telefonnummer wie auf jeder Seite sichtbar (Fußzeile, Kontaktband, Kontaktseite) – NAP überall gleich */
 const PHONE = COMPANY.mobileHref.replace('tel:', '');
+/** Veröffentlichung des Portfolio-Videos (Commit 3dd5fa3) */
+const VIDEO_UPLOADED = '2026-10-21T01:37:49+02:00';
 
-/** Unternehmen (Organization; ProfessionalService ist bei schema.org veraltet). Die Steuernummer steht nur im
- *  Impressum, nicht in den strukturierten Daten (vatID genügt). */
+/** Unternehmen: Organization und LocalBusiness (für lokale Suche „Softwareentwicklung Karlsruhe“; ProfessionalService
+ *  ist bei schema.org als veraltet markiert). Öffnungszeiten und Koordinaten stehen nirgends belegt – deshalb keine
+ *  openingHours und kein geo (Google nimmt die Adresse). Die Steuernummer steht nur im Impressum (vatID genügt). */
 export function organization() {
   return {
-    '@type': 'Organization',
+    '@type': ['Organization', 'LocalBusiness'],
     '@id': ORG_ID,
     name: COMPANY.name,
     legalName: COMPANY.name,
@@ -39,6 +42,12 @@ export function organization() {
       addressRegion: 'Baden-Württemberg',
       addressCountry: 'DE',
     },
+    areaServed: [
+      { '@type': 'City', name: 'Karlsruhe' },
+      { '@type': 'State', name: 'Baden-Württemberg' },
+      { '@type': 'Country', name: 'Deutschland' },
+    ],
+    knowsAbout: ['Softwareentwicklung', 'C#', '.NET', 'Linux', 'Embedded-Systeme', 'Industrielle Kommunikation', 'OT-Sicherheit', 'Barcodes und Etiketten'],
     vatID: COMPANY.vatId.replace(/\s+/g, ''),
     identifier: { '@type': 'PropertyValue', propertyID: 'Handelsregister', value: `${COMPANY.hrb}, ${COMPANY.court}` },
     contactPoint: [
@@ -129,7 +138,8 @@ export function softwareApplication(p: Product, page: ProductPage, lang: Lang, k
   };
   const requirements = copy.softwareRequirements ?? page.softwareRequirements;
   if (requirements) node.softwareRequirements = requirements;
-  if (released && p.version) node.softwareVersion = p.version;
+  // Version, Angebot, Download und Quellcode erst mit öffentlichem Download (der Schalter download.public)
+  if (released && page.download.public && p.version) node.softwareVersion = p.version;
   if (modified) node.dateModified = modified;
   if (icon) node.thumbnailUrl = abs(icon);
   if (shots.length) node.screenshot = shots;
@@ -168,6 +178,25 @@ export function productList(list: Product[], lang: Lang, name: string) {
     name,
     numberOfItems: list.length,
     itemListElement: list.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(productUrlFor(p, lang)), name: p.name })),
+  };
+}
+
+/** Portfolio-Video der Startseite (src/components/sections/Film.astro). */
+export function videoObject(lang: Lang) {
+  const de = lang === 'de';
+  return {
+    '@type': 'VideoObject',
+    '@id': `${SITE_URL}${de ? '/' : '/en/'}#video`,
+    name: de ? 'ICT Baden in 50 Sekunden' : 'ICT Baden in 50 seconds',
+    description: de
+      ? 'Was ICT Baden aus Karlsruhe-Durlach macht, wer wir sind und welche Software-Produkte wir selbst entwickeln. Englisch gesprochen, mit deutschen Untertiteln.'
+      : 'What ICT Baden from Karlsruhe-Durlach does, who we are and the software products we build ourselves. With English subtitles.',
+    thumbnailUrl: abs('/media/video/ict-baden-poster.webp'),
+    contentUrl: abs('/media/video/ict-baden-portfolio.mp4'),
+    uploadDate: VIDEO_UPLOADED,
+    duration: 'PT54S',
+    inLanguage: 'en',
+    publisher: { '@id': ORG_ID },
   };
 }
 

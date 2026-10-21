@@ -70,7 +70,7 @@ export const STATUS_LABEL: Record<StatusKey, string> = {
 export const STATUS_HELP: Record<StatusKey, string> = {
   verfuegbar: 'fertig entwickelt und erhältlich',
   bereit: 'fertig entwickelt, Download folgt mit der Veröffentlichung',
-  vorabversion: 'funktionsfähige Version vor dem Release 1.0',
+  vorabversion: 'funktionsfähige Vorabversion, Veröffentlichung in Kürze',
   'in-entwicklung': 'wird zurzeit gebaut',
   geplant: 'Konzept, Entwicklung noch nicht begonnen',
 };
@@ -83,8 +83,23 @@ export const STATUS_PHRASE: Record<StatusKey, string> = {
   geplant: 'geplant',
 };
 
-/** Produkte mit dem Status, den die Website zeigt (siehe StatusKey). */
-export const products: Product[] = data.products as Product[];
+/**
+ * Ein Schalter je Produkt: download.public in src/data/produktseiten/<id>.ts. Solange das Repo privat ist, zeigt die
+ * Website ehrlich „Vorabversion <Version>“ (mit „Veröffentlichung in Kürze“ auf der Produktseite) – auch wenn das
+ * Produkt laut projekte.json fertig ist. Mit public: true gilt der Status aus products.json.
+ */
+const pageModules = import.meta.glob('../data/produktseiten/*.ts', { eager: true }) as Record<string, { default: { id: string; download: { public: boolean } } }>;
+const publicIds = new Set(Object.values(pageModules).filter((m) => m.default.download.public).map((m) => m.default.id));
+const RELEASED: StatusKey[] = ['verfuegbar', 'bereit', 'vorabversion'];
+const effective = (p: Product): Product =>
+  publicIds.has(p.id) || !RELEASED.includes(p.statusKey)
+    ? p
+    : { ...p, statusKey: 'vorabversion', statusLabel: `Vorabversion${p.version ? ` ${p.version}` : ''}` };
+
+/** Produkte mit dem Status, den die Website zeigt (siehe StatusKey und download.public). */
+export const products: Product[] = (data.products as Product[]).map(effective);
+/** Ist der Download öffentlich (download.public)? */
+export const isPublic = (p: Pick<Product, 'id'>) => publicIds.has(p.id);
 
 export const lineById = (id: string): Linie => {
   const l = linien.find((x) => x.id === id);
@@ -100,7 +115,7 @@ export const isPortrait = (s: Shot) => s.light.height > s.light.width;
 export const lineAnchor = (_id: string) => '/#produkte';
 
 /** Reihenfolge der großen Karten auf der Startseite: alle veröffentlichten Produkte, die erste Karte breit. */
-const FEATURED = ['vitrine', 'lupe', 'zutritt', 'riegel', 'enterprisebrowser', 'industrial-keyboard'];
+const FEATURED = ['vitrine', 'lupe', 'zutritt', 'riegel', 'pforte', 'industrial-keyboard', 'plakette'];
 export const featured = [
   ...FEATURED.map((slug) => products.find((p) => p.slug === slug)).filter((p): p is Product => Boolean(p)),
   ...products.filter((p) => !FEATURED.includes(p.slug)),
