@@ -1,5 +1,6 @@
 ---
 // Abschnitt mit dem Portfolio-Video (englischer Sprecher, Untertitel deutsch auf /, englisch auf /en/).
+// Dateinamen mit Hash des Inhalts: eine neue Fassung bekommt eine neue Adresse (kein veralteter Cache).
 // Vom eigenen Server; vor dem Abspielen lädt nur das Vorschaubild (preload="none"). Quelle: ict-baden/portfolio-video (privat, enthält ein lizenziertes Musikstück).
 import Icon from '../Icon.astro';
 import type { Lang } from '../../i18n/site';
@@ -19,10 +20,10 @@ const T = de
       <p class="lead">{T.lead}</p>
     </div>
     <figure class="film-frame reveal" data-film>
-      <video controls preload="none" playsinline width="1920" height="1080" poster="/media/video/ict-baden-poster.webp" aria-label={T.title}>
-        <source src="/media/video/ict-baden-portfolio.mp4" type="video/mp4" />
-        <track kind="subtitles" srclang="de" label="Deutsch" src="/media/video/ict-baden-de.vtt" default={de} />
-        <track kind="subtitles" srclang="en" label="English" src="/media/video/ict-baden-en.vtt" default={!de} />
+      <video controls preload="none" playsinline width="1920" height="1080" poster="/media/video/ict-baden-poster-90cc873a.webp" aria-label={T.title}>
+        <source src="/media/video/ict-baden-portfolio-17f0c366.mp4" type="video/mp4" />
+        <track kind="subtitles" srclang="de" label="Deutsch" src="/media/video/ict-baden-de-643bc9ef.vtt" default={de} />
+        <track kind="subtitles" srclang="en" label="English" src="/media/video/ict-baden-en-19e69fc6.vtt" default={!de} />
       </video>
       <button class="film-play" type="button" hidden data-film-play aria-label={T.play}>
         <span class="film-play-i"><Icon name="play" /></span><span>{T.play}</span>

@@ -221,8 +221,8 @@ export function videoObject(lang: Lang) {
     description: de
       ? 'Was ICT Baden aus Karlsruhe-Durlach macht, wer wir sind und welche Software-Produkte wir selbst entwickeln. Englisch gesprochen, mit deutschen Untertiteln.'
       : 'What ICT Baden from Karlsruhe-Durlach does, who we are and the software products we build ourselves. With English subtitles.',
-    thumbnailUrl: abs('/media/video/ict-baden-poster.webp'),
-    contentUrl: abs('/media/video/ict-baden-portfolio.mp4'),
+    thumbnailUrl: abs('/media/video/ict-baden-poster-90cc873a.webp'),
+    contentUrl: abs('/media/video/ict-baden-portfolio-17f0c366.mp4'),
     uploadDate: VIDEO_UPLOADED,
     duration: 'PT54S',
     inLanguage: 'en',
