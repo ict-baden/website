@@ -45,7 +45,12 @@ const path = Astro.url.pathname;
 const is404 = /^\/404(\.html|\/)?$/.test(path);
 const canonical = `${SITE_URL}${path}`;
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`;
-const ogAlt = ogImageAlt ?? (ogImage === '/og/ict-baden.png' ? 'ICT Baden – Getting Things Done. Softwareentwicklung in Karlsruhe-Durlach' : fullTitle);
+// Alternativtext des Standardbilds (Logo-Fläche) in der Sprache der Seite
+const SITE_OG_ALT = {
+  de: 'ICT Baden – Getting Things Done. Softwareentwicklung in Karlsruhe-Durlach',
+  en: 'ICT Baden – Getting Things Done. Software development in Karlsruhe-Durlach, Germany',
+};
+const ogAlt = ogImageAlt ?? (ogImage === '/og/ict-baden.png' ? SITE_OG_ALT[lang] : fullTitle);
 const ld = jsonLd ? (Array.isArray(jsonLd) ? graph(...jsonLd) : { '@context': 'https://schema.org', ...jsonLd }) : null;
 const xDefault = alternates.find((a) => a.lang === 'de');
 const isHome = path === '/';
