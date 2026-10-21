@@ -78,8 +78,8 @@ const page: ProductPage = {
   },
   de: {
     title: 'Etiketten-Designer für Zebra-Drucker und ZPL – Plakette',
-    description: 'Plakette gestaltet Etiketten und druckt ZPL direkt auf Zebra- und kompatible Drucker – ohne Treiber, Lizenzserver oder Adminrechte. Für Windows und Linux, Vorabversion.',
-    lead: 'Plakette ist ein Etiketten-Designer für Zebra- und kompatible Etikettendrucker: eine Desktop-App für Windows und Linux, die Etiketten gestaltet und als ZPL direkt an den Drucker schickt – ohne Druckertreiber, ohne Lizenzserver und ohne Administratorrechte. Dazu kommen eine Befehlszeile für Skripte, ein Druckstationsmodus und ein ZPL-Import. Plakette liegt als Vorabversion vor und ist {lizenz}.{download}',
+    description: 'Etikettensoftware für Windows und Linux: Plakette gestaltet Etiketten und druckt ZPL ohne Treiber direkt auf Zebra- und kompatible Drucker. Vorabversion.',
+    lead: 'Plakette ist eine Etikettensoftware für Zebra- und kompatible Etikettendrucker: eine Desktop-App für Windows und Linux, die Etiketten gestaltet und als ZPL direkt an den Drucker schickt – ohne Druckertreiber, ohne Lizenzserver und ohne Administratorrechte. Dazu kommen eine Befehlszeile für Skripte, ein Druckstationsmodus und ein ZPL-Import. Plakette liegt als Vorabversion vor und ist {lizenz}.{download}',
     independence: 'Plakette ist ein eigenständiges Produkt von ICT Baden und nicht mit Zebra Technologies verbunden.',
     sections: [
       {
@@ -92,7 +92,7 @@ const page: ProductPage = {
       },
       {
         id: 'funktionen',
-        title: 'Funktionen des Etiketten-Designers für ZPL',
+        title: 'Was der Etiketten-Designer für ZPL kann',
         blocks: [
           {
             type: 'items',
@@ -111,14 +111,14 @@ const page: ProductPage = {
         id: 'beispiele',
         title: 'GS1-SSCC-Etikett, Röhrchen- und Inventaretikett',
         blocks: [
-          { type: 'p', text: 'Die mitgelieferten Beispielvorlagen zeigen, wofür Plakette gedacht ist: ein A6-Palettenetikett mit SSCC (GS1-128) aus einer Excel-Tabelle, ein 50 × 20 mm großes Röhrchenetikett mit Code 128 und Data Matrix bei 300 dpi, bei dem die gescannte Proben-ID den Datensatz wählt, und ein 50 × 30 mm großes Inventaretikett mit fortlaufender Nummer und QR-Code. Mit `--demo` lassen sie sich ohne Drucker ausprobieren: Virtuelle Drucker mit 203, 300 und 600 dpi zeigen, was gedruckt würde.' },
+          { type: 'p', text: 'Die mitgelieferten Beispielvorlagen zeigen, wofür Plakette als Barcode-Etiketten-Software gedacht ist: ein A6-Palettenetikett mit SSCC (GS1-128) aus einer Excel-Tabelle, ein 50 × 20 mm großes Röhrchenetikett mit Code 128 und Data Matrix bei 300 dpi, bei dem die gescannte Proben-ID den Datensatz wählt, und ein 50 × 30 mm großes Inventaretikett mit fortlaufender Nummer und QR-Code. Mit `--demo` lassen sie sich ohne Drucker ausprobieren: Virtuelle Drucker mit 203, 300 und 600 dpi zeigen, was gedruckt würde.' },
         ],
       },
       {
         id: 'linux',
         title: 'Zebra-Etiketten unter Linux drucken',
         blocks: [
-          { type: 'p', text: 'Plakette läuft unter Linux auf x64 und arm64 – als deb-Paket für Debian und Ubuntu mit Menüeintrag und Dateizuordnung oder als einzelne Datei. Die Desktop-App braucht X11 oder Wayland über XWayland; die Befehlszeile läuft ohne Bildschirm, also auch auf einem Server. So lässt sich ZPL unter Linux erzeugen, bearbeiten und an den Drucker schicken – mit denselben Vorlagen wie unter Windows.' },
+          { type: 'p', text: 'Für den Etikettendruck unter Linux läuft Plakette auf x64 und arm64 – als deb-Paket für Debian und Ubuntu mit Menüeintrag und Dateizuordnung oder als einzelne Datei. Die Desktop-App braucht X11 oder Wayland über XWayland; die Befehlszeile läuft ohne Bildschirm, also auch auf einem Server. So lässt sich ZPL unter Linux erzeugen, bearbeiten und an den Drucker schicken – mit denselben Vorlagen wie unter Windows.' },
         ],
       },
       {
@@ -129,7 +129,7 @@ const page: ProductPage = {
             type: 'items',
             items: [
               { title: 'Befehlszeile', text: '`Plakette.Cli.exe` (Windows) bzw. `plakette` (Linux) erzeugt ZPL, druckt, importiert, speichert Formate im Drucker und prüft Vorlagen – mit dokumentierten Exitcodes und JSON-Ausgabe für Skripte und geplante Aufgaben.' },
-              { title: 'Druckstation', text: 'Per Richtlinie zeigt ein PC nur den Druckbereich: Vorlagen kommen aus freigegebenen Ordnern, nur erlaubte Drucker sind wählbar, Bearbeiten ist gesperrt. Mit der Freigabesperre drucken nur Vorlagen, deren Prüfsumme auf der Freigabeliste steht.' },
+              { title: 'Druckstation', text: 'Per Richtlinie wird Plakette zur reinen Etikettendruck-Software: Sichtbar ist nur der Druckbereich, Vorlagen kommen aus freigegebenen Ordnern, nur erlaubte Drucker sind wählbar, Bearbeiten ist gesperrt. Mit der Freigabesperre drucken nur Vorlagen, deren Prüfsumme auf der Freigabeliste steht.' },
               { title: 'Druckprotokoll', text: 'Auf Wunsch ein zuordenbares Protokoll jedes Drucks, verkettet über Prüfsummen.' },
               { title: 'Verteilung und Richtlinien', text: 'MSI für Intune und Gruppenrichtlinie (`msiexec /i Plakette-x64.msi /qn`), deb-Pakete, Einstellungen per Richtlinie in der Registry oder über defaults.json.' },
               { title: 'Daten bleiben lokal', text: 'Keine Telemetrie, keine Update-Prüfung, kein Lizenzserver; Plakette öffnet keinen Netzwerkport.' },
@@ -190,17 +190,17 @@ const page: ProductPage = {
       { q: 'Bleiben meine Etikettendaten auf dem Rechner?', a: 'Ja. Plakette hat keine Telemetrie, keine Update-Prüfung und keinen Lizenzserver und öffnet keinen Netzwerkport. Daten gehen nur an die Drucker, auf die Sie drucken.' },
       { q: 'Ist Plakette schon für den Produktivbetrieb geprüft?', a: 'Noch nicht. Plakette ist eine Vorabversion; die Druckausgabe ist bisher nur gegen den virtuellen Drucker geprüft. Die Abnahme an echten Druckern steht aus und läuft vor dem ersten Pilotbetrieb.{download}' },
     ],
-    aka: ['Etikettendesigner', 'Etiketten-Designer für ZPL', 'Etikettensoftware', 'Etikettendruck-Software', 'Barcode-Etiketten-Software', 'Etikettendruck unter Linux'],
+    aka: ['Etiketten-Designer', 'Etiketten-Designer für ZPL', 'Etikettensoftware', 'Etikettendruck-Software', 'Barcode-Etiketten-Software', 'Etikettendruck unter Linux'],
     trademarks: 'Plakette ist ein eigenständiges Produkt von ICT Baden und nicht mit Zebra Technologies verbunden. Zebra ist eine Marke von Zebra Technologies, ZPL und ZPL II sind Marken der ZIH Corp. (Zebra Technologies); Windows, Excel und Office sind Marken der Microsoft-Unternehmensgruppe; Linux ist eine eingetragene Marke von Linus Torvalds; Debian ist eine eingetragene Marke von Software in the Public Interest, Inc., Ubuntu eine Marke von Canonical Ltd.; GS1 ist eine eingetragene Marke von GS1 AISBL; QR Code ist eine eingetragene Marke der DENSO WAVE INCORPORATED. Sie werden nur genannt, um die Kompatibilität zu beschreiben.',
   },
   en: {
     operatingSystem: 'Windows 10 (22H2), Windows 11 (x64), Linux (x64, arm64)',
     softwareRequirements: 'Windows 11 or Windows 10 22H2 (x64); Linux x64/arm64 with glibc, user interface on X11 or Wayland through XWayland',
     title: 'Label designer for Zebra printers and ZPL – Plakette',
-    description: 'Plakette designs labels and prints ZPL straight to Zebra and compatible printers – no driver, licence server or admin rights. For Windows and Linux, as a pre-release.',
+    description: 'Label design software for Windows and Linux: Plakette designs labels and prints ZPL straight to Zebra and compatible printers – no driver. Pre-release.',
     kind: 'Label designer for Zebra printers (ZPL)',
     tagline: 'Design labels, print ZPL.',
-    lead: 'Plakette is a label designer for Zebra and compatible label printers: a desktop app for Windows and Linux that designs labels and sends them as ZPL straight to the printer – no printer driver, no licence server, no admin rights. It comes with a command line for scripts, a print-station mode and ZPL import. Plakette is available as a pre-release and is {lizenz}.{download}',
+    lead: 'Plakette is label design software for Zebra and compatible label printers: a desktop app for Windows and Linux that designs labels and sends them as ZPL straight to the printer – no printer driver, no licence server, no admin rights. It comes with a command line for scripts, a print-station mode and ZPL import. Plakette is available as a pre-release and is {lizenz}.{download}',
     independence: 'Plakette is an independent product of ICT Baden and is not affiliated with Zebra Technologies.',
     sections: [
       {
@@ -232,14 +232,14 @@ const page: ProductPage = {
         id: 'samples',
         title: 'GS1 SSCC label, tube label and asset tag',
         blocks: [
-          { type: 'p', text: 'The bundled sample templates show what Plakette is meant for: an A6 pallet label with an SSCC (GS1-128) driven by an Excel sheet, a 50 × 20 mm tube label at 300 dpi with Code 128 and Data Matrix where the scanned sample ID picks the record, and a 50 × 30 mm asset tag with a counter and a QR code. With `--demo` you can try them without a printer: virtual printers at 203, 300 and 600 dpi show what would be printed.' },
+          { type: 'p', text: 'The bundled sample templates show what Plakette is meant for as barcode label software: an A6 pallet label with an SSCC (GS1-128) driven by an Excel sheet, a 50 × 20 mm tube label at 300 dpi with Code 128 and Data Matrix where the scanned sample ID picks the record, and a 50 × 30 mm asset tag with a counter and a QR code. With `--demo` you can try them without a printer: virtual printers at 203, 300 and 600 dpi show what would be printed.' },
         ],
       },
       {
         id: 'linux',
         title: 'Print Zebra labels on Linux',
         blocks: [
-          { type: 'p', text: 'Plakette runs on Linux on x64 and arm64 – as a deb package for Debian and Ubuntu with menu entry and file association, or as a single file. The desktop app needs X11, or Wayland through XWayland; the command line runs without a display, so on a server too. That lets you create and edit ZPL on Linux and send it to the printer – with the same templates as on Windows.' },
+          { type: 'p', text: 'For label printing on Linux, Plakette runs on x64 and arm64 – as a deb package for Debian and Ubuntu with menu entry and file association, or as a single file. The desktop app needs X11, or Wayland through XWayland; the command line runs without a display, so on a server too. That lets you create and edit ZPL on Linux and send it to the printer – with the same templates as on Windows.' },
         ],
       },
       {
@@ -250,7 +250,7 @@ const page: ProductPage = {
             type: 'items',
             items: [
               { title: 'Command line', text: '`Plakette.Cli.exe` (Windows) or `plakette` (Linux) generates ZPL, prints, imports, stores formats in the printer and validates templates – with documented exit codes and JSON output for scripts and scheduled tasks.' },
-              { title: 'Print station', text: 'A policy turns a PC into a print station that shows only the print pane: templates come from approved folders, only allowed printers can be chosen, editing is refused. With the approved-template lock, only templates whose hash is on the approved list may print.' },
+              { title: 'Print station', text: 'A policy turns Plakette into pure label printing software: only the print pane is shown, templates come from approved folders, only allowed printers can be chosen, editing is refused. With the approved-template lock, only templates whose hash is on the approved list may print.' },
               { title: 'Print log', text: 'Optionally an attributable, hash-chained log of every print.' },
               { title: 'Deployment and policies', text: 'MSI for Intune and Group Policy (`msiexec /i Plakette-x64.msi /qn`), deb packages, settings by policy in the registry or through defaults.json.' },
               { title: 'Data stays local', text: 'No telemetry, no update check, no licence server; Plakette opens no network port.' },

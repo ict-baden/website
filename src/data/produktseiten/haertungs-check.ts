@@ -4,7 +4,9 @@
 // SiSyPHuS content“, „For audits“, „Limits, honestly“ inkl. Drittanbieter-Virenschutz/EDR, AppLocker-Erzwingung und
 // GPO-Zuordnung experimentell, MIT, keine Daten an ICT-Baden), docs/installation.md (welches Paket wofür,
 // Voraussetzungen, kein Netzwerk), docs/baselines.md („Policy Analyzer .PolicyRules files and HardeningKitty lists are
-// not imported in 0.1; they are planned for 0.2“, keine Baseline-Inhalte), docs/rule-sources.md, CHANGELOG.md (0.1.0
+// not imported in 0.1; they are planned for 0.2“, keine Baseline-Inhalte; Import aus GPO-Sicherungen, riegel.baseline/1
+// und CSV, „evaluated in the same run as the catalogue and gets its own score section in the reports“),
+// docs/rule-sources.md, CHANGELOG.md (0.1.0
 // vom 2026-10-19, 0.1.1 und 0.1.2 vom 2026-10-21; Sammler unverändert 0.1.0).
 // Vergleich (alternatives): über die Fremdprodukte nur, welche Aufgabe sie erfüllen (cisecurity.org: CIS-CAT prüft
 // gegen CIS Benchmarks; github.com/scipag/hardeningkitty; Microsoft Learn: Policy Analyzer im Security Compliance
@@ -73,20 +75,20 @@ const page: ProductPage = {
   },
   de: {
     title: 'Windows-Härtung prüfen für OT- und Anlagen-PCs – Riegel',
-    description: 'Riegel prüft Windows-Rechner in Anlagen, Laboren und Leitständen lesend und offline gegen 153 Härtungsregeln – mit begründeten Ausnahmen und Bericht zum Abzeichnen.',
+    description: 'Riegel prüft die Windows-Härtung von OT- und Laborrechnern offline und nur lesend gegen 153 Regeln – mit begründeten Ausnahmen und Bericht zum Abzeichnen.',
     lead: 'Riegel ist ein Härtungs-Check für Windows-Rechner in Anlagen, Laboren und Leitständen: Es liest die Sicherheitskonfiguration lesend und offline, prüft sie gegen 153 Regeln, hält bewusst Offenes als begründete und freigegebene Ausnahme fest und schreibt einen Bericht zum Abzeichnen. Geprüft werden Windows 7 SP1 bis 11 und Windows Server 2008 R2 bis 2025; Riegel ist {lizenz}.',
     sections: [
       {
         id: 'wofuer',
-        title: 'Härtungsnachweis für Rechner, die niemand zentral verwaltet',
+        title: 'Härtungsnachweis für Windows-Rechner, die niemand zentral verwaltet',
         blocks: [
-          { type: 'p', text: 'Anlagen-PCs, Bedienrechner (HMI), Labor- und Leitstandsrechner stehen oft außerhalb der zentralen IT – manche ohne Netz, manche mit Software, die eine unsichere Einstellung braucht. Auf solchen Rechnern ist schon eine Installation eine Änderung.' },
+          { type: 'p', text: 'Anlagen-PCs, Bedienrechner (HMI), Labor- und Leitstandsrechner stehen oft außerhalb der zentralen IT – manche ohne Netz, manche mit Software, die eine unsichere Einstellung braucht. Wer dort die Systemhärtung prüfen will, kann nicht einfach ein Prüfwerkzeug aufspielen: Auf solchen Rechnern ist schon eine Installation eine Änderung.' },
           { type: 'p', text: 'Riegel bringt deshalb einen portablen Sammler mit, der nichts installiert, keine Konfiguration ändert und nur seinen Export schreibt; Windows selbst vermerkt lediglich, dass ein Programm lief. Ausgewertet wird auf einem Auswerte-PC: Ergebnis je Regel, begründete Ausnahmen, Vergleich mit dem freigegebenen Stand und ein Bericht zum Abzeichnen.' },
         ],
       },
       {
         id: 'funktionen',
-        title: 'Funktionen',
+        title: 'Funktionen des Windows-Härtungschecks',
         blocks: [
           {
             type: 'items',
@@ -137,37 +139,38 @@ const page: ProductPage = {
     ],
     faq: [
       { q: 'Wie prüfe ich, ob ein Windows-Rechner gehärtet ist?', a: 'Mit Riegel: den portablen Sammler auf dem Rechner ausführen, die Erhebung auf einem Auswerte-PC importieren und gegen 153 Regeln auswerten. Das Ergebnis zeigt je Regel Status, Soll- und Ist-Wert, Quelle und warum es wichtig ist.' },
-      { q: 'Kann ich die Härtung prüfen, ohne Software auf dem Anlagen-PC zu installieren?', a: 'Ja. Der Sammler installiert nichts, ändert keine Konfiguration und schreibt nur seinen Export; Windows selbst vermerkt, dass ein Programm lief. Wo kein fremdes Programm laufen darf, gehen die Windows-Bordmittel.' },
-      { q: 'Funktioniert der Härtungs-Check offline, auf Rechnern ohne Netzwerk?', a: 'Ja. Riegel öffnet keine Netzwerkverbindung. Der Sammler läuft vom USB-Stick, die Erhebung kommt auf demselben Weg zum Auswerte-PC.' },
+      { q: 'Kann ich die Windows-Härtung prüfen, ohne Software auf dem Anlagen-PC zu installieren?', a: 'Ja. Der Sammler installiert nichts, ändert keine Konfiguration und schreibt nur seinen Export; Windows selbst vermerkt, dass ein Programm lief. Wo kein fremdes Programm laufen darf, gehen die Windows-Bordmittel.' },
+      { q: 'Lässt sich die Windows-Härtung offline prüfen, auch auf Rechnern ohne Netzwerk?', a: 'Ja. Riegel öffnet keine Netzwerkverbindung. Der Sammler läuft vom USB-Stick, die Erhebung kommt auf demselben Weg zum Auswerte-PC.' },
       { q: 'Läuft der Härtungs-Check auch unter Windows 7 oder Server 2008 R2?', a: 'Der Sammler ist für Windows 7 SP1 bis 11 und Server 2008 R2 bis 2025 gebaut und braucht .NET Framework 3.5.1 oder 4.x. Auf echten Rechnern mit Windows 7 und 2008 R2 ist er noch nicht getestet.' },
       { q: 'Was tun, wenn die Anlagensoftware eine unsichere Einstellung braucht?', a: 'Den Befund als begründete Ausnahme festhalten: Begründung, akzeptierter Wert, freigebende Rolle und ein Nachweis aus dem Änderungs- oder QMS-Verfahren. Die Ausnahme ist an ihren Inhalt gebunden, läuft ab und hat einen Verlauf.' },
       { q: 'Reicht der Bericht als Nachweis für NIS2, ISO 27001 oder IEC 62443?', a: 'Riegel unterstützt Nachweise für das Konfigurationsmanagement, etwa nach ISO/IEC 27001:2022 A.8.9, NIS2 und IEC 62443. Es macht keine Compliance-Aussage; ob der Nachweis genügt, entscheidet Ihr Prüfverfahren.' },
       { q: 'Enthält Riegel Inhalte von CIS oder aus BSI SiSyPHuS?', a: 'Nein. Das Regelwerk hat eigene Texte, die Sollwerte sind durch ACSC, Microsoft-Dokumentation oder DISA STIGs belegt. Eigene Vorgaben, etwa aus GPO-Sicherungen, lassen sich importieren.' },
+      { q: 'Kann ich Windows-Rechner gegen eine eigene Security Baseline prüfen?', a: 'Ja. Für die Security-Baseline-Prüfung importiert Riegel GPO-Sicherungen, auch aus selbst heruntergeladenen Baselines, oder eigene Anforderungen als `riegel.baseline/1`-JSON oder CSV. Jede importierte Baseline wird im selben Lauf wie das Regelwerk ausgewertet und bekommt in den Berichten einen eigenen Abschnitt. Baseline-Inhalte liefert Riegel selbst nicht mit.' },
       { q: 'Ist Riegel kostenlos? Sendet es Daten?', a: 'Riegel ist {lizenz}. Es hat keinen Netzwerkcode, keine Telemetrie und keine Update-Prüfung und sendet keine Daten an ICT Baden.{download}' },
     ],
-    aka: ['Windows-Härtungscheck', 'Systemhärtung prüfen', 'Security-Baseline-Prüfung', 'Härtungsnachweis', 'Konfigurationsprüfung für Anlagen-PCs', 'Windows-Härtung offline prüfen', 'Windows Hardening Audit'],
+    aka: ['Windows-Härtungscheck', 'Systemhärtung prüfen', 'Security-Baseline-Prüfung', 'Härtungsnachweis', 'Windows-Härtung offline prüfen'],
     trademarks: 'Windows, PowerShell, Defender und Excel sind Marken der Microsoft-Unternehmensgruppe, Linux ist eine eingetragene Marke von Linus Torvalds. CIS (Center for Internet Security) und das BSI werden nur genannt, um zu sagen, dass Riegel keine Inhalte von ihnen enthält. Genannte Normen und Rahmenwerke werden nur beschrieben; Riegel ist von deren Herausgebern weder geprüft noch zertifiziert.',
   },
   en: {
     operatingSystem: 'Windows 7 SP1 to 11 and Windows Server 2008 R2 to 2025 (collector); Windows 10 1809 or later and Windows Server 2019 or later (evaluation); Linux (command line)',
     softwareRequirements: 'Collector: .NET Framework 3.5.1 or 4.x; evaluation app: Windows 10 version 1809 or Windows Server 2019 or later',
-    title: 'Offline Windows hardening checker for OT and plant PCs – Riegel',
-    description: 'Riegel is an offline security baseline check for Windows PCs in plants, labs and control rooms: read-only, 153 rules, justified exceptions and a report to sign.',
+    title: 'Offline Windows hardening check for OT and plant PCs – Riegel',
+    description: 'Riegel is an offline security baseline check for plant, lab and control-room Windows PCs: read-only, 153 rules, justified exceptions and a report to sign.',
     kind: 'Windows hardening check for plants, labs and control rooms',
     tagline: 'Hardened where it can be. Documented where it can’t.',
-    lead: 'Riegel is a hardening check for Windows machines in plants, laboratories and control rooms: it reads the security configuration read-only and offline, checks it against 153 rules, keeps what is deliberately open as justified and approved exceptions, and writes a report to sign. It checks Windows 7 SP1 to 11 and Windows Server 2008 R2 to 2025; Riegel is {lizenz}.',
+    lead: 'Riegel is an offline Windows hardening checker for machines in plants, laboratories and control rooms: it reads the security configuration without changing it, checks it against 153 rules, keeps what is deliberately open as justified and approved exceptions, and writes a report to sign. It checks Windows 7 SP1 to 11 and Windows Server 2008 R2 to 2025; Riegel is {lizenz}.',
     sections: [
       {
         id: 'why',
-        title: 'Evidence of hardening for the machines nobody manages centrally',
+        title: 'Evidence of hardening for the Windows machines nobody manages centrally',
         blocks: [
-          { type: 'p', text: 'Plant PCs, HMIs, lab and control-room machines often sit outside central IT – some without a network, some with software that needs an insecure setting. On such machines, installing software is a change in itself.' },
+          { type: 'p', text: 'Plant PCs, HMIs, lab and control-room machines often sit outside central IT – some without a network, some with software that needs an insecure setting. On such machines, installing software is a change in itself, so an OT Windows hardening assessment cannot simply begin with an installer.' },
           { type: 'p', text: 'Riegel therefore brings a portable collector that installs nothing, changes no configuration and writes only its export; Windows itself merely records that a program ran. The evaluation happens on an analysis PC: a result per rule, justified exceptions, a comparison with the approved state and a report to sign.' },
         ],
       },
       {
         id: 'features',
-        title: 'Features',
+        title: 'What the Windows hardening check does',
         blocks: [
           {
             type: 'items',
@@ -218,15 +221,16 @@ const page: ProductPage = {
     ],
     faq: [
       { q: 'How do I run a security baseline check to see whether a Windows machine is hardened?', a: 'With Riegel: run the portable collector on the machine, import the snapshot on an analysis PC and evaluate it against 153 rules. The result shows status, expected and actual value, source and why it matters for every rule.' },
-      { q: 'Can I audit hardening without installing software on the plant PC?', a: 'Yes. The collector installs nothing, changes no configuration and writes only its export; Windows itself records that a program ran. Where no foreign program may run, Windows’ built-in commands work.' },
+      { q: 'Can I run a system hardening audit without installing software on the plant PC?', a: 'Yes. The collector installs nothing, changes no configuration and writes only its export; Windows itself records that a program ran. Where no foreign program may run, Windows’ built-in commands work.' },
       { q: 'Does the Windows hardening check work offline, on air-gapped machines?', a: 'Yes. Riegel opens no network connection. The collector runs from a USB stick, and the snapshot travels to the analysis PC the same way.' },
       { q: 'Can I audit Windows 7 or Server 2008 R2?', a: 'The collector is built for Windows 7 SP1 to 11 and Server 2008 R2 to 2025 and needs .NET Framework 3.5.1 or 4.x. It has not been tested on real Windows 7 and 2008 R2 machines yet.' },
       { q: 'What if the plant software needs an insecure setting?', a: 'Record the finding as a justified exception: justification, accepted value, approving role and a record from the change or QMS process. The exception is bound to its content, expires and keeps a history.' },
-      { q: 'Is the report enough evidence for NIS2, ISO 27001 or IEC 62443?', a: 'Riegel supports evidence for configuration management, e.g. ISO/IEC 27001:2022 A.8.9, NIS2 and IEC 62443. It makes no compliance claim; whether the evidence is sufficient is up to your audit.' },
+      { q: 'Is the hardening evidence report enough for NIS2, ISO 27001 or IEC 62443?', a: 'Riegel supports evidence for configuration management, e.g. ISO/IEC 27001:2022 A.8.9, NIS2 and IEC 62443. It makes no compliance claim; whether the evidence is sufficient is up to your audit.' },
       { q: 'Does Riegel contain content from CIS or BSI SiSyPHuS?', a: 'No. The catalogue has its own texts; expected values are backed by ACSC, Microsoft documentation or DISA STIGs. Your own baselines, e.g. from GPO backups, can be imported.' },
+      { q: 'Can I check Windows machines against my own security baseline?', a: 'Yes. Riegel imports GPO backups, including those inside security baselines you downloaded yourself, or your own requirements as `riegel.baseline/1` JSON or CSV. Each imported baseline is evaluated in the same run as the catalogue and gets its own section in the reports. Riegel itself ships no baseline content.' },
       { q: 'Is Riegel free? Does it send data?', a: 'Riegel is {lizenz}. It has no network code, no telemetry and no update check, and sends no data to ICT Baden.{download}' },
     ],
-    aka: ['offline Windows hardening checker', 'security baseline check', 'system hardening audit', 'hardening evidence report', 'OT Windows hardening assessment', 'configuration compliance check'],
+    aka: ['offline Windows hardening checker', 'security baseline check', 'system hardening audit', 'hardening evidence report', 'OT Windows hardening assessment'],
     facts: [
       ['Checked machines', 'Windows 7 SP1 to 11, Windows Server 2008 R2 to 2025 (portable collector)'],
       ['Analysis', 'Windows 10 (1809 or later) and Server 2019 or later; command line also for Linux (x64, arm64)'],

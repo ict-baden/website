@@ -80,16 +80,16 @@ const page: ProductPage = {
     },
   },
   de: {
-    title: 'Pforte – Kiosk-Browser für Android-MDE-Geräte wie Zebra',
-    description: 'Pforte ist ein Kiosk- und Industriebrowser für robuste Android-Geräte von Zebra und Honeywell: Scans direkt ins Webformular, URL-Allowlist, Kioskmodus, MDM.',
-    lead: 'Pforte (früher EnterpriseBrowser) ist ein Kiosk-Browser für robuste Android-Geräte (MDE-Geräte), zum Beispiel von Zebra und Honeywell: Er öffnet Ihre Web-Apps, schreibt Barcode-Scans direkt in das aktive Eingabefeld und lässt sich per MDM zentral konfigurieren. Für Android 8.0 oder neuer, {lizenz}.',
+    title: 'Kiosk-Browser für Android-MDE-Geräte wie Zebra – Pforte',
+    description: 'Pforte ist ein Kiosk- und Industriebrowser für Android-MDE-Geräte von Zebra und Honeywell: Barcode-Scan ins Webformular, URL-Allowlist, Kioskmodus, MDM.',
+    lead: 'Pforte (früher EnterpriseBrowser) ist ein Kiosk-Browser für Android-MDE-Geräte, zum Beispiel von Zebra und Honeywell: Er öffnet Ihre Web-Apps, schreibt Barcode-Scans direkt in das aktive Eingabefeld und lässt sich per MDM zentral konfigurieren. Für Android 8.0 oder neuer, {lizenz}.',
     independence: 'Pforte ist ein eigenständiges Produkt von ICT Baden und nicht mit Zebra Technologies oder Honeywell verbunden.',
     sections: [
       {
         id: 'wofuer',
         title: 'Industriebrowser für Web-Apps auf MDE-Geräten – mit Scanner',
         blocks: [
-          { type: 'p', text: 'Wareneingang, Kommissionierung oder Versand laufen oft als Web-App. Auf einem Handheld mit eingebautem Scanner braucht es dafür einen Browser, der den Scan ins richtige Feld bringt, nur erlaubte Seiten öffnet und sich nicht von jedem verstellen lässt. Dafür ist Pforte gebaut: ein schlanker Kiosk-Browser auf Basis von Android WebView, geschrieben in Kotlin.' },
+          { type: 'p', text: 'Wareneingang, Kommissionierung oder Versand laufen oft als Web-App. Auf einem Handheld mit eingebautem Scanner braucht es dafür einen MDE-Browser, der den Scan ins richtige Feld bringt, nur erlaubte Seiten öffnet und sich nicht von jedem verstellen lässt. Dafür ist Pforte gebaut: ein schlanker Kiosk-Browser für Handscanner, auf Basis von Android WebView, geschrieben in Kotlin.' },
           { type: 'p', text: 'Wer von Terminal-Emulation auf Web-Apps umstellt, etwa auf SAP ITS mobile, bekommt mit Pforte den Browser für die Handhelds dazu. Pforte selbst ist ein Webbrowser, keine Terminal-Emulation.' },
         ],
       },
@@ -103,7 +103,7 @@ const page: ProductPage = {
       },
       {
         id: 'funktionen',
-        title: 'Funktionen',
+        title: 'Funktionen des Kiosk-Browsers für Android',
         blocks: [
           {
             type: 'items',
@@ -158,14 +158,14 @@ const page: ProductPage = {
       { q: 'Hieß Pforte früher EnterpriseBrowser?', a: 'Ja. Bis Version 0.5.0 hieß Pforte EnterpriseBrowser; mit 0.6.0 hat sie einen eigenen Namen und den Paketnamen `de.ictbaden.pforte` bekommen. Android und das EMM sehen sie deshalb als neue App: Pforte verteilen, die Konfiguration neu ausrollen (gleiches JSON-Format, Datei jetzt `pforte.json`) und die alte App entfernen. Mit dem Namen geändert haben sich JavaScript-API, Scan-Ereignis, DataWedge-Profil und Fehlercodes (`PFT-…` statt `EB-…`).' },
       { q: 'Was kostet Pforte?', a: 'Nichts: Pforte ist {lizenz}, ohne Werbung und ohne In-App-Käufe. Support mit garantierten Reaktionszeiten gibt es per Supportvertrag.{download}' },
     ],
-    aka: ['Kiosk-Browser für Android', 'Kiosk-Browser für Zebra-Geräte', 'Industriebrowser', 'MDE-Browser', 'Scanner-Browser', 'Browser für Handscanner'],
+    aka: ['Kiosk-Browser für Android', 'Kiosk-Browser für Zebra-Geräte', 'Industriebrowser', 'MDE-Browser', 'Browser für Handscanner'],
     trademarks: 'Pforte ist ein eigenständiges Produkt von ICT Baden und nicht mit Zebra Technologies oder Honeywell verbunden. Zebra, DataWedge und StageNow sind Marken von Zebra Technologies, Honeywell ist eine Marke von Honeywell International; QR Code ist eine eingetragene Marke der DENSO WAVE INCORPORATED; SOTI MobiControl, Microsoft Intune, Workspace ONE, SAP und Android sind Marken ihrer jeweiligen Inhaber. Sie werden nur genannt, um die Kompatibilität zu beschreiben.',
   },
   en: {
     operatingSystem: 'Android 8.0 or later',
     softwareRequirements: 'Android 8.0 (API 26) or later',
-    title: 'Pforte – industrial kiosk browser for rugged Android devices',
-    description: 'Pforte is an industrial kiosk browser for rugged Android devices from Zebra and Honeywell: scans go straight into web forms, URL allow list, kiosk mode, MDM.',
+    title: 'Industrial kiosk browser for rugged Android devices – Pforte',
+    description: 'Pforte is an industrial kiosk browser for rugged Android devices from Zebra and Honeywell: barcode scans into web forms, URL allow list, kiosk mode, MDM.',
     kind: 'Kiosk browser for rugged Android devices',
     tagline: 'Web apps on rugged Android devices.',
     lead: 'Pforte (formerly EnterpriseBrowser) is a kiosk browser for rugged Android devices, for example from Zebra and Honeywell: it opens your web apps, types barcode scans straight into the focused input field and is configured centrally through your MDM. For Android 8.0 or later, {lizenz}.',
@@ -175,7 +175,7 @@ const page: ProductPage = {
         id: 'why',
         title: 'An industrial browser for web apps on rugged handhelds',
         blocks: [
-          { type: 'p', text: 'Goods receipt, picking or shipping often run as web apps. On a handheld with a built-in scanner, that takes a browser that puts the scan into the right field, opens only allowed pages and cannot be changed by anyone who picks up the device. Pforte is built for exactly that: a lean kiosk browser based on Android WebView, written in Kotlin.' },
+          { type: 'p', text: 'Goods receipt, picking or shipping often run as web apps. On a handheld with a built-in scanner, that takes a browser that puts the scan into the right field, opens only allowed pages and cannot be changed by anyone who picks up the device. Pforte is built for exactly that: a lean kiosk browser for handheld computers, based on Android WebView and written in Kotlin.' },
           { type: 'p', text: 'Replacing terminal emulation with web apps, for example SAP ITS mobile? Pforte is the browser for the handhelds. It is a web browser itself, not a terminal emulator.' },
         ],
       },
@@ -189,7 +189,7 @@ const page: ProductPage = {
       },
       {
         id: 'features',
-        title: 'Features',
+        title: 'Features of the kiosk browser for Android',
         blocks: [
           {
             type: 'items',
@@ -244,7 +244,7 @@ const page: ProductPage = {
       { q: 'Was Pforte formerly called EnterpriseBrowser?', a: 'Yes. Up to version 0.5.0 Pforte was called EnterpriseBrowser; with 0.6.0 it got its own name and the package name `de.ictbaden.pforte`. Android and the EMM therefore see it as a new app: distribute Pforte, roll out the configuration again (same JSON format, file now `pforte.json`) and remove the old app. The JavaScript API, scan event, DataWedge profile and error codes (`PFT-…` instead of `EB-…`) changed with the name.' },
       { q: 'What does Pforte cost?', a: 'Nothing: Pforte is {lizenz}, with no ads and no in-app purchases. Support with guaranteed response times is available with a support contract.{download}' },
     ],
-    aka: ['industrial browser', 'kiosk browser for Android', 'kiosk browser for Zebra devices', 'kiosk mode browser for rugged devices', 'browser for handheld computers', 'scanner browser'],
+    aka: ['industrial browser', 'kiosk browser for Android', 'kiosk browser for Zebra devices', 'browser for handheld computers'],
     facts: [
       ['Platform', 'Android 8.0 or later, rugged devices from Zebra and Honeywell'],
       ['Scanning', 'Zebra DataWedge, Honeywell or any scanner app via intent'],

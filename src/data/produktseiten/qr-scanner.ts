@@ -1,14 +1,15 @@
-// Lupe – QR-Code- und Barcode-Leser für Windows, Linux und macOS.
+// Lupe – QR-Code- und Barcode-Scanner für Windows, Linux und macOS.
 // Quellen (ict-baden/lupe, Stand Tag v0.1.0 vom 2026-10-21): README.md (Funktionen, „And also“, Quick start, Downloads –
 // .deb nur für x64, glibc 2.31, 22 Formate, nicht unterstützte Formate, fünf Sprachen, „Limits, honestly“ mit
 // „Pre-release 0.1.0, not code-signed“, MIT), CHANGELOG.md ([0.1.0] – 2026-10-21: erste Version mit Tag, englische
 // Befehlsnamen `read`, Sprachen es/fr/zh-Hans maschinell übersetzt), docs/command-line.md (`lesen`/`read`, Exitcodes
 // 0/1/3, `lupe` unter Linux), docs/installation.md (Windows 10 1809 / 11, Bildformate unter Windows, macOS nicht
 // notarisiert), docs/platform-linux.md und docs/architecture-platforms.md (Bildformate unter Linux und macOS),
-// docs/usage.md (PDF, E-Mail, Webseite, Videocall; Kamera wie ein Handscanner), docs/data-and-privacy.md (kein
-// Netzwerkcode, keine Bilder gespeichert). Vergleich: CodeTwo-Produktseite
-// https://www.codetwo.com/freeware/qr-code-desktop-reader/ („This tool is deprecated, which means it’s no longer
-// available for download“; keine Weiterentwicklung, keine Pflege, kein Support – abgerufen 2026-10-21).
+// docs/usage.md (PDF, E-Mail, Webseite, Videocall; Kamera wie ein Handscanner, Lupe dahinter oder minimiert; Eintippen
+// nach dem Bildschirmscan in das Fenster von vorher), docs/settings.md („On a detected code“: Type für Kamera und
+// Bildschirmausschnitt), docs/data-and-privacy.md (kein Netzwerkcode, keine Bilder gespeichert). Vergleich:
+// CodeTwo-Produktseite https://www.codetwo.com/freeware/qr-code-desktop-reader/ („This tool is deprecated, which means
+// it’s no longer available for download“; keine Weiterentwicklung, keine Pflege, kein Support – abgerufen 2026-10-21).
 // Nicht behaupten: „tippt in jede Anwendung“ (nicht in Admin-Fenster), echte Webcam oder echter Mac getestet,
 // Alleinstellung („es gibt keinen guten …“), QR-Codes erzeugen (Lupe liest nur).
 import type { ProductPage } from '../../lib/produktseiten';
@@ -70,15 +71,15 @@ const page: ProductPage = {
     },
   },
   de: {
-    title: 'QR-Code & Barcode am PC scannen – Lupe',
-    description: 'Lupe liest QR-Codes und Barcodes am PC unter Windows, Linux und macOS – vom Bildschirm per Tastenkürzel, per Webcam, aus Bildern und der Zwischenablage. Offline.',
-    lead: 'Lupe ist ein QR-Code- und Barcode-Leser für Windows, Linux und macOS: Er liest Codes per Webcam, aus jedem Bildschirmausschnitt, aus Bilddateien und aus der Zwischenablage – und kopiert das Ergebnis, tippt es in das Programm, aus dem Sie kamen, oder öffnet es als Link. Lupe arbeitet offline und ist {lizenz}.',
+    title: 'QR-Code- und Barcode-Scanner für den PC – Lupe',
+    description: 'Barcode-Scanner-Software für Windows, Linux und macOS: Lupe liest QR-Codes und Barcodes am PC per Webcam, vom Bildschirm und aus Bildern – offline.',
+    lead: 'Lupe ist eine Barcode-Scanner-Software für Windows, Linux und macOS: Sie liest QR-Codes und Barcodes per Webcam, aus jedem Bildschirmausschnitt, aus Bilddateien und aus der Zwischenablage – und kopiert das Ergebnis, tippt es in das Programm, aus dem Sie kamen, oder öffnet es als Link. Lupe arbeitet offline und ist {lizenz}.',
     sections: [
       {
         id: 'wofuer',
         title: 'QR-Code am PC scannen – ohne Handy',
         blocks: [
-          { type: 'p', text: 'QR-Codes und Barcodes stehen oft genau dort, wo das Handy nicht weiterhilft: in einer PDF-Rechnung, in einer E-Mail, auf einer Webseite, im Videocall oder auf einem Lieferschein neben dem PC. Lupe liest sie direkt am Rechner und gibt den Inhalt dorthin weiter, wo er gebraucht wird – in die Zwischenablage, als Tastatureingabe in ein Formular oder als Link.' },
+          { type: 'p', text: 'QR-Codes und Barcodes stehen oft genau dort, wo das Handy nicht weiterhilft: in einer PDF-Rechnung, in einer E-Mail, auf einer Webseite, im Videocall oder auf einem Lieferschein neben dem Rechner. Als QR-Scanner für den PC liest Lupe sie direkt und gibt den Inhalt dorthin weiter, wo er gebraucht wird – in die Zwischenablage, als Tastatureingabe in ein Formular oder als Link.' },
         ],
       },
       {
@@ -104,7 +105,7 @@ const page: ProductPage = {
       },
       {
         id: 'funktionen',
-        title: 'Eintippen, kopieren, als Link öffnen',
+        title: 'Codes eintippen, kopieren oder als Link öffnen',
         blocks: [
           {
             type: 'items',
@@ -145,13 +146,14 @@ const page: ProductPage = {
     ],
     faq: [
       { q: 'Wie scanne ich einen QR-Code am PC ohne Handy?', a: 'Mit Lupe drücken Sie Win+Umschalt+Q und ziehen ein Rechteck um den Code auf dem Bildschirm – oder halten den Code vor die Webcam. Der Inhalt landet in der Zwischenablage, auf Wunsch auch als Tastatureingabe oder als geöffneter Link.' },
+      { q: 'Kann ich Barcodes am PC ohne Barcode-Scanner scannen?', a: 'Ja. Lupe macht die Webcam zum Barcodeleser: Mit der Aktion „Eintippen“ arbeitet sie wie ein Handscanner und tippt jeden erkannten Code in das Programm im Vordergrund. Codes auf dem Bildschirm, etwa in einer PDF, liest der Bildschirmscan ganz ohne Scanner und Kamera: Win+Umschalt+Q drücken, ein Rechteck um den Code ziehen – auf Wunsch tippt Lupe den Inhalt in das Fenster, aus dem Sie kamen.' },
       { q: 'Kann ich einen QR-Code aus einem Screenshot, einer PDF oder einem Bild auslesen?', a: 'Ja. Bilddateien öffnen oder auf die Seite „Datei“ ziehen, Screenshots mit Strg+V einfügen. Codes in einer geöffneten PDF oder E-Mail liest der Bildschirmscan direkt.' },
-      { q: 'Kann ich die Webcam als Barcodescanner nutzen, der in Excel oder ins ERP tippt?', a: 'Ja. Mit der Aktion „Eintippen“ für die Kamera tippt Lupe jeden erkannten Code wie ein Handscanner in das Programm im Vordergrund, auf Wunsch mit Enter oder Tab danach.' },
+      { q: 'Kann ich die Webcam als Barcodescanner nutzen, der in Excel oder ins ERP tippt?', a: 'Ja. Mit der Aktion „Eintippen“ für die Kamera arbeitet die Webcam als Tastaturweiche: Lupe tippt jeden erkannten Code in das Programm im Vordergrund, auf Wunsch mit Enter oder Tab danach – auch wenn Lupe selbst dahinter liegt oder minimiert ist.' },
       { q: 'Welche Barcode-Formate liest Lupe – auch Data Matrix?', a: 'Ja, Lupe ist auch ein Data-Matrix-Leser: 22 Formate, darunter QR Code, Micro QR, Data Matrix, Aztec, PDF417, Code 128 mit GS1-128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, ITF-14 und GS1 DataBar.' },
       { q: 'Was passiert, wenn mehrere Codes auf einem Bild sind?', a: 'Lupe findet alle und meldet sie in Lesereihenfolge. Nach einem Bildschirmscan wählen Sie einen aus oder kopieren alle, einen pro Zeile.' },
       { q: 'Werden meine Bilder oder Scans ins Internet geschickt?', a: 'Nein. Lupe hat keine Erkennung in der Cloud, keine Telemetrie und keine Update-Prüfung und speichert nie ein Bild. Nur der Verlauf liegt lokal pro Benutzer – oder ist abgeschaltet.' },
       { q: 'Läuft Lupe unter Linux und auf dem Mac?', a: 'Ja, es gibt Pakete für Linux (x64 und arm64, X11 und Wayland) und für macOS ab Version 12. Beide sind neuer und weniger getestet als die Windows-Fassung.' },
-      { q: 'Gibt es einen kostenlosen QR-Code-Leser für Windows, der offline arbeitet?', a: 'Ja, Lupe ist {lizenz} und arbeitet vollständig offline – unter Windows 10 und 11, Linux und macOS.{download}' },
+      { q: 'Gibt es einen kostenlosen QR-Code-Leser für Windows, der offline arbeitet?', a: 'Ja. Lupe ist ein QR-Code-Scanner für Windows 10 und 11, Linux und macOS, arbeitet vollständig offline und ist {lizenz}.{download}' },
     ],
     aka: ['QR-Code-Leser', 'QR-Code-Scanner für Windows', 'QR-Scanner für den PC', 'Barcode-Scanner-Software', 'Barcodeleser', 'Data-Matrix-Leser', 'Webcam als Tastaturweiche'],
     trademarks: 'QR Code ist eine eingetragene Marke der DENSO WAVE INCORPORATED. Windows, Excel und Microsoft Store sind Marken der Microsoft-Unternehmensgruppe, macOS und Mac sind Marken von Apple Inc.; Linux ist eine eingetragene Marke von Linus Torvalds, Ubuntu eine Marke von Canonical Ltd., Debian eine eingetragene Marke von Software in the Public Interest, Inc.; GS1 ist eine eingetragene Marke von GS1 AISBL. Sie werden nur genannt, um die Kompatibilität zu beschreiben.',
@@ -159,17 +161,17 @@ const page: ProductPage = {
   en: {
     operatingSystem: 'Windows 10 (version 1809 or later), Windows 11, Linux (x64, arm64), macOS 12 or later',
     softwareRequirements: 'Windows 10 version 1809 or later (x64), Linux x64/arm64 (glibc 2.31 or later) with X11 or Wayland, macOS 12 or later',
-    title: 'QR code scanner for Windows & barcode reader – Lupe',
-    description: 'Lupe is a QR code scanner for Windows, Linux and macOS: it reads QR codes and barcodes from the screen by hotkey, a webcam, image files or the clipboard. Offline.',
-    kind: 'QR code and barcode reader for the PC',
+    title: 'QR code & barcode scanner for PC – Lupe',
+    description: 'Barcode scanner software for Windows, Linux and macOS: Lupe reads QR codes and barcodes on the PC from a webcam, the screen or image files – offline.',
+    kind: 'QR code and barcode scanner for the PC',
     tagline: 'Every code, from anywhere.',
-    lead: 'Lupe is a QR code and barcode reader for Windows, Linux and macOS: it reads codes from a webcam, from any part of the screen, from image files and from the clipboard – and copies the content, types it into the window you were working in, or opens it as a link. Lupe works offline and is {lizenz}.',
+    lead: 'Lupe is barcode scanner software for Windows, Linux and macOS: it reads QR codes and barcodes from a webcam, from any part of the screen, from image files and from the clipboard – and copies the content, types it into the window you were working in, or opens it as a link. Lupe works offline and is {lizenz}.',
     sections: [
       {
         id: 'why',
         title: 'Scan a QR code on your PC – without a phone',
         blocks: [
-          { type: 'p', text: 'QR codes and barcodes often sit exactly where a phone does not help: in a PDF invoice, an e-mail, a web page, a video call or on a delivery note next to the PC. Lupe reads them right on the computer and hands the content on to where it is needed – the clipboard, keyboard input into a form, or a link.' },
+          { type: 'p', text: 'QR codes and barcodes often sit exactly where a phone does not help: in a PDF invoice, an e-mail, a web page, a video call or on a delivery note next to the computer. As a QR code reader for PC, Lupe reads them directly and hands the content on to where it is needed – the clipboard, keyboard input into a form, or a link.' },
         ],
       },
       {
@@ -195,7 +197,7 @@ const page: ProductPage = {
       },
       {
         id: 'features',
-        title: 'Type, copy or open as a link',
+        title: 'Type, copy or open codes as links',
         blocks: [
           {
             type: 'items',
@@ -236,15 +238,16 @@ const page: ProductPage = {
     ],
     faq: [
       { q: 'How do I scan a QR code on my PC without a phone?', a: 'With Lupe, press Win+Shift+Q and drag a rectangle around the code on the screen – or hold the code in front of the webcam. The content goes to the clipboard and, if you like, is typed as keyboard input or opened as a link.' },
+      { q: 'Can I scan barcodes on a PC without a barcode scanner?', a: 'Yes. Lupe can serve as a webcam barcode scanner: with typing switched on, the webcam works like a hand scanner and types every recognised code into the program in front. Codes on the screen, such as in a PDF, are read without a scanner or camera at all: press Win+Shift+Q and drag a rectangle around the code – if you like, Lupe types the content into the window you came from.' },
       { q: 'Can I read a QR code from a screenshot, a PDF or an image file?', a: 'Yes. Open image files or drag them onto the Datei page, paste screenshots with Ctrl+V. Codes in an open PDF or e-mail are read directly by the screen scan.' },
-      { q: 'Can I use my webcam as a barcode scanner that types into Excel (keyboard wedge)?', a: 'Yes. With typing switched on for the camera, Lupe types every code like a hand scanner into the program in front, optionally followed by Enter or Tab.' },
+      { q: 'Can I use my webcam as a barcode scanner that types into Excel (keyboard wedge)?', a: 'Yes. With typing switched on for the camera, Lupe acts as a keyboard wedge for a webcam and types every code into the program in front, optionally followed by Enter or Tab – also while Lupe itself is behind that program or minimised.' },
       { q: 'Which barcode formats does Lupe read – does it work as a Data Matrix reader?', a: 'Yes, Lupe is a Data Matrix reader too: 22 formats, including QR Code, Micro QR, Data Matrix, Aztec, PDF417, Code 128 with GS1-128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, ITF-14 and GS1 DataBar.' },
       { q: 'What happens when there are several codes in one picture?', a: 'Lupe finds all of them and reports them in reading order. After a screen scan you pick one or copy them all, one per line.' },
       { q: 'Are my images or scans sent to the internet?', a: 'No. Lupe has no cloud recognition, no telemetry and no update check, and never stores an image. Only the history is kept locally per user – or switched off.' },
       { q: 'Does Lupe run on Linux and macOS?', a: 'Yes, there are packages for Linux (x64 and arm64, X11 and Wayland) and for macOS 12 or later. Both are newer and less tested than the Windows version.' },
-      { q: 'Is there a free QR code reader for Windows that works offline?', a: 'Yes, Lupe is {lizenz} and works entirely offline – on Windows 10 and 11, Linux and macOS.{download}' },
+      { q: 'Is there a free QR code reader for Windows that works offline?', a: 'Yes. Lupe is a QR code scanner for Windows 10 and 11, Linux and macOS, works entirely offline and is {lizenz}.{download}' },
     ],
-    aka: ['QR code reader for PC', 'QR code scanner for Windows', 'screen QR code reader', 'barcode reader software', 'webcam barcode scanner', 'Data Matrix reader', 'keyboard wedge for a webcam'],
+    aka: ['QR code reader for PC', 'QR code scanner for Windows', 'barcode scanner software', 'webcam barcode scanner', 'Data Matrix reader', 'keyboard wedge for a webcam'],
     facts: [
       ['Platform', 'Windows 10 (1809 or later) and 11, Linux (x64, arm64; X11 and Wayland), macOS 12 or later'],
       ['User interface', 'English and German; Spanish, French and Chinese (simplified) machine-translated'],

@@ -512,11 +512,11 @@
           },
           {
             "name": "findings",
-            "title": "14 Regeln mit klarer Empfehlung",
+            "title": "15 Regeln mit klarer Empfehlung",
             "caption": "„Jeder“ darf schreiben, verwaiste SIDs, Rechte an Einzelpersonen, versteckte Vererbungsbrüche, verschobene Ordner – jeweils mit Erklärung, warum es wichtig ist.",
             "alt": "Befunde in Zutritt nach Schweregrad, daneben die Regel ZT01 „Breite Gruppe darf schreiben“ mit Erklärung und Empfehlung.",
             "en": {
-              "title": "14 rules with a clear recommendation",
+              "title": "15 rules with a clear recommendation",
               "caption": "Everyone can write, orphaned SIDs, rights given to individuals, hidden inheritance breaks, moved folders – each with “why it matters”.",
               "alt": "Zutritt findings grouped by severity, with the detail pane for rule ZT01 showing explanation and recommendation."
             },
@@ -958,7 +958,7 @@
       "slug": "lupe",
       "nr": 6,
       "name": "Lupe",
-      "kind": "QR-Code- und Barcode-Leser für den PC",
+      "kind": "QR-Code- und Barcode-Scanner für den PC",
       "tagline": "Jeder Code, von überall.",
       "linie": "codes",
       "status": "fertig",
