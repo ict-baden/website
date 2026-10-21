@@ -1,0 +1,54 @@
+---
+// Verweis von der Produktseite auf die Ratgeber zum selben Thema (src/lib/ratgeber.ts, Feld product) – klein, nach
+// „Passende Produkte“. Ohne passenden Ratgeber erscheint nichts.
+import Icon from '../Icon.astro';
+import type { Lang } from '../../lib/produktseiten';
+import { GUIDE_UI, guidesForProduct, guideUrl } from '../../lib/ratgeber';
+
+interface Props { productId: string; lang: Lang }
+const { productId, lang } = Astro.props;
+const list = guidesForProduct(productId);
+const t = GUIDE_UI[lang];
+---
+{list.length > 0 && (
+  <section class="container gteaser" aria-labelledby="h-ratgeber">
+    <h2 id="h-ratgeber">{t.teaser}</h2>
+    <ul class="gteaser-list" role="list">
+      {list.map((g) => (
+        <li>
+          <a class="gteaser-item" href={guideUrl(g, lang)}>
+            <span class="gteaser-text"><span class="gteaser-name">{g[lang].h1}</span><span class="visually-hidden"> – </span><span class="gteaser-sub">{g[lang].teaser}</span></span>
+            <Icon name="arrow-right" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .gteaser { margin-top: var(--s-8); }
+  .gteaser h2 { font-size: var(--fs-xl); margin-bottom: var(--s-4); }
+  .gteaser-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); padding: 0; margin: 0; list-style: none; }
+  .gteaser-item {
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+    height: 100%;
+    padding: var(--s-4) var(--s-5);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--bg-elev);
+    color: var(--ink);
+    text-decoration: none;
+    transition: transform 380ms var(--ease-out), border-color 380ms var(--ease-out);
+  }
+  .gteaser-item:hover { transform: translateY(-2px); border-color: var(--line-strong); color: var(--ink); }
+  .gteaser-text { display: grid; flex: 1; min-width: 0; gap: 0.15rem; }
+  .gteaser-name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 720; font-stretch: 104%; line-height: 1.25; }
+  .gteaser-sub { color: var(--ink-2); font-size: var(--fs-sm); }
+  .gteaser-item > :global(.icon) { flex: none; color: var(--ink-3); }
+  @media (max-width: 720px) {
+    .gteaser-list { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

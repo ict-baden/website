@@ -8,6 +8,7 @@ import ThemeImage from '../ThemeImage.astro';
 import StatusBadge from '../StatusBadge.astro';
 import ContactBand from '../ContactBand.astro';
 import ProductIcon from './ProductIcon.astro';
+import GuideTeaser from '../guide/GuideTeaser.astro';
 import { coverArt } from '../../lib/art';
 import { colorClasses, isPortrait, lineById, nameHtml, nameSize, products, type Product, type Shot } from '../../lib/products';
 import { fill, inline, isReleased, LINE_EN, lineAnchorFor, pageFor, plain, productsUrlFor, productUrlFor, seoTitle, statusLabelFor, UI, type Lang } from '../../lib/produktseiten';
@@ -303,6 +304,8 @@ const updated = p.updated ? t.date(p.updated) : null;
       </ul>
     </section>
   )}
+
+  <GuideTeaser productId={p.id} lang={lang} />
 
   {copy.trademarks && <div class="container"><p class="dtm">{copy.trademarks}</p></div>}
 

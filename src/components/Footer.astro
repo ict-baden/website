@@ -5,6 +5,7 @@ import { COMPANY, STAGING } from '../config';
 import { HOME, NAV_I18N, UI_SITE, sectionHref } from '../i18n/site';
 import { products } from '../lib/products';
 import { pageFor, productsUrlFor, productUrlFor } from '../lib/produktseiten';
+import { HUB } from '../lib/ratgeber';
 
 interface Props { lang?: 'de' | 'en' }
 const { lang = 'de' } = Astro.props;
@@ -41,6 +42,7 @@ const productLinks = products.map((p) => ({
         <ul>
           <li><a href={HOME[lang]}>{T.home}</a></li>
           {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+          <li><a href={HUB[lang].url}>{HUB[lang].label}</a></li>
           <li><a href={HOME[other]} hreflang={other} lang={other} data-lang-switch={other}>{T.langOther}</a></li>
         </ul>
       </nav>
