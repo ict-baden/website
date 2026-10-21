@@ -21,8 +21,8 @@ const problems = [];
 // Prüfen
 
 const HEX = /^#[0-9a-f]{6}$/;
-// Nur veröffentlichte Produkte (products.json) bekommen ein Symbol; die übrigen Entwürfe bleiben unbenutzt
-const ACTIVE = Object.fromEntries(Object.entries(ICON_SPECS).filter(([id]) => byId.has(id)));
+// Nur veröffentlichte Produkte (products.json) ohne eigenes Logo im Repo bekommen ein Symbol; die übrigen Entwürfe bleiben unbenutzt
+const ACTIVE = Object.fromEntries(Object.entries(ICON_SPECS).filter(([id]) => byId.has(id) && !byId.get(id).media.logo));
 for (const [id, spec] of Object.entries(ICON_SPECS)) {
   if (!spec.colors?.every((c) => HEX.test(c))) problems.push(`${id}: Farben müssen #rrggbb in Kleinbuchstaben sein`);
   if (/<(?!\/?(path|circle|rect|g)\b)/.test(spec.symbol)) problems.push(`${id}: Symbol enthält andere Elemente als path, circle, rect, g`);

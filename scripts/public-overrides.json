@@ -18,7 +18,8 @@
     "enterprisebrowser",
     "industrialkeyboard",
     "haertungs-check",
-    "freigaben-berechtigungen"
+    "freigaben-berechtigungen",
+    "labeldesigner"
   ],
   "linien": [
     {
@@ -134,7 +135,8 @@
       "text": "Zeigt, wer auf Dateifreigaben worauf zugreifen darf – und über welche Gruppe. Liest Freigabe- und NTFS-Rechte, löst Gruppen bis zur Person auf, meldet riskante Rechte und schreibt einen Excel- oder PDF-Bericht zum Abzeichnen.",
       "problem": false,
       "umfang": false,
-      "reason": "README von Zutritt: Vorabversion, nicht signiert. Der Kurztext aus projekte.json nannte ein Fremdprodukt ohne Freigabe und wird deshalb ersetzt; die Notiz behauptet NAS-Unterstützung, die die README nicht belegt. Status: laut Till 2026-10-20 derzeit verfügbar."
+      "reason": "README von Zutritt: Vorabversion, nicht signiert. Der Kurztext aus projekte.json nannte ein Fremdprodukt ohne Freigabe und wird deshalb ersetzt; die Notiz behauptet NAS-Unterstützung, die die README nicht belegt. Status: laut Till 2026-10-20 derzeit verfügbar.",
+      "version": "0.1.0"
     },
     "vitrine": {
       "version": "0.1.0",
@@ -156,31 +158,40 @@
       "text": "Liest QR-Codes und Barcodes unter Windows, Linux und macOS – per Webcam, aus jedem Bildschirmausschnitt, aus Bilddateien und der Zwischenablage. Das Ergebnis wird kopiert, eingetippt oder als Link geöffnet.",
       "problem": false,
       "umfang": false,
-      "reason": "README von Lupe: Windows, Linux und macOS, Oberfläche Englisch und Deutsch, Vorabversion 0.1.0 (projekte.json: 'fertig', Text 'für Windows' veraltet). Ausgangslage der Notiz enthält eine nicht belegbare Alleinstellungsbehauptung. Status: laut Till 2026-10-20 derzeit verfügbar."
+      "reason": "README von Lupe: Windows, Linux und macOS, Oberfläche Englisch und Deutsch, Vorabversion 0.1.0 (projekte.json: 'fertig', Text 'für Windows' veraltet). Ausgangslage der Notiz enthält eine nicht belegbare Alleinstellungsbehauptung. Status: laut Till 2026-10-20 derzeit verfügbar.",
+      "version": "0.1.0"
     },
     "enterprisebrowser": {
       "status": "fertig",
-      "text": "Kiosk-Browser für robuste Android-Geräte, zum Beispiel von Zebra und Honeywell: Barcode-Scan per DataWedge direkt ins Webformular, Profile, Kioskmodus und Konfiguration per MDM (SOTI, Intune, StageNow).",
-      "reason": "Kurztext an die README angepasst (Android 8.0+, Scan per DataWedge oder Intent, Managed Configuration). Status: Version 0.5.0 (app/build.gradle.kts, CHANGELOG), Releases debug-signiert (docs/deployment.md), also Vorabversion nach Richtlinie 04 – projekte.json sagt 'fertig'. Marken nur als Kompatibilität ('zum Beispiel von'), Name rechtlich prüfen lassen. Status: laut Till 2026-10-20 derzeit verfügbar."
+      "text": "Kiosk-Browser für robuste Android-Geräte, zum Beispiel von Zebra und Honeywell: Barcode-Scan direkt ins Webformular, Profile, Kioskmodus und Konfiguration per MDM (SOTI, Intune, StageNow).",
+      "reason": "Neuer Name Pforte (2026-10-21, vorher EnterpriseBrowser – Verwechslungsgefahr mit dem gleichnamigen Produkt eines anderen Herstellers); Repo ict-baden/pforte, Version 0.6.0 (CHANGELOG). Marken nur als Kompatibilität („zum Beispiel von“). Status in projekte.json „fertig“; solange das Repo privat ist, zeigt die Website „Vorabversion … – Veröffentlichung in Kürze“ (download.public in src/data/produktseiten/enterprisebrowser.ts).",
+      "name": "Pforte",
+      "repo": "ict-baden/pforte",
+      "version": "0.6.0"
     },
     "industrialkeyboard": {
       "text": "Bildschirmtastatur für robuste Android-Geräte von Zebra und Honeywell: große Tasten für Handschuhe, Scan-Taste, F1–F24 für Terminal-Emulation, zentral per MDM konfigurierbar.",
-      "reason": "projekte.json nennt RDP und SAP – das belegt die README nicht. Text nach dem deutschen Hinweis der README."
+      "reason": "projekte.json nennt RDP und SAP – das belegt die README nicht. Text nach dem deutschen Hinweis der README.",
+      "version": "2.1.0"
     },
     "haertungs-check": {
       "status": "fertig",
       "text": "Prüft Windows-Rechner in Anlagen, Laboren und Leitständen lesend und offline gegen 153 Härtungsregeln, hält begründete Ausnahmen mit Freigabe fest und erzeugt einen Bericht zum Abzeichnen.",
       "problem": false,
       "umfang": false,
-      "reason": "README von Riegel: Vorabversion 0.1, nicht signiert; Regelwerk 2026.10 mit 153 Regeln (bei neuem Regelwerk anpassen); enthält KEINE CIS- oder BSI-SiSyPHuS-Inhalte. Die Notiz-Abschnitte nennen BSI/CIS und Fremdprodukte und entfallen. Status: laut Till 2026-10-20 derzeit verfügbar."
+      "reason": "README von Riegel: Vorabversion 0.1, nicht signiert; Regelwerk 2026.10 mit 153 Regeln (bei neuem Regelwerk anpassen); enthält KEINE CIS- oder BSI-SiSyPHuS-Inhalte. Die Notiz-Abschnitte nennen BSI/CIS und Fremdprodukte und entfallen. Status: laut Till 2026-10-20 derzeit verfügbar.",
+      "version": "0.1.2"
     },
     "labeldesigner": {
       "name": "Plakette",
       "repo": "ict-baden/plakette",
-      "status": "angefangen",
+      "status": "fast-fertig",
       "linie": "codes",
-      "text": "Etiketten-Designer für Zebra- und kompatible Etikettendrucker: druckt ZPL direkt auf den Drucker – ohne Druckertreiber, Lizenzserver oder Administratorrechte, unter Windows und Linux. In Entwicklung.",
-      "reason": "projekte.json ist veraltet (repo leer, Status 'fertig', Linie Android, 'im Browser gestalten'). README von Plakette: Name Plakette, in Entwicklung, noch keine Veröffentlichung, Windows und Linux."
+      "text": "Etiketten-Designer für Zebra- und kompatible Etikettendrucker: gestaltet Etiketten am Rechner und druckt ZPL direkt auf den Drucker – ohne Druckertreiber, Lizenzserver oder Administratorrechte, unter Windows und Linux.",
+      "reason": "projekte.json ist veraltet (repo leer, Linie Android, „im Browser gestalten“). README von Plakette: Name Plakette, Vorabversion (Tag v0.1.0 als Pre-release), Windows und Linux, Ausgabe bisher nur gegen den virtuellen Drucker geprüft.",
+      "version": "0.1.0",
+      "problem": false,
+      "umfang": false
     }
   }
 }
