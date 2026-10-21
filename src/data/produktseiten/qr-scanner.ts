@@ -146,7 +146,7 @@ const page: ProductPage = {
     ],
     faq: [
       { q: 'Wie scanne ich einen QR-Code am PC ohne Handy?', a: 'Mit Lupe drücken Sie Win+Umschalt+Q und ziehen ein Rechteck um den Code auf dem Bildschirm – oder halten den Code vor die Webcam. Der Inhalt landet in der Zwischenablage, auf Wunsch auch als Tastatureingabe oder als geöffneter Link.' },
-      { q: 'Kann ich Barcodes am PC ohne Barcode-Scanner scannen?', a: 'Ja. Lupe macht die Webcam zum Barcodeleser: Mit der Aktion „Eintippen“ arbeitet sie wie ein Handscanner und tippt jeden erkannten Code in das Programm im Vordergrund. Codes auf dem Bildschirm, etwa in einer PDF, liest der Bildschirmscan ganz ohne Scanner und Kamera: Win+Umschalt+Q drücken, ein Rechteck um den Code ziehen – auf Wunsch tippt Lupe den Inhalt in das Fenster, aus dem Sie kamen.' },
+      { q: 'Kann ich Barcodes am PC ohne Barcode-Scanner scannen?', a: 'Ja. Lupe macht die Webcam zum Barcodeleser: Mit der Aktion „Eintippen“ arbeitet sie wie ein Handscanner und tippt jeden erkannten Code in das Programm im Vordergrund. Codes auf dem Bildschirm, etwa in einer PDF, liest der Bildschirmscan ganz ohne Scanner und Kamera: Win+Umschalt+Q drücken (auf dem Mac ⌘+⌥+Q), ein Rechteck um den Code ziehen – auf Wunsch tippt Lupe den Inhalt in das Fenster, aus dem Sie kamen.' },
       { q: 'Kann ich einen QR-Code aus einem Screenshot, einer PDF oder einem Bild auslesen?', a: 'Ja. Bilddateien öffnen oder auf die Seite „Datei“ ziehen, Screenshots mit Strg+V einfügen. Codes in einer geöffneten PDF oder E-Mail liest der Bildschirmscan direkt.' },
       { q: 'Kann ich die Webcam als Barcodescanner nutzen, der in Excel oder ins ERP tippt?', a: 'Ja. Mit der Aktion „Eintippen“ für die Kamera arbeitet die Webcam als Tastaturweiche: Lupe tippt jeden erkannten Code in das Programm im Vordergrund, auf Wunsch mit Enter oder Tab danach – auch wenn Lupe selbst dahinter liegt oder minimiert ist.' },
       { q: 'Welche Barcode-Formate liest Lupe – auch Data Matrix?', a: 'Ja, Lupe ist auch ein Data-Matrix-Leser: 22 Formate, darunter QR Code, Micro QR, Data Matrix, Aztec, PDF417, Code 128 mit GS1-128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, ITF-14 und GS1 DataBar.' },
@@ -192,7 +192,7 @@ const page: ProductPage = {
         id: 'files',
         title: 'Codes from images, screenshots or the clipboard',
         blocks: [
-          { type: 'p', text: 'Open an image, drag it onto the Datei page or press Ctrl+V: Lupe finds every code in the picture and numbers it in reading order. Which image formats work depends on the system: on Windows PNG, JPEG, BMP, GIF, TIFF, ICO and JPEG XR, plus WebP, HEIC, AVIF and JPEG XL with the matching image extension from the Microsoft Store; on Linux PNG, JPEG, BMP, GIF, WebP and ICO; on the Mac PNG, JPEG, GIF, BMP, TIFF, HEIC, WebP and ICO.' },
+          { type: 'p', text: 'Open an image, drag it onto the File page or press Ctrl+V: Lupe finds every code in the picture and numbers it in reading order. Which image formats work depends on the system: on Windows PNG, JPEG, BMP, GIF, TIFF, ICO and JPEG XR, plus WebP, HEIC, AVIF and JPEG XL with the matching image extension from the Microsoft Store; on Linux PNG, JPEG, BMP, GIF, WebP and ICO; on the Mac PNG, JPEG, GIF, BMP, TIFF, HEIC, WebP and ICO.' },
         ],
       },
       {
@@ -238,16 +238,16 @@ const page: ProductPage = {
     ],
     faq: [
       { q: 'How do I scan a QR code on my PC without a phone?', a: 'With Lupe, press Win+Shift+Q and drag a rectangle around the code on the screen – or hold the code in front of the webcam. The content goes to the clipboard and, if you like, is typed as keyboard input or opened as a link.' },
-      { q: 'Can I scan barcodes on a PC without a barcode scanner?', a: 'Yes. Lupe can serve as a webcam barcode scanner: with typing switched on, the webcam works like a hand scanner and types every recognised code into the program in front. Codes on the screen, such as in a PDF, are read without a scanner or camera at all: press Win+Shift+Q and drag a rectangle around the code – if you like, Lupe types the content into the window you came from.' },
-      { q: 'Can I read a QR code from a screenshot, a PDF or an image file?', a: 'Yes. Open image files or drag them onto the Datei page, paste screenshots with Ctrl+V. Codes in an open PDF or e-mail are read directly by the screen scan.' },
-      { q: 'Can I use my webcam as a barcode scanner that types into Excel (keyboard wedge)?', a: 'Yes. With typing switched on for the camera, Lupe acts as a keyboard wedge for a webcam and types every code into the program in front, optionally followed by Enter or Tab – also while Lupe itself is behind that program or minimised.' },
+      { q: 'Can I scan barcodes on a PC without a barcode scanner?', a: 'Yes. Lupe can serve as a webcam barcode scanner: with typing switched on, the webcam works like a hand scanner and types every recognised code into the program in front. Codes on the screen, such as in a PDF, are read without a scanner or camera at all: press Win+Shift+Q (⌘+⌥+Q on the Mac) and drag a rectangle around the code – if you like, Lupe types the content into the window you came from.' },
+      { q: 'Can I read a QR code from a screenshot, a PDF or an image file?', a: 'Yes. Open image files or drag them onto the File page, paste screenshots with Ctrl+V. Codes in an open PDF or e-mail are read directly by the screen scan.' },
+      { q: 'Can I use my webcam as a barcode scanner that types into Excel (keyboard wedge)?', a: 'Yes. With typing switched on for the camera, Lupe works as a webcam keyboard wedge and types every code into the program in front, optionally followed by Enter or Tab – also while Lupe itself is behind that program or minimised.' },
       { q: 'Which barcode formats does Lupe read – does it work as a Data Matrix reader?', a: 'Yes, Lupe is a Data Matrix reader too: 22 formats, including QR Code, Micro QR, Data Matrix, Aztec, PDF417, Code 128 with GS1-128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, ITF-14 and GS1 DataBar.' },
       { q: 'What happens when there are several codes in one picture?', a: 'Lupe finds all of them and reports them in reading order. After a screen scan you pick one or copy them all, one per line.' },
       { q: 'Are my images or scans sent to the internet?', a: 'No. Lupe has no cloud recognition, no telemetry and no update check, and never stores an image. Only the history is kept locally per user – or switched off.' },
       { q: 'Does Lupe run on Linux and macOS?', a: 'Yes, there are packages for Linux (x64 and arm64, X11 and Wayland) and for macOS 12 or later. Both are newer and less tested than the Windows version.' },
       { q: 'Is there a free QR code reader for Windows that works offline?', a: 'Yes. Lupe is a QR code scanner for Windows 10 and 11, Linux and macOS, works entirely offline and is {lizenz}.{download}' },
     ],
-    aka: ['QR code reader for PC', 'QR code scanner for Windows', 'barcode scanner software', 'webcam barcode scanner', 'Data Matrix reader', 'keyboard wedge for a webcam'],
+    aka: ['QR code reader for PC', 'QR code scanner for Windows', 'barcode scanner software', 'webcam barcode scanner', 'Data Matrix reader', 'webcam keyboard wedge'],
     facts: [
       ['Platform', 'Windows 10 (1809 or later) and 11, Linux (x64, arm64; X11 and Wayland), macOS 12 or later'],
       ['User interface', 'English and German; Spanish, French and Chinese (simplified) machine-translated'],

@@ -199,10 +199,11 @@ export function webPage(url: string, name: string, description: string, lang: La
   };
 }
 
-/** Liste der Produkte (Übersichtsseiten). */
-export function productList(list: Product[], lang: Lang, name: string) {
+/** Liste der Produkte (Startseite, Produktübersicht); mit id kann die Seite sie als mainEntity nennen. */
+export function productList(list: Product[], lang: Lang, name: string, id?: string) {
   return {
     '@type': 'ItemList',
+    ...(id ? { '@id': abs(id) } : {}),
     name,
     numberOfItems: list.length,
     itemListElement: list.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(productUrlFor(p, lang)), name: p.name })),

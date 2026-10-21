@@ -17,12 +17,13 @@ function status(p: Product, lang: Lang): string {
   return statusLabelFor(p, lang) + soon;
 }
 
-/** Bekommt man das Produkt schon? Dieselbe Aussage wie auf der Produktseite („Download folgt“). */
+/** Bekommt man das Produkt schon? Dieselbe Aussage wie auf der Produktseite; „Veröffentlichung in Kürze“ steht schon
+ *  im Status und wird hier nicht wiederholt. */
 function download(p: Product, lang: Lang): string {
   const page = pageFor(p);
   if (page.download.public && page.download.url) return `Download: ${page.download.url}`;
-  if (lang === 'en') return isReleased(p) ? 'Download: follows with the public release, not publicly available yet' : 'Not released yet, no download';
-  return isReleased(p) ? 'Download: folgt mit der Veröffentlichung in Kürze, noch nicht öffentlich erhältlich' : 'Noch nicht veröffentlicht, kein Download';
+  if (lang === 'en') return isReleased(p) ? 'Download: not publicly available yet' : 'Not released yet, no download';
+  return isReleased(p) ? 'Download: noch nicht öffentlich erhältlich' : 'Noch nicht veröffentlicht, kein Download';
 }
 
 function intro(): string[] {
@@ -32,9 +33,9 @@ function intro(): string[] {
     `> ${COMPANY.name} aus Karlsruhe-Durlach: Beratung und Softwareentwicklung im Auftrag – und eigene Software-Produkte für Industrie, Labor und IT. Alle Produkte sind kostenlos unter der MIT-Lizenz; Support gibt es auf Wunsch per Supportvertrag.`,
     '',
     `Kontakt: ${COMPANY.email}, ${COMPANY.mobile}. ${COMPANY.name}, ${COMPANY.street}, ${COMPANY.zip} ${COMPANY.city}, Deutschland.`,
-    `Die Website ist deutsch; eine englische Fassung gibt es unter ${url('/en/')} – die Startseite, die Produktübersicht ${url(productsUrlFor('en'))} und jedes Produkt mit eigener englischer Seite.`,
+    `Die Website ist deutsch; die englische Fassung unter ${url('/en/')} umfasst die Startseite, die Produktübersicht ${url(productsUrlFor('en'))} und eine Seite je Produkt.`,
     '',
-    `English: ${COMPANY.name} from Karlsruhe-Durlach, Germany, offers consulting and custom software development and builds its own software products for industry, labs and IT. All products are free of charge under the MIT licence; support is available with a support contract. The English website is at ${url('/en/')}; the English product pages are listed under “Products (English)”.`,
+    `English: ${COMPANY.name} from Karlsruhe-Durlach, Germany, offers consulting and custom software development and builds its own software products for industry, labs and IT. All products are free of charge under the MIT licence; support is available with a support contract. The English website is at ${url('/en/')}, the product overview at ${url(productsUrlFor('en'))}, and every product has an English page.`,
     '',
   ];
 }

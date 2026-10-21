@@ -164,7 +164,7 @@ const page: ProductPage = {
         id: 'why',
         title: 'Evidence of hardening for the Windows machines nobody manages centrally',
         blocks: [
-          { type: 'p', text: 'Plant PCs, HMIs, lab and control-room machines often sit outside central IT – some without a network, some with software that needs an insecure setting. On such machines, installing software is a change in itself, so an OT Windows hardening assessment cannot simply begin with an installer.' },
+          { type: 'p', text: 'Plant PCs, HMIs, lab and control-room machines often sit outside central IT – some without a network, some with software that needs an insecure setting. On such machines, installing software is a change in itself – a Windows hardening assessment there has to work without an installer.' },
           { type: 'p', text: 'Riegel therefore brings a portable collector that installs nothing, changes no configuration and writes only its export; Windows itself merely records that a program ran. The evaluation happens on an analysis PC: a result per rule, justified exceptions, a comparison with the approved state and a report to sign.' },
         ],
       },
@@ -230,7 +230,7 @@ const page: ProductPage = {
       { q: 'Can I check Windows machines against my own security baseline?', a: 'Yes. Riegel imports GPO backups, including those inside security baselines you downloaded yourself, or your own requirements as `riegel.baseline/1` JSON or CSV. Each imported baseline is evaluated in the same run as the catalogue and gets its own section in the reports. Riegel itself ships no baseline content.' },
       { q: 'Is Riegel free? Does it send data?', a: 'Riegel is {lizenz}. It has no network code, no telemetry and no update check, and sends no data to ICT Baden.{download}' },
     ],
-    aka: ['offline Windows hardening checker', 'security baseline check', 'system hardening audit', 'hardening evidence report', 'OT Windows hardening assessment'],
+    aka: ['offline Windows hardening checker', 'security baseline check', 'system hardening audit', 'hardening evidence report', 'Windows hardening assessment'],
     facts: [
       ['Checked machines', 'Windows 7 SP1 to 11, Windows Server 2008 R2 to 2025 (portable collector)'],
       ['Analysis', 'Windows 10 (1809 or later) and Server 2019 or later; command line also for Linux (x64, arm64)'],

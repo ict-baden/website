@@ -77,7 +77,7 @@ const page: ProductPage = {
   },
   de: {
     title: 'Transparente Bildschirmsperre für Windows – Vitrine',
-    description: 'Durchsichtige Bildschirmsperre für Windows: Tastatur und Maus sperren, der Monitor bleibt sichtbar, Programme laufen weiter – für Labor und Leitstand.',
+    description: 'Durchsichtige Bildschirmsperre für Windows: sperrt Tastatur und Maus, der Monitor bleibt sichtbar, Programme laufen weiter – für Labor und Leitstand.',
     lead: 'Vitrine ist eine transparente (durchsichtige) Bildschirmsperre für Windows 10 und 11: Tastatur und Maus sind gesperrt, der Monitor bleibt sichtbar und alle Programme laufen weiter. Entsperrt wird mit dem Windows-Kennwort oder Windows Hello, elektronische Signaturen gehen auch mit Microsoft Entra ID – für Labore, Produktionslinien und Leitstände, {lizenz}.',
     sections: [
       {

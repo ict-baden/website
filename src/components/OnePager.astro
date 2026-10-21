@@ -12,7 +12,7 @@ import Kontakt from './sections/Kontakt.astro';
 import Film from './sections/Film.astro';
 import ProductCover from './product/ProductCover.astro';
 import { lineGlyph } from '../lib/art';
-import { featured, linien, products, productsOfLine, productUrl, statusCounts, statusSummary, lineAnchor, colorClasses, STATUS_LABEL, STATUS_ORDER, plural } from '../lib/products';
+import { featured, linien, products, productsOfLine, productUrl, statusCounts, statusSummary, colorClasses, STATUS_LABEL, STATUS_ORDER, plural } from '../lib/products';
 import { organization, productList, videoObject, webPage, website } from '../lib/seo';
 import { SERVICES, TOPICS } from '../data/portfolio';
 import { pageFor, productsUrlFor, productUrlFor, statusLabelFor } from '../lib/produktseiten';
@@ -57,7 +57,7 @@ const kindOf = (p: (typeof products)[number]) => (de ? p.kind : pageFor(p).en.ki
 const taglineOf = (p: (typeof products)[number]) => (de ? p.tagline : pageFor(p).en.tagline ?? null);
 const textOf = (p: (typeof products)[number]) => (de ? p.text : pageFor(p).en.description);
 const productsLead = de
-  ? `${plural(products.length, 'Produkt', 'Produkte')} in ${linien.length} Produktlinien, alle kostenlos unter der MIT-Lizenz: ${statusSummary(products)}. Support gibt es auf Wunsch per Supportvertrag.`
+  ? `${plural(products.length, 'Produkt', 'Produkte')} in ${linien.length} Produktlinien, alle kostenlos unter der MIT-Lizenz (${statusSummary(products)}). Support gibt es auf Wunsch per Supportvertrag.`
   : `${products.length} products in ${linien.length} product lines, all free of charge under the MIT licence. Support is available with a support contract.`;
 ---
 <Base title={title} bareTitle description={description} lang={lang} jsonLd={jsonLd} scripts={['anfahrt.js', 'film.js']} alternates={[{ lang: 'de', href: '/' }, { lang: 'en', href: '/en/' }]}>

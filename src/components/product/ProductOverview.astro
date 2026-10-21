@@ -11,6 +11,7 @@ import { lineGlyph } from '../../lib/art';
 import { linien, plural, products, productsOfLine, statusSummary } from '../../lib/products';
 import { LINE_EN, lineIdFor, pageFor, productsUrlFor, productUrlFor, statusLabelFor, type Lang } from '../../lib/produktseiten';
 import { breadcrumbs, organization, productList, webPage, website } from '../../lib/seo';
+import { SITE_URL } from '../../config';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -24,7 +25,7 @@ const T = de
       description: `${n} Software-Produkte für Industrie, Labor und IT – von der transparenten Bildschirmsperre bis zum Etiketten-Designer, alle kostenlos unter der MIT-Lizenz.`,
       eyebrow: 'Eigene Produkte',
       h1: 'Software-Produkte für Industrie, Labor und IT',
-      lead: `${plural(n, 'Produkt', 'Produkte')} in ${linien.length} Produktlinien, alle kostenlos unter der MIT-Lizenz: ${statusSummary(products)}. Support gibt es auf Wunsch per Supportvertrag; zu jedem Produkt beraten wir Sie persönlich.`,
+      lead: `${plural(n, 'Produkt', 'Produkte')} in ${linien.length} Produktlinien, alle kostenlos unter der MIT-Lizenz (${statusSummary(products)}). Support gibt es auf Wunsch per Supportvertrag; zu jedem Produkt beraten wir Sie persönlich.`,
       crumb: 'Produkte',
       home: 'Start',
       count: (k: number) => plural(k, 'Produkt', 'Produkte'),
@@ -52,8 +53,8 @@ const lineText = (id: string, fallback: { name: string; text: string }) => (de ?
 const jsonLd = [
   organization(lang),
   website(),
-  webPage(path, T.title, T.description, lang, undefined, undefined, 'CollectionPage'),
-  productList(products, lang, T.listName),
+  webPage(path, T.title, T.description, lang, `${SITE_URL}${path}#products`, undefined, 'CollectionPage'),
+  productList(products, lang, T.listName, `${path}#products`),
   breadcrumbs([{ name: T.home, url: de ? '/' : '/en/' }, { name: T.crumb, url: path }]),
 ];
 ---
