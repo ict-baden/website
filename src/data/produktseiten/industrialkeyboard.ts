@@ -1,12 +1,14 @@
 // Industrial Keyboard – Bildschirmtastatur (Android-Eingabemethode) für robuste Android-Geräte.
-// Quellen (ict-baden/industrialkeyboard, Stand 2.1.0, Tag v2.1.0 vom 2026-10-21): README.md (deutscher Hinweis, Features,
+// Quellen (ict-baden/industrialkeyboard, Stand 2.1.1, Tag v2.1.1 vom 2026-10-21): README.md (deutscher Hinweis, Features,
 // Quick start, Vorlagen, Funktionstasten, Scannen, MIT), docs/configuration.md (Tastenhöhe 70–160 %, 120–140 % für
 // Handschuhe), docs/deployment.md (Managed Configuration, Datei, StageNow, „Make it the keyboard“ per MX UI Manager),
 // docs/integration.md (Scan-Eingang per Broadcast, scanner.input), docs/limitations.md (getestet nur Zebra HC20,
 // Honeywell nur nach Herstellerdoku, Übersetzungen maschinell, Admin-Kennwort ist keine Gerätesperre, bewusst ohne
 // Wortvorschläge/Autokorrektur/Wischen/Spracheingabe/Emoji), app/src/main/AndroidManifest.xml (nur VIBRATE),
-// docs/data-and-privacy.md, docs/play-store.md, CHANGELOG.md (2.1.0: fünf Sprachen, Fehlercodes IK-…, Scans per
-// Broadcast ab Werk aus, nie in Passwortfelder, Sperre nach 5 Fehlversuchen für 5 Minuten; 2.0.0: Test auf Zebra HC20).
+// docs/data-and-privacy.md, docs/play-store.md, CHANGELOG.md (2.1.1: Datei im App-Ordner auch auf verwalteten Geräten
+// nur mit Admin-Kennwort, sichtbare Passwortfelder zählen als Passwortfelder; 2.1.0: fünf Sprachen, Fehlercodes IK-…,
+// Scans per Broadcast ab Werk aus, nie in Passwortfelder, Sperre nach 5 Fehlversuchen für 5 Minuten; 2.0.0: Test auf
+// Zebra HC20).
 // Nicht behaupten: RDP, SAP, Honeywell auf Hardware getestet, dass die feste Reihe (functionRow) mehr als F1–F12 zeigt –
 // Esc, Einfg, Entf, Pos1/Ende, Bild auf/ab und Pfeile gibt es nur auf dem Fn-Reiter –, Kompatibilität mit der
 // Konfiguration anderer Tastatur-Apps. Fremdprodukte stehen ausschließlich im Abschnitt alternatives.

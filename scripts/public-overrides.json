@@ -164,15 +164,15 @@
     "enterprisebrowser": {
       "status": "fertig",
       "text": "Kiosk-Browser für robuste Android-Geräte, zum Beispiel von Zebra und Honeywell: Barcode-Scan direkt ins Webformular, Profile, Kioskmodus und Konfiguration per MDM (SOTI, Intune, StageNow).",
-      "reason": "Neuer Name Pforte (2026-10-21, vorher EnterpriseBrowser – Verwechslungsgefahr mit dem gleichnamigen Produkt eines anderen Herstellers); Repo ict-baden/pforte, Version 0.6.0 (CHANGELOG). Marken nur als Kompatibilität („zum Beispiel von“). Status in projekte.json „fertig“; solange das Repo privat ist, zeigt die Website „Vorabversion … – Veröffentlichung in Kürze“ (download.public in src/data/produktseiten/enterprisebrowser.ts).",
+      "reason": "Neuer Name Pforte (2026-10-21, vorher EnterpriseBrowser – Verwechslungsgefahr mit dem gleichnamigen Produkt eines anderen Herstellers); Repo ict-baden/pforte, Version 0.6.1 (Tag-Release v0.6.1 vom 2026-10-21; enthält SBOM und Prüfsummen, noch keine APK). Marken nur als Kompatibilität („zum Beispiel von“). Status in projekte.json „fertig“; solange das Repo privat ist, zeigt die Website „Vorabversion … – Veröffentlichung in Kürze“ (download.public in src/data/produktseiten/enterprisebrowser.ts).",
       "name": "Pforte",
       "repo": "ict-baden/pforte",
-      "version": "0.6.0"
+      "version": "0.6.1"
     },
     "industrialkeyboard": {
       "text": "Bildschirmtastatur für robuste Android-Geräte von Zebra und Honeywell: große Tasten für Handschuhe, Scan-Taste, F1–F24 für Terminal-Emulation, zentral per MDM konfigurierbar.",
-      "reason": "projekte.json nennt RDP und SAP – das belegt die README nicht. Text nach dem deutschen Hinweis der README.",
-      "version": "2.1.0"
+      "reason": "projekte.json nennt RDP und SAP – das belegt die README nicht. Text nach dem deutschen Hinweis der README. Version: Tag-Release v2.1.1 vom 2026-10-21 (Repo heißt jetzt ict-baden/industrialkeyboard).",
+      "version": "2.1.1"
     },
     "haertungs-check": {
       "status": "fertig",

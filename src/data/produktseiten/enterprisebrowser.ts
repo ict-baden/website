@@ -1,8 +1,9 @@
 // Pforte (früher EnterpriseBrowser) – Kiosk-Browser für robuste Android-Geräte (MDE-Geräte), zum Beispiel von Zebra
 // und Honeywell. Die id bleibt 'enterprisebrowser' (Projekt-id); alles Sichtbare heißt Pforte.
-// Quellen (ict-baden/pforte, Stand 0.6.0 vom 2026-10-21): README.md (Features, Quick start, Vorlagen inkl. SAP ITS
-// mobile, Web-Entwickler, „Formerly called EnterpriseBrowser“, MIT), CHANGELOG.md 0.6.0 (neuer Name, Paket
-// de.ictbaden.pforte – Android und EMM sehen eine neue App –, pforte.json, window.Pforte, Ereignis pforte:scan,
+// Quellen (ict-baden/pforte, Stand Tag v0.6.1 vom 2026-10-21 – Release mit SBOM und Prüfsummen, noch ohne APK; 0.6.1
+// behebt, dass neue Konfiguration erst beim Wechsel in den Vordergrund wirkte): README.md (Features, Quick start,
+// Vorlagen inkl. SAP ITS mobile, Web-Entwickler, „Formerly called EnterpriseBrowser“, MIT), CHANGELOG.md 0.6.0 (neuer
+// Name, Paket de.ictbaden.pforte – Android und EMM sehen eine neue App –, pforte.json, window.Pforte, Ereignis pforte:scan,
 // DataWedge-Profil „Pforte“, Fehlercodes PFT-…, scanner.genericIntent, SBOM CycloneDX, Konfigurationsdatei im
 // App-Ordner nur mit Admin-Kennwort, Sperre nach 5 Fehlversuchen für 15 Minuten; 0.5.0: Test auf Zebra HC20,
 // Formular-POSTs außerhalb der Allowlist gestoppt), docs/configuration.md (allowList inkl. Subdomains, Kiosk,
@@ -137,7 +138,7 @@ const page: ProductPage = {
       ['Sprache', 'Englisch und Deutsch; Spanisch, Französisch und Chinesisch maschinell übersetzt'],
     ],
     limits: [
-      'Auf echter Hardware getestet ist ein Zebra HC20 (Android 15, DataWedge) mit Version 0.5.0; die Änderungen in 0.6.0 sind per Unit-Tests geprüft. Andere Zebra-Modelle, Honeywell-Geräte und Android 8–10 sind nicht auf einem Gerät getestet.',
+      'Auf echter Hardware getestet ist ein Zebra HC20 (Android 15, DataWedge) mit Version 0.5.0; die Änderungen der Versionen 0.6.x sind nur per Unit-Tests geprüft. Andere Zebra-Modelle, Honeywell-Geräte und Android 8–10 sind nicht auf einem Gerät getestet.',
       'Eine leere Allowlist erlaubt jeden Host – auf Kioskgeräten immer eine Allowlist setzen.',
       'Bewusst fürs Intranet: Einfaches HTTP und vom Nutzer installierte CA-Zertifikate werden akzeptiert, die JavaScript-API gibt es auch für http-Seiten erlaubter Hosts. Wo möglich HTTPS verwenden.',
       'Echter Kioskmodus (Lock Task) braucht ein EMM im Modus „dediziertes Gerät“ (Device Owner); sonst blendet Pforte nur das Beenden aus.',
@@ -223,7 +224,7 @@ const page: ProductPage = {
       ['Language', 'English and German; Spanish, French and Chinese machine-translated'],
     ],
     limits: [
-      'The real-device test is on a Zebra HC20 (Android 15, DataWedge) with version 0.5.0; the 0.6.0 changes are covered by unit tests. Other Zebra models, Honeywell devices and Android 8–10 have not been tested on a device.',
+      'The real-device test is on a Zebra HC20 (Android 15, DataWedge) with version 0.5.0; the 0.6.x changes are covered by unit tests only. Other Zebra models, Honeywell devices and Android 8–10 have not been tested on a device.',
       'An empty allow list allows every host – always set one on kiosk devices.',
       'Deliberately for intranets: plain HTTP and user-installed CA certificates are accepted, and the JavaScript API is also offered to http pages of allowed hosts. Use HTTPS wherever possible.',
       'Real kiosk mode (lock task) needs an EMM in dedicated device mode (device owner); without it, Pforte only hides the exit.',

@@ -618,7 +618,7 @@
       "status": "fertig",
       "statusKey": "verfuegbar",
       "statusLabel": "Verfügbar",
-      "version": "0.6.0",
+      "version": "0.6.1",
       "updated": "2026-10-21",
       "text": "Kiosk-Browser für robuste Android-Geräte, zum Beispiel von Zebra und Honeywell: Barcode-Scan direkt ins Webformular, Profile, Kioskmodus und Konfiguration per MDM (SOTI, Intune, StageNow).",
       "sections": {
@@ -791,7 +791,7 @@
       "status": "fertig",
       "statusKey": "verfuegbar",
       "statusLabel": "Verfügbar",
-      "version": "2.1.0",
+      "version": "2.1.1",
       "updated": "2026-10-21",
       "text": "Bildschirmtastatur für robuste Android-Geräte von Zebra und Honeywell: große Tasten für Handschuhe, Scan-Taste, F1–F24 für Terminal-Emulation, zentral per MDM konfigurierbar.",
       "sections": {
