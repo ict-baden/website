@@ -1,0 +1,13 @@
+---
+// Englische Ratgeber-Seite (/en/guides/<slug>/) – gleicher Aufbau wie die deutsche, hreflang-Paar.
+import GuideLanding from '../../../components/guide/GuideLanding.astro';
+import { guides, type Guide } from '../../../lib/ratgeber';
+
+export function getStaticPaths() {
+  return guides.map((g) => ({ params: { slug: g.en.slug }, props: { guide: g } }));
+}
+
+interface Props { guide: Guide }
+const { guide } = Astro.props;
+---
+<GuideLanding guide={guide} lang="en" />

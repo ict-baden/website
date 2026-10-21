@@ -1,0 +1,331 @@
+---
+// Ratgeber-Seite (deutsch unter /ratgeber/<slug>/, englisch unter /en/guides/<slug>/): Antwort zuerst, Inhaltsverzeichnis,
+// Abschnitte mit Vergleichstabelle und „Was passt wann?“, das eigene Produkt als klar gekennzeichnete Möglichkeit, FAQ –
+// mit JSON-LD (TechArticle, FAQPage, BreadcrumbList) und hreflang. Inhalte: src/data/ratgeber/<id>.ts, Logik:
+// src/lib/ratgeber.ts.
+import Base from '../../layouts/Base.astro';
+import Icon from '../Icon.astro';
+import StatusBadge from '../StatusBadge.astro';
+import ContactBand from '../ContactBand.astro';
+import ProductIcon from '../product/ProductIcon.astro';
+import { colorClasses } from '../../lib/products';
+import { productUrlFor, statusLabelFor, UI, type Lang } from '../../lib/produktseiten';
+import { filler, GUIDE_UI, guideCrumbs, guideImage, guideJsonLd, guideModified, guides, guideUrl, productOf, rich, type Guide } from '../../lib/ratgeber';
+
+interface Props { guide: Guide; lang: Lang }
+const { guide: g, lang } = Astro.props;
+const c = g[lang];
+const t = GUIDE_UI[lang];
+const ui = UI[lang];
+const other: Lang = lang === 'de' ? 'en' : 'de';
+const f = filler(g, lang);
+/** Text mit Platzhaltern, `Code` und internen Links als HTML */
+const html = (s: string) => rich(f(s));
+const { p, page } = productOf(g);
+const kind = lang === 'de' ? p.kind : page.en.kind ?? p.kind;
+const productUrl = productUrlFor(p, lang);
+const image = guideImage(g, lang);
+const crumbs = guideCrumbs(g, lang);
+const modified = guideModified(g);
+const faqId = lang === 'de' ? 'fragen' : 'faq';
+const more = guides.filter((x) => x.id !== g.id);
+---
+<Base
+  title={c.title}
+  bareTitle
+  description={c.description}
+  lang={lang}
+  alternates={[{ lang: 'de', href: guideUrl(g, 'de') }, { lang: 'en', href: guideUrl(g, 'en') }]}
+  ogType="article"
+  ogImage={image.src}
+  ogImageAlt={image.alt}
+  jsonLd={guideJsonLd(g, lang)}
+>
+  <section class:list={['ghero', ...colorClasses(p)]}>
+    <div class="ghero-bg" aria-hidden="true"></div>
+    <div class="container ghero-inner">
+      <div class="gtop">
+        <nav aria-label={ui.crumbs}>
+          <ol class="crumbs">
+            {crumbs.slice(0, -1).map((x) => <li><a href={x.url}>{x.name}</a></li>)}
+            <li><span aria-current="page">{c.short}</span></li>
+          </ol>
+        </nav>
+        <a class="glang" href={guideUrl(g, other)} hreflang={other} title={ui.otherLangLabel}>
+          <Icon name="globe" /> <span lang={other}>{ui.otherLang}</span>
+        </a>
+      </div>
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h1>{c.h1}</h1>
+      <p class="glead" set:html={html(c.lead)} />
+      <p class="gmeta">{t.updated}: <time datetime={modified}>{ui.date(modified)}</time> · {t.by}</p>
+    </div>
+  </section>
+
+  <div class="container gbody">
+    <nav class="gtoc" aria-label={t.tocLabel}>
+      <p class="gtoc-title">{t.toc}</p>
+      <ol>
+        {c.sections.map((s) => <li><a href={`#${s.id}`}>{s.toc ?? s.title}</a></li>)}
+        <li><a href={`#${faqId}`}>{t.faq}</a></li>
+      </ol>
+    </nav>
+
+    <div class="gmain">
+      {c.sections.map((s) => (
+        <section class="gsec reveal" id={s.id} aria-labelledby={`h-${s.id}`}>
+          <h2 id={`h-${s.id}`}>{s.title}</h2>
+          {s.blocks.map((b, bi) =>
+            b.type === 'p' ? <p class="gp" set:html={html(b.text)} />
+            : b.type === 'list' ? <ul class="gul">{b.items.map((x) => <li set:html={html(x)} />)}</ul>
+            : b.type === 'items' ? (
+              <ul class="gitems" role="list">
+                {b.items.map((x) => <li><h3>{f(x.title)}</h3><p set:html={html(x.text)} /></li>)}
+              </ul>
+            )
+            : b.type === 'cases' ? (
+              <ul class="gcases" role="list">
+                {b.items.map((x) => (
+                  <li>
+                    <h3>{f(x.title)}</h3>
+                    <p><Icon name="arrow-right" class="gcase-arrow" /><span set:html={html(x.text)} /></p>
+                  </li>
+                ))}
+              </ul>
+            )
+            : b.type === 'table' ? (
+              <>
+                <section class="table-wrap gtable" tabindex="0" aria-labelledby={`${s.id}-tabelle-${bi}`}>
+                  <table class="table">
+                    <caption id={`${s.id}-tabelle-${bi}`}>{b.caption}</caption>
+                    <thead><tr>{b.head.map((h) => <th scope="col">{h}</th>)}</tr></thead>
+                    <tbody>
+                      {b.rows.map((r, j) => (
+                        <tr class:list={[j === b.key && 'is-ours']}>
+                          {r.map((cell, k) => (k === 0 ? <th scope="row" set:html={html(cell)} /> : <td set:html={html(cell)} />))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </section>
+                {b.note && <p class="gnote" set:html={html(b.note)} />}
+              </>
+            )
+            : (
+              <div class:list={['gprod', ...colorClasses(p)]}>
+                <ProductIcon product={p} size={64} uid="-guide" class="gprod-icon" />
+                <div class="gprod-body">
+                  <p class="gprod-label">{t.ours}</p>
+                  <p class="gprod-name">{p.name}{kind && <><span class="visually-hidden"> – </span><span class="gprod-kind">{kind}</span></>}</p>
+                  <p class="gprod-text" set:html={html(b.text)} />
+                  <p class="gprod-status">
+                    <StatusBadge product={p} label={statusLabelFor(p, lang)} />
+                    {!page.download.public && <><span class="visually-hidden"> · </span><span>{ui.downloadSoon}</span></>}
+                  </p>
+                  <div class="btn-row gprod-cta">
+                    <a class="btn" href={productUrl}>{t.productCta(p.name)} <Icon name="arrow-right" /></a>
+                    {b.compare && <a class="btn btn--secondary" href={b.compare.href}>{b.compare.label}</a>}
+                  </div>
+                </div>
+              </div>
+            )
+          )}
+        </section>
+      ))}
+    </div>
+  </div>
+
+  <section class="container gfaq" id={faqId} aria-labelledby="h-faq">
+    <h2 id="h-faq">{t.faq}</h2>
+    <div class="gfaq-list">
+      {c.faq.map((x) => (
+        <div class="gfaq-item reveal">
+          <h3>{f(x.q)}</h3>
+          <p set:html={html(x.a)} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {more.length > 0 && (
+    <section class="container gmore" aria-labelledby="h-more">
+      <h2 id="h-more">{t.more}</h2>
+      <ul class="gmore-list" role="list">
+        {more.map((o) => (
+          <li>
+            <a class="gmore-item" href={guideUrl(o, lang)}>
+              <span class="gmore-text"><span class="gmore-name">{o[lang].h1}</span><span class="visually-hidden"> – </span><span class="gmore-sub">{o[lang].teaser}</span></span>
+              <Icon name="arrow-right" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <div class="container"><p class="gtm">{c.trademarks}</p></div>
+
+  <ContactBand lang={lang} title={t.contactTitle} subject={t.contactSubject(c.short)} text={t.contactText} />
+</Base>
+
+<style>
+  .ghero { position: relative; overflow: clip; padding-block: clamp(2rem, 1rem + 3vw, 4rem) clamp(2.5rem, 1.5rem + 3vw, 4.5rem); }
+  .ghero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(42rem 28rem at 92% 0%, color-mix(in srgb, var(--l1) 24%, transparent), transparent 70%),
+      radial-gradient(28rem 22rem at 100% 100%, color-mix(in srgb, var(--l2) 14%, transparent), transparent 70%),
+      linear-gradient(to right, color-mix(in srgb, var(--ink) 4.5%, transparent) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(to bottom, color-mix(in srgb, var(--ink) 4.5%, transparent) 1px, transparent 1px) 0 0 / 56px 56px;
+    mask-image: radial-gradient(ellipse 90% 100% at 70% 10%, #000 30%, transparent 80%);
+  }
+  .ghero-inner { position: relative; }
+  .gtop { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-4); margin-bottom: var(--s-3); }
+  .gtop .crumbs { margin: 0; }
+  .glang {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    min-height: 32px;
+    padding: 0 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r-pill);
+    background: var(--bg-elev);
+    color: var(--ink-2);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .glang:hover { color: var(--ink); border-color: var(--ink-3); }
+  .glang :global(.icon) { width: 1em; height: 1em; }
+  .ghero .eyebrow { margin-top: var(--s-5); }
+  .ghero h1 { max-width: 22ch; font-size: clamp(2rem, 1.2rem + 3vw, 3.5rem); hyphens: manual; }
+  .glead { margin-top: var(--s-5); max-width: 64ch; color: var(--ink-2); font-size: var(--fs-lg); line-height: 1.55; }
+  .gmeta { margin-top: var(--s-4); color: var(--ink-3); font-size: var(--fs-xs); font-weight: 560; }
+
+  .gbody { display: grid; grid-template-columns: minmax(0, 1fr) 17rem; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .gtoc {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: 96px;
+    padding: var(--s-5);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--bg-elev);
+  }
+  .gtoc-title { margin-bottom: var(--s-3); color: var(--ink-3); font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; }
+  .gtoc ol { display: grid; gap: 0.1rem; padding: 0; margin: 0; list-style: none; counter-reset: gtoc; }
+  .gtoc li { counter-increment: gtoc; }
+  .gtoc a { display: flex; gap: 0.65em; align-items: baseline; min-height: 32px; padding-block: 0.3rem; color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.35; text-decoration: none; }
+  .gtoc a:hover { color: var(--link-hover); }
+  /* Nummern nur als Gestaltung (CSS-Zähler): nicht im Text der Links und Überschriften, „/ ''“ hält sie aus der
+     Sprachausgabe heraus – wie auf den Produktseiten */
+  .gtoc a::before {
+    content: counter(gtoc, decimal-leading-zero);
+    content: counter(gtoc, decimal-leading-zero) / '';
+    flex: none;
+    color: var(--ink-3);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .gmain { grid-column: 1; grid-row: 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); min-width: 0; counter-reset: gsec; }
+
+  .gsec { scroll-margin-top: 96px; counter-increment: gsec; }
+  .gsec h2 { display: flex; align-items: baseline; gap: 0.6em; margin-bottom: var(--s-4); font-size: clamp(1.45rem, 1.15rem + 1vw, 1.95rem); overflow-wrap: anywhere; hyphens: auto; }
+  .gsec h2::before {
+    content: counter(gsec, decimal-leading-zero);
+    content: counter(gsec, decimal-leading-zero) / '';
+    flex: none;
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+    overflow-wrap: normal;
+  }
+  .gp { color: var(--ink-2); max-width: 68ch; }
+  .gul { display: grid; gap: 0.55rem; padding-left: 1.2rem; color: var(--ink-2); max-width: 70ch; }
+  .gul li::marker { color: var(--ink-3); }
+  .gp + .gp, .gp + .gul, .gul + .gp, .gp + .gitems, .gitems + .gp, .gp + .gprod, .gnote + .gp { margin-top: var(--s-4); }
+  .gmain :global(code) { padding: 0.08em 0.35em; border-radius: 5px; background: color-mix(in srgb, var(--ink) 7%, transparent); font-size: 0.9em; overflow-wrap: anywhere; }
+
+  .gitems, .gcases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); padding: 0; margin: 0; list-style: none; }
+  .gitems li, .gcases li { padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--bg-elev); }
+  .gitems h3, .gcases h3 { font-family: var(--font-sans); font-size: 1rem; font-weight: 680; font-stretch: 100%; letter-spacing: 0; color: var(--ink); }
+  .gitems p { margin-top: 0.3rem; color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.55; }
+  .gcases li { border-left: 4px solid var(--brand-yellow); }
+  .gcases p { display: flex; gap: 0.5em; align-items: flex-start; margin-top: 0.35rem; color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.55; }
+  .gcases :global(.gcase-arrow) { flex: none; width: 1.05em; height: 1.05em; margin-top: 0.2em; color: var(--red-ink); }
+
+  .gtable .table { min-width: 44rem; }
+  .gtable caption { padding: 0.9rem 1rem 0.4rem; }
+  .gtable thead th { white-space: nowrap; }
+  .gtable tbody th { min-width: 10rem; }
+  .gtable tr.is-ours > * { background: var(--highlight-soft); }
+  .gnote { margin-top: var(--s-3); color: var(--ink-3); font-size: var(--fs-xs); max-width: 80ch; }
+
+  .gprod {
+    display: flex;
+    gap: var(--s-5);
+    align-items: flex-start;
+    padding: clamp(1.1rem, 0.8rem + 1.5vw, 1.75rem);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background:
+      radial-gradient(80% 140% at 0% 0%, color-mix(in srgb, var(--l1) 16%, transparent), transparent 70%),
+      var(--bg-elev);
+  }
+  .gprod :global(.gprod-icon) { --picon-size: 64px; }
+  .gprod-body { display: grid; gap: var(--s-2); min-width: 0; }
+  .gprod-label { color: var(--ink-3); font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; }
+  .gprod-name { display: grid; font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 750; font-stretch: 104%; line-height: 1.15; color: var(--ink); }
+  .gprod-kind { margin-top: 0.2rem; color: var(--ink-2); font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 560; font-stretch: 100%; }
+  .gprod-text { color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.55; max-width: 60ch; }
+  .gprod-status { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); color: var(--ink-3); font-size: var(--fs-xs); font-weight: 560; }
+  .gprod-cta { margin-top: var(--s-2); }
+  .gprod-cta .btn { white-space: normal; text-align: center; }
+
+  .gfaq { margin-top: var(--section-y); scroll-margin-top: 96px; }
+  .gfaq > h2 { font-size: var(--fs-2xl); margin-bottom: var(--s-6); }
+  .gfaq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) var(--s-6); }
+  .gfaq-item { padding: var(--s-5); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg-elev); }
+  .gfaq-item h3 { font-size: 1.1rem; line-height: 1.35; }
+  .gfaq-item p { margin-top: var(--s-2); color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.6; }
+
+  .gmore { margin-top: var(--section-y); }
+  .gmore h2 { font-size: var(--fs-2xl); margin-bottom: var(--s-5); }
+  .gmore-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); padding: 0; margin: 0; list-style: none; }
+  .gmore-item {
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+    height: 100%;
+    padding: var(--s-4) var(--s-5);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--bg-elev);
+    color: var(--ink);
+    text-decoration: none;
+    transition: transform 380ms var(--ease-out), border-color 380ms var(--ease-out);
+  }
+  .gmore-item:hover { transform: translateY(-2px); border-color: var(--line-strong); color: var(--ink); }
+  .gmore-text { display: grid; flex: 1; min-width: 0; gap: 0.15rem; }
+  .gmore-name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 720; font-stretch: 104%; line-height: 1.25; }
+  .gmore-sub { color: var(--ink-2); font-size: var(--fs-sm); }
+  .gmore-item > :global(.icon) { flex: none; color: var(--ink-3); }
+
+  .gtm { margin-top: var(--s-8); color: var(--ink-3); font-size: var(--fs-xs); max-width: 90ch; }
+
+  @media (max-width: 1060px) {
+    .gbody { grid-template-columns: minmax(0, 1fr); }
+    .gtoc, .gmain { grid-column: auto; grid-row: auto; }
+    .gtoc { position: static; }
+  }
+  @media (max-width: 720px) {
+    .gitems, .gcases, .gfaq-list, .gmore-list { grid-template-columns: minmax(0, 1fr); }
+    .gprod { flex-direction: column; gap: var(--s-4); }
+  }
+</style>

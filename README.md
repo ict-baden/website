@@ -26,6 +26,8 @@ from the internal project list.
 | `/en/` | English one-pager (same sections as `/`) |
 | `/en/products/` | English product overview, `hreflang` pair of `/produkte/` |
 | `/en/products/<slug>/` | English product landing pages (7), `hreflang` pairs with the German pages |
+| `/ratgeber/`, `/ratgeber/<slug>/` | Guides (German): answers to a problem with the common ways to solve it, our product as one clearly marked option (see „Guides“) |
+| `/en/guides/`, `/en/guides/<slug>/` | English guides, `hreflang` pairs with the German ones |
 | `/werkzeuge/pulswertigkeit/` | Energy meter pulse value calculator (rebuilt from `counter-pulse.html`) |
 | `/impressum/`, `/datenschutz/` | Imprint, privacy policy of the website |
 | `/datenschutz/<app>/` | Privacy policies of the seven apps (`vitrine`, `lupe`, `zutritt`, `riegel`, `plakette`, `pforte`, `industrialkeyboard` – the paths the apps link), from `src/data/app-datenschutz.ts` |
@@ -54,6 +56,8 @@ src/
   data/portfolio.ts      services and topic areas from the old site
   data/produktseiten/    curated German + English copy of every product page (<project id>.ts, sources in the header)
   data/serp.json         the length rule for <title> (≤ 580 px) and meta description (110–155 characters) + width table
+  data/ratgeber/         the guides, German + English (<German slug>.ts, sources in the header)
+  lib/ratgeber.ts        guides: types, URLs, dates, JSON-LD, sitemap and llms.txt entries
   lib/products.ts        typed access to products.json, status labels, helpers
   lib/produktseiten.ts   types and helpers of the product pages (titles, {lizenz}/{download} placeholders, UI texts)
   lib/seo.ts             JSON-LD builders (Organization, WebSite, WebPage, SoftwareApplication, FAQPage, BreadcrumbList)
@@ -214,6 +218,35 @@ Every product has a landing page in German (`/produkte/<slug>/`) and English (`/
   show the status.
 - Every product page links the privacy policy of its app (`src/data/app-datenschutz.ts`, matched by project id).
 
+### Guides (Ratgeber)
+
+Problem pages for searches that are not product names („Barcode-Scanner für den PC“, „Webcam als Barcodescanner“,
+„PC sperren, Bildschirm bleibt sichtbar“, „lock keyboard and mouse but keep the screen visible“ …): German under
+`/ratgeber/<slug>/`, English under `/en/guides/<slug>/`, overview pages `/ratgeber/` and `/en/guides/`. Content in
+`src/data/ratgeber/<German slug>.ts`, page `src/components/guide/GuideLanding.astro`, logic `src/lib/ratgeber.ts`.
+
+- Helpful content first: answer in the first paragraph, the common ways to solve the problem (hardware, Windows features,
+  other software in general), a comparison table, „Was passt wann?“, honest limits, FAQ (4–6). Our product is one
+  clearly marked option with a card that links its product page; answers that recommend it also state its status
+  (pre-release, untested parts). The product page links back („Ratgeber“ after the related products,
+  `GuideTeaser.astro`), the footer links the overview.
+- **No names of competing products** in guides, not even „Alternative zu …“ – the named comparison stays on the product
+  page (link to its section, e.g. `/produkte/vitrine/#alternative`). `check:seo` fails a guide with any
+  `COMPETITOR_PATTERNS` hit in its text, attributes or JSON-LD. Platforms and features we describe (Windows, Excel,
+  Intune …) may be named, with a trademark note. Facts about Windows or hardware only from vendor documentation, facts
+  about our product only from its README/docs and the product page (respect its „Nicht behaupten“); sources go into the
+  header comment.
+- `<title>` exactly as written in the data, meta description in the data – the same length rule as every page
+  (`src/data/serp.json`: title ≤ 580 px, description 110–155 characters), checked already at build time. JSON-LD:
+  WebPage, TechArticle (author and publisher = the Organization, `mentions` = the SoftwareApplication `@id` of the product
+  page in the same language), BreadcrumbList Start → Ratgeber → page, FAQPage identical to the visible questions.
+  `dateModified`/`lastmod` = last commit of the data file or of the product page (status and version come from there).
+  The OG image is the product's; `og:type` is `article`.
+- Text may contain `` `code` `` and internal links `[text](/path/)`; `{lizenz}` and `{download}` work as on product pages,
+  `{version}` gives the version from `products.json`. Section numbers come from CSS counters (not in the heading text).
+- New guide: add `src/data/ratgeber/<slug>.ts` (German slug = id, `product` = project id), add its two URLs (German and
+  English) to `scripts/probe-image.sh`, run `npm run check`.
+
 ## Local development
 
 Requires Node ≥ 22.22 (developed with Node 25 / npm 11).
@@ -331,6 +364,7 @@ What the site does for Google, Bing and AI answer engines (ChatGPT search, Perpl
 - Descriptive file names and alt texts for screenshots; decorative images (icons next to a heading, the hero
   collage, cover art) keep `alt=""`/`aria-hidden`.
 - Factual comparison sections with third-party names, checked by `check:seo` (see Editorial rules).
+- Guides for the problem searches around the products (see „Guides“), linked from the product pages and the footer.
 
 ### Going live – checklist
 
@@ -405,7 +439,8 @@ Steps:
    https://ictbaden.de/produkte/` for every alias domain (301 → `https://ict-baden.de/…`), and the mail check from
    step 4 once more.
 8. **Google Search Console:** domain property `ict-baden.de` (DNS TXT, preferred), submit
-   `https://ict-baden.de/sitemap.xml`, request indexing of the 14 product pages (de and en) and the home page.
+   `https://ict-baden.de/sitemap.xml`, request indexing of the 14 product pages (de and en), the home page and the guides (`/ratgeber/…`,
+   `/en/guides/…`).
 9. **Bing Webmaster Tools** (also feeds ChatGPT search and Copilot): import from Search Console, submit the sitemap.
 10. Rich Results Test and validator.schema.org for one product page per language and the home page (LocalBusiness,
    VideoObject); PageSpeed Insights for the home page. Expected: LocalBusiness warns about missing opening hours and

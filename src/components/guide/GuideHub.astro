@@ -1,0 +1,139 @@
+---
+// Übersicht der Ratgeber (deutsch /ratgeber/, englisch /en/guides/): Ziel der Brotkrumen und des Links in der Fußzeile.
+// Je Ratgeber Titel, Kurzbeschreibung, das Produkt, um das es auch geht, und der Stand. Inhalte: src/lib/ratgeber.ts.
+import Base from '../../layouts/Base.astro';
+import Icon from '../Icon.astro';
+import ContactBand from '../ContactBand.astro';
+import ProductIcon from '../product/ProductIcon.astro';
+import { colorClasses } from '../../lib/products';
+import { UI, type Lang } from '../../lib/produktseiten';
+import { GUIDE_UI, guideCrumbs, guideModified, guides, guideUrl, HUB, hubJsonLd, productOf } from '../../lib/ratgeber';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = GUIDE_UI[lang];
+const ui = UI[lang];
+const other: Lang = lang === 'de' ? 'en' : 'de';
+const crumbs = guideCrumbs(null, lang);
+const cards = guides.map((g) => {
+  const { p, page } = productOf(g);
+  return { g, p, kind: lang === 'de' ? p.kind : page.en.kind ?? p.kind, modified: guideModified(g) };
+});
+---
+<Base
+  title={t.hubTitle}
+  bareTitle
+  description={t.hubDescription}
+  lang={lang}
+  alternates={[{ lang: 'de', href: HUB.de.url }, { lang: 'en', href: HUB.en.url }]}
+  jsonLd={hubJsonLd(lang)}
+>
+  <section class="hhero">
+    <div class="hhero-bg" aria-hidden="true"></div>
+    <div class="container hhero-inner">
+      <div class="htop">
+        <nav aria-label={ui.crumbs}>
+          <ol class="crumbs">
+            {crumbs.slice(0, -1).map((x) => <li><a href={x.url}>{x.name}</a></li>)}
+            <li><span aria-current="page">{HUB[lang].label}</span></li>
+          </ol>
+        </nav>
+        <a class="hlang" href={HUB[other].url} hreflang={other} title={ui.otherLangLabel}>
+          <Icon name="globe" /> <span lang={other}>{ui.otherLang}</span>
+        </a>
+      </div>
+      <h1>{t.hubH1}</h1>
+      <p class="lead hlead">{t.hubLead}</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <ul class="hcards" role="list">
+      {cards.map(({ g, p, kind, modified }) => (
+        <li class:list={['hcard', 'reveal', ...colorClasses(p)]}>
+          <h2><a href={guideUrl(g, lang)}>{g[lang].h1}</a></h2>
+          <p class="hcard-text">{g[lang].teaser}</p>
+          <p class="hcard-product">
+            <ProductIcon product={p} size={32} uid={`-hub-${p.slug}`} class="hcard-icon" />
+            <span>{t.hubProduct}: <strong>{p.name}</strong>{kind && ` – ${kind}`}</span>
+          </p>
+          <p class="hcard-foot">
+            <span>{t.updated}: <time datetime={modified}>{ui.date(modified)}</time></span>
+            <span class="visually-hidden"> · </span>
+            <span class="hcard-more" aria-hidden="true">{t.read} <Icon name="arrow-right" /></span>
+          </p>
+        </li>
+      ))}
+    </ul>
+    <p class="htm">{t.hubTrademarks}</p>
+  </div>
+
+  <ContactBand lang={lang} title={t.contactTitle} subject={t.hubSubject} text={t.contactText} />
+</Base>
+
+<style>
+  .hhero { position: relative; overflow: clip; padding-block: clamp(2rem, 1rem + 3vw, 4rem) clamp(2rem, 1rem + 3vw, 3.5rem); }
+  .hhero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, color-mix(in srgb, var(--ink) 4.5%, transparent) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(to bottom, color-mix(in srgb, var(--ink) 4.5%, transparent) 1px, transparent 1px) 0 0 / 56px 56px;
+    mask-image: radial-gradient(ellipse 90% 100% at 70% 10%, #000 30%, transparent 80%);
+  }
+  .hhero-inner { position: relative; }
+  .htop { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-4); margin-bottom: var(--s-5); }
+  .htop .crumbs { margin: 0; }
+  .hlang {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    min-height: 32px;
+    padding: 0 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r-pill);
+    background: var(--bg-elev);
+    color: var(--ink-2);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .hlang:hover { color: var(--ink); border-color: var(--ink-3); }
+  .hlang :global(.icon) { width: 1em; height: 1em; }
+  .hlead { margin-top: var(--s-5); }
+
+  .hcards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); padding: 0; margin: 0; list-style: none; }
+  .hcard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    padding: clamp(1.25rem, 1rem + 1vw, 2rem);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background:
+      radial-gradient(70% 120% at 0% 0%, color-mix(in srgb, var(--l1) 14%, transparent), transparent 70%),
+      var(--bg-elev);
+    transition: transform 380ms var(--ease-out), border-color 380ms var(--ease-out);
+  }
+  .hcard:hover { transform: translateY(-2px); border-color: var(--line-strong); }
+  .hcard h2 { font-size: var(--fs-xl); line-height: 1.2; }
+  .hcard h2 a { color: var(--ink); text-decoration: none; }
+  /* Die ganze Karte ist klickbar, der Link bleibt die Überschrift */
+  .hcard h2 a::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+  .hcard h2 a:focus-visible { outline: none; }
+  .hcard:has(h2 a:focus-visible) { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .hcard-text { color: var(--ink-2); }
+  .hcard-product { display: flex; align-items: center; gap: var(--s-3); color: var(--ink-2); font-size: var(--fs-sm); }
+  .hcard-product :global(.hcard-icon) { --picon-size: 32px; }
+  .hcard-product strong { color: var(--ink); }
+  .hcard-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-4); margin-top: auto; padding-top: var(--s-2); color: var(--ink-3); font-size: var(--fs-xs); font-weight: 560; }
+  .hcard-more { display: inline-flex; align-items: center; gap: 0.35em; color: var(--ink); font-size: var(--fs-sm); font-weight: 620; }
+  .hcard-more :global(.icon) { width: 1.05em; height: 1.05em; color: var(--red-ink); }
+
+  .htm { margin-top: var(--s-7); color: var(--ink-3); font-size: var(--fs-xs); max-width: 90ch; }
+
+  @media (max-width: 720px) {
+    .hcards { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
