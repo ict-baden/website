@@ -2,13 +2,13 @@
 // Quellen (ict-baden/industrialkeyboard, Stand 2.1.1, Tag v2.1.1 vom 2026-10-21): README.md (deutscher Hinweis, Features,
 // Quick start, Vorlagen, Funktionstasten, Scannen, MIT), docs/configuration.md (Tastenhöhe 70–160 %, 120–140 % für
 // Handschuhe), docs/deployment.md (Managed Configuration, Datei, StageNow, „Make it the keyboard“ per MX UI Manager),
-// docs/integration.md (Scan-Eingang per Broadcast, scanner.input), docs/limitations.md (getestet nur Zebra HC20,
+// docs/integration.md (Scan-Eingang per Broadcast, scanner.input), docs/limitations.md (Testumfang,
 // Honeywell nur nach Herstellerdoku, Übersetzungen maschinell, Admin-Kennwort ist keine Gerätesperre, bewusst ohne
 // Wortvorschläge/Autokorrektur/Wischen/Spracheingabe/Emoji), app/src/main/AndroidManifest.xml (nur VIBRATE),
 // docs/data-and-privacy.md, docs/play-store.md, CHANGELOG.md (2.1.1: Datei im App-Ordner auch auf verwalteten Geräten
 // nur mit Admin-Kennwort, sichtbare Passwortfelder zählen als Passwortfelder; 2.1.0: fünf Sprachen, Fehlercodes IK-…,
 // Scans per Broadcast ab Werk aus, nie in Passwortfelder, Sperre nach 5 Fehlversuchen für 5 Minuten; 2.0.0: Test auf
-// Zebra HC20).
+// Testgeräte werden nicht genannt, Till 2026-10-22).
 // Nicht behaupten: RDP, SAP, Honeywell auf Hardware getestet, dass die feste Reihe (functionRow) mehr als F1–F12 zeigt –
 // Esc, Einfg, Entf, Pos1/Ende, Bild auf/ab und Pfeile gibt es nur auf dem Fn-Reiter –, Kompatibilität mit der
 // Konfiguration anderer Tastatur-Apps. Fremdprodukte stehen ausschließlich im Abschnitt alternatives.
@@ -43,7 +43,7 @@ const page: ProductPage = {
             'Keine Internetberechtigung, kein Wörterbuch, nichts Getipptes wird gespeichert.',
           ],
         },
-        { type: 'p', text: 'Ehrlich für Umsteiger: Industrial Keyboard übernimmt keine Konfiguration anderer Tastatur-Apps – Layouts und Einstellungen werden neu in JSON angelegt. Wortvorschläge, Autokorrektur, Wischen und Spracheingabe gibt es bewusst nicht. Getestet ist bisher ein Zebra HC20.' },
+        { type: 'p', text: 'Ehrlich für Umsteiger: Industrial Keyboard übernimmt keine Konfiguration anderer Tastatur-Apps – Layouts und Einstellungen werden neu in JSON angelegt. Wortvorschläge, Autokorrektur, Wischen und Spracheingabe gibt es bewusst nicht.' },
       ],
       faq: [
         { q: 'Gibt es eine kostenlose Alternative zu Zebra Enterprise Keyboard?', a: 'Ja: Industrial Keyboard ist eine Bildschirmtastatur für robuste Android-Geräte, {lizenz}, ohne Werbung und ohne In-App-Käufe. Sie bietet F1–F24, eine Scan-Taste für DataWedge und Honeywell, große Tasten für Handschuhe und Konfiguration per MDM – und läuft auch auf Geräten anderer Hersteller.' },
@@ -63,7 +63,7 @@ const page: ProductPage = {
             'No internet permission, no dictionary, nothing you type is stored.',
           ],
         },
-        { type: 'p', text: 'Honestly, for anyone switching: Industrial Keyboard does not import the configuration of other keyboard apps – layouts and settings are set up again in JSON. Word suggestions, autocorrect, swipe typing and voice input are deliberately left out. So far it has been tested on a Zebra HC20.' },
+        { type: 'p', text: 'Honestly, for anyone switching: Industrial Keyboard does not import the configuration of other keyboard apps – layouts and settings are set up again in JSON. Word suggestions, autocorrect, swipe typing and voice input are deliberately left out.' },
       ],
       faq: [
         { q: 'Is there a free alternative to Zebra Enterprise Keyboard?', a: 'Yes: Industrial Keyboard is an on-screen keyboard for rugged Android devices, {lizenz}, with no ads and no in-app purchases. It offers F1–F24, a scan key for DataWedge and Honeywell, big keys for gloves and configuration through your MDM – and it also runs on devices from other vendors.' },
@@ -115,13 +115,12 @@ const page: ProductPage = {
     requirements: [
       ['Betriebssystem', 'Android 8.0 oder neuer'],
       ['Scanner', 'Software-Auslöser für Zebra DataWedge und Honeywell, andere Scanner-Apps per Intent'],
-      ['Getestet', 'auf einem Zebra HC20 mit Android 15 und DataWedge'],
       ['Berechtigungen', 'nur Vibration – keine Internetberechtigung'],
       ['Verteilung', 'APK per MDM oder adb; Google Play ist vorbereitet'],
       ['Sprache', 'Englisch und Deutsch; Spanisch, Französisch und Chinesisch maschinell übersetzt'],
     ],
     limits: [
-      'Getestet ist auf einem Zebra HC20 (Android 15, DataWedge). Der Honeywell-Auslöser folgt der Herstellerdokumentation und ist noch nicht auf einem Honeywell-Gerät getestet.',
+      'Der Honeywell-Auslöser folgt der Herstellerdokumentation und ist noch nicht auf einem Honeywell-Gerät getestet.',
       'Spanisch, Französisch und Chinesisch sind maschinell übersetzt und noch nicht von Muttersprachlern gegengelesen; die Tastenbeschriftungen werden nicht übersetzt.',
       'Kein Wörterbuch, keine Wortvorschläge, keine Autokorrektur, kein Wischen, keine Spracheingabe und keine Emoji-Auswahl – bewusst, damit nichts Getipptes gespeichert oder gelernt wird.',
       'Das Admin-Kennwort schützt Einstellungen und Fernkonfiguration, ist aber keine Gerätesperre: Wer die App deinstallieren oder ihre Daten löschen kann, bekommt die Standardwerte.',
@@ -187,13 +186,12 @@ const page: ProductPage = {
     requirements: [
       ['Operating system', 'Android 8.0 or later'],
       ['Scanner', 'soft trigger for Zebra DataWedge and Honeywell, other scanner apps via intent'],
-      ['Tested', 'on a Zebra HC20 with Android 15 and DataWedge'],
       ['Permissions', 'vibration only – no internet permission'],
       ['Distribution', 'APK via MDM or adb; Google Play is prepared'],
       ['Language', 'English and German; Spanish, French and Chinese machine-translated'],
     ],
     limits: [
-      'Tested on a Zebra HC20 (Android 15, DataWedge). The Honeywell trigger follows the vendor documentation and has not been tested on a Honeywell device yet.',
+      'The Honeywell trigger follows the vendor documentation and has not been tested on a Honeywell device yet.',
       'Spanish, French and Chinese are machine translations and have not yet been proofread by native speakers; key labels are not translated.',
       'No dictionary, no word suggestions, no autocorrect, no swipe typing, no voice input and no emoji picker – deliberately, so that nothing typed is stored or learned.',
       'The admin password protects the settings and remote configuration but is not a device lock: whoever can uninstall the app or clear its data gets the defaults.',

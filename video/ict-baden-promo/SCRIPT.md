@@ -1,4 +1,4 @@
-# Script (verbatim voiceover, take 2 – 51.12 s)
+# Script (verbatim voiceover, take 1 of the 2026-10-22 recording – 51.28 s)
 
 Word timestamps from ElevenLabs Scribe (`eleven_scribe_v1`); times are phrase starts in seconds.
 
@@ -12,6 +12,6 @@ Word timestamps from ElevenLabs Scribe (`eleven_scribe_v1`); times are phrase st
 | 4 Company | 23.20 | We are a compact team with experienced partners – based in Karlsruhe-Durlach, |
 | | 28.00 | active in the developer community, and used to working remotely with large companies. |
 | 5 Products | 32.32 | Alongside client projects, we build our own software for industry, labs and IT: |
-| | 37.68 | Lupe, Vitrine, Zutritt and Riegel for Windows – EnterpriseBrowser and Industrial Keyboard for rugged Android devices. |
+| | 37.28 | Lupe, Vitrine, Zutritt and Riegel for Windows – Industrial Kiosk Browser and Industrial Keyboard for rugged Android devices. |
 | | 45.44 | All of them free, under the MIT licence. |
 | 6 Outro | 48.40 | ICT Baden. Getting things done. |

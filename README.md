@@ -22,7 +22,7 @@ from the internal project list.
 |---|---|
 | `/` | One-pager: hero, video, services and topic areas, the published products, proven solutions (Informant, CallCenter, ModbusExplorer, calculator), about, contact with directions |
 | `/produkte/` | Product overview: all published products as cards, grouped by product line (CollectionPage + ItemList) |
-| `/produkte/<slug>/` | Product landing pages (7, German): Vitrine, Lupe, Zutritt, Riegel, Pforte (formerly EnterpriseBrowser), Industrial Keyboard, Plakette |
+| `/produkte/<slug>/` | Product landing pages (6, German): Vitrine, Lupe, Zutritt, Riegel, Industrial Kiosk Browser (formerly Pforte and EnterpriseBrowser), Industrial Keyboard |
 | `/en/` | English one-pager (same sections as `/`) |
 | `/en/products/` | English product overview, `hreflang` pair of `/produkte/` |
 | `/en/products/<slug>/` | English product landing pages (7), `hreflang` pairs with the German pages |
@@ -30,15 +30,15 @@ from the internal project list.
 | `/en/guides/`, `/en/guides/<slug>/` | English guides, `hreflang` pairs with the German ones |
 | `/werkzeuge/pulswertigkeit/` | Energy meter pulse value calculator (rebuilt from `counter-pulse.html`) |
 | `/impressum/`, `/datenschutz/` | Imprint, privacy policy of the website |
-| `/datenschutz/<app>/` | Privacy policies of the seven apps (`vitrine`, `lupe`, `zutritt`, `riegel`, `plakette`, `pforte`, `industrialkeyboard` – the paths the apps link), from `src/data/app-datenschutz.ts` |
+| `/datenschutz/<app>/` | Privacy policies of the six apps (`vitrine`, `lupe`, `zutritt`, `riegel`, `industrial-kiosk-browser`, `industrialkeyboard` – the paths the apps link), from `src/data/app-datenschutz.ts` |
 | `/404.html`, `/robots.txt`, `/sitemap.xml`, `/manifest.webmanifest` | Generated |
 | `/llms.txt`, `/llms-full.txt` | Generated from the product data: short overview and all product facts in Markdown for AI assistants ([llmstxt.org](https://llmstxt.org)) |
 | `/<INDEXNOW_KEY>.txt` | IndexNow key file, only when `INDEXNOW_KEY` is set |
 
 Old URLs (`index.html?page=contact`, `portfolio.html`, `/about/Kontakt.html`, …), renamed product pages
-(`/produkte/industrialkeyboard/`, `/produkte/haertungs-check/` → `/produkte/riegel/`, `/produkte/labeldesigner/` →
-`/produkte/plakette/`, `/produkte/enterprisebrowser/` → `/produkte/pforte/`, also the English pages and
-`/datenschutz/enterprisebrowser/`) and the former subpages of the one-pager (`/leistungen/`, `/downloads/`,
+(`/produkte/industrialkeyboard/`, `/produkte/haertungs-check/` → `/produkte/riegel/`, `/produkte/enterprisebrowser/` and
+`/produkte/pforte/` → `/produkte/industrial-kiosk-browser/`, also the English pages and `/datenschutz/…`; Plakette is not
+finished and redirects temporarily (302) to the product overview) and the former subpages of the one-pager (`/leistungen/`, `/downloads/`,
 `/ueber-uns/`, `/kontakt/` → their section on `/`) are redirected with 301; the ideas and internal projects that were
 never published answer **410 Gone**, so search engines drop them (see `deploy/nginx.conf`). `scripts/check-live.mjs`
 fails if a redirect or 410 in `deploy/nginx.conf` would hide a page that the build produces. The 404 page (also used for
@@ -89,10 +89,10 @@ repositories. Nothing from those repositories is linked or published except the 
 ### Product selection
 
 Only the products listed in `"veroeffentlicht"` in `scripts/public-overrides.json` appear on the website – this is
-the one place that decides it (project ids from `projekte.json`). Today these are the seven products being
-released: `vitrine` (Vitrine), `qr-scanner` (Lupe), `enterprisebrowser` (Pforte), `industrialkeyboard`
-(Industrial Keyboard), `haertungs-check` (Riegel), `freigaben-berechtigungen` (Zutritt) and `labeldesigner`
-(Plakette). Ideas and other projects in `projekte.json` stay internal. `scripts/check-products.mjs` (and therefore
+the one place that decides it (project ids from `projekte.json`). Today these are the six products being
+released: `vitrine` (Vitrine), `qr-scanner` (Lupe), `industrialkioskbrowser` (Industrial Kiosk Browser),
+`industrialkeyboard` (Industrial Keyboard), `haertungs-check` (Riegel) and `freigaben-berechtigungen` (Zutritt). Plakette
+(`labeldesigner`) is not finished and stays off the website (2026-10-22). Ideas and other projects in `projekte.json` stay internal. `scripts/check-products.mjs` (and therefore
 CI) fails unless `products.json` contains exactly these ids and every product has a page in
 `src/data/produktseiten/`.
 
@@ -171,7 +171,7 @@ records the date of the last commit of each product repository (`updated`): it i
 and used as `lastmod` in the sitemap and `dateModified` in the JSON-LD.
 
 **Real assets** (state of the last sync): all seven products have their README name, their own icon, real
-screenshots (Vitrine: the real application with sample data; Pforte and Industrial Keyboard: rendered from the app
+screenshots (Vitrine: the real application with sample data; Industrial Kiosk Browser and Industrial Keyboard: rendered from the app
 UI) and German and English texts on the site. Every screenshot exists as WebP and AVIF (`scripts/make-avif.mjs`, run
 by the sync); `ThemeImage.astro` offers AVIF first with WebP as fallback.
 
@@ -301,8 +301,8 @@ Every product has an app icon in the style of `marke/app-icon-vorlage.svg` from 
 28 × 28 tile at (2, 2) with radius 7, top-to-bottom gradient of the product's own colour pair, white symbol
 (stroke 2–2.6, round caps, at most two or three shapes, legible at 16 px), no text, no third-party logos.
 
-- Products whose repository has its own icon in this style keep it (Lupe, Zutritt, Vitrine, Riegel, Plakette; Pforte
-  and Industrial Keyboard with their Android app icons). Raster app icons are fitted into the template geometry
+- Products whose repository has its own icon in this style keep it (Lupe, Zutritt, Vitrine, Riegel; Industrial Kiosk
+  Browser and Industrial Keyboard with their Android app icons). Raster app icons are fitted into the template geometry
   by the sync (tile 28/32 with a 2/32 margin, corner radius 7/32), so they match the generated icons in size.
 - All others get a generated icon: `scripts/product-icons.mjs` defines colour pair and symbol per project id,
   `npm run icons` writes `src/assets/product-icons/<id>.svg`, `src/styles/product-colors.css` and the table below,
@@ -320,10 +320,9 @@ Every product has an app icon in the style of `marke/app-icon-vorlage.svg` from 
 | Vitrine | OT-Sicherheit & Compliance | `#5b8cff` | `#8b5cf6` | own | own icon from the repo |
 | Riegel | OT-Sicherheit & Compliance | `#f3821d` | `#ac281b` | own | own icon from the repo |
 | Zutritt | OT-Sicherheit & Compliance | `#22c3a6` | `#3b6cf6` | own | own icon from the repo |
-| Pforte | Mobile Datenerfassung (Android) | `#0d47a1` | `#0d47a1` | own | own icon from the repo |
+| Industrial Kiosk Browser | Mobile Datenerfassung (Android) | `#0d47a1` | `#0d47a1` | own | own icon from the repo |
 | Industrial Keyboard | Mobile Datenerfassung (Android) | `#2b5996` | `#08759b` | own | own icon from the repo |
 | Lupe | Barcodes & Etiketten | `#f7a531` | `#e8505b` | own | own icon from the repo |
-| Plakette | Barcodes & Etiketten | `#f995eb` | `#9059c0` | own | own icon from the repo |
 <!-- product-icons:end -->
 
 ## Configuration and staging
@@ -434,7 +433,7 @@ Steps:
    https://ict-baden.de/` (200 – not 301 –, no `X-Robots-Tag`, `strict-transport-security: max-age=31536000`), `curl
    -sI http://ict-baden.de/` (301 → `https://ict-baden.de/`), `curl https://ict-baden.de/robots.txt` (no `Disallow:
    /`), `curl -sI https://www.ict-baden.de/` (301 → `https://ict-baden.de/`, valid certificate), `curl -sI
-   https://ict-baden.de/produkte/enterprisebrowser/` (301 → `/produkte/pforte/`), `curl -sI
+   https://ict-baden.de/produkte/enterprisebrowser/` (301 → `/produkte/industrial-kiosk-browser/`), `curl -sI
    https://ict-baden.de/produkte/hausmeister/` (410), `curl -sI http://ictbaden.de/` and `curl -sI
    https://ictbaden.de/produkte/` for every alias domain (301 → `https://ict-baden.de/…`), and the mail check from
    step 4 once more.

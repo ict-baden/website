@@ -114,7 +114,7 @@ export const productUrl = (p: Product) => `/produkte/${p.slug}/`;
 export const isPortrait = (s: Shot) => s.light.height > s.light.width;
 
 /** Reihenfolge der großen Karten auf der Startseite: alle veröffentlichten Produkte, die erste Karte breit. */
-const FEATURED = ['vitrine', 'lupe', 'zutritt', 'riegel', 'pforte', 'industrial-keyboard', 'plakette'];
+const FEATURED = ['vitrine', 'lupe', 'zutritt', 'riegel', 'industrial-kiosk-browser', 'industrial-keyboard'];
 export const featured = [
   ...FEATURED.map((slug) => products.find((p) => p.slug === slug)).filter((p): p is Product => Boolean(p)),
   ...products.filter((p) => !FEATURED.includes(p.slug)),

@@ -204,3 +204,6 @@ small { font-size: var(--fs-sm); }
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Lange Bezeichner (Paketnamen, Ereignisnamen) dürfen auf schmalen Bildschirmen umbrechen */
+code { overflow-wrap: anywhere; }

@@ -37,11 +37,11 @@ expect / 200
 expect /en/ 200
 expect /produkte/ 200
 expect /en/products/ 200
-for p in vitrine riegel zutritt lupe pforte industrial-keyboard plakette; do
+for p in vitrine riegel zutritt lupe industrial-kiosk-browser industrial-keyboard; do
   expect "/produkte/$p/" 200
   expect "/en/products/$p/" 200
 done
-for a in vitrine lupe zutritt riegel plakette pforte industrialkeyboard; do expect "/datenschutz/$a/" 200; done
+for a in vitrine lupe zutritt riegel industrial-kiosk-browser industrialkeyboard; do expect "/datenschutz/$a/" 200; done
 # Ratgeber (src/data/ratgeber/) und ihre Übersicht, deutsch und englisch
 for g in /ratgeber/ /ratgeber/barcode-scanner-pc/ /ratgeber/bildschirm-sperren-anzeige-sichtbar/ \
          /en/guides/ /en/guides/barcode-scanner-for-pc/ /en/guides/lock-pc-keep-screen-visible/; do expect "$g" 200; done
@@ -53,10 +53,13 @@ redirect /produkte /produkte/
 redirect /en/products /en/products/
 redirect /produkte/industrialkeyboard /produkte/industrial-keyboard/
 redirect /produkte/haertungs-check/ /produkte/riegel/
-redirect /produkte/labeldesigner/ /produkte/plakette/
-redirect /produkte/enterprisebrowser/ /produkte/pforte/
-redirect /en/products/enterprisebrowser/ /en/products/pforte/
-redirect /datenschutz/enterprisebrowser/ /datenschutz/pforte/
+redirect /produkte/enterprisebrowser/ /produkte/industrial-kiosk-browser/
+redirect /produkte/pforte/ /produkte/industrial-kiosk-browser/
+redirect /en/products/enterprisebrowser/ /en/products/industrial-kiosk-browser/
+redirect /en/products/pforte/ /en/products/industrial-kiosk-browser/
+redirect /datenschutz/enterprisebrowser/ /datenschutz/industrial-kiosk-browser/
+redirect /datenschutz/pforte/ /datenschutz/industrial-kiosk-browser/
+expect /produkte/plakette/ 302
 redirect '/index.html?page=contact' '/#kontakt'
 redirect /leistungen/ '/#leistungen'
 expect /produkte/hausmeister/ 410
@@ -94,7 +97,7 @@ else
   grep -q 'hreflang="en" href="https://ict-baden.de/en/products/vitrine/"' <<<"$PRODUCT" || fail "hreflang nicht auf ict-baden.de"
   grep -q 'netgetvpn' <<<"$HOMEPAGE$PRODUCT$ROBOTS$(get /sitemap.xml)" && fail "Vorschau-Adresse in der Livegang-Fassung"
   SITEMAP="$(get /sitemap.xml)"
-  grep -q '<loc>https://ict-baden.de/produkte/pforte/</loc>' <<<"$SITEMAP" || fail "Sitemap nicht auf ict-baden.de"
+  grep -q '<loc>https://ict-baden.de/produkte/industrial-kiosk-browser/</loc>' <<<"$SITEMAP" || fail "Sitemap nicht auf ict-baden.de"
   grep -q '<loc>https://ict-baden.de/en/products/</loc>' <<<"$SITEMAP" || fail "Produktübersicht nicht in der Sitemap"
   grep -q '<loc>https://ict-baden.de/ratgeber/barcode-scanner-pc/</loc>' <<<"$SITEMAP" || fail "Ratgeber fehlt in der Sitemap"
   grep -q '<link rel="canonical" href="https://ict-baden.de/en/guides/lock-pc-keep-screen-visible/"' <<<"$(get /en/guides/lock-pc-keep-screen-visible/)" || fail "Ratgeber: canonical nicht auf ict-baden.de"

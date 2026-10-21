@@ -984,7 +984,7 @@
       ],
       "galleryNoteEn": "Screenshots from the real app in demo mode; they show the current state of development."
     },
-    "pforte": {
+    "industrialkioskbrowser": {
       "kind": "Kiosk-Browser für Android-MDE-Geräte",
       "tagline": "Web-Apps auf robusten Android-Geräten.",
       "banner": false,
@@ -1026,72 +1026,72 @@
           "name": "screen-launcher",
           "title": "Profile",
           "caption": "Ein Tipp öffnet die Web-App. Mehrere Web-Apps auf einem Gerät, jede mit eigener Start-Adresse und eigenen Regeln.",
-          "alt": "Pforte, Kiosk-Browser für Android-MDE-Geräte: Startbildschirm mit den Profilen Goods receipt, Picking, Shipping & labels und Scanner-Test.",
-          "file": "pforte-kiosk-browser-profile",
+          "alt": "Industrial Kiosk Browser, Kiosk-Browser für Android-MDE-Geräte: Startbildschirm mit den Profilen Goods receipt, Picking, Shipping & labels und Scanner-Test.",
+          "file": "industrial-kiosk-browser-kiosk-browser-profile",
           "en": {
             "title": "Profiles",
             "caption": "One tap opens the web app. Several web apps on one device, each with its own start address and rules.",
-            "alt": "Pforte kiosk browser for rugged Android devices: start screen with the profiles Goods receipt, Picking, Shipping & labels and the scanner test."
+            "alt": "Industrial Kiosk Browser kiosk browser for rugged Android devices: start screen with the profiles Goods receipt, Picking, Shipping & labels and the scanner test."
           }
         },
         {
           "name": "screen-browser",
           "title": "Scannen",
           "caption": "Der Barcode landet im Feld, auf Wunsch gefolgt von Tab oder Enter – und als JavaScript-Ereignis für die Web-App.",
-          "alt": "Barcode-Scan in Pforte: die gescannte EAN 4006381333931 steht im Feld Item der Demo-Seite, darunter die letzten Scans.",
-          "file": "pforte-barcode-scan-webformular",
+          "alt": "Barcode-Scan in Industrial Kiosk Browser: die gescannte EAN 4006381333931 steht im Feld Item der Demo-Seite, darunter die letzten Scans.",
+          "file": "industrial-kiosk-browser-barcode-scan-webformular",
           "en": {
             "title": "Scanning",
             "caption": "The barcode goes into the field, optionally followed by Tab or Enter – and as a JavaScript event for the web app.",
-            "alt": "Barcode scan in Pforte: the scanned EAN 4006381333931 in the Item field of the demo page, below it the latest scans."
+            "alt": "Barcode scan in Industrial Kiosk Browser: the scanned EAN 4006381333931 in the Item field of the demo page, below it the latest scans."
           }
         },
         {
           "name": "screen-menu",
           "title": "Menü",
           "caption": "Alles in Daumenreichweite.",
-          "alt": "Menü von Pforte über der Demo-Seite mit Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings und Exit.",
-          "file": "pforte-menue",
+          "alt": "Menü von Industrial Kiosk Browser über der Demo-Seite mit Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings und Exit.",
+          "file": "industrial-kiosk-browser-menue",
           "en": {
             "title": "Menu",
             "caption": "Everything within thumb reach.",
-            "alt": "Pforte menu over the demo page with Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings and Exit."
+            "alt": "Industrial Kiosk Browser menu over the demo page with Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings and Exit."
           }
         },
         {
           "name": "screen-launcher-branded",
           "title": "Eigenes Design",
           "caption": "Titel, Untertitel, Logo und Markenfarbe kommen aus der Konfiguration oder werden direkt in der App eingestellt.",
-          "alt": "Pforte im eigenen Design: grüner Kopf mit Kürzel NL, Titel North Logistics Center und Shift A · Hall 3, darunter die Profile.",
-          "file": "pforte-eigenes-design",
+          "alt": "Industrial Kiosk Browser im eigenen Design: grüner Kopf mit Kürzel NL, Titel North Logistics Center und Shift A · Hall 3, darunter die Profile.",
+          "file": "industrial-kiosk-browser-eigenes-design",
           "en": {
             "title": "Custom design",
             "caption": "Title, subtitle, logo and brand color come from the configuration – or are set right in the app.",
-            "alt": "Pforte with custom branding: green header with the initials NL, the title North Logistics Center and Shift A · Hall 3, below it the profiles."
+            "alt": "Industrial Kiosk Browser with custom branding: green header with the initials NL, the title North Logistics Center and Shift A · Hall 3, below it the profiles."
           }
         },
         {
           "name": "screen-profile-editor",
           "title": "Profil mit eigener Farbe",
           "caption": "Jedes Profil kann eine eigene Farbe haben, die auch die Werkzeugleiste in der Web-App einfärbt.",
-          "alt": "Profil bearbeiten in Pforte: Name, Start-URL, erlaubte Hosts, Profilfarbe und Schalter für Autostart, Werkzeugleiste und Vollbild.",
-          "file": "pforte-profil-allowlist",
+          "alt": "Profil bearbeiten in Industrial Kiosk Browser: Name, Start-URL, erlaubte Hosts, Profilfarbe und Schalter für Autostart, Werkzeugleiste und Vollbild.",
+          "file": "industrial-kiosk-browser-profil-allowlist",
           "en": {
             "title": "Profile with its own color",
             "caption": "Every profile can have its own color, which also tints the toolbar inside the web app.",
-            "alt": "Pforte profile editor: name, start URL, allowed hosts, profile color and switches for open on app start, hide toolbar and full screen."
+            "alt": "Industrial Kiosk Browser profile editor: name, start URL, allowed hosts, profile color and switches for open on app start, hide toolbar and full screen."
           }
         },
         {
           "name": "screen-settings",
           "title": "Einstellungen",
           "caption": "Mit Kennwort geschützt: Profile, Design und Konfiguration.",
-          "alt": "Einstellungen von Pforte mit Profilliste, Add profile und dem Bereich Design mit Titel, Markenfarbe und Logo.",
-          "file": "pforte-einstellungen",
+          "alt": "Einstellungen von Industrial Kiosk Browser mit Profilliste, Add profile und dem Bereich Design mit Titel, Markenfarbe und Logo.",
+          "file": "industrial-kiosk-browser-einstellungen",
           "en": {
             "title": "Settings",
             "caption": "Password protected: profiles, design and configuration.",
-            "alt": "Pforte settings with the profile list, Add profile and the Design section with title, brand color and logo."
+            "alt": "Industrial Kiosk Browser settings with the profile list, Add profile and the Design section with title, brand color and logo."
           }
         }
       ],

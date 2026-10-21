@@ -15,11 +15,10 @@
   "veroeffentlicht": [
     "vitrine",
     "qr-scanner",
-    "enterprisebrowser",
+    "industrialkioskbrowser",
     "industrialkeyboard",
     "haertungs-check",
-    "freigaben-berechtigungen",
-    "labeldesigner"
+    "freigaben-berechtigungen"
   ],
   "linien": [
     {
@@ -161,14 +160,6 @@
       "reason": "README von Lupe: Windows, Linux und macOS, Oberfläche Englisch und Deutsch, Vorabversion (Tag-Release v0.1.1 vom 2026-10-21; projekte.json: 'fertig', Text 'für Windows' veraltet). Ausgangslage der Notiz enthält eine nicht belegbare Alleinstellungsbehauptung. Status: laut Till 2026-10-20 derzeit verfügbar.",
       "version": "0.1.1"
     },
-    "enterprisebrowser": {
-      "status": "fertig",
-      "text": "Kiosk-Browser für robuste Android-Geräte, zum Beispiel von Zebra und Honeywell: Barcode-Scan direkt ins Webformular, Profile, Kioskmodus und Konfiguration per MDM (SOTI, Intune, StageNow).",
-      "reason": "Neuer Name Pforte (2026-10-21, vorher EnterpriseBrowser – Verwechslungsgefahr mit dem gleichnamigen Produkt eines anderen Herstellers); Repo ict-baden/pforte, Version 0.6.1 (Tag-Release v0.6.1 vom 2026-10-21; enthält SBOM und Prüfsummen, noch keine APK). Marken nur als Kompatibilität („zum Beispiel von“). Status in projekte.json „fertig“; solange das Repo privat ist, zeigt die Website „Vorabversion … – Veröffentlichung in Kürze“ (download.public in src/data/produktseiten/enterprisebrowser.ts).",
-      "name": "Pforte",
-      "repo": "ict-baden/pforte",
-      "version": "0.6.1"
-    },
     "industrialkeyboard": {
       "text": "Bildschirmtastatur für robuste Android-Geräte von Zebra und Honeywell: große Tasten für Handschuhe, Scan-Taste, F1–F24 für Terminal-Emulation, zentral per MDM konfigurierbar.",
       "reason": "projekte.json nennt RDP und SAP – das belegt die README nicht. Text nach dem deutschen Hinweis der README. Version: Tag-Release v2.1.1 vom 2026-10-21 (Repo heißt jetzt ict-baden/industrialkeyboard).",
@@ -188,10 +179,18 @@
       "status": "fast-fertig",
       "linie": "codes",
       "text": "Etiketten-Designer für Zebra- und kompatible Etikettendrucker: gestaltet Etiketten am Rechner und druckt ZPL direkt auf den Drucker – ohne Druckertreiber, Lizenzserver oder Administratorrechte, unter Windows und Linux.",
-      "reason": "projekte.json ist veraltet (repo leer, Linie Android, „im Browser gestalten“). README von Plakette: Name Plakette, Vorabversion (0.x), Windows und Linux, Ausgabe bisher nur gegen den virtuellen Drucker geprüft. Version: Tag-Release v0.2.0 vom 2026-10-21 (CHANGELOG [0.2.0] „Vorabversion für Pilotkunden“).",
+      "reason": "projekte.json ist veraltet (repo leer, Linie Android, „im Browser gestalten“). README von Plakette: Name Plakette, Vorabversion (0.x), Windows und Linux, Ausgabe bisher nur gegen den virtuellen Drucker geprüft. Version: Tag-Release v0.2.0 vom 2026-10-21 (CHANGELOG [0.2.0] „Vorabversion für Pilotkunden“). 2026-10-22: Nicht fertig, deshalb nicht mehr auf der Webseite (Till); aus „veroeffentlicht“ entfernt.",
       "version": "0.2.0",
       "problem": false,
       "umfang": false
+    },
+    "industrialkioskbrowser": {
+      "status": "fertig",
+      "text": "Kiosk-Browser für robuste Android-Geräte, zum Beispiel von Zebra und Honeywell: Barcode-Scan direkt ins Webformular, Profile, Kioskmodus und Konfiguration per MDM (SOTI, Intune, StageNow).",
+      "reason": "Neuer Name Industrial Kiosk Browser (2026-10-22, passend zu Industrial Keyboard; vorher Pforte, davor EnterpriseBrowser – Verwechslungsgefahr mit dem gleichnamigen Produkt eines anderen Herstellers); Repo ict-baden/industrialkioskbrowser (früher EnterpriseBrowser), letztes Release 0.6.1 unter dem Namen Pforte (Tag-Release v0.6.1 vom 2026-10-21; SBOM und Prüfsummen, noch keine APK). Marken nur als Kompatibilität („zum Beispiel von“). Status in projekte.json „fertig“; solange das Repo privat ist, zeigt die Website „Vorabversion … – Veröffentlichung in Kürze“ (download.public in src/data/produktseiten/industrialkioskbrowser.ts).",
+      "name": "Industrial Kiosk Browser",
+      "repo": "ict-baden/industrialkioskbrowser",
+      "version": "0.6.1"
     }
   }
 }

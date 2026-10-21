@@ -14,7 +14,7 @@ OUT = os.path.join(PROJ, 'index.html')
 ICONS = json.load(open(os.path.join(PROJ, 'assets', 'icons.json'), encoding='utf-8'))
 MUSIC = os.path.exists(os.path.join(PROJ, 'assets', 'music.mp3'))
 
-VO_DURATION = 51.12
+VO_DURATION = 51.28
 TOTAL = 53.6
 # Szenen: Intro, Leistungen, Themen, Firma, Produkte, Outro
 CUTS = [0, 4.5, 13.85, 22.95, 32.1, 48.1, TOTAL]
@@ -50,12 +50,12 @@ LINKS = [(0, 1), (1, 2), (0, 3), (3, 4), (4, 5), (1, 4), (2, 5), (0, 4)]
 
 # Szene 5: Produkte (Windows oben, Android unten)
 PRODUCTS = [
-    ('lupe', 'Lupe', 'QR code and barcode reader', 'lupe-qr-code-vom-bildschirm-scannen-light-1600.webp', 'logos/lupe.svg', 37.68),
-    ('vitrine', 'Vitrine', 'Transparent screen lock', 'vitrine-transparente-bildschirmsperre-light-1600.webp', 'logos/vitrine.svg', 38.32),
-    ('zutritt', 'Zutritt', 'File share permissions report', 'zutritt-zugriffsrechte-person-light-1600.webp', 'logos/zutritt.svg', 39.12),
-    ('riegel', 'Riegel', 'Windows hardening check', 'riegel-windows-haertung-pruefen-light-1600.webp', 'logos/riegel.svg', 39.84),
-    ('eb', 'EnterpriseBrowser', 'Kiosk browser', 'enterprisebrowser-kiosk-browser-profile-light-520.webp', 'logos/enterprisebrowser.webp', 41.28),
-    ('ik', 'Industrial Keyboard', 'On-screen keyboard', 'industrial-keyboard-funktionstasten-f1-f24-light-520.webp', 'logos/industrial-keyboard.webp', 42.68),
+    ('lupe', 'Lupe', 'QR code and barcode reader', 'lupe-qr-code-vom-bildschirm-scannen-light-1600.webp', 'logos/lupe.svg', 37.28),
+    ('vitrine', 'Vitrine', 'Transparent screen lock', 'vitrine-transparente-bildschirmsperre-light-1600.webp', 'logos/vitrine.svg', 37.92),
+    ('zutritt', 'Zutritt', 'File share permissions report', 'zutritt-zugriffsrechte-person-light-1600.webp', 'logos/zutritt.svg', 38.72),
+    ('riegel', 'Riegel', 'Windows hardening check', 'riegel-windows-haertung-pruefen-light-1600.webp', 'logos/riegel.svg', 39.44),
+    ('ikb', 'Industrial Kiosk Browser', 'Kiosk browser', 'industrial-kiosk-browser-kiosk-browser-profile-light-520.webp', 'logos/industrial-kiosk-browser.webp', 40.8),
+    ('ik', 'Industrial Keyboard', 'On-screen keyboard', 'industrial-keyboard-funktionstasten-f1-f24-light-520.webp', 'logos/industrial-keyboard.webp', 42.72),
 ]
 
 
@@ -167,7 +167,7 @@ def build():
 
     cards = ''
     for pid, name, kind, shot, logo, _ in PRODUCTS:
-        android = pid in ('eb', 'ik')
+        android = pid in ('ikb', 'ik')
         cards += (f'<div class="card{" card--android" if android else ""}" id="card-{pid}">'
                   f'<div class="thumb"><img src="assets/shots/{shot}" alt="" /></div>'
                   f'<div class="card-b"><img class="cl" src="assets/{logo}" alt="" /><div><b>{E(name)}</b><span>{E(kind)}</span></div></div></div>')
@@ -184,12 +184,12 @@ def build():
           <div class="mit" id="pr-mit"><b id="pr-free">Free.</b><span id="pr-lic">Open source under the <em>MIT licence</em>.</span></div>
         </div>
       </section>'''
-    js += [up('#pr-eyebrow', 32.3, 16, 0.5), rise('#pr-h', 34.4, 0.8)]
+    js += [up('#pr-eyebrow', 32.3, 16, 0.5), rise('#pr-h', 34.0, 0.8)]
     js += [f'tl.fromTo("#card-{p[0]}", {{ opacity: 0, y: 60 }}, {{ opacity: 1, y: 0, duration: 0.65, ease: "power3.out" }}, {p[5]:.2f});'
            for p in PRODUCTS]
-    js += [up('#pr-win', 40.4, 14, 0.5), up('#pr-and', 43.76, 14, 0.5),
+    js += [up('#pr-win', 40.0, 14, 0.5), up('#pr-and', 43.84, 14, 0.5),
            'tl.fromTo("#pr-mit", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.7)" }, 45.4);',
-           up('#pr-lic', 46.85, 16, 0.5)]
+           up('#pr-lic', 46.95, 16, 0.5)]
 
     s6 = f'''
       <section id="s-outro" class="clip brand" data-start="{c[5]}" data-duration="{TOTAL - c[5]:.2f}" data-track-index="0">
@@ -201,9 +201,9 @@ def build():
     js += [
         f'tl.fromTo("#outro-bar", {{ x: 700 }}, {{ x: 0, duration: 1.0, ease: "power4.out" }}, {c[5]});',
         up('#outro-logo', 48.3, 50, 0.8),
-        rise('#outro-h', 49.85, 0.8),
-        'tl.fromTo("#outro-dot", { scale: 0 }, { scale: 1, duration: 0.5, ease: "back.out(3)" }, 50.6);',
-        up('#outro-meta', 50.9, 20, 0.6),
+        rise('#outro-h', 49.95, 0.8),
+        'tl.fromTo("#outro-dot", { scale: 0 }, { scale: 1, duration: 0.5, ease: "back.out(3)" }, 50.7);',
+        up('#outro-meta', 51.0, 20, 0.6),
     ]
 
     wipes = [wipe_html(n, t) for n, t in enumerate(c[1:-1])]

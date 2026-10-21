@@ -81,8 +81,9 @@ export const COMPETITOR_PATTERNS = [
   /NTFS Permissions Reporter|Cjwdev|HID Global|\bIvanti\b/i,
   /Enterprise Keyboard|Hacker'?s Keyboard|Fully Kiosk|SureFox|SOTI Surf|Ivanti Velocity|StayLinked|Zebra Enterprise Browser|Honeywell Enterprise Browser/i,
   /WinCC-Alternative|PCS[- ]?7-Alternative|Ziath|DataPaq|UaExpert|iReasoning|YABE|OPSWAT/i,
-  // Produktname in Großschreibung ("Kiosk Browser Lockdown" u. a.); die Gattung schreibt sich "Kiosk-Browser" bzw. "kiosk browser"
-  /\bKiosk Browser\b/,
+  // Produktname in Großschreibung ("Kiosk Browser Lockdown", Samsung Knox "Kiosk Browser" u. a.); die Gattung schreibt sich
+  // "Kiosk-Browser" bzw. "kiosk browser". Ausgenommen ist unser eigener Produktname "Industrial Kiosk Browser" (2026-10-22).
+  /(?<!Industrial )\bKiosk Browser\b/,
   // Fremde Marke als Namensbestandteil unseres Produkts ("Zebra keyboard app", "DataWedge browser", "ZPL-Designer").
   // Kompatibilität wird nominativ beschrieben: "Tastatur für Zebra-Geräte", "label designer for Zebra printers (ZPL)".
   /\b(?:Zebra|DataWedge|Honeywell)[ -](?:keyboard|label (?:software|designer|editor)|browser|Tastatur(?:-App)?|Browser|Etikettensoftware|Etiketten-Software|Label-Software)\b/i,

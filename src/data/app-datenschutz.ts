@@ -190,53 +190,13 @@ const apps: AppPrivacy[] = [
     },
   },
   {
-    slug: 'plakette',
-    name: 'Plakette',
-    platform: 'desktop',
-    productId: 'labeldesigner',
-    de: {
-      summary: 'Plakette sendet keine Daten an ICT Baden. Es gibt keine Telemetrie, keine Update-Prüfung, keinen Lizenzserver und keinen Online-Dienst. Etikettendaten bleiben auf Ihren Rechnern und Druckern.',
-      operator: 'Für die Etikettendaten und das Druckprotokoll ist der Betreiber der Installation verantwortlich (in der Regel Ihr Arbeitgeber). ICT Baden verarbeitet über die Software keine dieser Daten.',
-      stored: [
-        'Pro Benutzer Einstellungen, zuletzt geöffnete Dateien, Drucker und Ordnerpfade.',
-        'Ein Wiederherstellungsjournal der offenen Dokumente; es enthält Etiketteninhalte, die personenbezogen sein können.',
-        'Ein Druckprotokoll mit Zeit, Vorlage, Drucker und Mengen je Auftrag. Benutzer- und Rechnernamen, Schlüsselfelder oder Etikettenwerte kommen nur hinzu, wenn der Betreiber dies per Richtlinie einschaltet (standardmäßig aus); dann enthält es personenbezogene Daten.',
-        'Zugangsdaten zu Datenquellen nur im Geheimnisspeicher des Betriebssystems, nie in Vorlagen; dazu Zählerstände neben den Vorlagen und ein Diagnoseprotokoll ohne Etiketteninhalte.',
-      ],
-      connections: [
-        ['Drucker', 'Wenn Sie drucken, ein Format speichern, den Status abfragen oder Drucker suchen.'],
-        ['Datenbanken', 'Wenn eine Vorlage sie nutzt und Sie eine Vorschau anzeigen oder drucken.'],
-        ['Freigaben', 'Wenn Vorlagen, Bilder, Daten, Zählerstände oder ein zentrales Druckprotokoll dort liegen.'],
-        ['Links im Info- und Hilfefenster', 'Nur beim Anklicken; sie öffnen sich im Browser.'],
-      ],
-      deletion: 'Plakette schließen und den Ordner „Plakette“ unter %LocalAppData% (Linux: im Datenordner des Benutzers) löschen; gespeicherte Passwörter entfernen Sie, indem Sie die Datenquelle in den Einstellungen löschen. Die Deinstallation entfernt diese Daten nicht, ebenso wenig Zählerstände neben den Vorlagen, ein zentrales Druckprotokoll und die Vorgaben der IT.',
-    },
-    en: {
-      summary: 'Plakette sends no data to ICT Baden. There is no telemetry, no update check, no licence server and no online service. Label data stays on your computers and printers.',
-      operator: 'The operator of the installation (usually your employer) is responsible for the label data and the print log. ICT Baden processes none of this data through the software.',
-      stored: [
-        'Per user, settings, recently opened files, printers and folder paths.',
-        'A recovery journal of open documents; it contains label content, which may be personal data.',
-        'A print log with time, template, printer and quantities per job. User and host names, key fields or label values are only added if the operator switches this on by policy (off by default); then it contains personal data.',
-        'Credentials for data sources only in the operating system’s secret store, never in templates; plus counter states next to the templates and a diagnostic log without label content.',
-      ],
-      connections: [
-        ['Printers', 'When you print, store a format, query the status or search for printers.'],
-        ['Databases', 'When a template uses them and you show a preview or print.'],
-        ['Shares', 'When templates, pictures, data, counter states or a central print log are stored there.'],
-        ['Links in the Info and help window', 'Only when clicked; they open in the browser.'],
-      ],
-      deletion: 'Close Plakette and delete the folder “Plakette” under %LocalAppData% (Linux: in the user’s data folder); remove saved passwords by deleting the data source in the settings. Uninstalling does not remove this data, nor counter states next to the templates, a central print log or IT presets.',
-    },
-  },
-  {
-    slug: 'pforte',
-    name: 'Pforte',
+    slug: 'industrial-kiosk-browser',
+    name: 'Industrial Kiosk Browser',
     platform: 'android',
-    pkg: 'de.ictbaden.pforte',
-    productId: 'enterprisebrowser',
+    pkg: 'de.ictbaden.industrialkioskbrowser',
+    productId: 'industrialkioskbrowser',
     de: {
-      summary: 'Pforte (früher EnterpriseBrowser) sendet keine Daten an ICT Baden. Es gibt keine Telemetrie, keine Absturzberichte, keine Update-Prüfung, kein Benutzerkonto, keine Werbung und kein Tracking. Der Browser verbindet sich mit den Web-Anwendungen, die der Betreiber der Geräte konfiguriert, und den Seiten, zu denen sie führen; mit einer Liste erlaubter Hosts nur mit diesen. Das Android System WebView, das die Seiten darstellt, prüft Adressen mit Google Safe Browsing (eine Android-Funktion, per Geräterichtlinie abschaltbar).',
+      summary: 'Industrial Kiosk Browser (früher Pforte und EnterpriseBrowser) sendet keine Daten an ICT Baden. Es gibt keine Telemetrie, keine Absturzberichte, keine Update-Prüfung, kein Benutzerkonto, keine Werbung und kein Tracking. Der Browser verbindet sich mit den Web-Anwendungen, die der Betreiber der Geräte konfiguriert, und den Seiten, zu denen sie führen; mit einer Liste erlaubter Hosts nur mit diesen. Das Android System WebView, das die Seiten darstellt, prüft Adressen mit Google Safe Browsing (eine Android-Funktion, per Geräterichtlinie abschaltbar).',
       operator: 'Für die Daten in diesen Web-Anwendungen ist der Betreiber der Geräte bzw. der jeweiligen Web-Anwendung verantwortlich (in der Regel Ihr Arbeitgeber). ICT Baden verarbeitet keine dieser Daten.',
       stored: [
         'Die Konfiguration (Profile, Startadressen, Design). Passwörter nur als gesalzener Hash (PBKDF2).',
@@ -250,10 +210,10 @@ const apps: AppPrivacy[] = [
         ['Kamera', 'Nur wenn eine geöffnete Web-Anwendung die Kamera anfordert (z. B. Barcode-Scan per Kamera). Sie werden vorher gefragt. Das Bild geht an diese Web-Anwendung, nicht an ICT Baden.'],
         ['Vibration', 'Rückmeldung nach einem Scan.'],
       ],
-      deletion: 'Android-Einstellungen → Apps → Pforte → Speicher → Speicher löschen, oder die App deinstallieren, entfernt alle Daten der App. Bei ICT Baden liegen keine Daten, die gelöscht werden müssten.',
+      deletion: 'Android-Einstellungen → Apps → Industrial Kiosk Browser → Speicher → Speicher löschen, oder die App deinstallieren, entfernt alle Daten der App. Bei ICT Baden liegen keine Daten, die gelöscht werden müssten.',
     },
     en: {
-      summary: 'Pforte (formerly EnterpriseBrowser) sends no data to ICT Baden. There is no telemetry, no crash reporting, no update check, no account, no ads and no tracking. The browser connects to the web applications configured by the operator of the devices and to the pages they lead to; with a list of allowed hosts, only to those. The Android System WebView, which renders the pages, checks addresses with Google Safe Browsing (an Android feature that can be turned off by device policy).',
+      summary: 'Industrial Kiosk Browser (formerly Pforte and EnterpriseBrowser) sends no data to ICT Baden. There is no telemetry, no crash reporting, no update check, no account, no ads and no tracking. The browser connects to the web applications configured by the operator of the devices and to the pages they lead to; with a list of allowed hosts, only to those. The Android System WebView, which renders the pages, checks addresses with Google Safe Browsing (an Android feature that can be turned off by device policy).',
       operator: 'The operator of the devices or of the respective web application (usually your employer) is responsible for the data in those web applications. ICT Baden processes none of it.',
       stored: [
         'The configuration (profiles, start addresses, design). Passwords only as salted hashes (PBKDF2).',
@@ -267,7 +227,7 @@ const apps: AppPrivacy[] = [
         ['Camera', 'Only when an opened web application asks for the camera (e.g. a camera barcode scan). You are asked first. The image goes to that web application, not to ICT Baden.'],
         ['Vibration', 'Feedback after a scan.'],
       ],
-      deletion: 'Android Settings → Apps → Pforte → Storage → Clear storage, or uninstalling the app, removes all of the app’s data. ICT Baden holds no data that would need to be deleted.',
+      deletion: 'Android Settings → Apps → Industrial Kiosk Browser → Storage → Clear storage, or uninstalling the app, removes all of the app’s data. ICT Baden holds no data that would need to be deleted.',
     },
   },
   {

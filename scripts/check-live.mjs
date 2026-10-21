@@ -35,7 +35,7 @@ for (const file of files(DIST)) {
 const products = JSON.parse(readFileSync(resolve(import.meta.dirname, '../src/data/products.json'), 'utf8')).products;
 const REQUIRED = ['/', '/en/', '/produkte/', '/en/products/', '/impressum/', '/datenschutz/', '/werkzeuge/pulswertigkeit/',
   ...products.flatMap((p) => [`/produkte/${p.slug}/`, `/en/products/${p.slug}/`]),
-  ...['vitrine', 'lupe', 'zutritt', 'riegel', 'plakette', 'pforte', 'industrialkeyboard'].map((a) => `/datenschutz/${a}/`)];
+  ...['vitrine', 'lupe', 'zutritt', 'riegel', 'industrial-kiosk-browser', 'industrialkeyboard'].map((a) => `/datenschutz/${a}/`)];
 const built = new Set();
 for (const file of files(DIST)) {
   const rel = '/' + relative(DIST, file).split('\\').join('/');

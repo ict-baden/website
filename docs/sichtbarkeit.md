@@ -1,5 +1,7 @@
 # Sichtbarkeit der sieben Produkte – Plan und fertige Texte
 
+> **Stand 2026-10-22 (Till, Claude):** Pforte heißt jetzt **Industrial Kiosk Browser** (Repo `ict-baden/industrialkioskbrowser`, Seite `/produkte/industrial-kiosk-browser/`, Datenschutz `/datenschutz/industrial-kiosk-browser/`, Paket `de.ictbaden.industrialkioskbrowser`). **Plakette** ist nicht fertig und vorerst nicht auf der Webseite. Wo unten Pforte oder Plakette steht, gilt das entsprechend.
+
 Stand 2026-10-21. Für Jo und Till: die Schritte mit eigenem Konto, die anstehen, sobald die neue Website auf
 ict-baden.de live ist und die Produkt-Repos öffentlich sind. Claude hat hier nur geplant und geschrieben – nichts ist
 eingereicht, angemeldet, gepostet oder verschickt.
