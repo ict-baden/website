@@ -88,8 +88,8 @@ vorbereiten oder automatisieren.
 3. **Google Search Console (README Schritt 8)** – Mensch (Google-Konto) · 30 Min., Daten nach einigen Tagen · hängt
    an 1. [Search Console](https://search.google.com/search-console): prüfen, ob die bestehende Property eine
    Domain-Property ist und wer Zugriff hat; Sitemap `https://ict-baden.de/sitemap.xml` einreichen; Indexierung der
-   Startseite, der beiden Produktübersichten `/produkte/` und `/en/products/` und der 14 Produktseiten (de und en)
-   anfordern. Unter Einstellungen → **„Search generative AI“** prüfen, dass „einbeziehen“ gesetzt ist (Standard,
+   Startseite, der Produktübersichten `/produkte/` und `/en/products/`, der 14 Produktseiten (de und en) und der
+   Ratgeber (Übersichten `/ratgeber/` und `/en/guides/` und die Seiten darunter) anfordern. Unter Einstellungen → **„Search generative AI“** prüfen, dass „einbeziehen“ gesetzt ist (Standard,
    weltweit seit 31.08.2026; „ausschließen“ nimmt die Seite aus AI Overviews, AI Mode und den KI-Funktionen in
    Discover, [Hilfe](https://support.google.com/webmasters/answer/16908024)). Seit demselben Tag zeigt der Bericht
    „Generative AI performance“ die Impressionen aus AI Overviews und AI Mode
@@ -102,8 +102,8 @@ vorbereiten oder automatisieren.
    Seiten, „grounding queries“,
    [Bericht](https://www.searchenginejournal.com/bing-webmaster-tools-adds-ai-citation-performance-data/566874/)). Bing
    speist Copilot und Teile von ChatGPT Search.
-5. **Brave Search** – Mensch · 10 Min. · hängt an 1. Startseite, die beiden Produktübersichten und die 14
-   Produktseiten einzeln unter [search.brave.com/submit-url](https://search.brave.com/submit-url) melden. Claude nutzt
+5. **Brave Search** – Mensch · 10 Min. · hängt an 1. Startseite, Produktübersichten, die 14 Produktseiten und die
+   Ratgeber einzeln unter [search.brave.com/submit-url](https://search.brave.com/submit-url) melden. Claude nutzt
    Brave Search für die Websuche; laut Profound (06/2026) kommen rund 79 % der Claude-Zitate aus den Brave-Top-10.
 6. **Repos öffentlich und `download.public` (README Schritt 11)** – Jo und Till entscheiden je Produkt · 15–30 Min.
    je Produkt · unabhängig vom Livegang, aber vor jedem Eintrag in Abschnitt 3.
@@ -242,7 +242,11 @@ Portale und Listen, die geprüften Foren-Threads und ein Gerüst für Show HN. C
 Recherche (Top 3 in sechs Monaten, mit öffentlichem Download; ohne Download eine Stufe tiefer). Website-Adressen gelten
 ab dem Livegang, GitHub-Adressen ab der Veröffentlichung. Alle Produkte stehen außerdem auf den Übersichten
 `https://ict-baden.de/produkte/` und `https://ict-baden.de/en/products/` – passend als Firmen-Link, wo ein Portal nach
-einer Herstellerseite fragt.
+einer Herstellerseite fragt. Für Lupe und Vitrine gibt es zusätzlich **Ratgeber** (Übersichten
+`https://ict-baden.de/ratgeber/` und `https://ict-baden.de/en/guides/`): Sie beantworten die Problemfrage mit den
+üblichen Wegen und nennen unser Produkt nur als eine gekennzeichnete Möglichkeit, ohne Namen von Konkurrenzprodukten.
+Für Forenantworten und als Ziel bei Problem-Suchen passen sie oft besser als die Produktseite; bei „Alternative zu …“
+bleibt es die Produktseite mit ihrem Vergleichsabschnitt (`#alternative` deutsch, `#alternative-to` englisch).
 
 ### 3.1 Vitrine – transparente Bildschirmsperre für Windows
 
@@ -260,7 +264,8 @@ einer Herstellerseite fragt.
   EN „see-through screen lock“ oder „screen lock that keeps programs visible“, DE „durchsichtige Bildschirmsperre“;
   dann auch Kurztexte, Show-HN-Titel und das Topic `transparent-screen-lock` anpassen.
 - **Seiten:** `https://ict-baden.de/produkte/vitrine/`, `https://ict-baden.de/en/products/vitrine/`,
-  `https://github.com/ict-baden/vitrine`. In winget erst eintragen, wenn es ein Tag-Release mit versionierten
+  `https://github.com/ict-baden/vitrine`; Ratgeber `https://ict-baden.de/ratgeber/bildschirm-sperren-anzeige-sichtbar/`
+  und `https://ict-baden.de/en/guides/lock-pc-keep-screen-visible/` – Ziel für die Problem-Suchen und Forenantworten. In winget erst eintragen, wenn es ein Tag-Release mit versionierten
   Dateinamen gibt.
 
 | Zielsuche (EN / DE) | Chance |
@@ -355,7 +360,8 @@ Neue Threads zur transparenten Sperre kommen in r/sysadmin immer wieder. Dort d�
 Diskussionen mit Offenlegung antworten, KI-Text ist verboten – also selbst schreiben. Stichpunkte:
 
 - Erst die Frage beantworten: Win+L zeigt den Sperrbildschirm; gesucht ist eine transparente Sperre, die nur die
-  Eingabe sperrt.
+  Eingabe sperrt. Als Link den Ratgeber nehmen (`https://ict-baden.de/en/guides/lock-pc-keep-screen-visible/`), nicht
+  die Produktseite – er vergleicht die üblichen Wege.
 - Offenlegung, dann Vitrine: Tastatur und Maus gesperrt, Bildschirm sichtbar, Entsperren mit Windows-Kennwort oder
   Windows Hello, MSI und 52 Richtlinien für GPO und Intune, MIT.
 - Grenzen: Vorabversion 0.1.0, nicht auf echten Geräten durchgetestet, Strg+Alt+Entf lässt sich nicht abfangen, kein
@@ -389,8 +395,10 @@ Show HN: Vitrine – open-source transparent screen lock for Windows
   ausprobiert),
   Alleinstellung („es gibt keinen guten …“, barcodrod.io ist ein direkter Open-Source-Gegner), QR-Codes erzeugen.
 - **Seiten:** `https://ict-baden.de/produkte/lupe/`, `https://ict-baden.de/en/products/lupe/`,
-  `https://github.com/ict-baden/lupe`. Auf der Website heißt Lupe „QR-Code- und Barcode-Scanner für den PC“ bzw.
-  „QR code & barcode scanner for PC“ – diese Bezeichnung in den Texten beibehalten.
+  `https://github.com/ict-baden/lupe`; Ratgeber `https://ict-baden.de/ratgeber/barcode-scanner-pc/` und
+  `https://ict-baden.de/en/guides/barcode-scanner-for-pc/` – Ziel für die Problem-Suchen und Forenantworten. Auf der
+  Website heißt Lupe „QR-Code- und Barcode-Scanner für den PC“ bzw. „QR code & barcode scanner for PC“ – diese
+  Bezeichnung in den Texten beibehalten.
 
 | Zielsuche (EN / DE) | Chance |
 |---|---|
@@ -525,7 +533,9 @@ persönlichen Konto (der AutoModerator entfernt Beiträge unter einer nicht gena
 scannen“, „Webcam als Barcodescanner“):
 
 - Erst die Bordmittel: Die Windows-Kamera-App liest QR-Codes und Barcodes im Modus „Barcode“
-  ([Microsoft](https://support.microsoft.com/en-us/windows/hardware/camera/how-to-use-the-windows-camera-app)).
+  ([Microsoft](https://support.microsoft.com/en-us/windows/hardware/camera/how-to-use-the-windows-camera-app)). Als Link
+  den Ratgeber nehmen (`https://ict-baden.de/en/guides/barcode-scanner-for-pc/`), der Handscanner, Kamera-App, Webcam
+  und Bildschirm vergleicht.
 - Offenlegung, dann Lupe: Bildschirmscan per Tastenkürzel, Eintippen in das Programm im Vordergrund, Linux und macOS,
   offline, MIT.
 - Grenzen: Kamera bisher nur gegen eine simulierte Quelle getestet, Linux nur in Containern, auf dem Mac nur
@@ -1234,7 +1244,7 @@ Datum · Dienst · Frage · genannt (ja/nein) · zitiert (welche URL) · Fakten 
 
 **Wo die Daten stehen**
 
-- **Google Search Console** → Leistung → Suchergebnisse: Suchanfragen und Seiten je Produktseite; AI Overviews und
+- **Google Search Console** → Leistung → Suchergebnisse: Suchanfragen und Seiten je Produktseite und Ratgeber; AI Overviews und
   AI Mode stecken dort in den Web-Zahlen ([Google](https://developers.google.com/search/docs/appearance/ai-features)).
   Getrennt zeigt sie seit 31.08.2026 der Bericht „Generative AI performance“: Impressionen je Seite, Land und Gerät
   ([Hilfe](https://support.google.com/webmasters/answer/16984139)).
