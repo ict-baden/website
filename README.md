@@ -467,6 +467,15 @@ Every push to `main` deploys itself:
 4. Watchtower on docker01 checks every 5 minutes and restarts `ictbaden-web` (and, after the go-live, `ictbaden-live`)
    with the new image.
 
+**Current state on docker01 (since 2026-10-22):** the GHCR package is still private, so the preview does not pull the
+image. Instead docker01 pulls the public repository itself (`deploy/autodeploy/`, systemd timer
+`ictbaden-autodeploy.timer`, every 5 minutes): new commit on `main` → CI for exactly that commit green (public GitHub
+API) → build in a `node:<.nvmrc>` container like the CI (`SITE_STAGING=1`) → new release under `public_html/releases/`,
+nginx configuration without the `# LIVE` lines, atomic switch, check of `/version.txt`, automatic rollback on failure.
+No registry, no credentials. Log: `journalctl -u ictbaden-autodeploy`; pause: `touch
+/srv/docker/ictbaden.netgetvpn.de/autodeploy.pause`; set up: `deploy/autodeploy/install.sh`. Once the package is
+public, the image route above can replace it (then disable the timer).
+
 Which commit is live: <https://ictbaden.netgetvpn.de/version.txt>. A failed check stops the push, so the running
 version stays. Manual pull or rollback (Git Bash on Windows works; needs ssh access to docker01):
 
