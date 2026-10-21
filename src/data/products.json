@@ -81,8 +81,12 @@
           "still": "/media/produkte/vitrine/demo-still.webp",
           "width": 1600,
           "height": 1000,
-          "alt": "Animation: Eine Messung läuft unter der durchsichtigen Sperre von Vitrine weiter, unten die Sperrleiste. Ein Klick öffnet den Entsperr-Dialog mit Microsoft-Anmeldung, danach ist der Arbeitsplatz wieder frei.",
-          "caption": "Die Messung läuft unter der Sperre weiter › Klick öffnet den Entsperr-Dialog › entsperrt"
+          "alt": "Animation: Eine Messung läuft unter der durchsichtigen Sperre von Vitrine weiter, unten die Sperrleiste. Ein Klick öffnet den Entsperr-Dialog mit Kennwort und Windows Hello, danach ist der Arbeitsplatz wieder frei.",
+          "caption": "Die Messung läuft unter der Sperre weiter › Klick öffnet den Entsperr-Dialog › entsperrt",
+          "en": {
+            "alt": "Animation: a measurement keeps running under Vitrine’s transparent lock screen, the lock bar at the bottom. A click opens the unlock dialog with password and Windows Hello, then the workstation is free again.",
+            "caption": "The measurement keeps running while locked › a click opens the unlock dialog › unlocked"
+          }
         },
         "screenshots": [
           {

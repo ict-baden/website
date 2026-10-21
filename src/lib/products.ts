@@ -10,7 +10,7 @@ export interface Media {
   logo: string | null;
   colors: [string, string] | null;
   banner: (ImageSet & { alt: string; altEn: string | null }) | null;
-  demo: { src: string; still: string; width: number; height: number; alt: string; caption: string | null } | null;
+  demo: { src: string; still: string; width: number; height: number; alt: string; caption: string | null; en?: { alt: string; caption: string | null } | null } | null;
   screenshots: Shot[];
   galleryNote: string | null;
   galleryNoteEn?: string | null;

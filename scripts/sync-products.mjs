@@ -298,6 +298,7 @@ async function buildMedia(dir, slug, productName, cfg) {
       height,
       alt: cfg.demo.alt,
       caption: cfg.demo.caption ?? null,
+      en: cfg.demo.en ? { alt: cfg.demo.en.alt, caption: cfg.demo.en.caption ?? null } : null,
     };
     media.source.push(cfg.demo.local ?? cfg.demo.file);
   }

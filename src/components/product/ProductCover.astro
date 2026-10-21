@@ -29,7 +29,7 @@ const altOf = (x: typeof s) => (x ? (lang === 'en' && x.en ? x.en.alt : x.alt) :
       ) : (
         <div class="pcover-shot">
           {demo ? (
-            <img src={demo.still} width={demo.width} height={demo.height} alt={demo.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+            <img src={demo.still} width={demo.width} height={demo.height} alt={lang === 'en' && demo.en ? demo.en.alt : demo.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
           ) : (
             <ThemeImage light={s.light} dark={s.dark} alt={altOf(s)} sizes={sizes} eager={eager} />
           )}
