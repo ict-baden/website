@@ -2,3 +2,4 @@
 *
 !dist/
 !deploy/nginx.conf
+!dist-live/

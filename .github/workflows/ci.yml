@@ -50,14 +50,20 @@ jobs:
       - name: SEO-Prüfung (Titel, Beschreibungen, hreflang, JSON-LD, Sitemap, robots.txt, llms.txt)
         run: npm run check:seo
 
-      - name: Livegang-Modus bauen und prüfen (robots.txt, kanonische Adressen auf ict-baden.de)
+      # Livegang-Fassung: dieselbe Seite mit SITE_STAGING=0 und kanonischen Adressen auf ict-baden.de. Wird bei jedem
+      # Lauf gebaut und geprüft und auf main als ghcr.io/ict-baden/website:live veröffentlicht (siehe README, "Going live").
+      - name: Livegang-Fassung bauen und prüfen (robots.txt, kanonische Adressen auf ict-baden.de, kein noindex)
         env:
           SITE_STAGING: "0"
           SITE_URL: https://ict-baden.de
+          INDEXNOW_KEY: ${{ vars.INDEXNOW_KEY }}
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
+          BING_SITE_VERIFICATION: ${{ vars.BING_SITE_VERIFICATION }}
         run: |
           npx astro build --outDir dist-live
           node scripts/check-seo.mjs dist-live
           node scripts/check-links.mjs dist-live
+          node scripts/check-live.mjs dist-live
 
       - name: Barrierefreiheit (axe-core, hell/dunkel, 1440/390 px)
         # Nutzt das auf dem Runner installierte Google Chrome
@@ -65,32 +71,37 @@ jobs:
 
       # Autodeploy: nur auf main. Die geprüfte Seite wird als nginx-Image veröffentlicht; Watchtower auf docker01
       # holt es innerhalb von 5 Minuten und startet ictbaden-web neu. Welcher Commit läuft: /version.txt
-      - name: Image bauen und veröffentlichen (ghcr.io)
+      # Zwei Images aus derselben Prüfung:
+      #   :latest / :<commit>          Vorschau ictbaden.netgetvpn.de (noindex) – Watchtower auf docker01 holt es
+      #   :live   / :live-<commit>     Livegang ict-baden.de (indexierbar) – läuft erst, wenn jemand es startet
+      #                                (deploy/docker-compose.live.yml, README "Going live"); Watchtower folgt dann :live
+      - name: Images bauen und prüfen
+        env:
+          IMAGE: ghcr.io/ict-baden/website
+        run: |
+          REV="$(git rev-parse --short HEAD)"
+          docker build -f deploy/Dockerfile --build-arg REV="$REV" --build-arg SITE_STAGING=1 --build-arg DIST=dist \
+            -t "$IMAGE:latest" -t "$IMAGE:$REV" .
+          docker build -f deploy/Dockerfile --build-arg REV="$REV" --build-arg SITE_STAGING=0 --build-arg DIST=dist-live \
+            -t "$IMAGE:live" -t "$IMAGE:live-$REV" .
+          scripts/probe-image.sh "$IMAGE:$REV" staging "$REV"
+          scripts/probe-image.sh "$IMAGE:live-$REV" live "$REV"
+
+      - name: Images veröffentlichen (ghcr.io)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:
           IMAGE: ghcr.io/ict-baden/website
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
           REV="$(git rev-parse --short HEAD)"
-          docker build -f deploy/Dockerfile --build-arg REV="$REV" --build-arg SITE_STAGING="$SITE_STAGING" \
-            -t "$IMAGE:latest" -t "$IMAGE:$REV" .
-          docker run --rm -d --name probe -p 8080:80 "$IMAGE:$REV"
-          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8080/health >/dev/null && break; sleep 1; done
-          test "$(curl -fsS http://127.0.0.1:8080/version.txt)" = "$REV"
-          curl -fsS -o /dev/null http://127.0.0.1:8080/
-          # Konfiguration wirkt: Weiterleitungen und noindex-Kopfzeile der Vorschau
-          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/produkte/industrialkeyboard)" = 301
-          test "$(curl -s -o /dev/null -w '%{http_code}' 'http://127.0.0.1:8080/index.html?page=contact')" = 301
-          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/produkte/vitrine/)" = 200
-          if [ "$SITE_STAGING" = "1" ]; then curl -sI http://127.0.0.1:8080/ | grep -qi '^x-robots-tag: *noindex'; fi
-          docker rm -f probe
-          docker push "$IMAGE:$REV"
-          docker push "$IMAGE:latest"
+          for t in "$REV" latest "live-$REV" live; do docker push "$IMAGE:$t"; done
 
       - name: Build-Artefakt (nur bei Fehlern)
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: dist
+          path: |
+            dist
+            dist-live
           retention-days: 1
