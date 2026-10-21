@@ -54,8 +54,8 @@ Sichtbarkeit. **Mensch** = braucht ein Konto oder eine Entscheidung, **Claude** 
      KI-Crawlern mit **„erlauben“** beantworten (Cloudflare fragt seit 01.07.2025 und schlägt „blockieren“ vor).
    - Vor dem Umschalten der Nameserver alle Einträge der GoDaddy-Zone übernehmen und vergleichen, vor allem: **MX**
      (heute Google Workspace `aspmx.l.google.com` mit `alt1`–`alt4` und `mail.ict-baden.de` mit Priorität 50), den
-     **A-Eintrag** von `mail.ict-baden.de`, **beide TXT-Einträge** (`MS=…` und `google-site-verification=…` – ohne
-     diesen verliert Search Console die Bestätigung) und alle weiteren Subdomains aus dem Zonen-Export. Mail-Einträge
+     **A-Eintrag** von `mail.ict-baden.de`, **beide TXT-Einträge** (`MS=…` und `google-site-verification=…`; ohne
+     den zweiten verliert Search Console die Bestätigung) und alle weiteren Subdomains aus dem Zonen-Export. Mail-Einträge
      auf „DNS only“ (graue Wolke). Ein SPF- oder DMARC-Eintrag existiert heute nicht – nicht nebenbei erfinden, mit
      der Person klären, die die Mail betreut.
    - Dann bei GoDaddy die beiden Cloudflare-Nameserver eintragen; danach Tunnel und Hostnamen wie in README Schritt 4.
@@ -113,8 +113,8 @@ Sichtbarkeit. **Mensch** = braucht ein Konto oder eine Entscheidung, **Claude** 
      Firma in Deutschland möglich, ab 9,99 $/Monat, Zertifikat auf ICT Baden; die Zutritt-README plant es bereits).
      Alternative: [SignPath Foundation](https://signpath.org/) – kostenlos für Open Source, Zertifikat lautet auf
      SignPath; Bedingungen ([Terms](https://signpath.org/terms)): nachprüfbare Reputation für Programme,
-     Code-Signing-Richtlinie auf der Projektseite, MFA für alle Beteiligten, Freigabe jedes Releases; „hacking or
-     vulnerability scanning tools“ sind ausgeschlossen – für Riegel und Zutritt vorher klären.
+     Code-Signing-Richtlinie auf der Projektseite, MFA für alle Beteiligten, Freigabe jedes Releases; Hacking-Werkzeuge und
+     Schwachstellenscanner sind ausgeschlossen – für Riegel und Zutritt vorher klären.
    - [Apple Developer Program](https://developer.apple.com/programs/) (99 $/Jahr) für Lupe auf dem Mac
      (Notarisierung, Voraussetzung für Homebrew Cask).
    - Ohne Signatur: SmartScreen-Warnung, kein Win32-Paket im Microsoft Store, kein Homebrew Cask, schlechter erster
@@ -188,7 +188,8 @@ Sichtbarkeit. **Mensch** = braucht ein Konto oder eine Entscheidung, **Claude** 
     - Optional nach dem Livegang je eine kurze, sachliche Mail an Redaktionen, die zu den Themen ranken (heise-Tipps,
       WindowsPro, giga) – nur Fakten und Link, kein Nachfassen.
 12. **Listen, Foren, Show HN** – Mensch · 1–2 Std. pro Woche über 4–8 Wochen · hängt an 7. Je Produkt in Abschnitt 3.
-    Höchstens ein Show HN alle zwei bis vier Wochen, jeweils nur, wenn man den Tag über antworten kann
+    Höchstens ein Show HN alle zwei bis vier Wochen, die Windows-Tools erst nach dem Code-Signing, jeweils nur, wenn
+    man den Tag über antworten kann
     ([Regeln](https://news.ycombinator.com/showhn.html): ausprobierbar ohne Anmeldung, keine Landingpage, Macher antwortet
     selbst, nicht um Stimmen bitten, Titel beginnt mit „Show HN“).
 13. **Messen** – Mensch · 1 Std. im Monat · ab vier Wochen nach dem Livegang. Abschnitt 4.
@@ -208,7 +209,7 @@ Sichtbarkeit. **Mensch** = braucht ein Konto oder eine Entscheidung, **Claude** 
 | Softpedia, heise Download | ✓ | ✓ | ✓ | ✓ | ✓ | nach APK | ✓ |
 | Snapfiles (nur Windows) | ✓ | ✓ | ✓ | ✓ | ✓ | – | – |
 | Awesome-Listen | – | 3 Listen | ab 10/2027 | 2 Listen | 1 Liste | ab 04/2027 | ab 04/2027 |
-| Show HN | ✓ | ✓ | ✓ | ✓ | nach Hardware-Abnahme | nach APK | ✓ |
+| Show HN | nach Signatur | nach Signatur | nach Signatur | nach Signatur | nach Hardware-Abnahme | nach APK | ✓ |
 
 ## 3 Je Produkt
 
@@ -229,8 +230,8 @@ ab dem Livegang, GitHub-Adressen ab der Veröffentlichung.
   Administratorbestätigung), „manipulationssicher“ (nur manipulationserkennend), Konformität mit Part 11 oder Annex 11,
   Remotedesktop oder mehrere Monitore getestet, Chipkarten-Anbindung.
 - **Seiten:** `https://ict-baden.de/produkte/vitrine/`, `https://ict-baden.de/en/products/vitrine/`,
-  `https://github.com/ict-baden/vitrine`. Download erst nach einem Tag-Release mit versionierten Dateien in
-  winget eintragen.
+  `https://github.com/ict-baden/vitrine`. In winget erst eintragen, wenn es ein Tag-Release mit versionierten
+  Dateinamen gibt.
 
 | Zielsuche (EN / DE) | Chance |
 |---|---|
@@ -322,7 +323,7 @@ Show HN: Vitrine – open-source transparent screen lock for Windows
 **Show HN – Text** (URL: das GitHub-Repo)
 
 ```text
-Vitrine locks keyboard and mouse on a Windows PC while the screen stays visible and programs keep running. We built it for lab instrument PCs and control-room PCs where a run must be watched but not touched; Win+L hides everything. It unlocks with the Windows password or Windows Hello, writes a hash-chained audit log and is deployed as an MSI with ADMX templates for Group Policy and Intune. It is a 0.1 pre-release, not code-signed yet and not yet tested end to end on real devices – reports from Remote Desktop and multi-monitor setups would help most. MIT licence, no telemetry.
+Vitrine locks keyboard and mouse on a Windows PC while the screen stays visible and programs keep running. We built it for lab instrument PCs and control-room PCs where a run must be watched but not touched; Win+L hides everything. It unlocks with the Windows password or Windows Hello, writes a hash-chained audit log and is deployed as an MSI with ADMX templates for Group Policy and Intune. It is a 0.1 pre-release and not yet tested end to end on real devices – reports from Remote Desktop and multi-monitor setups would help most. MIT licence, no telemetry.
 ```
 
 ### 3.2 Lupe – QR-Code- und Barcode-Leser für den PC
@@ -384,7 +385,7 @@ QR code and barcode reader for Windows, Linux and macOS that reads codes from th
 **AlternativeTo – Beschreibung** (600–900 Zeichen, ohne Links)
 
 ```text
-Lupe reads QR codes and barcodes on the PC: press Win+Shift+Q and drag a rectangle around a code anywhere on the screen, across all monitors, hold a code in front of the webcam, open an image file or paste a screenshot. The result is copied, typed into the window you came from (from the camera like a hand scanner) or opened as a link through your own link rules. 22 formats via zxing-cpp, including QR Code, Micro QR, Data Matrix, Aztec, PDF417, Code 128/GS1-128, EAN/UPC and GS1 DataBar. Searchable history with CSV export and a command line for scripts. Lupe reads codes only, it does not create them. Works offline: no cloud recognition, no telemetry, no update check. Windows 10 (1809+) and 11, Linux x64/arm64, macOS 12+. Pre-release 0.1.0: the camera is so far tested with a simulated source only, Linux and macOS less than Windows. Free and open source (MIT).
+Lupe reads QR codes and barcodes on the PC: press Win+Shift+Q and drag a rectangle around a code anywhere on the screen, across all monitors, hold a code in front of the webcam, open an image file or paste a screenshot. The result is copied, typed into the program you are working in (from the camera like a hand scanner) or opened as a link through your own link rules. 22 formats via zxing-cpp, including QR Code, Micro QR, Data Matrix, Aztec, PDF417, Code 128/GS1-128, EAN/UPC and GS1 DataBar. Searchable history with CSV export and a command line for scripts. Lupe reads codes only, it does not create them. Works offline: no cloud recognition, no telemetry, no update check. Windows 10 (1809+) and 11, Linux x64/arm64, macOS 12+. Pre-release 0.1.0: the camera is so far tested with a simulated source only, Linux and macOS less than Windows. Free and open source (MIT).
 ```
 
 **AlternativeTo – Felder**
@@ -463,7 +464,7 @@ Show HN: Lupe – read QR codes and barcodes from your screen or webcam
 **Show HN – Text** (URL: das GitHub-Repo)
 
 ```text
-Lupe reads QR codes and barcodes on the desktop: press Win+Shift+Q and drag a box around a code in a PDF, an e-mail or a video call, or hold it in front of the webcam. The result is copied, typed into the previous window like a hand scanner, or opened through a link rule. It runs on Windows, Linux and macOS (.NET 10, Avalonia, zxing-cpp with 22 formats), works offline and has no telemetry. This is 0.1.0: the camera path has only been tested against a simulated source and the macOS build has not run on a real Mac yet, so reports from real webcams and Macs would help most. MIT licence.
+Lupe reads QR codes and barcodes on the desktop: press Win+Shift+Q and drag a box around a code in a PDF, an e-mail or a video call, or hold it in front of the webcam. The result is copied, typed into the window you were working in, or opened through a link rule; with the webcam it works like a hand scanner. It runs on Windows, Linux and macOS (.NET 10, Avalonia, zxing-cpp with 22 formats), works offline and has no telemetry. This is 0.1.0: the camera path has only been tested against a simulated source and the macOS build has not run on a real Mac yet, so reports from real webcams and Macs would help most. MIT licence.
 ```
 
 ### 3.3 Zutritt – Berechtigungsbericht für Windows-Dateifreigaben
@@ -1054,7 +1055,7 @@ Datum · Dienst · Frage · genannt (ja/nein) · zitiert (welche URL) · Fakten 
 - **Richtig?** Plattform, Lizenz (MIT, kostenlos), Version und die Grenzen aus „Nicht schreiben“. Typische Fehler,
   die wir korrigieren wollen: Vitrine „entsperrt mit Entra ID“, Riegel „prüft CIS-Benchmarks“, Pforte „kann
   Terminal-Emulation (5250, VT)“, Lupe „erzeugt QR-Codes“, Industrial Keyboard „für RDP/SAP getestet“. Bei Fehlern die Quelle
-  suchen, aus der die Antwort schöpft, und dort korrigieren – nicht die Website umschreiben.
+  suchen, aus der die Antwort schöpft, und dort korrigieren; die Website nur ändern, wenn sie selbst missverständlich ist.
 
 **Testfragen**
 
@@ -1077,8 +1078,8 @@ Datum · Dienst · Frage · genannt (ja/nein) · zitiert (welche URL) · Fakten 
   queries“ (Stichprobe).
 - **Cloudflare AI Crawl Control:** welche Such- und KI-Crawler die Seite abrufen und mit welchem Status – fällt ein
   Crawler auf 403, ist eine Einstellung aus Schritt 3 zurückgesprungen.
-- **GitHub** → Insights → Traffic je Repo: verweisende Seiten (z. B. chatgpt.com, perplexity.ai), Klone, Besuche – nur
-  für Admins sichtbar, 14 Tage rückwirkend, also monatlich abschreiben.
+- **GitHub** → Insights → Traffic je Repo: verweisende Seiten (z. B. chatgpt.com, perplexity.ai), Klone, Besuche – sichtbar
+  für alle mit Schreibrechten, nur 14 Tage rückwirkend, also monatlich abschreiben.
 
 ## 5 Was wir bewusst nicht tun
 
