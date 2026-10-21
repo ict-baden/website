@@ -1,5 +1,5 @@
 // Allgemeine Bedienung: Umschalter Hell/Dunkel, mobiles Menü, Markierung des sichtbaren Abschnitts im One-Pager,
-// Sprache (Umschalter merken, beim ersten Besuch nach der Browsersprache).
+// Sprache (Umschalter merken, Hinweis auf die englische Fassung bei nicht-deutscher Browsersprache).
 (function () {
   'use strict';
   var root = document.documentElement;
@@ -19,7 +19,7 @@
   function syncPictures() {
     var t = root.getAttribute('data-theme');
     var q = t === 'dark' ? 'all' : t === 'light' ? 'not all' : '(prefers-color-scheme: dark)';
-    document.querySelectorAll('picture[data-theme-pic] > source').forEach(function (s) {
+    document.querySelectorAll('picture[data-theme-pic] > source[data-dark]').forEach(function (s) {
       if (s.media !== q) s.media = q;
     });
   }
@@ -91,20 +91,44 @@
     sections.forEach(function (s) { io.observe(s); });
   }
 
-  // Sprache: Wer selbst umschaltet, dessen Wahl gilt künftig (localStorage). Beim ersten Besuch der deutschen
-  // Startseite führt eine Browsersprache, die nicht mit Deutsch beginnt, zur englischen Fassung – nur dort und nur
-  // ohne eigene Wahl, damit geteilte Links und Suchmaschinen die gewünschte Sprache behalten.
+  // Sprache: Wer selbst umschaltet, dessen Wahl gilt künftig (localStorage „lang“). Keine automatische Umleitung –
+  // geteilte Links und Suchmaschinen behalten immer die aufgerufene Sprache. Stattdessen zeigt eine deutsche Seite bei
+  // nicht-deutscher Browsersprache einen schmalen Hinweis „English version →“ (auf die englische Fassung dieser Seite,
+  // sonst /en/). Schließen merkt sich die Seite („lang-hint“).
   function language() {
     document.querySelectorAll('[data-lang-switch]').forEach(function (a) {
       a.addEventListener('click', function () { try { localStorage.setItem('lang', a.dataset.langSwitch); } catch (e) {} });
     });
-    if (location.pathname !== '/') return;
-    var chosen = null;
-    try { chosen = localStorage.getItem('lang'); } catch (e) {}
-    if (chosen) return;
+    if ((root.getAttribute('lang') || 'de').indexOf('de') !== 0) return;
+    var chosen = null, dismissed = null;
+    try { chosen = localStorage.getItem('lang'); dismissed = localStorage.getItem('lang-hint'); } catch (e) {}
+    if (chosen === 'de' || dismissed) return;
     var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'de'];
-    var first = String(langs[0] || 'de').toLowerCase();
-    if (first.indexOf('de') !== 0) location.replace('/en/' + location.hash.replace(/^#.*/, ''));
+    if (String(langs[0] || 'de').toLowerCase().indexOf('de') === 0) return;
+    var alt = document.querySelector('link[rel="alternate"][hreflang="en"]');
+    var href = alt ? new URL(alt.href).pathname + location.hash : '/en/';
+    var bar = document.createElement('div');
+    bar.className = 'lang-hint';
+    bar.setAttribute('role', 'region');
+    bar.setAttribute('aria-label', 'Language');
+    bar.lang = 'en';
+    var link = document.createElement('a');
+    link.href = href;
+    link.hreflang = 'en';
+    link.textContent = 'This page is also available in English →';
+    link.addEventListener('click', function () { try { localStorage.setItem('lang', 'en'); } catch (e) {} });
+    var close = document.createElement('button');
+    close.type = 'button';
+    close.className = 'lang-hint-close';
+    close.setAttribute('aria-label', 'Close');
+    close.textContent = '×';
+    close.addEventListener('click', function () {
+      try { localStorage.setItem('lang-hint', '1'); } catch (e) {}
+      bar.remove();
+    });
+    bar.appendChild(link);
+    bar.appendChild(close);
+    document.body.insertBefore(bar, document.body.firstChild);
   }
 
   function start() { language(); init(); spy(); }
