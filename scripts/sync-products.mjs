@@ -465,5 +465,8 @@ writeFileSync(OUT_JSON, JSON.stringify(output, null, 2) + '\n');
 // Farbpaare aller Produkte (Klasse pc--<slug>): erzeugte Symbole und eigene Logos
 writeProductColors(products);
 
+// AVIF-Fassungen der Bilder (ThemeImage bietet sie zusätzlich zu WebP an)
+execFileSync(process.execPath, [join(ROOT, 'scripts', 'make-avif.mjs')], { stdio: 'inherit' });
+
 console.log(`${products.length} Produkte in ${linien.length} Linien → ${OUT_JSON}`);
 console.table(report);

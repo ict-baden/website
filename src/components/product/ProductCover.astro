@@ -4,13 +4,15 @@
 import ThemeImage from '../ThemeImage.astro';
 import { coverArt } from '../../lib/art';
 import { colorClasses, isPortrait, type Product } from '../../lib/products';
-interface Props { product: Product; uid?: string; sizes?: string; eager?: boolean; shot?: number }
-const { product, uid = '', sizes = '(min-width: 1100px) 380px, (min-width: 700px) 45vw, 92vw', eager = false, shot = 0 } = Astro.props;
+interface Props { product: Product; uid?: string; sizes?: string; eager?: boolean; shot?: number; lang?: 'de' | 'en' }
+const { product, uid = '', sizes = '(min-width: 1100px) 380px, (min-width: 700px) 45vw, 92vw', eager = false, shot = 0, lang = 'de' } = Astro.props;
 const s = product.media.screenshots[shot] ?? product.media.screenshots[0];
 const portrait = s ? isPortrait(s) : false;
 const phones = portrait ? product.media.screenshots.filter(isPortrait).slice(0, 2) : [];
 // Mit Demo-Animation (Vitrine) zeigt die Karte deren Standbild: es erklärt das Produkt besser als ein Einstellungsfenster
 const demo = shot === 0 && !portrait ? product.media.demo : null;
+// Beschreibende Alternativtexte (Bildersuche): Produkt, Art und was zu sehen ist – aus den kuratierten Bildtexten
+const altOf = (x: typeof s) => (x ? (lang === 'en' && x.en ? x.en.alt : x.alt) : '');
 ---
 <div class:list={['pcover', ...colorClasses(product), s && 'pcover--shot', portrait && 'pcover--phones']}>
   {s ? (
@@ -20,16 +22,16 @@ const demo = shot === 0 && !portrait ? product.media.demo : null;
         <div class="pcover-phones">
           {phones.map((p) => (
             <div class="pcover-phone">
-              <ThemeImage light={p.light} dark={p.dark} alt="" sizes="(min-width: 1100px) 150px, 40vw" eager={eager} />
+              <ThemeImage light={p.light} dark={p.dark} alt={altOf(p)} sizes="(min-width: 1100px) 150px, 40vw" eager={eager} />
             </div>
           ))}
         </div>
       ) : (
         <div class="pcover-shot">
           {demo ? (
-            <img src={demo.still} width={demo.width} height={demo.height} alt="" loading={eager ? 'eager' : 'lazy'} decoding="async" />
+            <img src={demo.still} width={demo.width} height={demo.height} alt={demo.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
           ) : (
-            <ThemeImage light={s.light} dark={s.dark} alt="" sizes={sizes} eager={eager} />
+            <ThemeImage light={s.light} dark={s.dark} alt={altOf(s)} sizes={sizes} eager={eager} />
           )}
         </div>
       )}
