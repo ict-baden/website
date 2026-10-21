@@ -5,12 +5,12 @@ import { lineById, products, type Product } from './products';
 import { fill, isReleased, pageFor, plain, productUrlFor } from './produktseiten';
 
 const url = (path: string) => `${SITE_URL}${path}`;
-const status = (p: Product) => (p.statusKey === 'vorabversion' && p.version ? `Vorabversion ${p.version}` : p.statusLabel);
+const status = (p: Product) => (p.statusKey === 'vorabversion' && p.version ? `Vorabversion ${p.version}` : p.statusLabel) + (pageFor(p).download.public ? '' : ' – Veröffentlichung in Kürze');
 /** Bekommt man das Produkt schon? Dieselbe Aussage wie auf der Produktseite („Download folgt“). */
 function download(p: Product): string {
   const page = pageFor(p);
   if (page.download.public && page.download.url) return `Download: ${page.download.url}`;
-  return isReleased(p) ? 'Download: folgt mit der Veröffentlichung, noch nicht erhältlich' : 'Noch nicht veröffentlicht, kein Download';
+  return isReleased(p) ? 'Download: folgt mit der Veröffentlichung in Kürze, noch nicht öffentlich erhältlich' : 'Noch nicht veröffentlicht, kein Download';
 }
 
 function intro(): string[] {
@@ -31,7 +31,7 @@ export function llmsTxt(): string {
   for (const p of products) {
     const page = pageFor(p);
     const independence = page.de.independence ? ` ${page.de.independence}` : '';
-    lines.push(`- [${p.name} – ${p.kind}](${url(productUrlFor(p, 'de'))}): ${plain(fill(page.de.lead, page, p, 'de'))}${independence} Status: ${status(p)}. ${download(p)}. English: ${url(productUrlFor(p, 'en'))}`);
+    lines.push(`- [${p.name} – ${p.kind}](${url(productUrlFor(p, 'de'))}): ${plain(fill(page.de.lead, page, p, 'de'))}${independence} Status: ${status(p)}. ${download(p)}. English: ${url(productUrlFor(p, 'en'))} (${page.en.kind ?? p.kind}; ${page.en.aka.join(', ')})`);
   }
   lines.push(
     '',
@@ -59,7 +59,7 @@ export function llmsFullTxt(): string {
     const c = page.de;
     const f = (s: string) => plain(fill(s, page, p, 'de'));
     lines.push(`## ${p.name} – ${p.kind}`, '');
-    lines.push(`Seite: ${url(productUrlFor(p, 'de'))} · English: ${url(productUrlFor(p, 'en'))}`);
+    lines.push(`Seite: ${url(productUrlFor(p, 'de'))} · English: ${url(productUrlFor(p, 'en'))} (${page.en.kind ?? p.kind}; ${page.en.aka.join(', ')})`);
     lines.push(`Produktlinie: ${lineById(p.linie).name} · Status: ${status(p)}${p.updated ? ` · Stand: ${p.updated}` : ''} · Lizenz: MIT, kostenlos`);
     lines.push(`${download(p)}.`);
     lines.push('', f(c.lead), '');
@@ -73,11 +73,21 @@ export function llmsFullTxt(): string {
         else lines.push(`| ${b.head.join(' | ')} |`, `|${b.head.map(() => '---').join('|')}|`, ...b.rows.map((r) => `| ${r.join(' | ')} |`), '');
       }
     }
+    const cmp = page.alternatives?.approved ? page.alternatives.de : null;
+    if (cmp) {
+      lines.push(`### ${cmp.title}`, '');
+      for (const b of cmp.blocks) {
+        if (b.type === 'p') lines.push(f(b.text), '');
+        else if (b.type === 'list') lines.push(...b.items.map((x) => `- ${f(x)}`), '');
+        else lines.push(...b.items.map((x) => `- **${x.title}:** ${f(x.text)}`), '');
+      }
+      lines.push(cmp.trademark, '');
+    }
     lines.push('### Systemvoraussetzungen', '', ...c.requirements.map(([k, v]) => `- **${k}:** ${f(v)}`), '');
     lines.push('### Grenzen', '', ...c.limits.map((x) => `- ${f(x)}`), '');
     lines.push('### Häufige Fragen', '');
-    for (const q of c.faq) lines.push(`**${f(q.q)}**`, f(q.a), '');
-    lines.push(`Auch bekannt als: ${c.aka.join(', ')}`, '');
+    for (const q of [...c.faq, ...(cmp?.faq ?? [])]) lines.push(`**${f(q.q)}**`, f(q.a), '');
+    lines.push(`Verwandte Begriffe: ${c.aka.join(', ')}`, `English: ${page.en.kind ?? p.kind} – ${page.en.aka.join(', ')}`, '');
     if (c.trademarks) lines.push(`Marken: ${c.trademarks}`, '');
   }
   return lines.join('\n');

@@ -12,7 +12,7 @@ import { coverArt } from '../../lib/art';
 import { colorClasses, isPortrait, lineById, nameHtml, nameSize, products, type Product, type Shot } from '../../lib/products';
 import { fill, inline, isReleased, LINE_EN, pageFor, plain, productUrlFor, seoTitle, statusLabelFor, UI, type Lang } from '../../lib/produktseiten';
 import { breadcrumbs, faqPage, organization, productOgImage, softwareApplication, webPage, website } from '../../lib/seo';
-import { appPrivacyPages } from '../../lib/app-privacy';
+import privacyPages from '../../data/app-datenschutz';
 import { mailto } from '../../config';
 
 interface Props { product: Product; lang: Lang }
@@ -41,12 +41,19 @@ const phones = Boolean(hero && isPortrait(hero));
 const heroPhones = phones ? m.screenshots.slice(0, 3) : [];
 const gallery = m.demo || phones ? m.screenshots : m.screenshots.slice(1);
 const shotKind = (x: Shot) => (isPortrait(x) ? 'phone' : x.light.width / x.light.height >= 2.4 ? 'wide' : x.light.width <= 1100 ? 'small' : 'normal');
+/** Alternativtext und Bildunterschrift der Demo-Animation in der Sprache der Seite */
+const demoText = m.demo ? (lang === 'en' && m.demo.en ? m.demo.en : { alt: m.demo.alt, caption: m.demo.caption }) : null;
 const galleryNote = lang === 'en' ? m.galleryNoteEn ?? null : m.galleryNote;
 
 const related = page.related.map((id) => products.find((x) => x.id === id)).filter((x): x is Product => Boolean(x));
 const relatedKind = (r: Product) => (lang === 'de' ? r.kind : pageFor(r).en.kind ?? r.kind);
-const privacy = page.privacyApp && (await appPrivacyPages()).includes(page.privacyApp) ? `/datenschutz/${page.privacyApp}/` : null;
-const alternatives = page.alternatives?.approved ? page.alternatives[lang] : null;
+// Datenschutzerklärung der App (src/data/app-datenschutz.ts), gefunden über die Projekt-id
+const privacySlug = privacyPages.find((a) => a.productId === p.id)?.slug;
+const privacy = privacySlug ? `/datenschutz/${privacySlug}/` : null;
+// Sachlicher Vergleich mit Fremdprodukten (Comparison in src/lib/produktseiten.ts). data-vergleich markiert den
+// Abschnitt und seine FAQ-Fragen: nur dort dürfen Fremdnamen stehen (scripts/check-seo.mjs), data-marken den Markenhinweis.
+const comparison = page.alternatives?.approved ? page.alternatives[lang] : null;
+const faqs = [...copy.faq.map((x) => ({ ...x, cmp: false })), ...(comparison?.faq ?? []).map((x) => ({ ...x, cmp: true }))];
 
 const subject = t.enquirySubject(p.name);
 const og = productOgImage(p, lang);
@@ -54,7 +61,7 @@ const description = plain(f(copy.description));
 const h1Text = kind ? `${p.name} – ${kind}` : p.name;
 const crumbs = lang === 'de'
   ? [{ name: t.home, url: '/' }, { name: t.products, url: '/#produkte' }, { name: p.name, url }]
-  : [{ name: t.home, url: '/' }, { name: t.products, url: '/en/' }, { name: p.name, url }];
+  : [{ name: t.home, url: '/en/' }, { name: t.products, url: '/en/#products' }, { name: p.name, url }];
 const software = softwareApplication(p, page, lang, kind);
 const jsonLd = [
   organization(),
@@ -62,7 +69,7 @@ const jsonLd = [
   webPage(url, seoTitle(copy.title), description, lang, software['@id'] as string, og),
   software,
   breadcrumbs(crumbs),
-  faqPage(url, copy.faq.map((x) => ({ q: plain(f(x.q)), a: plain(f(x.a)) })), lang),
+  faqPage(url, faqs.map((x) => ({ q: plain(f(x.q)), a: plain(f(x.a)) })), lang),
 ];
 const updated = p.updated ? t.date(p.updated) : null;
 ---
@@ -94,11 +101,8 @@ const updated = p.updated ? t.date(p.updated) : null;
         </div>
         <div class:list={['dhead', nameSize(p.name) && `dhead--${nameSize(p.name)}`]}>
           <ProductIcon product={p} size={76} uid="-hero" class="dicon" eager />
-          <h1>
-            <span class="dname" set:html={nameHtml(p.name)} />
-            {kind && <span class="visually-hidden"> – </span>}
-            {kind && <span class="dkind">{kind}</span>}
-          </h1>
+          {/* Ohne Leerraum zwischen den Teilen: sonst lesen Suchmaschinen „Vitrine  –  …“ mit doppelten Leerzeichen */}
+          <h1><span class="dname" set:html={nameHtml(p.name)} />{kind && <><span class="visually-hidden"> – </span><span class="dkind">{kind}</span></>}</h1>
         </div>
         {tagline && <p class="dtag">{tagline}</p>}
         <p class="dlead" set:html={inline(f(copy.lead))} />
@@ -137,10 +141,10 @@ const updated = p.updated ? t.date(p.updated) : null;
             <div class="dvis-frame dvis-frame--demo">
               <picture>
                 <source media="(prefers-reduced-motion: reduce)" srcset={m.demo.still} />
-                <img src={m.demo.src} width={m.demo.width} height={m.demo.height} alt={m.demo.alt} fetchpriority="high" />
+                <img src={m.demo.src} width={m.demo.width} height={m.demo.height} alt={demoText!.alt} fetchpriority="high" />
               </picture>
             </div>
-            {m.demo.caption && <figcaption>{m.demo.caption}</figcaption>}
+            {demoText?.caption && <figcaption>{demoText.caption}</figcaption>}
           </figure>
         ) : phones ? (
           <figure class="dvis dvis--phones">
@@ -196,22 +200,36 @@ const updated = p.updated ? t.date(p.updated) : null;
         </section>
       ))}
 
-      {alternatives && (
-        <section class="dsec reveal" id="alternativen" aria-labelledby="s-alternativen">
-          <h2 id="s-alternativen">{t.alternatives}</h2>
-          <p class="blk-p">{alternatives}</p>
+      {comparison && (
+        <section class="dsec reveal" id={lang === 'de' ? 'alternative' : 'alternative-to'} aria-labelledby="s-alternativen" data-vergleich>
+          <h2 id="s-alternativen"><span class="dsec-n" aria-hidden="true">{String(copy.sections.length + 1).padStart(2, '0')}</span> {comparison.title}</h2>
+          {comparison.blocks.map((b) =>
+            b.type === 'p' ? <p class="blk-p" set:html={inline(f(b.text))} />
+            : b.type === 'list' ? <ul class="blk-ul">{b.items.map((x) => <li set:html={inline(f(x))} />)}</ul>
+            : (
+              <ul class="feat-list" role="list">
+                {b.items.map((x) => (
+                  <li>
+                    <Icon name="check" class="feat-check" />
+                    <div><h3>{x.title}</h3><p set:html={inline(f(x.text))} /></div>
+                  </li>
+                ))}
+              </ul>
+            )
+          )}
+          <p class="dcmp-tm" data-marken>{comparison.trademark}</p>
         </section>
       )}
 
       <section class="dsec reveal" id={lang === 'de' ? 'voraussetzungen' : 'requirements'} aria-labelledby="s-req">
-        <h2 id="s-req"><span class="dsec-n" aria-hidden="true">{String(copy.sections.length + 1).padStart(2, '0')}</span> {t.requirements}</h2>
+        <h2 id="s-req"><span class="dsec-n" aria-hidden="true">{String(copy.sections.length + (comparison ? 2 : 1)).padStart(2, '0')}</span> {t.requirements}</h2>
         <dl class="req">
           {copy.requirements.map(([k, v]) => <div><dt>{k}</dt><dd set:html={inline(f(v))} /></div>)}
         </dl>
       </section>
 
       <section class="dsec reveal" id={lang === 'de' ? 'grenzen' : 'limits'} aria-labelledby="s-limits">
-        <h2 id="s-limits"><span class="dsec-n" aria-hidden="true">{String(copy.sections.length + 2).padStart(2, '0')}</span> {t.limits}</h2>
+        <h2 id="s-limits"><span class="dsec-n" aria-hidden="true">{String(copy.sections.length + (comparison ? 3 : 2)).padStart(2, '0')}</span> {t.limits}</h2>
         <ul class="blk-ul">{copy.limits.map((x) => <li set:html={inline(f(x))} />)}</ul>
       </section>
 
@@ -223,7 +241,7 @@ const updated = p.updated ? t.date(p.updated) : null;
         <p class="daside-title">{t.glance}</p>
         <dl>
           <div><dt>{t.line}</dt><dd>{lineName}</dd></div>
-          <div><dt>Status</dt><dd>{statusLabel}<span class="dd-help">{t.statusHelp[p.statusKey]}</span></dd></div>
+          <div><dt>Status</dt><dd>{statusLabel}<span class="dd-help">{page.download.public ? t.statusHelp[p.statusKey] : released ? t.downloadSoon : t.statusHelp[p.statusKey]}</span></dd></div>
           {released && p.version && <div><dt>{t.version}</dt><dd>{p.version}</dd></div>}
           {updated && <div><dt>{t.updated}</dt><dd><time datetime={p.updated}>{updated}</time></dd></div>}
           <div><dt>{t.licence}</dt><dd>{t.licenceValue(page.download.public)}</dd></div>
@@ -263,8 +281,8 @@ const updated = p.updated ? t.date(p.updated) : null;
   <section class="container dfaq" id={lang === 'de' ? 'fragen' : 'faq'} aria-labelledby="s-faq">
     <h2 id="s-faq">{t.faq}</h2>
     <div class="faq-list">
-      {copy.faq.map((x) => (
-        <div class="faq-item reveal">
+      {faqs.map((x) => (
+        <div class="faq-item reveal" data-vergleich={x.cmp ? '' : undefined}>
           <h3 set:html={inline(f(x.q))} />
           <p set:html={inline(f(x.a))} />
         </div>
@@ -489,6 +507,7 @@ const updated = p.updated ? t.date(p.updated) : null;
   .rkind { color: var(--ink-2); font-size: var(--fs-sm); }
   .ritem > :global(.icon) { flex: none; color: var(--ink-3); }
 
+  .dcmp-tm { margin-top: var(--s-4); color: var(--ink-3); font-size: var(--fs-xs); max-width: 80ch; }
   .dtm { margin-top: var(--s-8); color: var(--ink-3); font-size: var(--fs-xs); max-width: 90ch; }
 
   @media (max-width: 1060px) {

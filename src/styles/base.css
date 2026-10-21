@@ -170,10 +170,12 @@ small { font-size: var(--fs-sm); }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) .theme-light { display: none !important; }
   :root:not([data-theme='light']) .theme-dark { display: block !important; }
+  :root:not([data-theme='light']) .theme-pic.theme-dark { display: contents !important; }
 }
 :root[data-theme='dark'] .theme-light { display: none !important; }
 :root[data-theme='dark'] .theme-dark { display: block !important; }
-/* <picture> der Bilder oben auf der Seite (ThemeImage eager): das <img> darin wird wie ein direktes Kind gestaltet */
+:root[data-theme='dark'] .theme-pic.theme-dark { display: contents !important; }
+/* <picture> von ThemeImage (AVIF mit WebP-Rückfall): das <img> darin wird wie ein direktes Kind gestaltet */
 .theme-pic { display: contents; }
 
 /* Bewegung: dezentes Einblenden beim Scrollen (nur mit scroll-getriebenen Animationen) */

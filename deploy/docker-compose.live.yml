@@ -1,0 +1,22 @@
+# ICT Baden – Livegang auf ict-baden.de (indexierbar). NOCH NICHT IN BETRIEB: wird erst beim Livegang auf docker01
+# nach /srv/docker/ict-baden.de gelegt und gestartet (README, "Going live" – Handgriffe dort).
+# Image: ghcr.io/ict-baden/website:live (SITE_STAGING=0, kanonische Adressen auf https://ict-baden.de, kein noindex,
+# robots.txt lädt Such- und KI-Crawler ein). Die CI baut es bei jedem Push auf main mit; Watchtower holt neue Stände.
+# Die Vorschau (deploy/docker-compose.yml, ictbaden.netgetvpn.de) läuft unverändert daneben weiter und bleibt noindex.
+# Zurück auf einen älteren Stand: IMAGE_TAG=live-<commit> SITE_MODE=live deploy/deploy.sh
+services:
+  web:
+    image: ghcr.io/ict-baden/website:${IMAGE_TAG:-live}
+    container_name: ictbaden-live
+    restart: unless-stopped
+    ports:
+      - "192.168.4.6:8018:80"
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
+      # Cloudflare-Tunnel: ict-baden.de auf diesen Container. www.ict-baden.de zeigt ebenfalls hierher (zweiter
+      # Hostname im Tunnel bzw. Weiterleitungsregel in Cloudflare); nginx leitet www → ict-baden.de um.
+      cf.tunnel.hostname: "ict-baden.de"
+      cf.tunnel.service: "http://192.168.4.6:8018"
+      cf.tunnel.access: "none"

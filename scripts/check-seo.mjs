@@ -4,20 +4,22 @@
 //   - hreflang: jede Sprachfassung existiert und verweist zurück, x-default vorhanden
 //   - JSON-LD: gültiges JSON, Pflichtfelder je Typ, FAQ-Fragen auch sichtbar auf der Seite
 //   - Bilder: jedes <img> hat ein alt-Attribut; Bildschirmfotos der Produktseiten haben einen Alternativtext
-//   - keine Namen fremder Produkte auf Produktseiten ohne Freigabe ("ersetzt" in scripts/public-overrides.json)
+//   - Namen fremder Produkte nur im Vergleichsabschnitt der Produktseite, jeder mit Markenhinweis
 //   - robots.txt (Vorschau: alles gesperrt; live: Sitemap), sitemap.xml (nur vorhandene Seiten), llms.txt
 //
 //   node scripts/check-seo.mjs [dist]
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
-import { competitorHits } from './lib/public-guard.mjs';
+import { COMPETITOR_PATTERNS, competitorHits } from './lib/public-guard.mjs';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const DIST = resolve(process.argv[2] ?? join(ROOT, 'dist'));
 const SITE_URL = (process.env.SITE_URL || 'https://ictbaden.netgetvpn.de').replace(/\/+$/, '');
 const STAGING = (process.env.SITE_STAGING ?? '1') !== '0';
 const products = JSON.parse(readFileSync(join(ROOT, 'src/data/products.json'), 'utf8')).products;
-const overrides = JSON.parse(readFileSync(join(ROOT, 'scripts/public-overrides.json'), 'utf8')).products ?? {};
+// Alle genannten Fremdnamen eines Texts (ohne vergleichende Formulierungen wie „Alternative zu“, die keine Namen sind)
+const PHRASES = /^(?:alternative (?:zu|to)|nachbau|klon|clone of|feature parity|funktionsgleich)$/i;
+const allCompetitorNames = (text) => [...new Set(COMPETITOR_PATTERNS.flatMap((re) => [...text.matchAll(new RegExp(re.source, re.flags.includes('g') ? re.flags : re.flags + 'g'))].map((m) => m[0])))].filter((n) => !PHRASES.test(n));
 
 const problems = [];
 const warn = [];
@@ -148,11 +150,43 @@ for (const [page, html] of pages) {
     }
   }
 
-  // Fremdprodukte auf Produktseiten nur mit Freigabe
+  // Fremdprodukte auf Produktseiten: nur im Vergleichsabschnitt (data-vergleich) und in seinen FAQ-Fragen, und jeder
+  // genannte Name steht im Markenhinweis des Abschnitts (data-marken). Titel, Beschreibung, H1, übriger Text,
+  // SoftwareApplication und keywords bleiben frei von Fremdnamen.
   const prod = products.find((p) => page === `/produkte/${p.slug}/` || page === `/en/products/${p.slug}/`);
-  if (prod && overrides[prod.id]?.ersetzt !== true) {
-    const hits = competitorHits(visible + ' ' + head);
-    if (hits.length) fail(page, `Fremdprodukt ohne Freigabe genannt: ${[...new Set(hits)].join(', ')}`);
+  if (prod) {
+    const LD = /<script type="application\/ld\+json">[\s\S]*?<\/script>/g;
+    const section = html.match(/<section[^>]*\sdata-vergleich[\s\S]*?<\/section>/)?.[0] ?? '';
+    const cmpFaq = [...html.matchAll(/<div[^>]*\sdata-vergleich[^>]*>[\s\S]*?<\/div>/g)].map((m) => m[0]);
+    let rest = html.replace(section, ' ');
+    for (const f of cmpFaq) rest = rest.replace(f, ' ');
+    const restHead = rest.slice(0, rest.indexOf('</head>')).replace(LD, ' ');
+    const hits = competitorHits(textOf(rest.replace(LD, ' ')) + ' ' + restHead);
+    if (hits.length) fail(page, `Fremdprodukt außerhalb des Vergleichsabschnitts: ${[...new Set(hits)].join(', ')}`);
+    // JSON-LD: Fremdnamen nur in FAQ-Fragen, die zum Vergleich gehören
+    const cmpQuestions = cmpFaq.map((f) => textOf(f.match(/<h3[\s\S]*?<\/h3>/)?.[0] ?? ''));
+    for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+      let data;
+      try { data = JSON.parse(m[1]); } catch { continue; }
+      for (const n of data['@graph'] ?? [data]) {
+        if (types(n).includes('FAQPage')) {
+          for (const q of n.mainEntity ?? []) {
+            if (competitorHits(`${q.name} ${q.acceptedAnswer?.text ?? ''}`).length && !cmpQuestions.includes(q.name)) fail(page, `FAQPage: Fremdprodukt in einer Frage außerhalb des Vergleichs: ${q.name}`);
+          }
+        } else if (competitorHits(JSON.stringify(n)).length) {
+          fail(page, `JSON-LD ${types(n).join('/')}: Fremdprodukt genannt (${competitorHits(JSON.stringify(n)).join(', ')})`);
+        }
+      }
+    }
+    // Vergleichsabschnitt: Markenhinweis nennt jeden Fremdnamen
+    const cmpText = textOf(section + ' ' + cmpFaq.join(' '));
+    const names = allCompetitorNames(cmpText);
+    if (section || cmpFaq.length) {
+      const marken = textOf(section.match(/<p[^>]*\sdata-marken[^>]*>[\s\S]*?<\/p>/)?.[0] ?? '');
+      if (!marken) fail(page, 'Vergleichsabschnitt ohne Markenhinweis (data-marken)');
+      for (const n of names) if (!marken.toLowerCase().includes(n.toLowerCase())) fail(page, `Markenhinweis nennt „${n}“ nicht`);
+      if (/besser als|better than|schlechter als|worse than/i.test(cmpText)) fail(page, 'Vergleich mit Werturteil („besser als“)');
+    }
   }
 }
 

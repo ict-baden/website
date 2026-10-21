@@ -3,7 +3,8 @@
 #   python scripts/make-vitrine-demo.py <vitrine-repo>
 #
 # Die Vitrine-Teile sind echte Bildschirmfotos aus <vitrine-repo>/docs/assets/screenshots (Sperrleiste aus
-# lock-light.png, Entsperr-Dialog unlock-entra-light.png). Nur der Hintergrund ist gezeichnet: eine neutrale,
+# lock-light.png, Entsperr-Dialog unlock-light.png – Kennwort und Windows Hello wie in den Release-Paketen; die
+# Microsoft-Anmeldung am Sperrbildschirm gibt es dort nicht, weil der Windows-Kontobroker fehlt). Nur der Hintergrund ist gezeichnet: eine neutrale,
 # erfundene Messsoftware, die zeigt, wofür Vitrine da ist – das Programm bleibt unter der Sperre sichtbar und läuft
 # weiter. Ablauf: gesperrt (Kurve läuft) › Klick öffnet den Entsperr-Dialog › entsperrt.
 import math
@@ -17,8 +18,10 @@ shots = os.path.join(repo, 'docs', 'assets', 'screenshots')
 out = os.path.join(os.path.dirname(__file__), 'media', 'vitrine-demo.webp')
 
 W, H = 1600, 1000
-FONT = 'C:/Windows/Fonts/segoeui.ttf' if os.name == 'nt' else '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
-FONT_B = 'C:/Windows/Fonts/segoeuib.ttf' if os.name == 'nt' else '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
+_FONTS = [('C:/Windows/Fonts/segoeui.ttf', 'C:/Windows/Fonts/segoeuib.ttf'),
+          ('/System/Library/Fonts/Supplemental/Arial.ttf', '/System/Library/Fonts/Supplemental/Arial Bold.ttf'),
+          ('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf')]
+FONT, FONT_B = next((r, b) for r, b in _FONTS if os.path.exists(r))
 f = lambda s, b=False: ImageFont.truetype(FONT_B if b else FONT, s)
 
 INK, MUTED, LINE, ACCENT = (32, 32, 32), (110, 110, 110), (228, 228, 228), (0, 103, 192)
@@ -113,13 +116,13 @@ def locked(progress, with_dialog=False):
     if with_dialog:
         dim = Image.new('RGBA', im.size, (0, 0, 0, 60))
         im.alpha_composite(dim)
-        dlg = Image.open(os.path.join(shots, 'unlock-entra-light.png')).convert('RGBA')
+        dlg = Image.open(os.path.join(shots, 'unlock-light.png')).convert('RGBA')
         k = 760 / dlg.height
         dlg = dlg.resize((int(dlg.width * k), int(dlg.height * k)), Image.LANCZOS)
         dx, dy = (W - dlg.width) // 2, (H - dlg.height) // 2 - 20
         # Die Karte des Dialogs ist im Bildschirmfoto halbdurchsichtig (Acryl): undurchsichtig hinterlegen
         card = ImageDraw.Draw(im)
-        card.rounded_rectangle([dx + int(84 * k), dy + int(84 * k), dx + int(914 * k), dy + int(946 * k)], int(30 * k), fill=(249, 249, 249, 255))
+        card.rounded_rectangle([dx + int(84 * k), dy + int(84 * k), dx + int(916 * k), dy + int(1032 * k)], int(30 * k), fill=(249, 249, 249, 255))
         im.alpha_composite(dlg, (dx, dy))
     return im.convert('RGB')
 

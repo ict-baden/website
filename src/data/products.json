@@ -1,5 +1,5 @@
 {
-  "stand": "2026-10-20",
+  "stand": "2026-10-21",
   "linien": [
     {
       "id": "ot",
@@ -30,7 +30,7 @@
       "statusKey": "verfuegbar",
       "statusLabel": "Verfügbar",
       "version": "0.1.0",
-      "updated": "2026-10-19",
+      "updated": "2026-10-21",
       "text": "Transparente Bildschirmsperre für Windows: Tastatur und Maus sind gesperrt, Programme bleiben sichtbar und laufen weiter. Mit Microsoft Entra ID, elektronischer Signatur und manipulationserkennendem Protokoll.",
       "sections": {
         "problem": null,
@@ -50,7 +50,7 @@
         },
         {
           "label": "Anmeldung",
-          "value": "Microsoft Entra ID, Windows-Kennwort, Windows Hello"
+          "value": "Windows-Kennwort und Windows Hello; Microsoft Entra ID für Signaturen"
         },
         {
           "label": "Verwaltung",
@@ -81,8 +81,12 @@
           "still": "/media/produkte/vitrine/demo-still.webp",
           "width": 1600,
           "height": 1000,
-          "alt": "Animation: Eine Messung läuft unter der durchsichtigen Sperre von Vitrine weiter, unten die Sperrleiste. Ein Klick öffnet den Entsperr-Dialog mit Microsoft-Anmeldung, danach ist der Arbeitsplatz wieder frei.",
-          "caption": "Die Messung läuft unter der Sperre weiter › Klick öffnet den Entsperr-Dialog › entsperrt"
+          "alt": "Animation: Eine Messung läuft unter der durchsichtigen Sperre von Vitrine weiter, unten die Sperrleiste. Ein Klick öffnet den Entsperr-Dialog mit Kennwort und Windows Hello, danach ist der Arbeitsplatz wieder frei.",
+          "caption": "Die Messung läuft unter der Sperre weiter › Klick öffnet den Entsperr-Dialog › entsperrt",
+          "en": {
+            "alt": "Animation: a measurement keeps running under Vitrine’s transparent lock screen, the lock bar at the bottom. A click opens the unlock dialog with password and Windows Hello, then the workstation is free again.",
+            "caption": "The measurement keeps running while locked › a click opens the unlock dialog › unlocked"
+          }
         },
         "screenshots": [
           {
@@ -129,29 +133,6 @@
               "srcset": "/media/produkte/vitrine/vitrine-durchsichtig-gesperrt-dark-800.webp 800w, /media/produkte/vitrine/vitrine-durchsichtig-gesperrt-dark-1600.webp 1600w",
               "width": 1600,
               "height": 1103
-            }
-          },
-          {
-            "name": "unlock-entra",
-            "title": "Entsperren mit Microsoft Entra ID",
-            "caption": "Über den Windows-Kontobroker: Passkeys und FIDO2-Schlüssel, Authenticator, MFA, Windows Hello for Business und Conditional Access. Dazu Windows-Kennwort und Windows Hello.",
-            "alt": "Entsperrdialog von Vitrine mit den Verfahren Microsoft, Kennwort und Hello und der Schaltfläche „Continue with Microsoft“.",
-            "en": {
-              "title": "Unlock with Microsoft Entra ID",
-              "caption": "Through the Windows account broker: passkeys and FIDO2 keys, Authenticator, MFA, Windows Hello for Business and Conditional Access. Also Windows password and Windows Hello.",
-              "alt": "Vitrine unlock dialog with the methods Microsoft, Password and Hello and the button “Continue with Microsoft”."
-            },
-            "light": {
-              "src": "/media/produkte/vitrine/vitrine-entsperren-microsoft-entra-id-light-936.webp",
-              "srcset": "/media/produkte/vitrine/vitrine-entsperren-microsoft-entra-id-light-800.webp 800w, /media/produkte/vitrine/vitrine-entsperren-microsoft-entra-id-light-936.webp 936w",
-              "width": 936,
-              "height": 968
-            },
-            "dark": {
-              "src": "/media/produkte/vitrine/vitrine-entsperren-microsoft-entra-id-dark-936.webp",
-              "srcset": "/media/produkte/vitrine/vitrine-entsperren-microsoft-entra-id-dark-800.webp 800w, /media/produkte/vitrine/vitrine-entsperren-microsoft-entra-id-dark-936.webp 936w",
-              "width": 936,
-              "height": 968
             }
           },
           {
@@ -262,8 +243,8 @@
       "status": "fertig",
       "statusKey": "verfuegbar",
       "statusLabel": "Verfügbar",
-      "version": "0.1.0",
-      "updated": "2026-10-19",
+      "version": "0.1.2",
+      "updated": "2026-10-21",
       "text": "Prüft Windows-Rechner in Anlagen, Laboren und Leitständen lesend und offline gegen 153 Härtungsregeln, hält begründete Ausnahmen mit Freigabe fest und erzeugt einen Bericht zum Abzeichnen.",
       "sections": {
         "problem": null,
@@ -439,7 +420,7 @@
       "statusKey": "verfuegbar",
       "statusLabel": "Verfügbar",
       "version": "0.1.0",
-      "updated": "2026-10-18",
+      "updated": "2026-10-21",
       "text": "Zeigt, wer auf Dateifreigaben worauf zugreifen darf – und über welche Gruppe. Liest Freigabe- und NTFS-Rechte, löst Gruppen bis zur Person auf, meldet riskante Rechte und schreibt einen Excel- oder PDF-Bericht zum Abzeichnen.",
       "sections": {
         "problem": null,
@@ -449,7 +430,7 @@
       "highlights": [
         "SMB + NTFS",
         "Gruppen → Personen",
-        "14 Prüfregeln",
+        "15 Prüfregeln",
         "Excel & PDF"
       ],
       "facts": [
@@ -628,18 +609,18 @@
     },
     {
       "id": "enterprisebrowser",
-      "slug": "enterprisebrowser",
+      "slug": "pforte",
       "nr": 2,
-      "name": "EnterpriseBrowser",
+      "name": "Pforte",
       "kind": "Kiosk-Browser für Android-MDE-Geräte",
       "tagline": "Web-Apps auf robusten Android-Geräten.",
       "linie": "android",
       "status": "fertig",
       "statusKey": "verfuegbar",
       "statusLabel": "Verfügbar",
-      "version": "0.5.0",
-      "updated": "2026-10-19",
-      "text": "Kiosk-Browser für robuste Android-Geräte, zum Beispiel von Zebra und Honeywell: Barcode-Scan per DataWedge direkt ins Webformular, Profile, Kioskmodus und Konfiguration per MDM (SOTI, Intune, StageNow).",
+      "version": "0.6.0",
+      "updated": "2026-10-21",
+      "text": "Kiosk-Browser für robuste Android-Geräte, zum Beispiel von Zebra und Honeywell: Barcode-Scan direkt ins Webformular, Profile, Kioskmodus und Konfiguration per MDM (SOTI, Intune, StageNow).",
       "sections": {
         "problem": null,
         "ersetzt": null,
@@ -678,7 +659,7 @@
         }
       ],
       "media": {
-        "logo": "/media/produkte/enterprisebrowser/logo.webp",
+        "logo": "/media/produkte/pforte/logo.webp",
         "colors": [
           "#0d47a1",
           "#0d47a1"
@@ -690,15 +671,15 @@
             "name": "screen-launcher",
             "title": "Profile",
             "caption": "Ein Tipp öffnet die Web-App. Mehrere Web-Apps auf einem Gerät, jede mit eigener Start-Adresse und eigenen Regeln.",
-            "alt": "EnterpriseBrowser, Kiosk-Browser für Android-MDE-Geräte: Startbildschirm mit den Profilen Goods receipt, Picking, Shipping & labels und Scanner-Test.",
+            "alt": "Pforte, Kiosk-Browser für Android-MDE-Geräte: Startbildschirm mit den Profilen Goods receipt, Picking, Shipping & labels und Scanner-Test.",
             "en": {
               "title": "Profiles",
               "caption": "One tap opens the web app. Several web apps on one device, each with its own start address and rules.",
-              "alt": "EnterpriseBrowser kiosk browser for rugged Android devices: start screen with the profiles Goods receipt, Picking, Shipping & labels and the scanner test."
+              "alt": "Pforte kiosk browser for rugged Android devices: start screen with the profiles Goods receipt, Picking, Shipping & labels and the scanner test."
             },
             "light": {
-              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-kiosk-browser-profile-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-kiosk-browser-profile-light-520.webp 520w",
+              "src": "/media/produkte/pforte/pforte-kiosk-browser-profile-light-520.webp",
+              "srcset": "/media/produkte/pforte/pforte-kiosk-browser-profile-light-520.webp 520w",
               "width": 520,
               "height": 1045
             },
@@ -708,15 +689,15 @@
             "name": "screen-browser",
             "title": "Scannen",
             "caption": "Der Barcode landet im Feld, auf Wunsch gefolgt von Tab oder Enter – und als JavaScript-Ereignis für die Web-App.",
-            "alt": "Barcode-Scan im EnterpriseBrowser: die gescannte EAN 4006381333931 steht im Feld Item der Demo-Seite, darunter die letzten Scans.",
+            "alt": "Barcode-Scan in Pforte: die gescannte EAN 4006381333931 steht im Feld Item der Demo-Seite, darunter die letzten Scans.",
             "en": {
               "title": "Scanning",
               "caption": "The barcode goes into the field, optionally followed by Tab or Enter – and as a JavaScript event for the web app.",
-              "alt": "Barcode scan in EnterpriseBrowser: the scanned EAN 4006381333931 in the Item field of the demo page, below it the latest scans."
+              "alt": "Barcode scan in Pforte: the scanned EAN 4006381333931 in the Item field of the demo page, below it the latest scans."
             },
             "light": {
-              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-barcode-scan-webformular-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-barcode-scan-webformular-light-520.webp 520w",
+              "src": "/media/produkte/pforte/pforte-barcode-scan-webformular-light-520.webp",
+              "srcset": "/media/produkte/pforte/pforte-barcode-scan-webformular-light-520.webp 520w",
               "width": 520,
               "height": 1045
             },
@@ -726,15 +707,15 @@
             "name": "screen-menu",
             "title": "Menü",
             "caption": "Alles in Daumenreichweite.",
-            "alt": "Menü des EnterpriseBrowser über der Demo-Seite mit Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings und Exit.",
+            "alt": "Menü von Pforte über der Demo-Seite mit Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings und Exit.",
             "en": {
               "title": "Menu",
               "caption": "Everything within thumb reach.",
-              "alt": "EnterpriseBrowser menu over the demo page with Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings and Exit."
+              "alt": "Pforte menu over the demo page with Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings and Exit."
             },
             "light": {
-              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-menue-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-menue-light-520.webp 520w",
+              "src": "/media/produkte/pforte/pforte-menue-light-520.webp",
+              "srcset": "/media/produkte/pforte/pforte-menue-light-520.webp 520w",
               "width": 520,
               "height": 1045
             },
@@ -744,15 +725,15 @@
             "name": "screen-launcher-branded",
             "title": "Eigenes Design",
             "caption": "Titel, Untertitel, Logo und Markenfarbe kommen aus der Konfiguration oder werden direkt in der App eingestellt.",
-            "alt": "EnterpriseBrowser im eigenen Design: grüner Kopf mit Kürzel NL, Titel North Logistics Center und Shift A · Hall 3, darunter die Profile.",
+            "alt": "Pforte im eigenen Design: grüner Kopf mit Kürzel NL, Titel North Logistics Center und Shift A · Hall 3, darunter die Profile.",
             "en": {
               "title": "Custom design",
               "caption": "Title, subtitle, logo and brand color come from the configuration – or are set right in the app.",
-              "alt": "EnterpriseBrowser with custom branding: green header with the initials NL, the title North Logistics Center and Shift A · Hall 3, below it the profiles."
+              "alt": "Pforte with custom branding: green header with the initials NL, the title North Logistics Center and Shift A · Hall 3, below it the profiles."
             },
             "light": {
-              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-eigenes-design-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-eigenes-design-light-520.webp 520w",
+              "src": "/media/produkte/pforte/pforte-eigenes-design-light-520.webp",
+              "srcset": "/media/produkte/pforte/pforte-eigenes-design-light-520.webp 520w",
               "width": 520,
               "height": 1045
             },
@@ -762,15 +743,15 @@
             "name": "screen-profile-editor",
             "title": "Profil mit eigener Farbe",
             "caption": "Jedes Profil kann eine eigene Farbe haben, die auch die Werkzeugleiste in der Web-App einfärbt.",
-            "alt": "Profil bearbeiten im EnterpriseBrowser: Name, Start-URL, erlaubte Hosts, Profilfarbe und Schalter für Autostart, Werkzeugleiste und Vollbild.",
+            "alt": "Profil bearbeiten in Pforte: Name, Start-URL, erlaubte Hosts, Profilfarbe und Schalter für Autostart, Werkzeugleiste und Vollbild.",
             "en": {
               "title": "Profile with its own color",
               "caption": "Every profile can have its own color, which also tints the toolbar inside the web app.",
-              "alt": "EnterpriseBrowser profile editor: name, start URL, allowed hosts, profile color and switches for open on app start, hide toolbar and full screen."
+              "alt": "Pforte profile editor: name, start URL, allowed hosts, profile color and switches for open on app start, hide toolbar and full screen."
             },
             "light": {
-              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-profil-allowlist-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-profil-allowlist-light-520.webp 520w",
+              "src": "/media/produkte/pforte/pforte-profil-allowlist-light-520.webp",
+              "srcset": "/media/produkte/pforte/pforte-profil-allowlist-light-520.webp 520w",
               "width": 520,
               "height": 1045
             },
@@ -780,23 +761,23 @@
             "name": "screen-settings",
             "title": "Einstellungen",
             "caption": "Mit Kennwort geschützt: Profile, Design und Konfiguration.",
-            "alt": "Einstellungen des EnterpriseBrowser mit Profilliste, Add profile und dem Bereich Design mit Titel, Markenfarbe und Logo.",
+            "alt": "Einstellungen von Pforte mit Profilliste, Add profile und dem Bereich Design mit Titel, Markenfarbe und Logo.",
             "en": {
               "title": "Settings",
               "caption": "Password protected: profiles, design and configuration.",
-              "alt": "EnterpriseBrowser settings with the profile list, Add profile and the Design section with title, brand color and logo."
+              "alt": "Pforte settings with the profile list, Add profile and the Design section with title, brand color and logo."
             },
             "light": {
-              "src": "/media/produkte/enterprisebrowser/enterprisebrowser-einstellungen-light-520.webp",
-              "srcset": "/media/produkte/enterprisebrowser/enterprisebrowser-einstellungen-light-520.webp 520w",
+              "src": "/media/produkte/pforte/pforte-einstellungen-light-520.webp",
+              "srcset": "/media/produkte/pforte/pforte-einstellungen-light-520.webp 520w",
               "width": 520,
               "height": 1045
             },
             "dark": null
           }
         ],
-        "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert; Namen und Adressen sind Beispiele.",
-        "galleryNoteEn": "The screenshots are rendered straight from the app's UI code; names and addresses are examples."
+        "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert (neutrales Gerät); Namen und Adressen sind Beispiele.",
+        "galleryNoteEn": "The images are rendered straight from the app’s user interface (neutral device); names and addresses are examples."
       }
     },
     {
@@ -810,8 +791,8 @@
       "status": "fertig",
       "statusKey": "verfuegbar",
       "statusLabel": "Verfügbar",
-      "version": "2.0.0",
-      "updated": "2026-10-19",
+      "version": "2.1.0",
+      "updated": "2026-10-21",
       "text": "Bildschirmtastatur für robuste Android-Geräte von Zebra und Honeywell: große Tasten für Handschuhe, Scan-Taste, F1–F24 für Terminal-Emulation, zentral per MDM konfigurierbar.",
       "sections": {
         "problem": null,
@@ -984,7 +965,7 @@
       "statusKey": "verfuegbar",
       "statusLabel": "Verfügbar",
       "version": "0.1.0",
-      "updated": "2026-10-19",
+      "updated": "2026-10-21",
       "text": "Liest QR-Codes und Barcodes unter Windows, Linux und macOS – per Webcam, aus jedem Bildschirmausschnitt, aus Bilddateien und der Zwischenablage. Das Ergebnis wird kopiert, eingetippt oder als Link geöffnet.",
       "sections": {
         "problem": null,
@@ -1169,6 +1150,140 @@
         ],
         "galleryNote": "Abbildungen mit Beispieldaten aus dem Demo-Modus (deutsche Oberfläche).",
         "galleryNoteEn": "Screenshots with sample data from the demo mode (German user interface)."
+      }
+    },
+    {
+      "id": "labeldesigner",
+      "slug": "plakette",
+      "nr": 4,
+      "name": "Plakette",
+      "kind": "Etiketten-Designer für Zebra-Drucker (ZPL)",
+      "tagline": "Etiketten gestalten, als ZPL drucken.",
+      "linie": "codes",
+      "status": "fast-fertig",
+      "statusKey": "vorabversion",
+      "statusLabel": "Vorabversion 0.1.0",
+      "version": "0.1.0",
+      "updated": "2026-10-21",
+      "text": "Etiketten-Designer für Zebra- und kompatible Etikettendrucker: gestaltet Etiketten am Rechner und druckt ZPL direkt auf den Drucker – ohne Druckertreiber, Lizenzserver oder Administratorrechte, unter Windows und Linux.",
+      "sections": {
+        "problem": null,
+        "ersetzt": null,
+        "umfang": null
+      },
+      "highlights": [
+        "ZPL direkt",
+        "ohne Druckertreiber",
+        "Windows und Linux",
+        "GS1 und SSCC"
+      ],
+      "facts": [
+        {
+          "label": "Plattform",
+          "value": "Windows 10 und 11 (x64), Linux (x64, arm64)"
+        },
+        {
+          "label": "Drucker",
+          "value": "Zebra- und kompatible Etikettendrucker (ZPL): TCP 9100, TLS, Windows-Spooler, Datei"
+        },
+        {
+          "label": "Barcodes",
+          "value": "Code 128, GS1-128, SSCC, EAN/UPC, ITF-14, Code 39, QR, Data Matrix, PDF417"
+        },
+        {
+          "label": "Oberfläche",
+          "value": "Deutsch und Englisch; Spanisch, Französisch und Chinesisch maschinell vorübersetzt"
+        },
+        {
+          "label": "Lieferform",
+          "value": "MSI (Windows), deb-Pakete (Linux), Befehlszeile"
+        },
+        {
+          "label": "Daten",
+          "value": "bleiben auf dem Rechner, keine Telemetrie"
+        }
+      ],
+      "media": {
+        "logo": "/media/produkte/plakette/logo.svg",
+        "colors": [
+          "#f995eb",
+          "#9059c0"
+        ],
+        "banner": null,
+        "demo": null,
+        "screenshots": [
+          {
+            "name": "document",
+            "title": "Etikett gestalten",
+            "caption": "Werkzeuge links, Eigenschaften rechts, Daten und Druck unten. Die Zeichenfläche zeigt das Etikett in Druckerpunkten – Markierungen zeigen, wo der Drucker exakt das Gezeigte druckt.",
+            "alt": "Plakette, Etiketten-Designer für Zebra-Drucker: Inventaretikett mit Druckerschrift, Zähler und QR-Code auf der Zeichenfläche, Eigenschaften und Variablen.",
+            "en": {
+              "title": "Design a label",
+              "caption": "Toolbox on the left, properties on the right, data and print below. The canvas shows the label in printer dots – markers show where the printer prints exactly what you see.",
+              "alt": "Plakette label designer for Zebra printers: asset tag with printer-font text, a counter and a QR code on the canvas, properties and variables."
+            },
+            "light": {
+              "src": "/media/produkte/plakette/plakette-etiketten-designer-zpl-light-1280.webp",
+              "srcset": "/media/produkte/plakette/plakette-etiketten-designer-zpl-light-800.webp 800w, /media/produkte/plakette/plakette-etiketten-designer-zpl-light-1280.webp 1280w",
+              "width": 1280,
+              "height": 820
+            },
+            "dark": {
+              "src": "/media/produkte/plakette/plakette-etiketten-designer-zpl-dark-1280.webp",
+              "srcset": "/media/produkte/plakette/plakette-etiketten-designer-zpl-dark-800.webp 800w, /media/produkte/plakette/plakette-etiketten-designer-zpl-dark-1280.webp 1280w",
+              "width": 1280,
+              "height": 820
+            }
+          },
+          {
+            "name": "start",
+            "title": "Startseite",
+            "caption": "Neues Etikett, zuletzt geöffnete Dateien, Beispiele und der Demo-Drucker zum Ausprobieren ohne echten Drucker.",
+            "alt": "Plakette Startseite: neues Etikett, zuletzt geöffnet, Beispiele, Demo-Drucker und Lernbereich.",
+            "en": {
+              "title": "Start page",
+              "caption": "New label, recent files, samples and the demo printer to try everything without a real printer.",
+              "alt": "Plakette start page: new label, recent files, samples, demo printer and learning section."
+            },
+            "light": {
+              "src": "/media/produkte/plakette/plakette-startseite-light-1280.webp",
+              "srcset": "/media/produkte/plakette/plakette-startseite-light-800.webp 800w, /media/produkte/plakette/plakette-startseite-light-1280.webp 1280w",
+              "width": 1280,
+              "height": 820
+            },
+            "dark": {
+              "src": "/media/produkte/plakette/plakette-startseite-dark-1280.webp",
+              "srcset": "/media/produkte/plakette/plakette-startseite-dark-800.webp 800w, /media/produkte/plakette/plakette-startseite-dark-1280.webp 1280w",
+              "width": 1280,
+              "height": 820
+            }
+          },
+          {
+            "name": "settings",
+            "title": "Optionen",
+            "caption": "Sprache, Design, Maßeinheit, Druckereinstellungen für neue Etiketten und Standardordner.",
+            "alt": "Plakette Optionen: Sprache, Design, Maßeinheit, Druckereinstellungen für neue Etiketten und Ordner für Etiketten, Bilder und Datenbanken.",
+            "en": {
+              "title": "Options",
+              "caption": "Language, theme, unit, printer settings for new labels and default folders.",
+              "alt": "Plakette options: language, theme, unit, printer settings for new labels and folders for labels, pictures and databases."
+            },
+            "light": {
+              "src": "/media/produkte/plakette/plakette-optionen-light-720.webp",
+              "srcset": "/media/produkte/plakette/plakette-optionen-light-720.webp 720w",
+              "width": 720,
+              "height": 760
+            },
+            "dark": {
+              "src": "/media/produkte/plakette/plakette-optionen-dark-720.webp",
+              "srcset": "/media/produkte/plakette/plakette-optionen-dark-720.webp 720w",
+              "width": 720,
+              "height": 760
+            }
+          }
+        ],
+        "galleryNote": "Bildschirmfotos aus der echten App im Demo-Modus (englische Oberfläche); sie zeigen den aktuellen Entwicklungsstand.",
+        "galleryNoteEn": "Screenshots from the real app in demo mode; they show the current state of development."
       }
     }
   ]

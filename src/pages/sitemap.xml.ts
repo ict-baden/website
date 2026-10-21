@@ -1,7 +1,7 @@
 // Sitemap aller Seiten (statisch erzeugt) mit Sprachfassungen (hreflang) und lastmod.
 // Produktseiten: lastmod = letzte Änderung am Inhalt der Seite (pageModified: Seitentext, Bilder, OG-Bild; ohne
 // Git-Verlauf der letzte Commit im Produkt-Repo). App-Datenschutzseiten
-// (/datenschutz/<app>/, PR #1) kommen von selbst dazu, sobald es sie gibt (src/lib/app-privacy.ts).
+// (/datenschutz/<app>/) kommen aus src/data/app-datenschutz.ts (src/lib/app-privacy.ts).
 import type { APIRoute } from 'astro';
 import { SITE_URL } from '../config';
 import { products } from '../lib/products';

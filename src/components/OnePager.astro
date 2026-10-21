@@ -13,7 +13,7 @@ import Film from './sections/Film.astro';
 import ProductCover from './product/ProductCover.astro';
 import { lineGlyph } from '../lib/art';
 import { featured, linien, products, productsOfLine, productUrl, statusCounts, statusSummary, lineAnchor, colorClasses, STATUS_LABEL, STATUS_ORDER, plural } from '../lib/products';
-import { organization, productList, webPage, website } from '../lib/seo';
+import { organization, productList, videoObject, webPage, website } from '../lib/seo';
 import { SERVICES, TOPICS } from '../data/portfolio';
 import { pageFor, productUrlFor, statusLabelFor } from '../lib/produktseiten';
 import { HERO, IDS, PRODUCTS_I18N, SERVICES_I18N, SERVICE_POINTS_EN, TOPICS_EN, type Lang } from '../i18n/site';
@@ -31,6 +31,8 @@ const heroBack = bySlug('zutritt');
 const heroMid = bySlug('vitrine');
 const heroFront = bySlug('lupe');
 const shot = (p: typeof heroBack, name: string) => p?.media.screenshots.find((s) => s.name === name);
+/** Beschreibender Alternativtext eines Bildschirmfotos in der Sprache der Seite (Bildersuche; die Bühne selbst ist aria-hidden) */
+const altOf = (s: { alt: string; en: { alt: string } | null }) => (de || !s.en ? s.alt : s.en.alt);
 const sBack = shot(heroBack, 'folders');
 const sMid = shot(heroMid, 'settings-look') ?? shot(heroMid, 'lock');
 const sFront = shot(heroFront, 'result');
@@ -49,7 +51,7 @@ const description = de
   ? 'ICT Baden GmbH, Karlsruhe-Durlach: Softwareentwicklung im Auftrag und eigene Software für Industrie, Labor und IT – von der Bildschirmsperre bis zum Kiosk-Browser.'
   : 'ICT Baden GmbH, Karlsruhe-Durlach, Germany: custom software development and our own software for industry, labs and IT – from screen lock to kiosk browser.';
 const path = de ? '/' : '/en/';
-const jsonLd = [organization(), website(), webPage(path, title, description, lang), productList(products, lang, de ? 'Software-Produkte von ICT Baden' : 'Software products by ICT Baden')];
+const jsonLd = [organization(), website(), webPage(path, title, description, lang), videoObject(lang), productList(products, lang, de ? 'Software-Produkte von ICT Baden' : 'Software products by ICT Baden')];
 const kindOf = (p: (typeof products)[number]) => (de ? p.kind : pageFor(p).en.kind ?? p.kind);
 const taglineOf = (p: (typeof products)[number]) => (de ? p.tagline : pageFor(p).en.tagline ?? null);
 const textOf = (p: (typeof products)[number]) => (de ? p.text : pageFor(p).en.description);
@@ -78,17 +80,17 @@ const productsLead = de
       <div class="hero-stage" aria-hidden="true">
         {sBack && (
           <div class="stage-card stage-back">
-            <ThemeImage light={sBack.light} dark={sBack.dark} alt="" sizes="(min-width: 1100px) 560px, 80vw" eager />
+            <ThemeImage light={sBack.light} dark={sBack.dark} alt={altOf(sBack)} sizes="(min-width: 1100px) 560px, 80vw" eager />
           </div>
         )}
         {sMid && (
           <div class="stage-card stage-mid">
-            <ThemeImage light={sMid.light} dark={sMid.dark} alt="" sizes="(min-width: 1100px) 520px, 76vw" />
+            <ThemeImage light={sMid.light} dark={sMid.dark} alt={altOf(sMid)} sizes="(min-width: 1100px) 520px, 76vw" />
           </div>
         )}
         {sFront && (
           <div class="stage-card stage-front">
-            <ThemeImage light={sFront.light} dark={sFront.dark} alt="" sizes="(min-width: 1100px) 300px, 50vw" />
+            <ThemeImage light={sFront.light} dark={sFront.dark} alt={altOf(sFront)} sizes="(min-width: 1100px) 300px, 50vw" />
           </div>
         )}
         <div class="stage-chip stage-chip--a">
@@ -193,10 +195,10 @@ const productsLead = de
               </div>
               {i === 0 && s ? (
                 <div class="feat-shot">
-                  <ThemeImage light={s.light} dark={s.dark} alt="" sizes="(min-width: 1100px) 640px, 92vw" />
+                  <ThemeImage light={s.light} dark={s.dark} alt={altOf(s)} sizes="(min-width: 1100px) 640px, 92vw" />
                 </div>
               ) : (
-                <div class="feat-cover"><ProductCover product={p} uid="-feat" sizes="(min-width: 1100px) 520px, 92vw" /></div>
+                <div class="feat-cover"><ProductCover product={p} uid="-feat" lang={lang} sizes="(min-width: 1100px) 520px, 92vw" /></div>
               )}
             </article>
           );
@@ -516,7 +518,7 @@ const productsLead = de
       radial-gradient(120% 90% at 100% 0%, rgb(255 255 255 / 0.3), transparent 55%),
       linear-gradient(140deg, var(--l1), var(--l2));
   }
-  .feat-shot > :global(img) { flex: none; }
+  .feat-shot :global(img) { flex: none; }
   .feat-cover { align-self: end; }
   .feat-cover :global(.pcover) { border-radius: 0; }
   .feat--wide .feat-shot { padding-left: clamp(1.4rem, 1rem + 2vw, 3rem); }

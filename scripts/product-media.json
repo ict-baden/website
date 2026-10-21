@@ -123,7 +123,7 @@
       "highlights": [
         "SMB + NTFS",
         "Gruppen → Personen",
-        "14 Prüfregeln",
+        "15 Prüfregeln",
         "Excel & PDF"
       ],
       "facts": [
@@ -243,7 +243,7 @@
         ],
         [
           "Anmeldung",
-          "Microsoft Entra ID, Windows-Kennwort, Windows Hello"
+          "Windows-Kennwort und Windows Hello; Microsoft Entra ID für Signaturen"
         ],
         [
           "Verwaltung",
@@ -287,18 +287,6 @@
             "title": "Lock transparently",
             "caption": "Programs stay visible and keep running. One overlay per monitor, placed per monitor DPI, with an optional notice text.",
             "alt": "Vitrine locked transparently: the desktop stays visible, at the bottom the notice bar “Locked · Lab operator” with the time."
-          }
-        },
-        {
-          "name": "unlock-entra",
-          "file": "vitrine-entsperren-microsoft-entra-id",
-          "title": "Entsperren mit Microsoft Entra ID",
-          "caption": "Über den Windows-Kontobroker: Passkeys und FIDO2-Schlüssel, Authenticator, MFA, Windows Hello for Business und Conditional Access. Dazu Windows-Kennwort und Windows Hello.",
-          "alt": "Entsperrdialog von Vitrine mit den Verfahren Microsoft, Kennwort und Hello und der Schaltfläche „Continue with Microsoft“.",
-          "en": {
-            "title": "Unlock with Microsoft Entra ID",
-            "caption": "Through the Windows account broker: passkeys and FIDO2 keys, Authenticator, MFA, Windows Hello for Business and Conditional Access. Also Windows password and Windows Hello.",
-            "alt": "Vitrine unlock dialog with the methods Microsoft, Password and Hello and the button “Continue with Microsoft”."
           }
         },
         {
@@ -352,9 +340,13 @@
       ],
       "demo": {
         "local": "scripts/media/vitrine-demo.webp",
-        "alt": "Animation: Eine Messung läuft unter der durchsichtigen Sperre von Vitrine weiter, unten die Sperrleiste. Ein Klick öffnet den Entsperr-Dialog mit Microsoft-Anmeldung, danach ist der Arbeitsplatz wieder frei.",
+        "alt": "Animation: Eine Messung läuft unter der durchsichtigen Sperre von Vitrine weiter, unten die Sperrleiste. Ein Klick öffnet den Entsperr-Dialog mit Kennwort und Windows Hello, danach ist der Arbeitsplatz wieder frei.",
         "caption": "Die Messung läuft unter der Sperre weiter › Klick öffnet den Entsperr-Dialog › entsperrt",
-        "_quelle": "scripts/make-vitrine-demo.py: Sperrleiste und Dialog sind echte Vitrine-Bildschirmfotos, nur die Messsoftware im Hintergrund ist gezeichnet."
+        "_quelle": "scripts/make-vitrine-demo.py: Sperrleiste und Dialog (unlock-light.png) sind echte Vitrine-Bildschirmfotos, nur die Messsoftware im Hintergrund ist gezeichnet.",
+        "en": {
+          "alt": "Animation: a measurement keeps running under Vitrine’s transparent lock screen, the lock bar at the bottom. A click opens the unlock dialog with password and Windows Hello, then the workstation is free again.",
+          "caption": "The measurement keeps running while locked › a click opens the unlock dialog › unlocked"
+        }
       }
     },
     "hausmeister": {
@@ -705,119 +697,6 @@
         }
       ]
     },
-    "enterprisebrowser": {
-      "kind": "Kiosk-Browser für Android-MDE-Geräte",
-      "tagline": "Web-Apps auf robusten Android-Geräten.",
-      "banner": false,
-      "highlights": [
-        "Scan direkt ins Webformular",
-        "Kioskmodus",
-        "URL-Allowlist",
-        "MDM: SOTI, Intune, StageNow"
-      ],
-      "facts": [
-        [
-          "Plattform",
-          "Android 8.0 und neuer, robuste Geräte von Zebra und Honeywell"
-        ],
-        [
-          "Scannen",
-          "Zebra DataWedge, Honeywell oder jede Scanner-App per Intent"
-        ],
-        [
-          "Verwaltung",
-          "Managed Configuration per MDM (SOTI, Intune, Workspace ONE), Konfigurationsdatei, StageNow, QR-Code"
-        ],
-        [
-          "Sicherheit",
-          "strenge TLS-Prüfung, Client-Zertifikate, Kennwörter nur als Hash"
-        ],
-        [
-          "Lieferform",
-          "APK zur Verteilung per MDM"
-        ],
-        [
-          "Oberfläche",
-          "Englisch, Deutsch, Spanisch, Französisch, Chinesisch"
-        ]
-      ],
-      "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert; Namen und Adressen sind Beispiele.",
-      "screenshots": [
-        {
-          "name": "screen-launcher",
-          "title": "Profile",
-          "caption": "Ein Tipp öffnet die Web-App. Mehrere Web-Apps auf einem Gerät, jede mit eigener Start-Adresse und eigenen Regeln.",
-          "alt": "EnterpriseBrowser, Kiosk-Browser für Android-MDE-Geräte: Startbildschirm mit den Profilen Goods receipt, Picking, Shipping & labels und Scanner-Test.",
-          "file": "enterprisebrowser-kiosk-browser-profile",
-          "en": {
-            "title": "Profiles",
-            "caption": "One tap opens the web app. Several web apps on one device, each with its own start address and rules.",
-            "alt": "EnterpriseBrowser kiosk browser for rugged Android devices: start screen with the profiles Goods receipt, Picking, Shipping & labels and the scanner test."
-          }
-        },
-        {
-          "name": "screen-browser",
-          "title": "Scannen",
-          "caption": "Der Barcode landet im Feld, auf Wunsch gefolgt von Tab oder Enter – und als JavaScript-Ereignis für die Web-App.",
-          "alt": "Barcode-Scan im EnterpriseBrowser: die gescannte EAN 4006381333931 steht im Feld Item der Demo-Seite, darunter die letzten Scans.",
-          "file": "enterprisebrowser-barcode-scan-webformular",
-          "en": {
-            "title": "Scanning",
-            "caption": "The barcode goes into the field, optionally followed by Tab or Enter – and as a JavaScript event for the web app.",
-            "alt": "Barcode scan in EnterpriseBrowser: the scanned EAN 4006381333931 in the Item field of the demo page, below it the latest scans."
-          }
-        },
-        {
-          "name": "screen-menu",
-          "title": "Menü",
-          "caption": "Alles in Daumenreichweite.",
-          "alt": "Menü des EnterpriseBrowser über der Demo-Seite mit Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings und Exit.",
-          "file": "enterprisebrowser-menue",
-          "en": {
-            "title": "Menu",
-            "caption": "Everything within thumb reach.",
-            "alt": "EnterpriseBrowser menu over the demo page with Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings and Exit."
-          }
-        },
-        {
-          "name": "screen-launcher-branded",
-          "title": "Eigenes Design",
-          "caption": "Titel, Untertitel, Logo und Markenfarbe kommen aus der Konfiguration oder werden direkt in der App eingestellt.",
-          "alt": "EnterpriseBrowser im eigenen Design: grüner Kopf mit Kürzel NL, Titel North Logistics Center und Shift A · Hall 3, darunter die Profile.",
-          "file": "enterprisebrowser-eigenes-design",
-          "en": {
-            "title": "Custom design",
-            "caption": "Title, subtitle, logo and brand color come from the configuration – or are set right in the app.",
-            "alt": "EnterpriseBrowser with custom branding: green header with the initials NL, the title North Logistics Center and Shift A · Hall 3, below it the profiles."
-          }
-        },
-        {
-          "name": "screen-profile-editor",
-          "title": "Profil mit eigener Farbe",
-          "caption": "Jedes Profil kann eine eigene Farbe haben, die auch die Werkzeugleiste in der Web-App einfärbt.",
-          "alt": "Profil bearbeiten im EnterpriseBrowser: Name, Start-URL, erlaubte Hosts, Profilfarbe und Schalter für Autostart, Werkzeugleiste und Vollbild.",
-          "file": "enterprisebrowser-profil-allowlist",
-          "en": {
-            "title": "Profile with its own color",
-            "caption": "Every profile can have its own color, which also tints the toolbar inside the web app.",
-            "alt": "EnterpriseBrowser profile editor: name, start URL, allowed hosts, profile color and switches for open on app start, hide toolbar and full screen."
-          }
-        },
-        {
-          "name": "screen-settings",
-          "title": "Einstellungen",
-          "caption": "Mit Kennwort geschützt: Profile, Design und Konfiguration.",
-          "alt": "Einstellungen des EnterpriseBrowser mit Profilliste, Add profile und dem Bereich Design mit Titel, Markenfarbe und Logo.",
-          "file": "enterprisebrowser-einstellungen",
-          "en": {
-            "title": "Settings",
-            "caption": "Password protected: profiles, design and configuration.",
-            "alt": "EnterpriseBrowser settings with the profile list, Add profile and the Design section with title, brand color and logo."
-          }
-        }
-      ],
-      "galleryNoteEn": "The screenshots are rendered straight from the app's UI code; names and addresses are examples."
-    },
     "industrialkeyboard": {
       "kind": "Bildschirmtastatur für robuste Android-Geräte",
       "tagline": "Schnelle, zuverlässige Dateneingabe auf robusten Android-Geräten.",
@@ -1036,28 +915,187 @@
         "ZPL direkt",
         "ohne Druckertreiber",
         "Windows und Linux",
-        "in Entwicklung"
+        "GS1 und SSCC"
       ],
       "facts": [
         [
           "Plattform",
-          "Windows 10 und 11, Linux (x64, arm64)"
+          "Windows 10 und 11 (x64), Linux (x64, arm64)"
         ],
         [
           "Drucker",
-          "Zebra- und kompatible Etikettendrucker (ZPL)"
+          "Zebra- und kompatible Etikettendrucker (ZPL): TCP 9100, TLS, Windows-Spooler, Datei"
+        ],
+        [
+          "Barcodes",
+          "Code 128, GS1-128, SSCC, EAN/UPC, ITF-14, Code 39, QR, Data Matrix, PDF417"
         ],
         [
           "Oberfläche",
           "Deutsch und Englisch; Spanisch, Französisch und Chinesisch maschinell vorübersetzt"
         ],
         [
+          "Lieferform",
+          "MSI (Windows), deb-Pakete (Linux), Befehlszeile"
+        ],
+        [
           "Daten",
-          "bleiben auf dem Rechner"
+          "bleiben auf dem Rechner, keine Telemetrie"
         ]
       ],
-      "galleryNote": null,
-      "screenshots": []
+      "galleryNote": "Bildschirmfotos aus der echten App im Demo-Modus (englische Oberfläche); sie zeigen den aktuellen Entwicklungsstand.",
+      "screenshots": [
+        {
+          "name": "document",
+          "file": "plakette-etiketten-designer-zpl",
+          "title": "Etikett gestalten",
+          "caption": "Werkzeuge links, Eigenschaften rechts, Daten und Druck unten. Die Zeichenfläche zeigt das Etikett in Druckerpunkten – Markierungen zeigen, wo der Drucker exakt das Gezeigte druckt.",
+          "alt": "Plakette, Etiketten-Designer für Zebra-Drucker: Inventaretikett mit Druckerschrift, Zähler und QR-Code auf der Zeichenfläche, Eigenschaften und Variablen.",
+          "en": {
+            "title": "Design a label",
+            "caption": "Toolbox on the left, properties on the right, data and print below. The canvas shows the label in printer dots – markers show where the printer prints exactly what you see.",
+            "alt": "Plakette label designer for Zebra printers: asset tag with printer-font text, a counter and a QR code on the canvas, properties and variables."
+          }
+        },
+        {
+          "name": "start",
+          "file": "plakette-startseite",
+          "title": "Startseite",
+          "caption": "Neues Etikett, zuletzt geöffnete Dateien, Beispiele und der Demo-Drucker zum Ausprobieren ohne echten Drucker.",
+          "alt": "Plakette Startseite: neues Etikett, zuletzt geöffnet, Beispiele, Demo-Drucker und Lernbereich.",
+          "en": {
+            "title": "Start page",
+            "caption": "New label, recent files, samples and the demo printer to try everything without a real printer.",
+            "alt": "Plakette start page: new label, recent files, samples, demo printer and learning section."
+          }
+        },
+        {
+          "name": "settings",
+          "file": "plakette-optionen",
+          "title": "Optionen",
+          "caption": "Sprache, Design, Maßeinheit, Druckereinstellungen für neue Etiketten und Standardordner.",
+          "alt": "Plakette Optionen: Sprache, Design, Maßeinheit, Druckereinstellungen für neue Etiketten und Ordner für Etiketten, Bilder und Datenbanken.",
+          "en": {
+            "title": "Options",
+            "caption": "Language, theme, unit, printer settings for new labels and default folders.",
+            "alt": "Plakette options: language, theme, unit, printer settings for new labels and folders for labels, pictures and databases."
+          }
+        }
+      ],
+      "galleryNoteEn": "Screenshots from the real app in demo mode; they show the current state of development."
+    },
+    "pforte": {
+      "kind": "Kiosk-Browser für Android-MDE-Geräte",
+      "tagline": "Web-Apps auf robusten Android-Geräten.",
+      "banner": false,
+      "highlights": [
+        "Scan direkt ins Webformular",
+        "Kioskmodus",
+        "URL-Allowlist",
+        "MDM: SOTI, Intune, StageNow"
+      ],
+      "facts": [
+        [
+          "Plattform",
+          "Android 8.0 und neuer, robuste Geräte von Zebra und Honeywell"
+        ],
+        [
+          "Scannen",
+          "Zebra DataWedge, Honeywell oder jede Scanner-App per Intent"
+        ],
+        [
+          "Verwaltung",
+          "Managed Configuration per MDM (SOTI, Intune, Workspace ONE), Konfigurationsdatei, StageNow, QR-Code"
+        ],
+        [
+          "Sicherheit",
+          "strenge TLS-Prüfung, Client-Zertifikate, Kennwörter nur als Hash"
+        ],
+        [
+          "Lieferform",
+          "APK zur Verteilung per MDM"
+        ],
+        [
+          "Oberfläche",
+          "Englisch, Deutsch, Spanisch, Französisch, Chinesisch"
+        ]
+      ],
+      "galleryNote": "Die Abbildungen sind direkt aus der Oberfläche der App gerendert (neutrales Gerät); Namen und Adressen sind Beispiele.",
+      "screenshots": [
+        {
+          "name": "screen-launcher",
+          "title": "Profile",
+          "caption": "Ein Tipp öffnet die Web-App. Mehrere Web-Apps auf einem Gerät, jede mit eigener Start-Adresse und eigenen Regeln.",
+          "alt": "Pforte, Kiosk-Browser für Android-MDE-Geräte: Startbildschirm mit den Profilen Goods receipt, Picking, Shipping & labels und Scanner-Test.",
+          "file": "pforte-kiosk-browser-profile",
+          "en": {
+            "title": "Profiles",
+            "caption": "One tap opens the web app. Several web apps on one device, each with its own start address and rules.",
+            "alt": "Pforte kiosk browser for rugged Android devices: start screen with the profiles Goods receipt, Picking, Shipping & labels and the scanner test."
+          }
+        },
+        {
+          "name": "screen-browser",
+          "title": "Scannen",
+          "caption": "Der Barcode landet im Feld, auf Wunsch gefolgt von Tab oder Enter – und als JavaScript-Ereignis für die Web-App.",
+          "alt": "Barcode-Scan in Pforte: die gescannte EAN 4006381333931 steht im Feld Item der Demo-Seite, darunter die letzten Scans.",
+          "file": "pforte-barcode-scan-webformular",
+          "en": {
+            "title": "Scanning",
+            "caption": "The barcode goes into the field, optionally followed by Tab or Enter – and as a JavaScript event for the web app.",
+            "alt": "Barcode scan in Pforte: the scanned EAN 4006381333931 in the Item field of the demo page, below it the latest scans."
+          }
+        },
+        {
+          "name": "screen-menu",
+          "title": "Menü",
+          "caption": "Alles in Daumenreichweite.",
+          "alt": "Menü von Pforte über der Demo-Seite mit Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings und Exit.",
+          "file": "pforte-menue",
+          "en": {
+            "title": "Menu",
+            "caption": "Everything within thumb reach.",
+            "alt": "Pforte menu over the demo page with Home, Reload, Forward, Scanner, Keyboard, Profiles, Settings and Exit."
+          }
+        },
+        {
+          "name": "screen-launcher-branded",
+          "title": "Eigenes Design",
+          "caption": "Titel, Untertitel, Logo und Markenfarbe kommen aus der Konfiguration oder werden direkt in der App eingestellt.",
+          "alt": "Pforte im eigenen Design: grüner Kopf mit Kürzel NL, Titel North Logistics Center und Shift A · Hall 3, darunter die Profile.",
+          "file": "pforte-eigenes-design",
+          "en": {
+            "title": "Custom design",
+            "caption": "Title, subtitle, logo and brand color come from the configuration – or are set right in the app.",
+            "alt": "Pforte with custom branding: green header with the initials NL, the title North Logistics Center and Shift A · Hall 3, below it the profiles."
+          }
+        },
+        {
+          "name": "screen-profile-editor",
+          "title": "Profil mit eigener Farbe",
+          "caption": "Jedes Profil kann eine eigene Farbe haben, die auch die Werkzeugleiste in der Web-App einfärbt.",
+          "alt": "Profil bearbeiten in Pforte: Name, Start-URL, erlaubte Hosts, Profilfarbe und Schalter für Autostart, Werkzeugleiste und Vollbild.",
+          "file": "pforte-profil-allowlist",
+          "en": {
+            "title": "Profile with its own color",
+            "caption": "Every profile can have its own color, which also tints the toolbar inside the web app.",
+            "alt": "Pforte profile editor: name, start URL, allowed hosts, profile color and switches for open on app start, hide toolbar and full screen."
+          }
+        },
+        {
+          "name": "screen-settings",
+          "title": "Einstellungen",
+          "caption": "Mit Kennwort geschützt: Profile, Design und Konfiguration.",
+          "alt": "Einstellungen von Pforte mit Profilliste, Add profile und dem Bereich Design mit Titel, Markenfarbe und Logo.",
+          "file": "pforte-einstellungen",
+          "en": {
+            "title": "Settings",
+            "caption": "Password protected: profiles, design and configuration.",
+            "alt": "Pforte settings with the profile list, Add profile and the Design section with title, brand color and logo."
+          }
+        }
+      ],
+      "galleryNoteEn": "The images are rendered straight from the app’s user interface (neutral device); names and addresses are examples."
     }
   }
 }
