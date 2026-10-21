@@ -249,7 +249,9 @@ for (const [page, html] of pages) {
   // sachliche Vergleich mit benannten Produkten steht nur auf der Produktseite. Jeder Ratgeber hat TechArticle, FAQPage
   // und BreadcrumbList (src/lib/ratgeber.ts).
   if (/^\/(?:ratgeber|en\/guides)\//.test(page)) {
-    const hits = competitorHits(textOf(html) + ' ' + head);
+    // Text, Kopf mit JSON-LD und die Texte in Attributen (alt, title, aria-label)
+    const attrs = [...html.slice(html.indexOf('<body')).matchAll(/\s(?:alt|title|aria-label)="([^"]*)"/g)].map((m) => decode(m[1])).join(' ');
+    const hits = competitorHits(textOf(html) + ' ' + head + ' ' + attrs);
     if (hits.length) fail(page, `Ratgeber nennt Fremdprodukte: ${[...new Set(hits)].join(', ')}`);
     if (!/^\/(?:ratgeber|en\/guides)\/$/.test(page)) {
       for (const t of ['TechArticle', 'FAQPage', 'BreadcrumbList']) if (!html.includes(`"@type":"${t}"`)) fail(page, `Ratgeber ohne ${t}-JSON-LD`);

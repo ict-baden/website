@@ -9,14 +9,9 @@
 import { execFileSync } from 'node:child_process';
 import { SITE_URL } from '../config';
 import { products, type Product } from './products';
-import { fill, pageFor, pageModified, productUrlFor, UI, type Faq, type Item, type Lang, type ProductPage } from './produktseiten';
+import serp from '../data/serp.json';
+import { fill, pageFor, pageModified, productUrlFor, titleWidth, UI, type Faq, type Item, type Lang, type ProductPage } from './produktseiten';
 import { breadcrumbs, faqPage, ORG_ID, organization, productOgImage, softwareId, WEBSITE_ID, website } from './seo';
-
-// organization() und softwareId() nehmen in neueren Fassungen von seo.ts die Sprache der Seite (Texte der Organisation,
-// @id des SoftwareApplication je Sprachfassung); ältere Fassungen ignorieren das Argument. So stimmen beide Stände.
-// Sobald seo.ts überall die Sprache nimmt, die Wrapper durch direkte Aufrufe ersetzen (dann prüft TypeScript wieder mit).
-const organizationIn = organization as (lang?: Lang) => ReturnType<typeof organization>;
-const softwareIdIn = softwareId as (p: Product, lang?: Lang) => string;
 
 export type GuideBlock =
   | { type: 'p'; text: string }
@@ -41,7 +36,7 @@ export interface GuideSection {
 export interface GuideCopy {
   /** Letzter Teil der Adresse */
   slug: string;
-  /** <title> genau so, wie er erscheint (mit „| ICT Baden“ nur, wenn es in etwa 580 px bei 20 px Arial passt) */
+  /** <title> genau so, wie er erscheint (mit „| ICT Baden“ nur, wenn es passt): höchstens 580 px (src/data/serp.json) */
   title: string;
   /** Meta-Beschreibung, 110–155 Zeichen */
   description: string;
@@ -82,8 +77,9 @@ function check(g: Guide, file: string): Guide {
   if (!products.some((p) => p.id === g.product)) problems.push(`unbekanntes Produkt ${g.product}`);
   for (const lang of ['de', 'en'] as const) {
     const c = g[lang];
-    if (c.title.length > 65) problems.push(`${lang}: Titel ${c.title.length} Zeichen`);
-    if (c.description.length < 110 || c.description.length > 155) problems.push(`${lang}: Beschreibung ${c.description.length} Zeichen`);
+    // dieselbe Längenregel wie scripts/check-seo.mjs (src/data/serp.json), nur schon beim Build
+    if (titleWidth(c.title) > serp.title.maxPx) problems.push(`${lang}: Titel ${titleWidth(c.title)} px breit (höchstens ${serp.title.maxPx})`);
+    if (c.description.length < serp.description.min || c.description.length > serp.description.max) problems.push(`${lang}: Beschreibung ${c.description.length} Zeichen`);
     const ids = c.sections.map((s) => s.id);
     if (new Set(ids).size !== ids.length) problems.push(`${lang}: doppelte Abschnitts-id`);
     for (const id of ids) if (RESERVED_IDS.has(id) || RESERVED_IDS.has(`h-${id}`)) problems.push(`${lang}: Abschnitts-id „${id}“ ist schon belegt`);
@@ -251,7 +247,7 @@ export function guideJsonLd(g: Guide, lang: Lang) {
   const image = abs(guideImage(g, lang).src);
   const modified = guideModified(g);
   return [
-    organizationIn(lang),
+    organization(lang),
     website(),
     {
       '@type': 'WebPage',
@@ -284,7 +280,7 @@ export function guideJsonLd(g: Guide, lang: Lang) {
       articleSection: GUIDE_UI[lang].eyebrow,
       // Nur ein Verweis auf das SoftwareApplication der Produktseite (ohne @type, damit hier kein zweites, unvollständiges
       // Software-Element entsteht); Name und Adresse, damit der Verweis auch ohne die Produktseite lesbar ist
-      mentions: [{ '@id': softwareIdIn(p, lang), name: p.name, url: abs(productUrlFor(p, lang)) }],
+      mentions: [{ '@id': softwareId(p, lang), name: p.name, url: abs(productUrlFor(p, lang)) }],
     },
     { ...breadcrumbs(guideCrumbs(g, lang)), '@id': `${url}#breadcrumb` },
     faqPage(guideUrl(g, lang), c.faq.map((x) => ({ q: plainText(f(x.q)), a: plainText(f(x.a)) })), lang),
@@ -296,7 +292,7 @@ export function hubJsonLd(lang: Lang) {
   const t = GUIDE_UI[lang];
   const url = abs(HUB[lang].url);
   return [
-    organizationIn(lang),
+    organization(lang),
     website(),
     {
       '@type': 'CollectionPage',
@@ -340,15 +336,11 @@ export function guideSitemapEntries() {
   ];
 }
 
-/** Abschnitt „Ratgeber“ für /llms.txt (beginnt mit einer Leerzeile): je Ratgeber die Antwort und die englische Fassung. */
+/** Abschnitte „Ratgeber“ und „Guides (English)“ für /llms.txt (beginnen mit einer Leerzeile): je Ratgeber die Antwort. */
 export function guidesLlms(): string[] {
   if (!guides.length) return [];
-  return [
-    '',
-    '## Ratgeber',
-    '',
-    ...guides.map((g) => `- [${g.de.h1}](${abs(guideUrl(g, 'de'))}): ${plainText(filler(g, 'de')(g.de.lead))} English: [${g.en.h1}](${abs(guideUrl(g, 'en'))})`),
-  ];
+  const entry = (g: Guide, lang: Lang) => `- [${g[lang].h1}](${abs(guideUrl(g, lang))}): ${plainText(filler(g, lang)(g[lang].lead))}`;
+  return ['', '## Ratgeber', '', ...guides.map((g) => entry(g, 'de')), '', '## Guides (English)', '', ...guides.map((g) => entry(g, 'en'))];
 }
 
 /** Ratgeber vollständig für /llms-full.txt (deutsch): Abschnitte, Tabellen, Fragen. */
@@ -376,6 +368,13 @@ export function guidesLlmsFull(): string[] {
     lines.push('### Häufige Fragen', '');
     for (const q of c.faq) lines.push(`**${f(q.q)}**`, f(q.a), '');
     lines.push(`Marken: ${c.trademarks}`, '');
+
+    // Englisch: Antwort und FAQ des englischen Ratgebers (wie bei den Produkten)
+    const e = g.en;
+    const fe = (s: string) => markdown(filler(g, 'en')(s));
+    lines.push(`### ${e.h1} (English)`, '', `Page: ${abs(guideUrl(g, 'en'))}`, '', fe(e.lead), '', 'Frequently asked questions:', '');
+    for (const q of e.faq) lines.push(`**${fe(q.q)}**`, fe(q.a), '');
+    lines.push(`Trademarks: ${e.trademarks}`, '');
   }
   return lines;
 }

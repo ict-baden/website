@@ -225,22 +225,27 @@ Problem pages for searches that are not product names („Barcode-Scanner für d
 `/ratgeber/<slug>/`, English under `/en/guides/<slug>/`, overview pages `/ratgeber/` and `/en/guides/`. Content in
 `src/data/ratgeber/<German slug>.ts`, page `src/components/guide/GuideLanding.astro`, logic `src/lib/ratgeber.ts`.
 
-- Helpful content first: answer in the first paragraph, every way to solve the problem (hardware, Windows features, other
-  software in general), a comparison table, „Was passt wann?“, honest limits, FAQ (4–6). Our product is one clearly
-  marked option with a card that links its product page; the product page links back („Ratgeber“ after the related
-  products, `GuideTeaser.astro`), the footer links the overview.
-- **No third-party product names** in guides, not even „Alternative zu …“ – the named comparison stays on the product
+- Helpful content first: answer in the first paragraph, the common ways to solve the problem (hardware, Windows features,
+  other software in general), a comparison table, „Was passt wann?“, honest limits, FAQ (4–6). Our product is one
+  clearly marked option with a card that links its product page; answers that recommend it also state its status
+  (pre-release, untested parts). The product page links back („Ratgeber“ after the related products,
+  `GuideTeaser.astro`), the footer links the overview.
+- **No names of competing products** in guides, not even „Alternative zu …“ – the named comparison stays on the product
   page (link to its section, e.g. `/produkte/vitrine/#alternative`). `check:seo` fails a guide with any
-  `COMPETITOR_PATTERNS` hit. Facts about Windows or hardware only from vendor documentation, facts about our product only
-  from its README/docs and the product page (respect its „Nicht behaupten“); sources go into the header comment.
-- `<title>` exactly as written in the data (≤ about 580 px at 20 px Arial, „| ICT Baden“ only where it fits), meta
-  description 110–155 characters – the build stops otherwise. JSON-LD: WebPage, TechArticle (author and publisher = the
-  Organization, `mentions` = the product's SoftwareApplication `@id`), BreadcrumbList Start → Ratgeber → page, FAQPage
-  identical to the visible questions. `dateModified`/`lastmod` = last commit of the data file. The OG image is the
-  product's.
-- Text may contain `` `code` `` and internal links `[text](/path/)`; `{lizenz}` and `{download}` work as on product pages.
-- New guide: add `src/data/ratgeber/<slug>.ts` (German slug = id, `product` = project id), add its four URLs to
-  `scripts/probe-image.sh`, run `npm run check`.
+  `COMPETITOR_PATTERNS` hit in its text, attributes or JSON-LD. Platforms and features we describe (Windows, Excel,
+  Intune …) may be named, with a trademark note. Facts about Windows or hardware only from vendor documentation, facts
+  about our product only from its README/docs and the product page (respect its „Nicht behaupten“); sources go into the
+  header comment.
+- `<title>` exactly as written in the data, meta description in the data – the same length rule as every page
+  (`src/data/serp.json`: title ≤ 580 px, description 110–155 characters), checked already at build time. JSON-LD:
+  WebPage, TechArticle (author and publisher = the Organization, `mentions` = the SoftwareApplication `@id` of the product
+  page in the same language), BreadcrumbList Start → Ratgeber → page, FAQPage identical to the visible questions.
+  `dateModified`/`lastmod` = last commit of the data file or of the product page (status and version come from there).
+  The OG image is the product's; `og:type` is `article`.
+- Text may contain `` `code` `` and internal links `[text](/path/)`; `{lizenz}` and `{download}` work as on product pages,
+  `{version}` gives the version from `products.json`. Section numbers come from CSS counters (not in the heading text).
+- New guide: add `src/data/ratgeber/<slug>.ts` (German slug = id, `product` = project id), add its two URLs (German and
+  English) to `scripts/probe-image.sh`, run `npm run check`.
 
 ## Local development
 
