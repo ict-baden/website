@@ -42,6 +42,10 @@ for p in vitrine riegel zutritt lupe pforte industrial-keyboard plakette; do
   expect "/en/products/$p/" 200
 done
 for a in vitrine lupe zutritt riegel plakette pforte industrialkeyboard; do expect "/datenschutz/$a/" 200; done
+# Ratgeber (src/data/ratgeber/) und ihre Übersicht, deutsch und englisch
+for g in /ratgeber/ /ratgeber/barcode-scanner-pc/ /ratgeber/bildschirm-sperren-anzeige-sichtbar/ \
+         /en/guides/ /en/guides/barcode-scanner-for-pc/ /en/guides/lock-pc-keep-screen-visible/; do expect "$g" 200; done
+redirect /ratgeber/barcode-scanner-pc /ratgeber/barcode-scanner-pc/
 expect /impressum/ 200
 expect /datenschutz/ 200
 redirect /impressum /impressum/
@@ -92,6 +96,8 @@ else
   SITEMAP="$(get /sitemap.xml)"
   grep -q '<loc>https://ict-baden.de/produkte/pforte/</loc>' <<<"$SITEMAP" || fail "Sitemap nicht auf ict-baden.de"
   grep -q '<loc>https://ict-baden.de/en/products/</loc>' <<<"$SITEMAP" || fail "Produktübersicht nicht in der Sitemap"
+  grep -q '<loc>https://ict-baden.de/ratgeber/barcode-scanner-pc/</loc>' <<<"$SITEMAP" || fail "Ratgeber fehlt in der Sitemap"
+  grep -q '<link rel="canonical" href="https://ict-baden.de/en/guides/lock-pc-keep-screen-visible/"' <<<"$(get /en/guides/lock-pc-keep-screen-visible/)" || fail "Ratgeber: canonical nicht auf ict-baden.de"
   # Jeder andere Host → https://ict-baden.de mit Pfad und Abfrage; auch die Weiterleitung trägt HSTS
   for h in ict-baden.com ictbaden.de it-baden.de itbaden.de itbaden.org preview.example 192.168.4.6; do
     hostredirect "$h" '/produkte/vitrine/?ref=alt' 'https://ict-baden.de/produkte/vitrine/?ref=alt'
