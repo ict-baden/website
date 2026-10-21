@@ -19,7 +19,3 @@ Thumbs.db
 .og-build/
 .lh-dist/
 
-# Promo-Video (HyperFrames): Render-Ausgaben, Prüf-Artefakte und Rohaufnahmen bleiben lokal
-video/*/renders/
-video/*/.hyperframes/
-scripts/video/vo/

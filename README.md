@@ -16,6 +16,10 @@ from the internal project list.
 > sections removed, server logs and Cloudflare delivery described). It has not been reviewed by a lawyer.
 > The imprint data is copied verbatim from the old site.
 
+> **Portfolio video:** the source project (HyperFrames composition, voiceover, music bed, subtitles) lives in the private
+> repository [ict-baden/portfolio-video](https://github.com/ict-baden/portfolio-video) because it contains a licensed
+> music track. This repository only holds the finished video, poster and subtitles in `public/media/video/`.
+
 ## Pages
 
 | URL | Content |
