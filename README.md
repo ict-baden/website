@@ -229,6 +229,18 @@ Problem pages for searches that are not product names („Barcode-Scanner für d
 `/ratgeber/<slug>/`, English under `/en/guides/<slug>/`, overview pages `/ratgeber/` and `/en/guides/`. Content in
 `src/data/ratgeber/<German slug>.ts`, page `src/components/guide/GuideLanding.astro`, logic `src/lib/ratgeber.ts`.
 
+| Guide (German / English slug) | Product | Searches it answers (from `docs/sichtbarkeit.md`) |
+|---|---|---|
+| `barcode-scanner-pc` / `barcode-scanner-for-pc` | Lupe | Barcode-Scanner für den PC, Webcam als Barcodescanner, QR-Code vom Bildschirm |
+| `bildschirm-sperren-anzeige-sichtbar` / `lock-pc-keep-screen-visible` | Vitrine | PC sperren, Bildschirm bleibt sichtbar; lock keyboard and mouse |
+| `verwaiste-sids-jeder-rechte-finden` / `find-orphaned-sids-everyone-permissions` | Zutritt | verwaiste SIDs, „Jeder“-Rechte, Vererbung unterbrochen, NTFS-Rechte nach Excel |
+| `windows-haertung-offline-pruefen` / `check-windows-hardening-offline` | Riegel | Windows-Härtung OT und Leitstand, offline ohne Agent, air-gapped |
+| `barcode-scan-im-browser-mde` / `barcode-scan-web-app-android-handheld` | Industrial Kiosk Browser | Scanner schreibt nicht in den Browser, DataWedge and web apps, Browser für MDE-Geräte |
+| `android-tastatur-f-tasten-terminal-emulation` / `android-keyboard-function-keys-terminal-emulation` | Industrial Keyboard | F13–F24 auf Android, Tastatur für Terminal-Emulation (5250) |
+
+Plakette has no guide while it is off the website; „Zebra-Etiketten unter Linux gestalten und drucken“ follows once it
+is back.
+
 - Helpful content first: answer in the first paragraph, the common ways to solve the problem (hardware, Windows features,
   other software in general), a comparison table, „Was passt wann?“, honest limits, FAQ (4–6). Our product is one
   clearly marked option with a card that links its product page; answers that recommend it also state its status
