@@ -9,6 +9,9 @@
 // nur mit Admin-Kennwort, sichtbare Passwortfelder zählen als Passwortfelder; 2.1.0: fünf Sprachen, Fehlercodes IK-…,
 // Scans per Broadcast ab Werk aus, nie in Passwortfelder, Sperre nach 5 Fehlversuchen für 5 Minuten; 2.0.0: Test auf
 // Testgeräte werden nicht genannt, Till 2026-10-22).
+// Tastencodes über F12: developer.android.com „KeyEvent“ (abgerufen 2026-10-22): KEYCODE_F13 … KEYCODE_F24 „Added in API
+// level 36“ (Android 16), KEYCODE_F1 … KEYCODE_F12 seit API 11. README und Macro.kt des Repos sagen noch „Android has no key
+// codes above F12“ – das gilt nur bis Android 15; gesendet wird F13–F24 auf jeder Version als Umschalt+F1…F12 (KeyboardService.kt).
 // Nicht behaupten: RDP, SAP, Honeywell auf Hardware getestet, dass die feste Reihe (functionRow) mehr als F1–F12 zeigt –
 // Esc, Einfg, Entf, Pos1/Ende, Bild auf/ab und Pfeile gibt es nur auf dem Fn-Reiter –, Kompatibilität mit der
 // Konfiguration anderer Tastatur-Apps. Fremdprodukte stehen ausschließlich im Abschnitt alternatives.
@@ -107,7 +110,7 @@ const page: ProductPage = {
         id: 'terminal',
         title: 'F13–F24 für Terminal-Emulation (5250)',
         blocks: [
-          { type: 'p', text: 'Android kennt keine Tastencodes über F12. Industrial Keyboard sendet F13–F24 deshalb als Umschalt+F1…F12 – die Zuordnung, die 5250-Terminal-Emulatoren verwenden. Die Vorlage `terminal-emulation.json` richtet die Tastatur für Terminal-Emulation ein: Funktionstastenreihe, Esc-Taste und ein Reiter „Host“ mit F13–F24, Field exit und Reset.' },
+          { type: 'p', text: 'Eigene Tastencodes über F12 kennt Android erst ab Version 16 (API-Level 36). Industrial Keyboard sendet F13–F24 deshalb auf jeder Android-Version als Umschalt+F1…F12 – die Zuordnung, die 5250-Terminal-Emulatoren verwenden. Die Vorlage `terminal-emulation.json` richtet die Tastatur für Terminal-Emulation ein: Funktionstastenreihe, Esc-Taste und ein Reiter „Host“ mit F13–F24, Field exit und Reset.' },
           { type: 'p', text: 'Weitere Vorlagen: `warehouse-gloves.json` für das Lager mit hohem Kontrast, 135 % großen Tasten, Rechner-Ziffernblock und Scan-Taste, `custom-layout.json` mit einem Reiter für die Kommissionierung und `classic-keys.json` ohne Reiterleiste.' },
         ],
       },
@@ -128,7 +131,7 @@ const page: ProductPage = {
     ],
     faq: [
       { q: 'Gibt es eine Android-Tastatur mit Funktionstasten (F1–F24) für MDE-Geräte?', a: 'Ja, Industrial Keyboard: Der Reiter Fn zeigt F1–F12, mit Umschalt F13–F24, dazu Esc, Einfg, Entf, Pos1, Ende, Bild auf/ab und die Pfeiltasten. Wer F1–F12 immer sehen will, schaltet die Funktionstastenreihe über den Buchstaben ein.' },
-      { q: 'Gibt es eine Android-Tastatur mit F13–F24 für Terminal-Emulation?', a: 'Ja. Umschalt macht aus den oberen Reihen F13–F24. Weil Android keine Tastencodes über F12 kennt, sendet Industrial Keyboard sie als Umschalt+F1…F12, wie es 5250-Emulatoren erwarten.' },
+      { q: 'Gibt es eine Android-Tastatur mit F13–F24 für Terminal-Emulation?', a: 'Ja. Umschalt macht aus den oberen Reihen F13–F24. Weil Android eigene Tastencodes über F12 erst ab Version 16 kennt, sendet Industrial Keyboard sie auf jeder Android-Version als Umschalt+F1…F12, wie es 5250-Emulatoren erwarten.' },
       { q: 'Welche Bildschirmtastatur eignet sich für die Bedienung mit Handschuhen?', a: 'Eine Bildschirmtastatur für Handschuhe braucht große Tasten und großzügige Trefferflächen. In Industrial Keyboard ist die Tastenhöhe von 70 bis 160 % einstellbar, mit Handschuhen sind 120–140 % empfohlen; dazu kommen die Vorschau über dem Finger und ein kontrastreiches Design.' },
       { q: 'Kann die Tastatur den Scanner auslösen?', a: 'Ja. Der Scan-Reiter und die optionale Scan-Taste ziehen den Software-Auslöser: Zebra DataWedge und Honeywell werden automatisch erkannt, andere Scanner-Apps lassen sich per Intent auslösen.' },
       { q: 'Kann ich die Tastatur zentral per MDM konfigurieren?', a: 'Ja, als Managed Configuration (Schlüssel `config_json`) in SOTI MobiControl, Microsoft Intune oder Workspace ONE, als Konfigurationsdatei oder per StageNow-Broadcast. Auf Zebra-Geräten macht ein MX-Profil (UI Manager) sie zur Standardtastatur.' },
@@ -178,7 +181,7 @@ const page: ProductPage = {
         id: 'terminal',
         title: 'F13–F24 for terminal emulation (5250)',
         blocks: [
-          { type: 'p', text: 'Android has no key codes above F12, so Industrial Keyboard sends F13–F24 as Shift+F1…F12 – the mapping 5250 terminal emulators use. The `terminal-emulation.json` template configures the keyboard for terminal emulation: a function key row, an Esc key and a Host tab with F13–F24, Field exit and Reset.' },
+          { type: 'p', text: 'Android has key codes of its own above F12 only from Android 16 (API level 36) on, so Industrial Keyboard sends F13–F24 as Shift+F1…F12 on every Android version – the mapping 5250 terminal emulators use. The `terminal-emulation.json` template configures the keyboard for terminal emulation: a function key row, an Esc key and a Host tab with F13–F24, Field exit and Reset.' },
           { type: 'p', text: 'More templates: `warehouse-gloves.json` with high contrast, 135 % keys, calculator pad and scan key, `custom-layout.json` with a picking tab, and `classic-keys.json` without a tab bar.' },
         ],
       },
@@ -199,7 +202,7 @@ const page: ProductPage = {
     ],
     faq: [
       { q: 'Is there an Android keyboard with F1–F24 function keys for rugged devices?', a: 'Yes, Industrial Keyboard: the Fn tab shows F1–F12, Shift adds F13–F24, plus Esc, Ins, Del, Home, End, PgUp, PgDn and the arrows. To keep F1–F12 always visible, switch on the function key row above the letters.' },
-      { q: 'How are F13–F24 sent on Android when there are no key codes above F12?', a: 'Shift turns the top rows into F13–F24, which Industrial Keyboard sends as Shift+F1…F12 – the mapping 5250 terminal emulators expect.' },
+      { q: 'How does Industrial Keyboard send F13–F24 on Android?', a: 'Shift turns the top rows into F13–F24, which Industrial Keyboard sends as Shift+F1…F12 – the mapping 5250 terminal emulators expect. That works on every Android version: key codes of their own for F13–F24 only exist from Android 16 on.' },
       { q: 'Which Android keyboard works well with gloves?', a: 'A glove-friendly keyboard needs big keys and forgiving touch targets. Industrial Keyboard’s key height goes from 70 to 160 %, with 120–140 % recommended for gloves, plus a preview above the finger and a high-contrast theme.' },
       { q: 'Can the keyboard trigger the barcode scanner?', a: 'Yes. The scan tab and the optional scan key pull the soft trigger: Zebra DataWedge and Honeywell are detected automatically, other scanner apps can be triggered by intent.' },
       { q: 'Can I configure the keyboard through my MDM?', a: 'Yes, as a managed configuration (key `config_json`) in SOTI MobiControl, Microsoft Intune or Workspace ONE, as a configuration file or by StageNow broadcast. On Zebra devices an MX profile (UI Manager) makes it the default keyboard.' },

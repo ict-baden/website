@@ -64,8 +64,9 @@
 // Nicht behaupten (wie auf der Produktseite): RDP, SAP, Honeywell auf Hardware getestet, dass die feste Reihe mehr als
 // F1–F12 zeigt (Esc, Einfg, Entf, Pos1/Ende, Bild auf/ab und Pfeile nur auf dem Fn-Reiter), Kompatibilität mit der
 // Konfiguration anderer Tastatur-Apps; keine Testgeräte; nicht, dass eine bestimmte Emulation Umschalt+F1…F12 als F13–F24
-// auswertet oder „Field exit“ (Tab) und „Reset“ (Esc) der Vorlage als Feldende und Reset versteht. Abweichend von der
-// Produktseite: „Android kennt keine Tastencodes über F12“ gilt nur bis Android 15 (API-Level 35). Keine Fremdprodukte –
+// auswertet oder „Field exit“ (Tab) und „Reset“ (Esc) der Vorlage als Feldende und Reset versteht. „Android kennt keine
+// Tastencodes über F12“ (README des Repos) gilt nur bis Android 15 (API-Level 35); die Produktseite ist entsprechend
+// korrigiert. Keine Fremdprodukte –
 // der Vergleich mit benannten Tastaturen steht auf der Produktseite (Abschnitt #alternative bzw. #alternative-to).
 import type { Guide } from '../../lib/ratgeber';
 
