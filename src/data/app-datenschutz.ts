@@ -241,9 +241,12 @@ const apps: AppPrivacy[] = [
       operator: 'Was Sie tippen, wird an die aktive App weitergegeben und nicht gespeichert: kein Wörterbuch, kein Lernen von Wörtern, kein Verlauf, kein Zugriff auf die Zwischenablage. Die Tastatur liest nur die Art des aktiven Eingabefelds (Zahl, E-Mail, Passwort …), um die passenden Tasten zu zeigen. Für die eingegebenen Daten ist der Betreiber der Geräte verantwortlich (in der Regel Ihr Arbeitgeber); ICT Baden verarbeitet keine davon.',
       stored: [
         'Die Konfiguration (Layout, Design, eigene Tasten). Das Admin-Passwort nur als gesalzener Hash (PBKDF2).',
-        'Welche Konfigurationsquellen bereits angewendet wurden und der letzte Fehler dabei.',
+        'Nur falls die gespeicherte Konfiguration einmal ungültig war: eine Kopie der fehlerhaften Datei für den Support, samt Passwort-Hash. „Speicher löschen“ (unten) entfernt sie.',
+        'Welche Konfigurationsquellen bereits angewendet wurden (Zeitstempel und Größe der Datei, ein Hash der verwalteten Konfiguration) und der letzte Fehler dabei.',
+        'Die Zahl falscher Admin-Passwörter in Folge und das Ende der Sperre von fünf Minuten – getrennt für die Einstellungen und für Broadcasts und Dateien. Keine Passwörter.',
+        'Welche einmaligen Änderungen nach einem Update schon erledigt sind.',
       ],
-      storedNote: 'Die Konfiguration ist von der Android-Sicherung und der Geräteübertragung ausgenommen. Im Systemprotokoll stehen nur kurze Meldungen zur Konfiguration, nie getippter Text oder Barcodes.',
+      storedNote: 'Alles davon liegt im privaten Speicher der App, den andere Apps nicht lesen können, und ist von der Android-Sicherung und der Geräteübertragung ausgenommen, weil die Konfiguration je Gerät verteilt wird und den Passwort-Hash enthält. Im Systemprotokoll stehen nur kurze Meldungen, wenn eine Konfiguration angewendet oder abgelehnt wird – nie getippter Text oder Barcodes.',
       permissions: [
         ['Vibration', 'Rückmeldung bei Tastendruck und Scan.'],
         ['Eingabemethode', 'Vom System vergeben, wenn Sie die Tastatur in den Einstellungen aktivieren.'],
@@ -255,9 +258,12 @@ const apps: AppPrivacy[] = [
       operator: 'What you type is passed to the focused app and not stored: no dictionary, no word learning, no history, no clipboard access. The keyboard only reads the type of the focused input field (number, e-mail, password …) to show the matching keys. The operator of the devices (usually your employer) is responsible for the data typed; ICT Baden processes none of it.',
       stored: [
         'The configuration (layout, design, custom keys). The admin password only as a salted hash (PBKDF2).',
-        'Which configuration sources were applied already, and the last error doing so.',
+        'Only if the stored configuration was invalid once: a copy of the broken file for support, password hash included. “Clear storage” (below) removes it.',
+        'Which configuration sources were applied already (time stamp and size of the file, a hash of the managed configuration), and the last error doing so.',
+        'The number of wrong admin passwords in a row and the end of the five-minute lock – separately for the settings screen and for broadcasts and files. No passwords.',
+        'Which one-time changes after an update were done.',
       ],
-      storedNote: 'The configuration is excluded from Android backup and device transfer. The system log only gets short messages about the configuration, never typed text or barcodes.',
+      storedNote: 'All of it is in the app’s private storage, which other apps cannot read, and is excluded from Android backup and device transfer, because the configuration is provisioned per device and contains the password hash. The system log only gets short messages when a configuration is applied or rejected – never typed text or barcodes.',
       permissions: [
         ['Vibration', 'Feedback on key presses and scans.'],
         ['Input method', 'Granted by the system when you enable the keyboard in the settings.'],
