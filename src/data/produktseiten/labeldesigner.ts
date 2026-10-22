@@ -13,7 +13,11 @@
 // samples/README.md (Beispieletiketten).
 // Nicht behaupten: Funktionsgleichheit oder vollständiger Ersatz eines Fremdprodukts (Ziel laut Repo, nicht Stand),
 // Abnahmebericht der Werkbank (widersprüchlich: usage.md ja, CHANGELOG/Migrationsdoku „folgt“), ADMX-Vorlagen (laut
-// limitations „sobald vorhanden“), Tests an echten Druckern, macOS. ZPL ist eine Marke von ZIH Corp. (Zebra): nur
+// limitations „sobald vorhanden“), Tests an echten Druckern, macOS.
+// ADMX am 2026-10-22 nachgeprüft (origin/main 89870d8): Das Release-Paket Plakette-policies.zip enthält nur das Schema von
+// defaults.json und eine Kurzanleitung, „ADMX/ADML sobald vorhanden“ (README „Policy templates“, CHANGELOG 0.2.0,
+// installer/policies-readme.txt); im Repo liegt keine .admx-Datei. Die README-Zeile „policy catalogue (defaults.json,
+// Group Policy, ADMX)“ meint das Registry-Layout, nicht fertige Vorlagen – das Verbot bleibt. ZPL ist eine Marke von ZIH Corp. (Zebra): nur
 // beschreibend („druckt ZPL“, „Etiketten-Designer für ZPL“), nicht als Namensbestandteil. Versionsnummer nur in den
 // Kommentaren; im Text „Vorabversion“.
 import type { ProductPage } from '../../lib/produktseiten';
