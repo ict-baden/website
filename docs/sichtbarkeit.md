@@ -977,8 +977,9 @@ Show HN: Plakette – a label designer for Zebra printers on Windows and Linux
   Terminal-Emulation (Telnet, 5250, 3270, VT), Offline-Modus, Honeywell-Gerätetest, Test anderer Zebra-Modelle,
   SAP-Zertifizierung, dass die Allowlist Skripte, Bilder, iframes oder XHR blockiert. „EnterpriseBrowser“ nur als
   früherer Name, nie als Gattung.
-- **Seiten:** `https://ict-baden.de/produkte/pforte/`, `https://ict-baden.de/en/products/pforte/`,
-  `https://github.com/ict-baden/pforte`. Ratgeber (zum Industrial Kiosk Browser):
+- **Seiten:** `https://ict-baden.de/produkte/industrial-kiosk-browser/`,
+  `https://ict-baden.de/en/products/industrial-kiosk-browser/` (die alten Adressen `…/pforte/` leiten dorthin um),
+  `https://github.com/ict-baden/industrialkioskbrowser`; Ratgeber:
   `https://ict-baden.de/ratgeber/barcode-scan-im-browser-mde/` und
   `https://ict-baden.de/en/guides/barcode-scan-web-app-android-handheld/` – Ziel für „Scan kommt im Browser nicht an“ und
   Forenantworten wie die unten skizzierte.
