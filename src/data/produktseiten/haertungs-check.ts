@@ -83,7 +83,7 @@ const page: ProductPage = {
         title: 'Härtungsnachweis für Windows-Rechner, die niemand zentral verwaltet',
         blocks: [
           { type: 'p', text: 'Anlagen-PCs, Bedienrechner (HMI), Labor- und Leitstandsrechner stehen oft außerhalb der zentralen IT – manche ohne Netz, manche mit Software, die eine unsichere Einstellung braucht. Wer dort die Systemhärtung prüfen will, kann nicht einfach ein Prüfwerkzeug aufspielen: Auf solchen Rechnern ist schon eine Installation eine Änderung.' },
-          { type: 'p', text: 'Riegel bringt deshalb einen portablen Sammler mit, der nichts installiert, keine Konfiguration ändert und nur seinen Export schreibt; Windows selbst vermerkt lediglich, dass ein Programm lief. Ausgewertet wird auf einem Auswerte-PC: Ergebnis je Regel, begründete Ausnahmen, Vergleich mit dem freigegebenen Stand und ein Bericht zum Abzeichnen.' },
+          { type: 'p', text: 'Riegel bringt deshalb einen portablen Sammler mit, der nichts installiert, keine Konfiguration ändert und nur seinen Export schreibt; Windows selbst vermerkt, dass ein Programm lief. Ausgewertet wird auf einem Auswerte-PC: Ergebnis je Regel, begründete Ausnahmen, Vergleich mit dem freigegebenen Stand und ein Bericht zum Abzeichnen.' },
         ],
       },
       {
@@ -165,7 +165,7 @@ const page: ProductPage = {
         title: 'Evidence of hardening for the Windows machines nobody manages centrally',
         blocks: [
           { type: 'p', text: 'Plant PCs, HMIs, lab and control-room machines often sit outside central IT – some without a network, some with software that needs an insecure setting. On such machines, installing software is a change in itself – a Windows hardening assessment there has to work without an installer.' },
-          { type: 'p', text: 'Riegel therefore brings a portable collector that installs nothing, changes no configuration and writes only its export; Windows itself merely records that a program ran. The evaluation happens on an analysis PC: a result per rule, justified exceptions, a comparison with the approved state and a report to sign.' },
+          { type: 'p', text: 'Riegel therefore brings a portable collector that installs nothing, changes no configuration and writes only its export; Windows itself records that a program ran. The evaluation happens on an analysis PC: a result per rule, justified exceptions, a comparison with the approved state and a report to sign.' },
         ],
       },
       {

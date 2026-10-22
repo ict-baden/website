@@ -44,7 +44,11 @@ done
 for a in vitrine lupe zutritt riegel industrial-kiosk-browser industrialkeyboard; do expect "/datenschutz/$a/" 200; done
 # Ratgeber (src/data/ratgeber/) und ihre Übersicht, deutsch und englisch
 for g in /ratgeber/ /ratgeber/barcode-scanner-pc/ /ratgeber/bildschirm-sperren-anzeige-sichtbar/ \
-         /en/guides/ /en/guides/barcode-scanner-for-pc/ /en/guides/lock-pc-keep-screen-visible/; do expect "$g" 200; done
+         /ratgeber/verwaiste-sids-jeder-rechte-finden/ /ratgeber/windows-haertung-offline-pruefen/ \
+         /ratgeber/barcode-scan-im-browser-mde/ /ratgeber/android-tastatur-f-tasten-terminal-emulation/ \
+         /en/guides/ /en/guides/barcode-scanner-for-pc/ /en/guides/lock-pc-keep-screen-visible/ \
+         /en/guides/find-orphaned-sids-everyone-permissions/ /en/guides/check-windows-hardening-offline/ \
+         /en/guides/barcode-scan-web-app-android-handheld/ /en/guides/android-keyboard-function-keys-terminal-emulation/; do expect "$g" 200; done
 redirect /ratgeber/barcode-scanner-pc /ratgeber/barcode-scanner-pc/
 expect /impressum/ 200
 expect /datenschutz/ 200

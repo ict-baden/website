@@ -244,7 +244,8 @@ Portale und Listen, die geprüften Foren-Threads und ein Gerüst für Show HN. C
 Recherche (Top 3 in sechs Monaten, mit öffentlichem Download; ohne Download eine Stufe tiefer). Website-Adressen gelten
 ab dem Livegang, GitHub-Adressen ab der Veröffentlichung. Alle Produkte stehen außerdem auf den Übersichten
 `https://ict-baden.de/produkte/` und `https://ict-baden.de/en/products/` – passend als Firmen-Link, wo ein Portal nach
-einer Herstellerseite fragt. Für Lupe und Vitrine gibt es zusätzlich **Ratgeber** (Übersichten
+einer Herstellerseite fragt. Für Lupe, Vitrine, Zutritt, Riegel, Industrial Kiosk Browser und Industrial Keyboard gibt es
+zusätzlich **Ratgeber** (Übersichten
 `https://ict-baden.de/ratgeber/` und `https://ict-baden.de/en/guides/`): Sie beantworten die Problemfrage mit den
 üblichen Wegen und nennen unser Produkt nur als eine gekennzeichnete Möglichkeit, ohne Namen von Konkurrenzprodukten.
 Für Forenantworten und als Ziel bei Problem-Suchen passen sie oft besser als die Produktseite; bei „Alternative zu …“
@@ -569,7 +570,9 @@ Show HN: Lupe – read QR codes and barcodes from your screen or webcam
   nur gegen ein simuliertes Verzeichnis), Compliance-Zusage. Nicht „Alternative zu 8MAN/SolarWinds ARM“ – das sind
   Suiten, die Rechte ändern; Zutritt liest nur.
 - **Seiten:** `https://ict-baden.de/produkte/zutritt/`, `https://ict-baden.de/en/products/zutritt/`,
-  `https://github.com/ict-baden/zutritt`.
+  `https://github.com/ict-baden/zutritt`; Ratgeber `https://ict-baden.de/ratgeber/verwaiste-sids-jeder-rechte-finden/` und
+  `https://ict-baden.de/en/guides/find-orphaned-sids-everyone-permissions/` – Ziel für die Problem-Suchen (verwaiste SIDs,
+  „Jeder“-Rechte, Vererbung, NTFS-Rechte nach Excel) und Forenantworten.
 
 | Zielsuche (EN / DE) | Chance |
 |---|---|
@@ -700,7 +703,9 @@ Show HN: Zutritt – who can access what on Windows file shares
   (nur „unterstützt Nachweise“), signiert, auf echten Altsystemen getestet. „Härtung“ nie ohne „Windows“, „IT“ oder
   „OT“. Die MSI ist nicht für OT-Rechner – dort nur der Sammler.
 - **Seiten:** `https://ict-baden.de/produkte/riegel/`, `https://ict-baden.de/en/products/riegel/`,
-  `https://github.com/ict-baden/riegel`.
+  `https://github.com/ict-baden/riegel`; Ratgeber `https://ict-baden.de/ratgeber/windows-haertung-offline-pruefen/` und
+  `https://ict-baden.de/en/guides/check-windows-hardening-offline/` – Ziel für „Windows-Härtung OT/Leitstand, offline, ohne
+  Agent“ und Forenantworten.
 
 | Zielsuche (EN / DE) | Chance |
 |---|---|
@@ -972,8 +977,12 @@ Show HN: Plakette – a label designer for Zebra printers on Windows and Linux
   Terminal-Emulation (Telnet, 5250, 3270, VT), Offline-Modus, Honeywell-Gerätetest, Test anderer Zebra-Modelle,
   SAP-Zertifizierung, dass die Allowlist Skripte, Bilder, iframes oder XHR blockiert. „EnterpriseBrowser“ nur als
   früherer Name, nie als Gattung.
-- **Seiten:** `https://ict-baden.de/produkte/pforte/`, `https://ict-baden.de/en/products/pforte/`,
-  `https://github.com/ict-baden/pforte`.
+- **Seiten:** `https://ict-baden.de/produkte/industrial-kiosk-browser/`,
+  `https://ict-baden.de/en/products/industrial-kiosk-browser/` (die alten Adressen `…/pforte/` leiten dorthin um),
+  `https://github.com/ict-baden/industrialkioskbrowser`; Ratgeber:
+  `https://ict-baden.de/ratgeber/barcode-scan-im-browser-mde/` und
+  `https://ict-baden.de/en/guides/barcode-scan-web-app-android-handheld/` – Ziel für „Scan kommt im Browser nicht an“ und
+  Forenantworten wie die unten skizzierte.
 - **Zeitpunkt:** erst eintragen, wenn ein Release eine signierte APK enthält (heute nur SBOM und Prüfsummen).
 
 | Zielsuche (EN / DE) | Chance |
@@ -1109,7 +1118,10 @@ Show HN: Pforte – open-source kiosk browser for rugged Android scanners
 - **Name:** „Industrial Keyboard“ ist ein Hardware-Begriff – in Titeln immer mit Zusatz, z. B. „Industrial Keyboard –
   Android keyboard with F1–F24 for rugged devices“.
 - **Seiten:** `https://ict-baden.de/produkte/industrial-keyboard/`, `https://ict-baden.de/en/products/industrial-keyboard/`,
-  `https://github.com/ict-baden/industrialkeyboard`.
+  `https://github.com/ict-baden/industrialkeyboard`; Ratgeber
+  `https://ict-baden.de/ratgeber/android-tastatur-f-tasten-terminal-emulation/` und
+  `https://ict-baden.de/en/guides/android-keyboard-function-keys-terminal-emulation/` – Ziel für „F13–F24 auf Android“ und
+  Forenantworten.
 
 | Zielsuche (EN / DE) | Chance |
 |---|---|
@@ -1210,7 +1222,7 @@ Show HN: Industrial Keyboard – Android keyboard with F1–F24 for rugged devic
 **Show HN – Gerüst** (3–5 Sätze **selbst** schreiben: HN verbietet generierten und KI-bearbeiteten Text in Posts; URL: das GitHub-Repo)
 
 - What: Android input method for warehouse handhelds: big keys for gloves, scan tab with soft trigger, matching number pads.
-- Fn tab with F1–F12; Shift gives F13–F24, sent as Shift+F1…F12 (no Android key codes above F12; the 5250 mapping).
+- Fn tab with F1–F12; Shift gives F13–F24, sent as Shift+F1…F12 (Android has key codes above F12 only since Android 16; the 5250 mapping).
 - Layouts, macros and settings from one JSON an MDM can push; no internet permission, no dictionary, nothing typed is stored.
 - Status: tested on a Zebra HC20; Honeywell trigger built from the vendor documentation.
 - Ask: reports from Honeywell devices. MIT.
