@@ -132,7 +132,7 @@ const page: ProductPage = {
     limits: [
       'Vorabversion 0.1 (zuletzt 0.1.2, Sammler 0.1.0), nicht signiert: SmartScreen kann warnen, der Sammler lässt sich nur per Hash freigeben. Kein Kundenpilot auf OT- oder validierten Rechnern, bevor der Sammler signiert ist.',
       'Nur Windows-Ziele: Linux-Rechner werden nicht geprüft. Nur Maschineneinstellungen, keine Benutzerrichtlinien; Domänencontroller bekommen keine Bewertung.',
-      'Getestet mit Testdaten und auf CI-Rechnern (Windows Server 2022 und 2025, Windows 11 Arm64, ein Windows-11-Arbeitsplatz), noch nicht auf echten Rechnern mit Windows 7, 8.1, 2008 R2 oder 2012 R2, nicht in einer echten Domäne, nicht mit Virenschutz oder EDR anderer Hersteller und nicht mit tatsächlich erzwungenem AppLocker. Die Zuordnung zu Domänen-GPOs ist experimentell.',
+      'Getestet mit Testdaten und auf CI-Rechnern (Windows Server 2022 und 2025, Windows 11 Arm64), dazu gegen einen Referenz-Schnappschuss eines Windows-11-Arbeitsplatzes; noch nicht auf echten Rechnern mit Windows 7, 8.1, 2008 R2 oder 2012 R2, nicht in einer echten Domäne, nicht mit Virenschutz oder EDR anderer Hersteller und nicht mit tatsächlich erzwungenem AppLocker. Die Zuordnung zu Domänen-GPOs ist experimentell.',
       'Ohne Administratorrechte, mit `--minimal` oder über die Bordmittel bleiben viele Regeln unentscheidbar; der Bericht sagt dann „Unvollständige Prüfung“.',
       'Kein PDF/A, keine elektronischen Signaturen; das Nachweispaket ist nicht signiert.',
       'Spanisch, Französisch und Chinesisch sind maschinell vorübersetzt und in jedem Dokument so gekennzeichnet; die Regeltexte sind dort englisch.',
@@ -214,7 +214,7 @@ const page: ProductPage = {
     limits: [
       'Pre-release 0.1 (latest 0.1.2, collector 0.1.0), not code-signed: SmartScreen may warn, and the collector can only be allow-listed by hash. No customer pilot on OT or validated machines before the collector is signed.',
       'Windows targets only: Linux machines are not checked. Machine settings only, no per-user policies; domain controllers get no score.',
-      'Tested on fixtures and CI runners (Windows Server 2022 and 2025, Windows 11 Arm64, a Windows 11 workstation), not yet on real Windows 7, 8.1, 2008 R2 or 2012 R2 machines, in a real domain, with third-party antivirus or EDR, or with real AppLocker enforcement. Domain GPO attribution is experimental.',
+      'Tested on fixtures and CI runners (Windows Server 2022 and 2025, Windows 11 Arm64) and against a reference snapshot of a Windows 11 workstation; not yet on real Windows 7, 8.1, 2008 R2 or 2012 R2 machines, in a real domain, with third-party antivirus or EDR, or with real AppLocker enforcement. Domain GPO attribution is experimental.',
       'Without administrator rights, with `--minimal` or from built-in commands, many rules cannot be decided; the report then says “Incomplete check”.',
       'No PDF/A, no electronic signatures; the evidence pack is not signed.',
       'Spanish, French and Chinese are machine pre-translations, marked in every document; rule texts are English there.',
